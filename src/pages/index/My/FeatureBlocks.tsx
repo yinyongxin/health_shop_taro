@@ -1,6 +1,6 @@
 import { AppFeatureBlocksItem, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
-import { View, Image } from "@tarojs/components";
+import { View } from "@tarojs/components";
 
 export const FeatureBlocks = () => {
   return (
@@ -9,23 +9,11 @@ export const FeatureBlocks = () => {
         <View className="flex justify-between py-[24px] pr-[24px]">
           <AppFeatureBlocksItem
             title="联系客服"
-            icon={
-              <LucideIcon name="message-circle-more" size={28} />
-              // <Image
-              //   className="size-[80px]"
-              //   src="assets\svgs\medical-history-svgrepo-com.svg"
-              // />
-            }
+            icon={<LucideIcon name="message-circle-more" size={28} />}
           />
           <AppFeatureBlocksItem
             title="收藏"
-            icon={
-              <LucideIcon name="star" size={28} />
-              // <Image
-              //   className="size-[80px]"
-              //   src="assets\svgs\medical-history-svgrepo-com.svg"
-              // />
-            }
+            icon={<LucideIcon name="star" size={28} />}
             onClick={() => {
               appRouter.navigateTo("myLikeList");
             }}
