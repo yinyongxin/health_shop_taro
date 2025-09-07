@@ -55,7 +55,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
             <AppTag status="secondary">颜色</AppTag>
           </View>
           <View className="flex justify-between items-end">
-            <View className="flex-1 text-[32px] text-blue-500">
+            <View className="flex-1 text-[32px] text-rose-500">
               <Text className="text-[24px]">¥</Text>
               <Text className="pl-[8px]">{props.info.price}</Text>
             </View>
