@@ -58,7 +58,8 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
           },
         },
         UnifiedViteWeappTailwindcssPlugin({
-          rem2rpx: process.env.TARO_ENV === "weapp",
+          rem2rpx: true,
+          disabled: process.env.TARO_ENV === "h5",
           tailwindcss: {
             v4: {
               cssEntries: [
