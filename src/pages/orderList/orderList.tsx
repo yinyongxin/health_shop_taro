@@ -30,7 +30,8 @@ const OrderList = () => {
       <View className="flex-1 rounded-t-lg border-2 border-white flex flex-col overflow-hidden">
         <AppTabList active={active} tabs={tabs} onChange={setActive} />
         <ScrollView scrollY className="flex-1 bg-white">
-          <View className="px-[24px] py-[32px]">
+          <View className="px-[24px] py-[32px] flex flex-col gap-[24px]">
+            <OrderCard />
             <OrderCard />
           </View>
         </ScrollView>
