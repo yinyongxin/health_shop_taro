@@ -12,7 +12,7 @@ export const OrderCard = () => {
   return (
     <View className="rounded-xl bg-white app-shadow-lg shadow-gray-200">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
-        <View className="text-[28px] font-semibold">2025-01-01</View>
+        <View className="text-[28px] font-semibold">2025-01-01 00:00:00</View>
         <View className="text-amber-500">已发货</View>
       </View>
       <View>
