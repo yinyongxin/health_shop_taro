@@ -81,7 +81,8 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
       },
     },
     h5: {
-      publicPath: "/",
+      publicPath: "./",
+
       staticDirectory: "static",
       esnextModules: ["@taroify"],
       miniCssExtractPluginOption: {
