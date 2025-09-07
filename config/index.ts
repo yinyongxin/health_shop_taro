@@ -81,7 +81,6 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
     },
     h5: {
       publicPath: "./",
-
       staticDirectory: "static",
       esnextModules: ["@taroify"],
       miniCssExtractPluginOption: {
@@ -90,6 +89,12 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
         chunkFilename: "css/[name].[chunkhash].css",
       },
       postcss: {
+        pxtransform: {
+          enable: true,
+          config: {
+            targetUnit: "rem",
+          },
+        },
         autoprefixer: {
           enable: true,
           config: {},
