@@ -59,6 +59,14 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
         },
         UnifiedViteWeappTailwindcssPlugin({
           rem2rpx: process.env.TARO_ENV === "weapp",
+          tailwindcss: {
+            v4: {
+              cssEntries: [
+                // 你 @import "weapp-tailwindcss"; 那个文件绝对路径
+                path.resolve(__dirname, "../src/app.css"),
+              ],
+            },
+          },
           // appType: 'taro'
         }),
       ],
