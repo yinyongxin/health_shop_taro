@@ -1,0 +1,51 @@
+@utility app-shadow-sm {
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+}
+
+@utility app-shadow {
+  box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.06);
+}
+
+@utility app-shadow-lg {
+  box-shadow: 2px 2px 24px 0px rgba(0, 0, 0, 0.08);
+}
+
+@utility rounded-full {
+  border-radius: 9999px;
+}
+
+@utility bg-blur {
+  @apply bg-white/70 backdrop-blur-md;
+}
+
+@utility click-effect {
+  @apply active:bg-gray-100;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility bg-primary {
+  @apply bg-linear-45 from-sky-400 to-sky-600;
+}
+
+@utility bg-success {
+  @apply bg-linear-45 from-emerald-400 to-emerald-600;
+}
+
+@utility bg-warning {
+  @apply bg-linear-45 from-amber-400 to-amber-600;
+}
+
+@utility bg-error {
+  @apply bg-linear-45 from-rose-400 to-rose-600;
+}
+
+@utility bg-secondary {
+  @apply bg-linear-45 from-gray-400 to-gray-600;
+}
+
+@utility page-bg {
+  @apply h-[40vh] bg-linear-to-b from-[#E5ECFB] via-[#D7E8FD] to-[#f6f6f6];
+}

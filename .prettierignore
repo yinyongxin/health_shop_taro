@@ -1,0 +1,10 @@
+# Ignore artifacts:
+build
+coverage
+dist
+node_modules
+.git
+.hg
+.svn
+.cache
+./src/index.html

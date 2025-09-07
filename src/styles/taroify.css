@@ -1,0 +1,9 @@
+:root {
+  --border-radius-sm: 16px;
+  --border-radius-md: 24px;
+  --border-radius-lg: 32px;
+}
+
+.taroify-popup__close-icon {
+  font-size: 40px !important;
+}
