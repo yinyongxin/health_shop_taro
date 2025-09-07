@@ -2,6 +2,7 @@ import { getGetBannerList } from "@/client";
 import Box from "@/components/Box";
 import { useRequest } from "@/hooks";
 import { Swiper, Image } from "@taroify/core";
+import { View } from "@tarojs/components";
 
 export const Banners = () => {
   const dataRequest = useRequest(async () => {
@@ -9,11 +10,7 @@ export const Banners = () => {
     return res.data;
   });
   return (
-    <Box
-      bgProps={{
-        className: "rounded-lg bg-white",
-      }}
-    >
+    <View className="rounded-lg bg-white overflow-hidden">
       <Swiper className="h-[350px]" autoplay={4000}>
         <Swiper.Indicator />
         {dataRequest.data?.map((item, index) => (
@@ -22,6 +19,6 @@ export const Banners = () => {
           </Swiper.Item>
         ))}
       </Swiper>
-    </Box>
+    </View>
   );
 };
