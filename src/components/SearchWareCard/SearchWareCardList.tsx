@@ -21,7 +21,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     <View
       className={classNames("pr-[24px] pb-[64px] flex flex-wrap", className)}
     >
-      {[...list, ...list].map((item, index) => (
+      {[...list, ...list, ...list, ...list].map((item, index) => (
         <SearchWareCard
           key={item.id + index}
           info={item}
