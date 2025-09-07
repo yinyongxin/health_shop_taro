@@ -3,8 +3,6 @@
 @import "@taroify/icons/index.css";
 @import "@taroify/core/index.css";
 @import "lucide-static/font/lucide.css";
-@import "./styles/tailwind.css";
-@import "./styles/taroify.css";
 
 #app .taro_page,
 page {
