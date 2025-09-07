@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import { useLaunch } from "@tarojs/taro";
 import { useAppUserStore } from "./stores";
 import "./app.css";
+import "./styles/index.css";
 
 function App({ children }: PropsWithChildren<any>) {
   const appUser = useAppUserStore();
