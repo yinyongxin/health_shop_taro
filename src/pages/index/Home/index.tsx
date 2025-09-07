@@ -1,8 +1,9 @@
-import { AppTopSearch, BasePage, LucideIcon, Title } from "@/components";
+import { BasePage, LucideIcon, Title } from "@/components";
 import { useLoad } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { Grid } from "@taroify/core";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
+import { appRouter } from "@/router";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 
@@ -67,6 +68,9 @@ export const Home = () => {
             className="py-[24px]"
             action={{
               text: "查看更多",
+              onClick: () => {
+                appRouter.navigateTo("wareList");
+              },
             }}
           >
             推荐商品

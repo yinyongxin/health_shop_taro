@@ -1,5 +1,6 @@
 import { ClassifyInfo } from "@/client";
 import { LucideIcon } from "@/components";
+import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 
 export interface ClassifyItemProps {
@@ -8,7 +9,12 @@ export interface ClassifyItemProps {
 export const ClassifyItem = (props: ClassifyItemProps) => {
   const { info } = props;
   return (
-    <View className="w-1/2 pl-2 pt-2 ">
+    <View
+      className="w-1/2 pl-2 pt-2 "
+      onClick={() => {
+        appRouter.navigateTo("wareList");
+      }}
+    >
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
         <View className="h-[180px] flex-center">
           <LucideIcon name="image" size={80} />
