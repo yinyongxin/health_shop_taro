@@ -1,6 +1,6 @@
 import { WareInfo } from "@/client";
 import { appRouter } from "@/router";
-import { View, Image } from "@tarojs/components";
+import { View, Image, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { useState } from "react";
 import { LucideIcon } from "../LucideIcon";
@@ -41,8 +41,9 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             {props.info.deac}
           </View>
           <View className=" px-[16px] flex justify-between items-end">
-            <View className="text-[32px] text-blue-500">
-              ¥{props.info.price}
+            <View className="text-[32px] text-rose-500">
+              <Text className="text-[24px]">¥</Text>
+              <Text>{props.info.price}</Text>
             </View>
             <View className="text-[24px] text-gray-500">库存：{100}</View>
           </View>

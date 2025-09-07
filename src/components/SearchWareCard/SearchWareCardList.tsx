@@ -16,12 +16,17 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     return res.data;
   });
   const { data = [], className, searchWareCardProps } = props;
+  const list = data.length ? data : dataRequest.data?.list || [];
   return (
     <View
       className={classNames("pr-[24px] pb-[64px] flex flex-wrap", className)}
     >
-      {(data.length ? data : dataRequest.data?.list || []).map((item) => (
-        <SearchWareCard key={item.id} info={item} {...searchWareCardProps} />
+      {[...list, ...list, ...list, ...list].map((item, index) => (
+        <SearchWareCard
+          key={item.id + index}
+          info={item}
+          {...searchWareCardProps}
+        />
       ))}
     </View>
   );
