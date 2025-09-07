@@ -68,7 +68,6 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
               ],
             },
           },
-          injectAdditionalCssVarScope: true,
           // appType: 'taro'
         }),
       ],

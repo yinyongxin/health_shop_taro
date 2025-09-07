@@ -4,6 +4,8 @@
 @import "@taroify/core/index.css";
 @import "lucide-static/font/lucide.css";
 
+@import "./styles/tailwind.css";
+
 #app .taro_page,
 page {
   font-size: 24px;
