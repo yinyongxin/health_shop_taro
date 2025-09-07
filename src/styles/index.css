@@ -1,12 +1,3 @@
-@import "@taroify/icons/index.css";
-@import "@taroify/core/index.css";
 @import "./tailwind.css";
 @import "./taroify.css";
 @import "lucide-static/font/lucide.css";
-#app .taro_page,
-page {
-  font-size: 24px;
-  line-height: normal;
-  background-color: #f6f6f6;
-  color: rgba(0, 0, 0, 0.75);
-}
