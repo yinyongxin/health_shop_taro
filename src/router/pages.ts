@@ -19,4 +19,8 @@ export const pages = [
     name: "myLikeList",
     path: "pages/myLikeList/myLikeList",
   },
+  {
+    name: "addressManage",
+    path: "pages/addressManage/addressManage",
+  },
 ] as const;
