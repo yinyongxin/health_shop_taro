@@ -14,8 +14,16 @@
   border-radius: 9999px;
 }
 
+@utility bg-blur-sm {
+  @apply bg-white/60 backdrop-blur-md;
+}
+
 @utility bg-blur {
   @apply bg-white/70 backdrop-blur-md;
+}
+
+@utility bg-blur-lg {
+  @apply bg-white/80 backdrop-blur-md;
 }
 
 @utility click-effect {

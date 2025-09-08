@@ -1,6 +1,6 @@
 import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
-import { View } from "@tarojs/components";
+import { ScrollView, View } from "@tarojs/components";
 
 /**
  * 邮寄
@@ -68,10 +68,14 @@ export const Delivery = () => {
         </View>
         <View className="flex justify-between items-center gap-2 py-[12px]">
           <View className="text-gray-400">服务</View>
-          <View className="flex-1 text-black flex gap-2">
+          <ScrollView
+            scrollX
+            className="flex-1 text-black flex gap-2 flex-nowrap"
+          >
             <AppTag
               size="default"
               status="secondary"
+              className="shrink-0"
               prefix={<LucideIcon name="truck" />}
             >
               包邮
@@ -79,6 +83,7 @@ export const Delivery = () => {
             <AppTag
               size="default"
               status="secondary"
+              className="shrink-0"
               prefix={<LucideIcon name="truck" />}
             >
               包退
@@ -86,6 +91,7 @@ export const Delivery = () => {
             <AppTag
               size="default"
               status="secondary"
+              className="shrink-0"
               prefix={<LucideIcon name="truck" />}
             >
               包换
@@ -93,11 +99,12 @@ export const Delivery = () => {
             <AppTag
               size="default"
               status="secondary"
+              className="shrink-0"
               prefix={<LucideIcon name="truck" />}
             >
               七天无理由
             </AppTag>
-          </View>
+          </ScrollView>
           <View className="text-gray-400">
             <LucideIcon name="chevron-right" size={20} />
           </View>

@@ -22,9 +22,9 @@ const activeColors: Record<TagStatus, string> = {
 };
 
 const sizes: Record<TagSize, string> = {
-  default: "px-[12px] py-[4px] rounded-[8px] text-[24px]",
+  default: "px-[12px] py-[6px] rounded-[8px] text-[24px]",
   lg: "px-[24px] py-[8px] rounded-[8px] text-[26px]",
-  xl: "px-[32px] py-[12px] rounded-[8px] text-[28px]",
+  xl: "px-[32px] py-[10px] rounded-[8px] text-[28px]",
 };
 
 export type AppTagProps = PropsWithChildren<{
