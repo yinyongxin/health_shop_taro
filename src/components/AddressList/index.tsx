@@ -9,6 +9,11 @@ export const AddressList = (props: AddressListProps) => {
   return (
     <View className="flex flex-col gap-[16px] px-[24px]">
       <AddressCard />
+      <AddressCard />
+      <AddressCard />
+      <AddressCard />
+      <AddressCard />
+      <AddressCard />
     </View>
   )
 }
