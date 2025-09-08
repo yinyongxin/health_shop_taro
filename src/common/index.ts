@@ -8,3 +8,11 @@ export const SexChinese = {
   male: "男",
   female: "女",
 };
+
+/**
+ * 商品类型枚举
+ */
+export enum WareTypeEnum {
+  GOODS = "GOODS",
+  SERVICE = "SERVICE",
+}

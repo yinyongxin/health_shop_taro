@@ -32,6 +32,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
       "@/hooks": path.resolve(__dirname, "..", "src/hooks"),
       "@/pages": path.resolve(__dirname, "..", "src/pages"),
       "@/router": path.resolve(__dirname, "..", "src/router"),
+      "@/mock": path.resolve(__dirname, "..", "src/mock"),
     },
     sourceRoot: "src",
     outputRoot: "dist",
