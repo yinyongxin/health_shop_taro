@@ -27,7 +27,7 @@ export const AppTopSearch = (props: AppTopSeatchProps) => {
           onChange?.(e.detail.value);
         }}
         placeholder="请输入搜索内容"
-        className="flex-1 text-[28px]"
+        className="flex-1 flex items-center text-[28px]"
       />
       <View
         className="text-[32px] font-semibold text-sky-500"
