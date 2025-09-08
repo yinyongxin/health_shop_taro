@@ -1,4 +1,4 @@
-import { BasePage } from "@/components";
+import { AppTag, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { wareListMock } from "@/mock";
@@ -28,9 +28,19 @@ export default () => {
             </View>
           </View>
           <View className="px-[24px]">
-            <View className="flex items-center gap-[16px]">
-              <View className="text-[32px] font-semibold">待使用</View>
-              <View className="text-gray-500F">2025-10-10 00:00:00过期</View>
+            <View className="flex items-center justify-between">
+              <View className="flex items-center gap-[16px]">
+                <View className="text-[32px] font-semibold">待使用</View>
+                <View className="text-gray-500F">2025-10-10 00:00:00过期</View>
+              </View>
+              <View>
+                <AppTag status="secondary">申请退款</AppTag>
+              </View>
+            </View>
+          </View>
+          <View className="px-[24px]">
+            <View className="text-gray-500F">
+              请在过期时间内使用，过期后将无法使用
             </View>
           </View>
         </View>
