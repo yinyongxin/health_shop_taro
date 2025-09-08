@@ -71,6 +71,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
                   -
                 </AppTag>
               )}
+              {!showNumControl && <View className="text-[28px]">数量</View>}
               <View className="text-[28px]">{num}</View>
               {showNumControl && (
                 <AppTag

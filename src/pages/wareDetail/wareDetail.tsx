@@ -2,18 +2,20 @@ import { BasePage } from "@/components";
 import { usePageParams, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
 import { Image, View } from "@tarojs/components";
-import { warelist } from "@/mock";
+import { WareTypeEnum } from "@/common";
+import { wareListMock } from "@/mock";
 import { Evaluate } from "./Evaluate";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
+import { ServiceBlock } from "./ServiceBlock";
 import { Delivery } from "./Delivery";
 
 const WareDetail = () => {
   const pageParams = usePageParams<"wareDetail">();
   const { data } = useRequest(async () => {
     // const res = await getGetWare();
-    const detail = warelist.find((item) => item.id === pageParams.id);
+    const detail = wareListMock.find((item) => item.id === pageParams.id);
     return detail;
   });
   return (
@@ -35,7 +37,11 @@ const WareDetail = () => {
           {data && <BaseInfo info={data} />}
         </View>
         <View className="px-[24px] pt-[32px]">
-          <Delivery />
+          {data?.wareType === WareTypeEnum.GOODS ? (
+            <Delivery />
+          ) : (
+            <ServiceBlock />
+          )}
         </View>
         <View className="px-[24px] pt-[32px]">
           <Evaluate />

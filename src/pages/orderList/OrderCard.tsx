@@ -1,43 +1,54 @@
-import { getGetWares } from "@/client";
+import { WareInfo } from "@/client";
 import { AppButton } from "@/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import { useRequest } from "@/hooks";
-import { getOrderTabOptionsLabel, OrderTabOptions, OrderTabOptionsValuesType } from "@/options";
+import { getOrderTabOptionsLabel, OrderTabOptionsValuesType } from "@/options";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
+
 type OrderCardProps = {
-  status?: OrderTabOptionsValuesType
-}
+  status?: OrderTabOptionsValuesType;
+  wareList?: WareInfo[];
+};
 export const OrderCard = (props: OrderCardProps) => {
-  const { status = 'WaitReceipt' } = props;
+  const { status = "WaitReceipt", wareList } = props;
   const { data } = useRequest(async () => {
-    const res = await getGetWares();
-    return res.data;
+    return wareList;
   });
 
   const getActions = () => {
-    if (status === 'Received') {
-      return <AppButton actived={false} size="sm" onClick={() => {
-        appRouter.navigateTo('orderDetail')
-      }}>
-        查看详情
-      </AppButton>
+    if (status === "Received") {
+      return (
+        <AppButton
+          actived={false}
+          size="sm"
+          onClick={() => {
+            appRouter.navigateTo("orderDetail");
+          }}
+        >
+          查看详情
+        </AppButton>
+      );
     }
     return (
       <>
         <AppButton status="secondary" actived={false} size="sm">
           查看物流
         </AppButton>
-        <AppButton size="sm" actived={false}>确认收货</AppButton>
+        <AppButton size="sm" actived={false}>
+          确认收货
+        </AppButton>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <View className="rounded-xl bg-white app-shadow-lg shadow-gray-200">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">2025-01-01 00:00:00</View>
-        <View className="text-amber-500">{getOrderTabOptionsLabel(status)}</View>
+        <View className="text-amber-500">
+          {getOrderTabOptionsLabel(status)}
+        </View>
       </View>
       <View>
         {data?.map((item) => (
@@ -53,9 +64,7 @@ export const OrderCard = (props: OrderCardProps) => {
         <View className="flex-1">
           <View className="text-gray-500 text-[28px]">更多</View>
         </View>
-        <View className=" flex gap-2">
-          {getActions()}
-        </View>
+        <View className=" flex gap-2">{getActions()}</View>
       </View>
     </View>
   );

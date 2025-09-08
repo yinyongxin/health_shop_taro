@@ -2,7 +2,8 @@ import { getGetWaresPage, WareInfo } from "@/client";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { useRequest } from "@/hooks";
-import { Button, SwipeCell } from "@taroify/core";
+import { SwipeCell } from "@taroify/core";
+import { wareListMock } from "@/mock";
 import { CartWareCard, CartWareCardProps } from ".";
 import { LucideIcon } from "../LucideIcon";
 
@@ -17,7 +18,7 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
     const res = await getGetWaresPage();
     return res.data;
   });
-  const { data = [], className, cartWareCardProps } = props;
+  const { data = wareListMock, className, cartWareCardProps } = props;
   return (
     <View
       className={classNames("pb-[64px] flex flex-col gap-[24px]", className)}

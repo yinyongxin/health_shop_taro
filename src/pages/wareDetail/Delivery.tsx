@@ -2,6 +2,9 @@ import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
 import { View } from "@tarojs/components";
 
+/**
+ * 邮寄
+ */
 export const Delivery = () => {
   return (
     <Box
@@ -86,6 +89,13 @@ export const Delivery = () => {
               prefix={<LucideIcon name="truck" />}
             >
               包换
+            </AppTag>
+            <AppTag
+              size="default"
+              status="secondary"
+              prefix={<LucideIcon name="truck" />}
+            >
+              七天无理由
             </AppTag>
           </View>
           <View className="text-gray-400">

@@ -1,7 +1,7 @@
 import { WareInfo } from "@/client";
 import { WareTypeEnum } from "@/common";
 
-export const warelist: WareInfo[] = [
+export const wareListMock: WareInfo[] = [
   {
     name: "HPV检测试纸",
     price: 139,
