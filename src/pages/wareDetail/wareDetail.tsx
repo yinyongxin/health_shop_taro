@@ -7,6 +7,7 @@ import { Image, View } from "@tarojs/components";
 import { Evaluate } from "./Evaluate";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
+import { BaseInfo } from "./BaseInfo";
 
 const WareDetail = () => {
   const { data } = useRequest(async () => {
@@ -25,31 +26,9 @@ const WareDetail = () => {
           ))}
         </Swiper>
         <View className="px-[24px] pt-[32px]">
-          <Box
-            bgProps={{
-              className: "bg-white rounded-lg",
-            }}
-          >
-            <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">
-              <View className="flex justify-between items-center">
-                <View className="text-[40px] font-bold text-rose-500">
-                  ￥{data?.price}
-                </View>
-                <View className="text-gray-500">
-                  库存剩余：{data?.inventory}
-                </View>
-              </View>
-              <View className="text-[32px] font-bold">{data?.name}</View>
-              <View className="text-gray-500">{data?.deac}</View>
-              <View className="flex gap-[8px]">
-                <View>
-                  <AppTag size="lg" status="error">
-                    热销榜第一
-                  </AppTag>
-                </View>
-              </View>
-            </View>
-          </Box>
+          {data && (
+            <BaseInfo info={data} />
+          )}
         </View>
         <View className="px-[24px] pt-[32px]">
           <Box
