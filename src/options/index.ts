@@ -13,4 +13,4 @@ export const OrderTabOptions = [
   { label: "退款/售后", value: "AfterSale", icon: "wallet" },
 ] as const;
 
-export type OrderTabOptionsType = (typeof OrderTabOptions)[number]["value"];
+export type OrderTabOptionsValuesType = (typeof OrderTabOptions)[number]["value"];

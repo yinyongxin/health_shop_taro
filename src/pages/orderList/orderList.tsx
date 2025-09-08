@@ -31,7 +31,7 @@ const OrderList = () => {
         <AppTabList active={active} tabs={tabs} onChange={setActive} />
         <ScrollView scrollY className="flex-1 bg-white">
           <View className="px-[24px] py-[32px] flex flex-col gap-[24px]">
-            <OrderCard />
+            <OrderCard status="Received" />
             <OrderCard />
           </View>
         </ScrollView>
