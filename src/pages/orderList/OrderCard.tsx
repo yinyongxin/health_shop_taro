@@ -2,7 +2,7 @@ import { getGetWares } from "@/client";
 import { AppButton } from "@/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import { useRequest } from "@/hooks";
-import { OrderTabOptions, OrderTabOptionsValuesType } from "@/options";
+import { getOrderTabOptionsLabel, OrderTabOptions, OrderTabOptionsValuesType } from "@/options";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
 type OrderCardProps = {
@@ -33,15 +33,11 @@ export const OrderCard = (props: OrderCardProps) => {
     )
   }
 
-  const getStatusChinese = () => {
-    return OrderTabOptions.find((item) => item.value === status)?.label || (status)
-  }
-
   return (
     <View className="rounded-xl bg-white app-shadow-lg shadow-gray-200">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">2025-01-01 00:00:00</View>
-        <View className="text-amber-500">{getStatusChinese()}</View>
+        <View className="text-amber-500">{getOrderTabOptionsLabel(status)}</View>
       </View>
       <View>
         {data?.map((item) => (

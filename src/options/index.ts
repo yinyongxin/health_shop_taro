@@ -14,3 +14,7 @@ export const OrderTabOptions = [
 ] as const;
 
 export type OrderTabOptionsValuesType = (typeof OrderTabOptions)[number]["value"];
+
+export const getOrderTabOptionsLabel = (status: OrderTabOptionsValuesType) => {
+  return OrderTabOptions.find((item) => item.value === status)?.label || (status)
+}
