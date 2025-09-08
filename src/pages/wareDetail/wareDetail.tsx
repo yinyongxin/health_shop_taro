@@ -1,14 +1,14 @@
 import { getGetWare } from "@/client";
-import { AppButton, AppTag, BasePage, LucideIcon } from "@/components";
+import { AppTag, BasePage, LucideIcon } from "@/components";
 import Box from "@/components/Box";
 import { useRequest } from "@/hooks";
-import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
 import { Swiper } from "@taroify/core";
-import { Image, View, Text } from "@tarojs/components";
+import { Image, View } from "@tarojs/components";
+import { Evaluate } from "./Evaluate";
+import { DetailInfo } from "./DetailInfo";
+import { Actions } from "./Actions";
 
 const WareDetail = () => {
-  const appUserStore = useAppUserStore();
   const { data } = useRequest(async () => {
     const res = await getGetWare();
     return res.data;
@@ -144,96 +144,12 @@ const WareDetail = () => {
           </Box>
         </View>
         <View className="px-[24px] pt-[32px]">
-          <Box
-            bgProps={{
-              className: "bg-white rounded-lg",
-            }}
-          >
-            <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">
-              <View className="flex justify-between items-center">
-                <View className="text-[32px]">商品评价</View>
-                <View className="text-gray-500 flex items-center">
-                  查看全部
-                  <LucideIcon name="chevron-right" size={20} />
-                </View>
-              </View>
-              <View className="pt-[12px]">
-                <View className="flex gap-[16px]">
-                  <AppTag status="secondary">经济</AppTag>
-                  <AppTag status="secondary">耐用</AppTag>
-                </View>
-              </View>
-              <View className="pt-[12px]">
-                <View className="flex gap-[16px]">
-                  <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
-                    <LucideIcon name="image" size={16} />
-                  </View>
-                  <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
-                    <LucideIcon name="image" size={16} />
-                  </View>
-                  <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
-                    <LucideIcon name="image" size={16} />
-                  </View>
-                  <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
-                    <LucideIcon name="image" size={16} />
-                  </View>
-                </View>
-              </View>
-            </View>
-          </Box>
+          <Evaluate />
         </View>
-        <View className="pt-[32px]">
-          <View className="flex justify-center text-[32px] font-semibold">
-            商品详情
-          </View>
-          <View className="h-[500px] flex-center">
-            <LucideIcon name="image" size={120} />
-          </View>
-          <View className="h-[500px] flex-center">
-            <LucideIcon name="image" size={120} />
-          </View>
-          <View className="h-[500px] flex-center">
-            <LucideIcon name="image" size={120} />
-          </View>
-          <View className="h-[500px] flex-center">
-            <LucideIcon name="image" size={120} />
-          </View>
-          <View className="h-[500px] flex-center">
-            <LucideIcon name="image" size={120} />
-          </View>
-        </View>
+        <DetailInfo />
       </View>
 
-      <View className="fixed bottom-0 left-0 right-0 px-[24px] bg-blur flex app-shadow-lg">
-        <View className="flex-1 flex items-center justify-around">
-          <View className="flex flex-col active:text-blue-500 items-center gap-1">
-            <LucideIcon name="phone" size={18} />
-            <Text className="text-[20px]">客服</Text>
-          </View>
-          <View className="flex flex-col active:text-blue-500 items-center gap-1">
-            <LucideIcon name="star" size={20} />
-            <Text className="text-[20px]">收藏</Text>
-          </View>
-          <View
-            className="flex flex-col active:text-blue-500 items-center gap-1"
-            onClick={() => {
-              appUserStore.updateTabActive("cart");
-              appRouter.reLaunch("index");
-            }}
-          >
-            <LucideIcon name="shopping-cart" size={20} />
-            <Text className="text-[20px]">购物车</Text>
-          </View>
-        </View>
-        <View className="flex-2 flex gap-[16px] py-[24px]">
-          <AppButton status="warning" className="flex-1">
-            加入购物车
-          </AppButton>
-          <AppButton status="error" className="flex-1">
-            立即购买
-          </AppButton>
-        </View>
-      </View>
+      <Actions />
     </BasePage>
   );
 };
