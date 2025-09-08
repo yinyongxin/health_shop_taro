@@ -52,6 +52,16 @@ export const WareInfoSchema = {
     liked: {
       type: "boolean",
     },
+    wareType: {
+      anyOf: [
+        {
+          type: "string",
+        },
+        {
+          type: "string",
+        },
+      ],
+    },
   },
   required: [
     "name",
@@ -63,5 +73,6 @@ export const WareInfoSchema = {
     "inventory",
     "id",
     "liked",
+    "wareType",
   ],
 } as const;

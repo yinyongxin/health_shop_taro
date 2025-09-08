@@ -6,24 +6,32 @@ import { useState } from "react";
 export const Sidebar = () => {
   const list = [
     {
-      label: "设配",
+      label: "全部",
+      value: "all",
+    },
+    {
+      label: "工具",
       value: "1",
     },
     {
-      label: "针灸",
+      label: "中医",
       value: "2",
     },
     {
-      label: "药品",
+      label: "视力",
+      value: "5",
+    },
+    {
+      label: "药包",
       value: "3",
     },
     {
-      label: "检查",
+      label: "儿童",
       value: "4",
     },
     {
-      label: "一级分类",
-      value: "5",
+      label: "检测",
+      value: "6",
     },
   ];
   const [active, setActive] = useState(list[0].value);
