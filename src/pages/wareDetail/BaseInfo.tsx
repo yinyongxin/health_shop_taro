@@ -1,14 +1,14 @@
-import { WareInfo } from "@/client"
-import { AppTag } from "@/components"
-import Box from "@/components/Box"
-import { View } from "@tarojs/components"
+import { WareInfo } from "@/client";
+import { AppTag } from "@/components";
+import Box from "@/components/Box";
+import { View } from "@tarojs/components";
 
 type BaseInfoProps = {
-  info: WareInfo
-}
+  info: WareInfo;
+};
 
 export const BaseInfo = (props: BaseInfoProps) => {
-  const { info } = props
+  const { info } = props;
   return (
     <Box
       bgProps={{
@@ -20,9 +20,7 @@ export const BaseInfo = (props: BaseInfoProps) => {
           <View className="text-[40px] font-bold text-rose-500">
             ￥{info?.price}
           </View>
-          <View className="text-gray-500">
-            库存剩余：{info?.inventory}
-          </View>
+          <View className="text-gray-500">已售：{info?.sales}</View>
         </View>
         <View className="text-[32px] font-bold">{info?.name}</View>
         <View className="text-gray-500">{info?.deac}</View>
@@ -35,5 +33,5 @@ export const BaseInfo = (props: BaseInfoProps) => {
         </View>
       </View>
     </Box>
-  )
-}
+  );
+};

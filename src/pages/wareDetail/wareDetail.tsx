@@ -1,9 +1,8 @@
-import { getGetWare } from "@/client";
-import { AppTag, BasePage, LucideIcon } from "@/components";
-import Box from "@/components/Box";
-import { useRequest } from "@/hooks";
+import { BasePage } from "@/components";
+import { usePageParams, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
 import { Image, View } from "@tarojs/components";
+import { warelist } from "@/mock";
 import { Evaluate } from "./Evaluate";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
@@ -11,9 +10,11 @@ import { BaseInfo } from "./BaseInfo";
 import { Delivery } from "./Delivery";
 
 const WareDetail = () => {
+  const pageParams = usePageParams<"wareDetail">();
   const { data } = useRequest(async () => {
-    const res = await getGetWare();
-    return res.data;
+    // const res = await getGetWare();
+    const detail = warelist.find((item) => item.id === pageParams.id);
+    return detail;
   });
   return (
     <BasePage>
@@ -22,7 +23,11 @@ const WareDetail = () => {
           <Swiper.Indicator />
           {data?.pictureList?.map((item, index) => (
             <Swiper.Item key={index}>
-              <Image src={item} className="w-full h-full bg-gray-200" />
+              <Image
+                src={item}
+                className="w-full h-full bg-gray-200"
+                mode="aspectFill"
+              />
             </Swiper.Item>
           ))}
         </Swiper>

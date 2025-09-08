@@ -16,7 +16,11 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
     <View
       className={classNames("pt-[24px] pl-[24px] w-1/2", "relative")}
       onClick={() => {
-        appRouter.navigateTo("wareDetail");
+        appRouter.navigateTo("wareDetail", {
+          query: {
+            id: info.id,
+          },
+        });
       }}
     >
       <View
