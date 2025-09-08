@@ -23,4 +23,8 @@ export const pages = [
     name: "addressManage",
     path: "pages/addressManage/addressManage",
   },
+  {
+    name: "orderDetail",
+    path: "pages/orderDetail/orderDetail",
+  },
 ] as const;
