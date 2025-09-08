@@ -23,7 +23,9 @@ export const OrderCard = (props: OrderCardProps) => {
           actived={false}
           size="sm"
           onClick={() => {
-            appRouter.navigateTo("orderDetail");
+            appRouter.navigateTo("orderDetail", {
+              query: { id: "1" },
+            });
           }}
         >
           查看详情
