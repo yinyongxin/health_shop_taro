@@ -1,11 +1,14 @@
+import { BasePage } from "@/components"
 import { AddressList } from "@/components/AddressList"
 import { View } from "@tarojs/components"
 
 const AddressManage = () => {
   return (
-    <View>
+    <BasePage wapperProps={{
+      className: 'py-[24px]'
+    }}>
       <AddressList />
-    </View>
+    </BasePage>
   )
 }
 
