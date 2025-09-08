@@ -30,36 +30,36 @@ export const Home = () => {
         <View className="px-[24px] pt-[32px]">
           <Grid columns={4} className="rounded-lg overflow-hidden">
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="分类1"
+              icon={<LucideIcon name="hospital" size={32} />}
+              text="就医"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="分类2"
+              icon={<LucideIcon name="heart-pulse" size={32} />}
+              text="心电图"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="分类3"
+              icon={<LucideIcon name="biceps-flexed" size={32} />}
+              text="体检"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="分类4"
+              icon={<LucideIcon name="pill" size={32} />}
+              text="药物"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="功能1"
+              icon={<LucideIcon name="ambulance" size={32} />}
+              text="救护"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="功能2"
+              icon={<LucideIcon name="mars" size={32} />}
+              text="男性健康"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="功能3"
+              icon={<LucideIcon name="venus" size={32} />}
+              text="女性健康"
             />
             <Grid.Item
-              icon={<LucideIcon name="image" size={32} />}
-              text="功能4"
+              icon={<LucideIcon name="stethoscope" size={32} />}
+              text="门诊"
             />
           </Grid>
         </View>
