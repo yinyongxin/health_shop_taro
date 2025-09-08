@@ -53,9 +53,9 @@ export const warelist: WareInfo[] = [
     name: "艾草药包",
     price: 19.9,
     mainPicture:
-      "https://img1.baidu.com/it/u=968335599,4195691152&fm=253&fmt=auto&app=138&f=JPEG?w=515&h=500",
+      "https://img0.baidu.com/it/u=618397958,2236102820&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
     pictureList: [
-      "https://img1.baidu.com/it/u=968335599,4195691152&fm=253&fmt=auto&app=138&f=JPEG?w=515&h=500",
+      "https://img0.baidu.com/it/u=618397958,2236102820&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
       "https://img0.baidu.com/it/u=459634292,4287832994&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=658",
     ],
     sales: 478,
