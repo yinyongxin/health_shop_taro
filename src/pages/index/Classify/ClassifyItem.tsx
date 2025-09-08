@@ -1,5 +1,4 @@
 import { ClassifyInfo } from "@/client";
-import { LucideIcon } from "@/components";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 
@@ -17,8 +16,12 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
     >
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
         <View className="h-[180px] flex-center">
-          <LucideIcon name="image" size={80} />
-          {/* <Image src={info.picture} className="size-[140px]" /> */}
+          {/* <LucideIcon name="image" size={80} /> */}
+          <Image
+            src={info.picture || ""}
+            className="size-[160px]"
+            mode="aspectFill"
+          />
         </View>
         <View>
           <Text>{info.name}</Text>

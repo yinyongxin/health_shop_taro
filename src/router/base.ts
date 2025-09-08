@@ -16,4 +16,10 @@ export interface AllPagesQueryType
   index: {
     tabActive?: string;
   };
+  wareDetail: {
+    id: string;
+  };
+  orderDetail: {
+    id: string;
+  };
 }

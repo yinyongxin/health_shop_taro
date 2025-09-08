@@ -25,6 +25,7 @@ export type WareInfo = {
   inventory: number;
   id: string;
   liked: boolean;
+  wareType: string;
 };
 
 export type GetGetWaresPageData = {

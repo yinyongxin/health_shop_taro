@@ -21,6 +21,7 @@ pnpm 10+
 ## 交互
 
 [蓝湖](https://lanhuapp.com/web/#/item/project/stage?tid=ecd6277c-7331-439f-ae24-97fec186afb0&pid=3e60b410-3139-4450-a014-ba1c098c5517)
+[参考TAPD](https://www.tapd.cn/tapd_fe/65038933/story/detail/1165038933001001137)
 
 ## 架构
 

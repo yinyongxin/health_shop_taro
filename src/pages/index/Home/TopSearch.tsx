@@ -17,7 +17,7 @@ export const TopSearch = (props: TopSearchProps) => {
     >
       <LucideIcon name="search" size={22} />
       <View className="text-[28px] flex-1 text-gray-500">请输入搜索内容</View>
-      <View className="text-[32px] font-semibold text-sky-500">搜索</View>
+      <View className="text-[28px] font-semibold text-sky-500">搜索</View>
     </View>
   );
 };

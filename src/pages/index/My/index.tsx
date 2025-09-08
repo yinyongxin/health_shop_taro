@@ -3,6 +3,7 @@ import { View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
 import { FeatureBlocks } from "./FeatureBlocks";
 import { MyOrder } from "./MyOrder";
+import { appRouter } from "@/router";
 
 const UserMy = () => {
   return (
@@ -32,14 +33,16 @@ const UserMy = () => {
           <View className="rounded-[24px] overflow-hidden bg-white">
             <AppCell
               icon={<LucideIcon name="map-pin-house" size={20} />}
-              onClick={() => {}}
+              onClick={() => {
+                appRouter.navigateTo('addressManage')
+              }}
             >
               地址管理
             </AppCell>
             <AppDivier className="px-[32px]" />
             <AppCell
               icon={<LucideIcon name="settings" size={20} />}
-              onClick={() => {}}
+              onClick={() => { }}
             >
               设置
             </AppCell>

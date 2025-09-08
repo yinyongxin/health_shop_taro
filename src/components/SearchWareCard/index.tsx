@@ -16,7 +16,11 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
     <View
       className={classNames("pt-[24px] pl-[24px] w-1/2", "relative")}
       onClick={() => {
-        appRouter.navigateTo("wareDetail");
+        appRouter.navigateTo("wareDetail", {
+          query: {
+            id: info.id,
+          },
+        });
       }}
     >
       <View
@@ -30,8 +34,8 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
       >
         <Image
           className="w-full h-[320px] bg-gray-200"
-          mode="widthFix"
           src={props.info.mainPicture}
+          mode="aspectFill"
         />
         <View className="py-[16px] flex flex-col gap-[16px]">
           <View className="text-[28px] px-[16px] font-semibold truncate">
@@ -45,7 +49,9 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
               <Text className="text-[24px]">¥</Text>
               <Text>{props.info.price}</Text>
             </View>
-            <View className="text-[24px] text-gray-500">库存：{100}</View>
+            <View className="text-[24px] text-gray-500">
+              已售：{props.info.sales}
+            </View>
           </View>
         </View>
       </View>

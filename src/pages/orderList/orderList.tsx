@@ -7,6 +7,7 @@ import {
 import { OrderTabOptions } from "@/options";
 import { View, ScrollView } from "@tarojs/components";
 import { useState } from "react";
+import { wareListMock } from "@/mock";
 import { OrderCard } from "./OrderCard";
 
 const tabs = [
@@ -31,8 +32,10 @@ const OrderList = () => {
         <AppTabList active={active} tabs={tabs} onChange={setActive} />
         <ScrollView scrollY className="flex-1 bg-white">
           <View className="px-[24px] py-[32px] flex flex-col gap-[24px]">
-            <OrderCard />
-            <OrderCard />
+            <OrderCard
+              status="Received"
+              wareList={wareListMock.filter((item) => item.id === "2")}
+            />
           </View>
         </ScrollView>
       </View>
