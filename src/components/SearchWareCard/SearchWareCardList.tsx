@@ -2,7 +2,7 @@ import { getGetWaresPage, WareInfo } from "@/client";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { useRequest } from "@/hooks";
-import { warelist } from "@/mock";
+import { wareListMock } from "@/mock";
 import { SearchWareCard, SearchWareCardProps } from ".";
 
 export type SearchWareCardListProps = {
@@ -14,7 +14,7 @@ export type SearchWareCardListProps = {
 export const SearchWareCardList = (props: SearchWareCardListProps) => {
   const dataRequest = useRequest(async () => {
     const res = await getGetWaresPage();
-    return warelist;
+    return wareListMock;
   });
   const { data, className, searchWareCardProps } = props;
 

@@ -19,4 +19,7 @@ export interface AllPagesQueryType
   wareDetail: {
     id: string;
   };
+  orderDetail: {
+    id: string;
+  };
 }
