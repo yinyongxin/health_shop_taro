@@ -30,7 +30,7 @@ export const AppTopSearch = (props: AppTopSeatchProps) => {
         className="flex-1 flex items-center text-[28px]"
       />
       <View
-        className="text-[32px] font-semibold text-sky-500"
+        className="text-[28px] font-semibold text-sky-500"
         onClick={() => {
           onSearch?.(value);
         }}
