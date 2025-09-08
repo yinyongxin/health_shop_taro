@@ -18,7 +18,7 @@ export const TabBar = (props: TabBarProps) => {
   const { tabs, currentActive, handleClick } = props;
   return (
     <View className="fixed bottom-0 left-0 right-0 z-[10]">
-      <View className="absolute inset-0 bg-white/90 backdrop-blur shadow-[0_0_16px_0] shadow-gray-200"></View>
+      <View className="absolute inset-0 bg-white/80 backdrop-blur-md shadow-[0_0_16px_0] shadow-gray-200"></View>
       <View className="relative h-[120px] flex">
         {tabs.map((tab) => {
           const isActived = tab.value === currentActive;
