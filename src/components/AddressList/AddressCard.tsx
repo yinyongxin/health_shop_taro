@@ -18,7 +18,7 @@ export const AddressCard = (props: AddressCardProps) => {
         <View>浙江省</View>
         <View>杭州市</View>
         <View>西湖区</View>
-        <View>浙江大学</View>
+        <View>五常街道</View>
       </View>
       <View className="px-2">
         <View>我是详细信息我是详细信息我是详细信息</View>
