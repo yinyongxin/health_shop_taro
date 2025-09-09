@@ -5,6 +5,7 @@ import { useRequest } from "@/hooks";
 import { getOrderTabOptionsLabel, OrderTabOptionsValuesType } from "@/options";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
+import { showToast } from "@tarojs/taro";
 
 type OrderCardProps = {
   status?: OrderTabOptionsValuesType;
@@ -34,10 +35,31 @@ export const OrderCard = (props: OrderCardProps) => {
     }
     return (
       <>
-        <AppButton status="secondary" actived={false} size="sm">
+        <AppButton
+          status="secondary"
+          actived={false}
+          size="sm"
+          onClick={() => {
+            showToast({
+              title: "暂无数据",
+              icon: "none",
+              duration: 2000,
+            });
+          }}
+        >
           查看物流
         </AppButton>
-        <AppButton size="sm" actived={false}>
+        <AppButton
+          size="sm"
+          actived={false}
+          onClick={() => {
+            showToast({
+              title: "发货后确认",
+              icon: "none",
+              duration: 2000,
+            });
+          }}
+        >
           确认收货
         </AppButton>
       </>

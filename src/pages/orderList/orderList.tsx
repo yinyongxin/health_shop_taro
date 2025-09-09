@@ -14,7 +14,7 @@ const tabs = [
   {
     label: "全部",
     value: "all",
-    icon: 'grid-2x2'
+    icon: "grid-2x2",
   },
   ...(OrderTabOptions as unknown as AppTabListItem[]),
 ];
@@ -33,10 +33,34 @@ const OrderList = () => {
         <AppTabList active={active} tabs={tabs} onChange={setActive} />
         <ScrollView scrollY className="flex-1 bg-white">
           <View className="px-[24px] py-[32px] flex flex-col gap-[24px]">
-            <OrderCard
-              status="Received"
-              wareList={wareListMock.filter((item) => item.id === "2")}
-            />
+            {active === "all" && (
+              <>
+                <OrderCard
+                  status="Received"
+                  wareList={wareListMock.filter((item) => item.id === "2")}
+                />
+                <OrderCard
+                  status="WaitDelivery"
+                  wareList={wareListMock.filter((item) => item.id === "3")}
+                />
+              </>
+            )}
+            {active === "Received" && (
+              <>
+                <OrderCard
+                  status="Received"
+                  wareList={wareListMock.filter((item) => item.id === "2")}
+                />
+              </>
+            )}
+            {active === "WaitDelivery" && (
+              <>
+                <OrderCard
+                  status="WaitDelivery"
+                  wareList={wareListMock.filter((item) => item.id === "3")}
+                />
+              </>
+            )}
           </View>
         </ScrollView>
       </View>
