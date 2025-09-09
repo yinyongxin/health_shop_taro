@@ -16,7 +16,7 @@ const AddressManage = () => {
       </BasePage>
       <View
         className={classNames("p-2 bg-blur fixed bottom-0 w-full", {
-          "pb-[24px]": isIOS(),
+          "pb-[48px]": isIOS(),
         })}
       >
         <AppButton prefix={<LucideIcon name="plus" />} round>
