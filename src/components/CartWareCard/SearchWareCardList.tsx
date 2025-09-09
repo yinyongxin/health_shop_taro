@@ -6,10 +6,10 @@ import { SwipeCell } from "@taroify/core";
 import { wareListMock } from "@/mock";
 import { CartWareCard, CartWareCardProps } from ".";
 import { LucideIcon } from "../LucideIcon";
-import { useAppUserStore } from "@/stores";
+import { CartListItem, useAppUserStore } from "@/stores";
 
 export type CartWareCardListProps = {
-  data?: WareInfo[];
+  data?: CartListItem[];
   className?: string;
   cartWareCardProps?: Partial<CartWareCardProps>;
 };
@@ -17,29 +17,33 @@ export type CartWareCardListProps = {
 export const CartWareCardList = (props: CartWareCardListProps) => {
   const appUserStore = useAppUserStore()
 
-  const cartWareList = wareListMock.filter((item) => appUserStore.cartList.findIndex((cartItem) => cartItem.id === item.id) !== -1)
-
-  const { data = cartWareList, className, cartWareCardProps } = props;
+  const { data = [], className, cartWareCardProps } = props;
 
   return (
     <View
       className={classNames("pb-[64px] flex flex-col gap-[24px]", className)}
     >
-      {data.map((item) => (
-        <SwipeCell key={item.id}>
-          <CartWareCard info={item} {...cartWareCardProps} />
-          <SwipeCell.Actions side="right">
-            <View className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
-              onClick={() => {
-                appUserStore.deleteCard(item.id)
-              }}
-            >
-              <LucideIcon name="trash" size={20} />
-              <Text className="text-[28px] font-semibold">删除</Text>
-            </View>
-          </SwipeCell.Actions>
-        </SwipeCell>
-      ))}
+      {data.map((item) => {
+        const wareInfo = wareListMock.find((wareItem) => wareItem.id === item.id)
+        if (!wareInfo) {
+          return
+        }
+        return (
+          <SwipeCell key={item.id}>
+            <CartWareCard info={wareInfo} {...cartWareCardProps} defaultNum={item.num} />
+            <SwipeCell.Actions side="right">
+              <View className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
+                onClick={() => {
+                  appUserStore.deleteCard(item.id)
+                }}
+              >
+                <LucideIcon name="trash" size={20} />
+                <Text className="text-[28px] font-semibold">删除</Text>
+              </View>
+            </SwipeCell.Actions>
+          </SwipeCell>
+        )
+      })}
     </View>
   );
 };

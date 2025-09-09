@@ -1,15 +1,22 @@
 import { BasePage } from "@/components"
+import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList"
 import { usePageParams } from "@/hooks"
 import { View } from "@tarojs/components"
 
 /** 结算页面 */
 export default () => {
-  usePageParams((values) => {
+  const pageParams = usePageParams<'settlement'>((values) => {
     console.log('values', values)
   })
   return (
     <BasePage>
-      <View>结算</View>
+      <View>
+        <View className="px-[24px]">
+          <View className="bg-white rounded-lg">
+            <CartWareCardList data={pageParams.list} />
+          </View>
+        </View>
+      </View>
     </BasePage>
   )
 }

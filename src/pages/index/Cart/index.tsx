@@ -3,7 +3,6 @@ import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
-import { useState } from "react";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore()
@@ -11,7 +10,7 @@ export const Cart = () => {
     <BasePage>
       <View className="pt-[24px] pb-[244px]">
         <View className="px-[24px]">
-          <CartWareCardList />
+          <CartWareCardList data={appUserStore.cartList} />
         </View>
       </View>
       <View className="fixed bottom-[150px] left-0 right-0 px-[24px]">
