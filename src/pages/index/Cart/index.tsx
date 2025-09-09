@@ -1,13 +1,16 @@
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
+import { appRouter } from "@/router";
+import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
 
 export const Cart = () => {
+  const appUserStore = useAppUserStore()
   return (
     <BasePage>
       <View className="pt-[24px] pb-[244px]">
         <View className="px-[24px]">
-          <CartWareCardList />
+          <CartWareCardList data={appUserStore.cartList} />
         </View>
       </View>
       <View className="fixed bottom-[150px] left-0 right-0 px-[24px]">
@@ -15,10 +18,16 @@ export const Cart = () => {
           <View className="flex-4 flex items-center px-[32px]">
             <View className="flex-center gap-[8px]">
               <Text className="text-[32px]">合计</Text>
-              <Text className="text-[32px] font-semibold">￥0.00</Text>
+              <Text className="text-[32px] font-semibold">￥{appUserStore.totalPrice}</Text>
             </View>
           </View>
-          <AppButton className="flex-1" round status="error">
+          <AppButton className="flex-1" round status="error" onClick={() => {
+            appRouter.navigateTo('settlement', {
+              query: {
+                list: appUserStore.cartList
+              }
+            })
+          }}>
             去结算
           </AppButton>
         </View>

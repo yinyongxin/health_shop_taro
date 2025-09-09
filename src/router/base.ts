@@ -1,3 +1,4 @@
+import { CartListItem } from "@/stores";
 import { pages } from "./pages";
 
 export const AllPages = [
@@ -12,7 +13,7 @@ export const AllPages = [
 export type AllPageKey = (typeof AllPages)[number]["name"];
 
 export interface AllPagesQueryType
-  extends Record<AllPageKey, Record<string, string>> {
+  extends Record<AllPageKey, Record<string, unknown>> {
   index: {
     tabActive?: string;
   };
@@ -21,5 +22,8 @@ export interface AllPagesQueryType
   };
   orderDetail: {
     id: string;
+  };
+  settlement: {
+    list: CartListItem[]
   };
 }

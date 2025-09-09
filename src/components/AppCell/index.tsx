@@ -4,10 +4,11 @@ import { LucideIcon } from "../LucideIcon";
 
 export const AppCell: FC<
   PropsWithChildren<{
-    icon: ReactNode;
+    icon?: ReactNode;
     onClick?: () => void;
+    right?: ReactNode;
   }>
-> = ({ icon, onClick, children }) => {
+> = ({ icon, onClick, children, right }) => {
   return (
     <View
       className="flex items-center gap-[32px] px-[32px] py-[24px] active:bg-gray-50"
@@ -15,7 +16,9 @@ export const AppCell: FC<
     >
       {icon}
       <View className="flex-1 text-[28px] font-semibold">{children}</View>
-      <LucideIcon name="chevron-right" size={24} className="text-gray-300" />
+      {right || (
+        <LucideIcon name="chevron-right" size={24} className="text-gray-300" />
+      )}
     </View>
   );
 };

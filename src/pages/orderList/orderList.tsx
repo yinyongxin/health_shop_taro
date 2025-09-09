@@ -14,6 +14,7 @@ const tabs = [
   {
     label: "全部",
     value: "all",
+    icon: 'grid-2x2'
   },
   ...(OrderTabOptions as unknown as AppTabListItem[]),
 ];

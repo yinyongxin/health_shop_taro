@@ -1,9 +1,10 @@
 import { AppCell, AppDivier, BasePage, LucideIcon } from "@/components";
 import { View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
+import { showToast } from "@tarojs/taro";
+import { appRouter } from "@/router";
 import { FeatureBlocks } from "./FeatureBlocks";
 import { MyOrder } from "./MyOrder";
-import { appRouter } from "@/router";
 
 const UserMy = () => {
   return (
@@ -34,7 +35,7 @@ const UserMy = () => {
             <AppCell
               icon={<LucideIcon name="map-pin-house" size={20} />}
               onClick={() => {
-                appRouter.navigateTo('addressManage')
+                appRouter.navigateTo("addressManage");
               }}
             >
               地址管理
@@ -42,7 +43,9 @@ const UserMy = () => {
             <AppDivier className="px-[32px]" />
             <AppCell
               icon={<LucideIcon name="settings" size={20} />}
-              onClick={() => { }}
+              onClick={() => {
+                showToast({ title: "尽请期待", icon: "none" });
+              }}
             >
               设置
             </AppCell>

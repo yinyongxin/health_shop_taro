@@ -1,6 +1,7 @@
 import { AppFeatureBlocksItem, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
+import { showToast } from "@tarojs/taro";
 
 export const FeatureBlocks = () => {
   return (
@@ -10,6 +11,9 @@ export const FeatureBlocks = () => {
           <AppFeatureBlocksItem
             title="联系客服"
             icon={<LucideIcon name="message-circle-more" size={28} />}
+            onClick={() => {
+              showToast({ title: "尽请期待", icon: "none" });
+            }}
           />
           <AppFeatureBlocksItem
             title="收藏"

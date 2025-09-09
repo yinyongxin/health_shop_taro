@@ -51,7 +51,7 @@ export const appDayFormatter = (
   if (isStop) {
     day.bottom = <Text className="text-red-500">停诊</Text>;
   } else {
-    day.bottom = <Text className="text-green-500">出诊</Text>;
+    day.bottom = <Text className="text-lime-500">出诊</Text>;
   }
   return day;
 };

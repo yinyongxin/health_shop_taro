@@ -1,40 +1,73 @@
-import { PatientDto, UserDto } from "@/client";
+import { showToast } from "@tarojs/taro";
+import { calculateTotalPrice } from "@/utils/price";
 import { createAppStore } from "./base";
+
+export type CartListItem = {
+  id: string;
+  num: number;
+};
 
 interface AppUserState {
   tabActive: string;
   updateTabActive: (value: string) => void;
-  userInfo?: UserDto | null;
-  updateUserInfo: (value: UserDto) => void;
-  patientList: PatientDto[];
-  updatePatientList: (value: PatientDto[]) => void;
-  currentPatient?: PatientDto | null;
-  setCurrentPatient: (value: PatientDto) => void;
-  /** 复诊列表 */
-  subsequentVisitList: any[];
+  totalPrice: number;
+  cartList: CartListItem[];
+  addCart: (id: string) => void;
+  deleteCard: (id: string) => void;
+  updateCartNum: (id: string, num: number) => void;
 }
 
 export const useAppUserStore = createAppStore<AppUserState>(
-  (set) => ({
+  (set, get) => ({
     tabActive: "home",
     updateTabActive: (tabActive) => {
       set({ tabActive });
     },
-    userInfo: null,
-    patientList: [],
-    currentPatient: null,
-    subsequentVisitList: [],
-    updateUserInfo: (value: UserDto) => {
-      set({ userInfo: value });
-    },
-    updatePatientList: (value: PatientDto[]) => {
-      if (value.length === 0) {
-        set({ currentPatient: value[0] });
+    totalPrice: 0,
+    cartList: [],
+    addCart: (id) => {
+      const currentList = get().cartList;
+      const isIn = currentList.some((item) => item.id === id);
+      if (isIn) {
+        showToast({
+          title: "请勿重复添加",
+          icon: "error",
+          duration: 2000,
+        });
+        return;
       }
-      set({ patientList: value });
+      const newCartList = [...currentList, { id, num: 1 }];
+      set({
+        cartList: newCartList,
+        totalPrice: calculateTotalPrice(newCartList),
+      });
+      showToast({
+        title: "加入购物车成功",
+        icon: "success",
+        duration: 2000,
+      });
     },
-    setCurrentPatient: (value: PatientDto) => {
-      set({ currentPatient: value });
+    deleteCard: (id) => {
+      const currentList = get().cartList;
+      const index = currentList.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        currentList.splice(index, 1);
+      }
+      set({
+        cartList: currentList,
+        totalPrice: calculateTotalPrice(currentList),
+      });
+    },
+    updateCartNum: (id, num) => {
+      const currentList = get().cartList;
+      const index = currentList.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        currentList[index].num = num;
+      }
+      set({
+        cartList: currentList,
+        totalPrice: calculateTotalPrice(currentList),
+      });
     },
   }),
   "appUser",

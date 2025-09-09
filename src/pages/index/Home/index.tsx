@@ -1,5 +1,5 @@
 import { BasePage, LucideIcon, Title } from "@/components";
-import { useLoad } from "@tarojs/taro";
+import { useLoad, showToast } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { Grid } from "@taroify/core";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
@@ -27,7 +27,12 @@ export const Home = () => {
         <View className="px-[24px] pt-[32px]">
           <Banners />
         </View>
-        <View className="px-[24px] pt-[32px]">
+        <View
+          className="px-[24px] pt-[32px]"
+          onClick={() => {
+            showToast({ title: "尽请期待", icon: "none" });
+          }}
+        >
           <Grid columns={4} className="rounded-lg overflow-hidden">
             <Grid.Item
               icon={<LucideIcon name="hospital" size={32} />}

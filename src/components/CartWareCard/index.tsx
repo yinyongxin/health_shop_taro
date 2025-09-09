@@ -2,26 +2,34 @@ import { WareInfo } from "@/client";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppTag } from "../AppTag";
+import { useAppUserStore } from "@/stores";
 
 export type CartWareCardProps = {
   info: WareInfo;
   border?: boolean;
   showNumControl?: boolean;
   shadow?: boolean;
+  numChange?: (num: number) => void;
+  defaultNum?: number
 };
 export const CartWareCard = (props: CartWareCardProps) => {
-  const { border, showNumControl = true, shadow = true } = props;
-  const [num, setNum] = useState(1);
+  const appUserStore = useAppUserStore()
+  const { border, showNumControl = true, shadow = true, numChange, defaultNum = 1 } = props;
+  const [num, setNum] = useState(defaultNum);
   const handleAdd = () => {
+    appUserStore.updateCartNum(props.info.id, num + 1)
     setNum(num + 1);
+    numChange?.(num + 1)
   };
   const handleReduce = () => {
     if (num <= 1) {
       return;
     }
+    appUserStore.updateCartNum(props.info.id, num - 1)
     setNum(num - 1);
+    numChange?.(num - 1)
   };
   return (
     <View>
@@ -34,10 +42,14 @@ export const CartWareCard = (props: CartWareCardProps) => {
         <View className="p-[24px] pr-[12] rounded-lg">
           <Image
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
-            mode="widthFix"
+            mode="aspectFill"
             src={props.info.mainPicture}
             onClick={() => {
-              appRouter.navigateTo("wareDetail");
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: props.info.id,
+                }
+              });
             }}
           />
         </View>
@@ -45,7 +57,11 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <View
             className="text-[28px] font-semibold truncate"
             onClick={() => {
-              appRouter.navigateTo("wareDetail");
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: props.info.id,
+                }
+              });
             }}
           >
             {props.info.name}
