@@ -1,15 +1,16 @@
 import { Checkbox } from "@taroify/core"
 import { View } from "@tarojs/components"
-import { AppButton } from "../AppButton"
+import classNames from "classnames"
 
 type AddressCardProps = {
-  showActions?: boolean
+  showActions?: boolean,
+  className?: string
 }
 
 export const AddressCard = (props: AddressCardProps) => {
-  const { showActions = true } = props
+  const { showActions = true, className } = props
   return (
-    <View className="bg-white rounded-lg shadow-md py-[24px] flex flex-col gap-[16px]">
+    <View className={classNames("bg-white rounded-lg app-shadow py-[24px] flex flex-col gap-[16px]", className)}>
       <View className="flex items-center gap-2 px-2">
         <View className="text-[28px] font-semibold">银永鑫</View>
         <View>17637810650</View>

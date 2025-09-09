@@ -1,4 +1,5 @@
 import { BasePage } from "@/components"
+import { AddressCard } from "@/components/AddressList/AddressCard"
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList"
 import { usePageParams } from "@/hooks"
 import { View } from "@tarojs/components"
@@ -11,6 +12,9 @@ export default () => {
   return (
     <BasePage>
       <View>
+        <View className="px-[24px] pt-[24px]">
+          <AddressCard showActions={false} />
+        </View>
         <View className="px-[24px] pt-[24px]">
           <View className="bg-white rounded-lg">
             <CartWareCardList data={pageParams.list} className="gap-0!" cartWareCardProps={{
