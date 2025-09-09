@@ -8,12 +8,14 @@ const navigateTo = async <P extends AllPageKey>(
   },
   navigateToOpiton?: Omit<Taro.navigateTo.Option, "url">,
 ) => {
-  const { query } = option || {};
+  const { query = {} } = option || {};
   const url = AllPages.find((item) => item.name === page)?.path;
-  const seachParams = new URLSearchParams(query);
-  const queryStr = seachParams.toString();
+  const seachParams = new URLSearchParams({
+    data: JSON.stringify(query)
+  });
+  const seachParamsStr = seachParams.toString();
   return Taro.navigateTo({
-    url: `${url}?${queryStr}`,
+    url: `${url}?${seachParamsStr}`,
     ...navigateToOpiton,
   });
 };
@@ -25,12 +27,14 @@ const reLaunch = async <P extends AllPageKey>(
   },
   navigateToOpiton?: Omit<Taro.reLaunch.Option, "url">,
 ) => {
-  const { query } = option || {};
+  const { query = {} } = option || {};
   const url = AllPages.find((item) => item.name === page)?.path;
-  const seachParams = new URLSearchParams(query);
-  const queryStr = seachParams.toString();
+  const seachParams = new URLSearchParams({
+    data: JSON.stringify(query)
+  });
+  const seachParamsStr = seachParams.toString();
   return Taro.reLaunch({
-    url: `${url}?${queryStr}`,
+    url: `${url}?${seachParamsStr}`,
     ...navigateToOpiton,
   });
 };

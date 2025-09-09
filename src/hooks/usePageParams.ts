@@ -5,8 +5,9 @@ export const usePageParams = <P extends AllPageKey>(
   call?: (params: AllPagesQueryType[P]) => void,
 ) => {
   const instance = Taro.getCurrentInstance();
+ const data = JSON.parse(decodeURIComponent(instance.router?.params.data || '')) as unknown as  AllPagesQueryType[P]
   useLoad(() => {
-    call?.(instance.router?.params as AllPagesQueryType[P]);
+    call?.(data);
   });
-  return instance.router?.params as AllPagesQueryType[P];
+  return data;
 };
