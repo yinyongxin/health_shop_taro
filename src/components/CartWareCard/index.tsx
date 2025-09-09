@@ -2,7 +2,7 @@ import { WareInfo } from "@/client";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppTag } from "../AppTag";
 
 export type CartWareCardProps = {
@@ -10,9 +10,10 @@ export type CartWareCardProps = {
   border?: boolean;
   showNumControl?: boolean;
   shadow?: boolean;
+  numChange?: (num: number) => void;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
-  const { border, showNumControl = true, shadow = true } = props;
+  const { border, showNumControl = true, shadow = true, numChange } = props;
   const [num, setNum] = useState(1);
   const handleAdd = () => {
     setNum(num + 1);
@@ -23,6 +24,9 @@ export const CartWareCard = (props: CartWareCardProps) => {
     }
     setNum(num - 1);
   };
+  useEffect(() => {
+    numChange?.(num)
+  }, [num])
   return (
     <View>
       <View
