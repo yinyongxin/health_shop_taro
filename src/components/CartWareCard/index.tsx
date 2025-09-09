@@ -4,6 +4,7 @@ import { View, Image, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { AppTag } from "../AppTag";
+import { useAppUserStore } from "@/stores";
 
 export type CartWareCardProps = {
   info: WareInfo;
@@ -13,6 +14,7 @@ export type CartWareCardProps = {
   numChange?: (num: number) => void;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
+  const appUserStore = useAppUserStore()
   const { border, showNumControl = true, shadow = true, numChange } = props;
   const [num, setNum] = useState(1);
   const handleAdd = () => {
@@ -26,6 +28,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
   };
   useEffect(() => {
     numChange?.(num)
+    appUserStore.updateCartNum(props.info.id, num)
   }, [num])
   return (
     <View>
