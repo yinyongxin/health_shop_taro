@@ -31,7 +31,7 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
       }
       return pre
     }, 0)
-    props.totalPriceChange?.(totalPrice)
+    props.totalPriceChange?.(Number(totalPrice.toFixed(2)))
   }
 
   useEffect(() => {
