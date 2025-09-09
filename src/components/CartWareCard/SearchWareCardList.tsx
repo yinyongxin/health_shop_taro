@@ -7,16 +7,28 @@ import { wareListMock } from "@/mock";
 import { CartWareCard, CartWareCardProps } from ".";
 import { LucideIcon } from "../LucideIcon";
 import { useAppUserStore } from "@/stores";
+import { useEffect } from "react";
 
 export type CartWareCardListProps = {
   data?: WareInfo[];
   className?: string;
   cartWareCardProps?: Partial<CartWareCardProps>;
+  totalPriceChange?: (price: number) => void
 };
 
 export const CartWareCardList = (props: CartWareCardListProps) => {
   const appUserStore = useAppUserStore()
-  const { data = wareListMock.filter((item) => appUserStore.cartList.includes(item.id)), className, cartWareCardProps } = props;
+
+  const cartWareList = wareListMock.filter((item) => appUserStore.cartList.includes(item.id))
+
+  const { data = cartWareList, className, cartWareCardProps } = props;
+
+  useEffect(() => {
+    const totalPrice = cartWareList.reduce((pre, cur) => {
+      return pre + cur.price
+    }, 0)
+    props.totalPriceChange?.(totalPrice)
+  }, [appUserStore.cartList.length])
   return (
     <View
       className={classNames("pb-[64px] flex flex-col gap-[24px]", className)}
