@@ -1,5 +1,6 @@
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
+import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
 import { useState } from "react";
@@ -21,7 +22,13 @@ export const Cart = () => {
               <Text className="text-[32px] font-semibold">￥{appUserStore.totalPrice}</Text>
             </View>
           </View>
-          <AppButton className="flex-1" round status="error">
+          <AppButton className="flex-1" round status="error" onClick={() => {
+            appRouter.navigateTo('settlement', {
+              query: {
+                list: appUserStore.cartList
+              }
+            })
+          }}>
             去结算
           </AppButton>
         </View>
