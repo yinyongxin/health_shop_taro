@@ -18,17 +18,18 @@ export const CartWareCard = (props: CartWareCardProps) => {
   const { border, showNumControl = true, shadow = true, numChange } = props;
   const [num, setNum] = useState(1);
   const handleAdd = () => {
+    appUserStore.updateCartNum(props.info.id, num + 1)
     setNum(num + 1);
   };
   const handleReduce = () => {
     if (num <= 1) {
       return;
     }
+    appUserStore.updateCartNum(props.info.id, num - 1)
     setNum(num - 1);
   };
   useEffect(() => {
     numChange?.(num)
-    appUserStore.updateCartNum(props.info.id, num)
   }, [num])
   return (
     <View>
