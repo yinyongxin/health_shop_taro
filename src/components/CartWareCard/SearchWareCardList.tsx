@@ -21,7 +21,7 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
 
   return (
     <View
-      className={classNames("pb-[64px] flex flex-col gap-[24px]", className)}
+      className={classNames("flex flex-col gap-[24px]", className)}
     >
       {data.map((item) => {
         const wareInfo = wareListMock.find((wareItem) => wareItem.id === item.id)
