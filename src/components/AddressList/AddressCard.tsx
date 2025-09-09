@@ -24,15 +24,15 @@ export const AddressCard = (props: AddressCardProps) => {
       <View className="px-2">
         <View>我是详细信息我是详细信息我是详细信息</View>
       </View>
-      <View className="border-t border-gray-200 px-2 pt-2 flex justify-between items-center">
-        <Checkbox size={18} className="text-[24px]!">默认地址</Checkbox>
-        {showActions && (
+      {showActions && (
+        <View className="border-t border-gray-200 px-2 pt-2 flex justify-between items-center">
+          <Checkbox size={18} className="text-[24px]!">默认地址</Checkbox>
           <View className="flex gap-2 items-center">
             <View className="text-rose-500">删除</View>
             <View className="text-sky-500">编辑</View>
           </View>
-        )}
-      </View>
+        </View>
+      )}
     </View>
   )
 }
