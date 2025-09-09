@@ -48,6 +48,5 @@ export const getAge = (birthday?: string) => {
 };
 
 export function isIOS() {
-  console.log("isIOS", navigator.userAgent);
   return /iPad|iPhone|iPod/.test(navigator.userAgent);
 }
