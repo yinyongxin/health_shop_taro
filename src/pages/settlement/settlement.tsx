@@ -13,7 +13,10 @@ export default () => {
       <View>
         <View className="px-[24px]">
           <View className="bg-white rounded-lg">
-            <CartWareCardList data={pageParams.list} />
+            <CartWareCardList data={pageParams.list} cartWareCardProps={{
+              showNumControl: false,
+              shadow: false
+            }} />
           </View>
         </View>
       </View>
