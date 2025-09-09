@@ -2,32 +2,45 @@ import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
+import { isIOS } from "@/utils";
 import { View, Text } from "@tarojs/components";
+import classNames from "classnames";
 
 export const Cart = () => {
-  const appUserStore = useAppUserStore()
+  const appUserStore = useAppUserStore();
   return (
     <BasePage>
-      <View className="pt-[24px] pb-[244px]">
+      <View className="pt-[24px] pb-[300px]">
         <View className="px-[24px]">
           <CartWareCardList data={appUserStore.cartList} />
         </View>
       </View>
-      <View className="fixed bottom-[150px] left-0 right-0 px-[24px]">
+      <View
+        className={classNames("fixed bottom-[150px] left-0 right-0 px-[24px]", {
+          "bottom-[182px]": isIOS(),
+        })}
+      >
         <View className="bg-blur app-shadow rounded-full p-[16px] flex">
           <View className="flex-4 flex items-center px-[32px]">
             <View className="flex-center gap-[8px]">
               <Text className="text-[32px]">合计</Text>
-              <Text className="text-[32px] font-semibold">￥{appUserStore.totalPrice}</Text>
+              <Text className="text-[32px] font-semibold">
+                ￥{appUserStore.totalPrice}
+              </Text>
             </View>
           </View>
-          <AppButton className="flex-1" round status="error" onClick={() => {
-            appRouter.navigateTo('settlement', {
-              query: {
-                list: appUserStore.cartList
-              }
-            })
-          }}>
+          <AppButton
+            className="flex-1"
+            round
+            status="error"
+            onClick={() => {
+              appRouter.navigateTo("settlement", {
+                query: {
+                  list: appUserStore.cartList,
+                },
+              });
+            }}
+          >
             去结算
           </AppButton>
         </View>
