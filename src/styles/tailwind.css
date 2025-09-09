@@ -39,7 +39,7 @@
 }
 
 @utility bg-success {
-  @apply bg-linear-45 from-emerald-400 to-emerald-600;
+  @apply bg-linear-45 from-lime-400 to-lime-600;
 }
 
 @utility bg-warning {
