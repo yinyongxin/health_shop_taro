@@ -1,8 +1,9 @@
 import { wareListMock } from "@/mock";
 import { createAppStore } from "./base";
 import Taro from "@tarojs/taro";
+import { calculateTotalPrice } from "@/utils/price";
 
-type CartListItem = {
+export type CartListItem = {
   id: string,
   num: number
 }
@@ -15,17 +16,6 @@ interface AppUserState {
   addCart: (id: string) => void,
   deleteCard: (id: string) => void
   updateCartNum: (id: string, num: number) => void,
-}
-
-const calculateTotalPrice = (cartList: CartListItem[]) => {
-  const totalPrice = cartList.reduce((pre, cur) => {
-    const wareInfo = wareListMock.find((item) => item.id === cur.id)
-    if (wareInfo) {
-      return pre + wareInfo.price * cur.num
-    }
-    return pre
-  }, 0)
-  return Number(totalPrice.toFixed(2))
 }
 
 export const useAppUserStore = createAppStore<AppUserState>(
