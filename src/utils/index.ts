@@ -46,3 +46,7 @@ export const getImagePath = (path: string) => {
 export const getAge = (birthday?: string) => {
   return birthday ? dayjs().diff(dayjs(birthday), "year") : 0;
 };
+
+export function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent);
+}

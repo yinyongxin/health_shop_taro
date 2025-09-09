@@ -1,3 +1,4 @@
+import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { ReactNode } from "react";
@@ -17,7 +18,11 @@ export type TabBarProps = {
 export const TabBar = (props: TabBarProps) => {
   const { tabs, currentActive, handleClick } = props;
   return (
-    <View className="fixed bottom-0 left-0 right-0 z-[10]">
+    <View
+      className={classNames("fixed bottom-0 left-0 right-0 z-[10]", {
+        "pb-[32px]": isIOS(),
+      })}
+    >
       <View className="absolute inset-0 bg-white/80 backdrop-blur-md shadow-[0_0_16px_0] shadow-gray-200"></View>
       <View className="relative h-[120px] flex">
         {tabs.map((tab) => {
