@@ -13,7 +13,7 @@ export default () => {
       <View>
         <View className="px-[24px]">
           <View className="bg-white rounded-lg">
-            <CartWareCardList data={pageParams.list} cartWareCardProps={{
+            <CartWareCardList data={pageParams.list} className="gap-0" cartWareCardProps={{
               showNumControl: false,
               shadow: false
             }} />
