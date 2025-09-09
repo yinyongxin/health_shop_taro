@@ -16,10 +16,11 @@ export type CartWareCardProps = {
 export const CartWareCard = (props: CartWareCardProps) => {
   const appUserStore = useAppUserStore()
   const { border, showNumControl = true, shadow = true, numChange } = props;
-  const [num, setNum] = useState(1);
+  const [num, setNum] = useState(appUserStore.cartList.find(item => item.id === props.info.id)?.num || 1);
   const handleAdd = () => {
     appUserStore.updateCartNum(props.info.id, num + 1)
     setNum(num + 1);
+    numChange?.(num + 1)
   };
   const handleReduce = () => {
     if (num <= 1) {
@@ -27,10 +28,8 @@ export const CartWareCard = (props: CartWareCardProps) => {
     }
     appUserStore.updateCartNum(props.info.id, num - 1)
     setNum(num - 1);
+    numChange?.(num - 1)
   };
-  useEffect(() => {
-    numChange?.(num)
-  }, [num])
   return (
     <View>
       <View
