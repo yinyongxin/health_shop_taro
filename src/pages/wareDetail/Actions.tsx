@@ -51,7 +51,16 @@ export const Actions = (props: ActionsProps) => {
           }}>
             加入购物车
           </AppButton>
-          <AppButton status="error" className="flex-1">
+          <AppButton status="error" className="flex-1" onClick={() => {
+            appRouter.navigateTo('settlement', {
+              query: {
+                list: [{
+                  id: info.id,
+                  num: 1
+                }]
+              }
+            })
+          }}>
             立即购买
           </AppButton>
         </View>
