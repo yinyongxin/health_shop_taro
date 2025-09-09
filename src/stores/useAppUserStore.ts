@@ -1,5 +1,6 @@
 import { wareListMock } from "@/mock";
 import { createAppStore } from "./base";
+import Taro from "@tarojs/taro";
 
 type CartListItem = {
   id: string,
@@ -37,11 +38,25 @@ export const useAppUserStore = createAppStore<AppUserState>(
     cartList: [],
     addCart: (id) => {
       const currentList = get().cartList
-      const newCartList = [...new Set([...currentList, { id, num: 1 }])]
+      const isIn = currentList.some((item) => item.id === id);
+      if (isIn) {
+        Taro.showToast({
+          title: '请勿重复添加',
+          icon: 'error',
+          duration: 2000
+        })
+        return
+      }
+      const newCartList = [...currentList, { id, num: 1 }]
       set({
         cartList: newCartList,
         totalPrice: calculateTotalPrice(newCartList)
       });
+      Taro.showToast({
+        title: '加入购物车成功',
+        icon: 'success',
+        duration: 2000
+      })
     },
     deleteCard: (id) => {
       const currentList = get().cartList

@@ -48,11 +48,6 @@ export const Actions = (props: ActionsProps) => {
         <View className="flex-3 flex gap-[16px] py-[24px]">
           <AppButton status="warning" className="flex-1" onClick={() => {
             appUserStore.addCart(info.id)
-            Taro.showToast({
-              title: '加入购物车成功',
-              icon: 'success',
-              duration: 2000
-            })
           }}>
             加入购物车
           </AppButton>
