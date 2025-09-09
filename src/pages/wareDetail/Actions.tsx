@@ -4,6 +4,7 @@ import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePopupControl } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
+import { isIOS } from "@/utils";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 
@@ -17,7 +18,14 @@ export const Actions = (props: ActionsProps) => {
   const popupControl = usePopupControl();
   return (
     <>
-      <View className="fixed bottom-0 left-0 right-0 pr-[24px] bg-blur flex app-shadow-lg">
+      <View
+        className={classNames(
+          "fixed bottom-0 left-0 right-0 pr-[24px] bg-blur flex app-shadow-lg",
+          {
+            "pb-[24px]": isIOS(),
+          },
+        )}
+      >
         <View className="flex-1 flex items-center justify-around">
           <View className="flex flex-col active:text-blue-500 items-center gap-1">
             <LucideIcon name="headphones" size={18} />
