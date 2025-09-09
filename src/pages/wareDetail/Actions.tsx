@@ -5,7 +5,6 @@ import { usePopupControl } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
-import Taro from "@tarojs/taro";
 import classNames from "classnames";
 
 type ActionsProps = {
