@@ -36,12 +36,12 @@ const OrderList = () => {
             {active === "all" && (
               <>
                 <OrderCard
-                  status="Received"
-                  wareList={wareListMock.filter((item) => item.id === "2")}
-                />
-                <OrderCard
                   status="WaitDelivery"
                   wareList={wareListMock.filter((item) => item.id === "3")}
+                />
+                <OrderCard
+                  status="Received"
+                  wareList={wareListMock.filter((item) => item.id === "2")}
                 />
               </>
             )}
