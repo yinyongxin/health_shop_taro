@@ -6,6 +6,7 @@ import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
 import Taro from "@tarojs/taro";
+import classNames from "classnames";
 
 type ActionsProps = {
   info: WareInfo
@@ -26,8 +27,11 @@ export const Actions = (props: ActionsProps) => {
             <LucideIcon name="phone" size={18} />
             <Text className="text-[20px]">客服</Text>
           </View>
-          <View className="flex flex-col active:text-blue-500 items-center gap-1">
-            <LucideIcon name="star" size={20} />
+          <View className="flex flex-col active:text-blue-500 items-center gap-1"
+          >
+            <LucideIcon name="star" className={classNames({
+              "text-rose-500": info.liked
+            })} size={20} />
             <Text className="text-[20px]">收藏</Text>
           </View>
           <View
@@ -58,7 +62,7 @@ export const Actions = (props: ActionsProps) => {
         </View>
       </View>
       <AppPopup title="购物车" {...popupControl}>
-          <CartWareCardList />
+        <CartWareCardList />
       </AppPopup>
     </>
   )
