@@ -34,10 +34,14 @@ export const CartWareCard = (props: CartWareCardProps) => {
         <View className="p-[24px] pr-[12] rounded-lg">
           <Image
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
-            mode="widthFix"
+            mode="aspectFill"
             src={props.info.mainPicture}
             onClick={() => {
-              appRouter.navigateTo("wareDetail");
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: props.info.id,
+                }
+              });
             }}
           />
         </View>
@@ -45,7 +49,11 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <View
             className="text-[28px] font-semibold truncate"
             onClick={() => {
-              appRouter.navigateTo("wareDetail");
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: props.info.id,
+                }
+              });
             }}
           >
             {props.info.name}
