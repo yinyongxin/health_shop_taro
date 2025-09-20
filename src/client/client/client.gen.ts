@@ -63,7 +63,7 @@ export const createClient = (config: Config = {}): Client => {
     }
 
     const url = buildUrl(opts);
-    console.log("url", url)
+    console.log("url", url);
 
     return { opts, url };
   };
@@ -77,6 +77,7 @@ export const createClient = (config: Config = {}): Client => {
       const _axios = opts.axios!;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { auth, ...optsWithoutAuth } = opts;
+      console.log({ _axios });
       const response = await _axios({
         ...optsWithoutAuth,
         baseURL: opts.baseURL as string,
@@ -86,6 +87,7 @@ export const createClient = (config: Config = {}): Client => {
         params: opts.paramsSerializer ? opts.query : undefined,
         url,
       });
+      console.log({ response });
 
       let { data } = response;
 

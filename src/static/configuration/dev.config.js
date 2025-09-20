@@ -6,6 +6,6 @@ window.devConfig = {
   // BASE_URL: "https://testpay.eh-med.com",
   APPID: "wx7fd4cfca980cbecc",
   BASE_URL: "https://testpay.eh-med.com",
-  API_PREFIX: "/zhfy",
+  API_PREFIX: "",
   FILE_PREFIX: "",
 };

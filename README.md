@@ -18,6 +18,7 @@ pnpm 10+
 ## 微信公众平台
 
 [微信公众平台](https://mp.weixin.qq.com/wxamp/home/guide?token=531739113&lang=zh_CN)
+[微信支付](https://pay.weixin.qq.com/doc/v3/merchant/4012791857)
 
 ## 架构
 
