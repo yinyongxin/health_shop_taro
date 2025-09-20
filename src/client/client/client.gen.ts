@@ -63,6 +63,7 @@ export const createClient = (config: Config = {}): Client => {
     }
 
     const url = buildUrl(opts);
+    console.log("url", url)
 
     return { opts, url };
   };

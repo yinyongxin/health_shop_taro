@@ -6,6 +6,4 @@ import { APP_ENV_CONFIG } from "./common";
 export const createClientConfig: CreateClientConfig = (config) => ({
   ...config,
   baseURL: APP_ENV_CONFIG.API_PREFIX,
-  // baseURL: "",
-  adapter: isWeapp ? (TaroAdapter as any) : undefined,
 });

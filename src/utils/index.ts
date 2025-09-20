@@ -86,7 +86,6 @@ export const getWinxinLoginUrl = () => {
   // url.searchParams.set("scope", "snsapi_userinfo");
   url.searchParams.set("scope", "snsapi_base");
   url.searchParams.set("state", "STATE");
-  console.log(url.href);
   return url.href;
 };
 export const jumpWxGetCode = () => {
