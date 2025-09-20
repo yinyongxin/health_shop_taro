@@ -35,4 +35,8 @@ export const pages = [
     name: "payResult",
     path: "pages/payResult/payResult",
   },
+  {
+    name: "subCategoryProductList",
+    path: "pages/subCategoryProductList/subCategoryProductList",
+  },
 ] as const;

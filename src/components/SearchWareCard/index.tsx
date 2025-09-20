@@ -45,9 +45,14 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             {props.info.description}
           </View>
           <View className=" px-[16px] flex justify-between items-end">
-            <View className="text-[32px] text-rose-500">
+            <View className="flex gap-[4px] items-end">
               <Text className="text-[24px]">¥</Text>
-              <Text>{props.info.price}</Text>
+              <Text className="text-[32px] text-rose-500">
+                {props.info.price}
+              </Text>
+              <Text className="text-gary-500 line-through">
+                {props.info.originalPrice}
+              </Text>
             </View>
             <View className="text-[24px] text-gray-500">
               {/* 已售：{props.info.s} */}

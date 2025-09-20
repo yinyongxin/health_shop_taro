@@ -26,4 +26,7 @@ export interface AllPagesQueryType
   settlement: {
     list: CartListItem[]
   };
+  subCategoryProductList:{
+    subCategoryId: string
+  }
 }

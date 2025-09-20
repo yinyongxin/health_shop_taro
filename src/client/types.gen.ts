@@ -109,7 +109,10 @@ export type GetWxShopCateProductData = {
 
 export type GetWxShopCateProductResponses = {
   200: {
-    [key: string]: unknown;
+    total: number;
+    rows: Array<ProductInfo>;
+    code: number;
+    msg: unknown;
   };
 };
 
@@ -152,38 +155,7 @@ export type GetWxShopProductDetailResponses = {
   200: {
     msg: string;
     code: number;
-    data: {
-      id: number;
-      orgId: string;
-      subCategoryId: number;
-      subCategoryName: string;
-      name: string;
-      description: string;
-      type: string;
-      price: number;
-      originalPrice: number;
-      mainImage: string;
-      productTags: string;
-      serviceTags: string;
-      detailImages: string;
-      detailContent: string;
-      status: number;
-      sortOrder: number;
-      createdAt: string;
-      updatedAt: string;
-      skuList: Array<{
-        id: number;
-        productId: number;
-        orgId: string;
-        skuCode: string;
-        specs: string;
-        price: number;
-        originalPrice: number;
-        stock: number;
-        image: string;
-        status: number;
-      }>;
-    };
+    data: ProductInfo;
   };
 };
 

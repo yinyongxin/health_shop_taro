@@ -1,0 +1,5 @@
+.subCategoryProductListPage {
+  .taroify-dropdown-menu__bar {
+    @apply shadow-none;
+  }
+}

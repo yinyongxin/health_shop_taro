@@ -1,9 +1,10 @@
-import { ClassifyInfo } from "@/client";
+import { SubCategoryInfo } from "@/client";
+import { LucideIcon } from "@/components";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 
 export interface ClassifyItemProps {
-  info: ClassifyInfo;
+  info: SubCategoryInfo;
 }
 export const ClassifyItem = (props: ClassifyItemProps) => {
   const { info } = props;
@@ -11,17 +12,22 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
     <View
       className="w-1/2 pl-2 pt-2 "
       onClick={() => {
-        appRouter.navigateTo("wareList");
+        appRouter.navigateTo("subCategoryProductList", {
+          query: { subCategoryId: info.id.toString() },
+        });
       }}
     >
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
         <View className="h-[180px] flex-center">
-          {/* <LucideIcon name="image" size={80} /> */}
-          <Image
-            src={info.picture || ""}
-            className="size-[160px]"
-            mode="aspectFill"
-          />
+          {info?.picture ? (
+            <Image
+              src={info.picture || ""}
+              className="size-[160px]"
+              mode="aspectFill"
+            />
+          ) : (
+            <LucideIcon className="text-gray-200" name="image" size={60} />
+          )}
         </View>
         <View>
           <Text>{info.name}</Text>
