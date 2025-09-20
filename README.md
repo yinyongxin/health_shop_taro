@@ -7,27 +7,17 @@ pnpm 10+
 
 [本地启动](http://localhost:10086/index#/pages/index/index)
 
+## TPPD
+
+[eh医疗服务智能预约平台TAPD](https://www.tapd.cn/tapd_fe/63673026/story/list?categoryId=1163673026001000206&useScene=storyList&groupType=&conf_id=1163673026001004237)
+
 ## H5管理端
 
 [H5管理端](https://testpay.eh-med.com/zhfy/login)
 
-## 微信小程序
-
-### 文档
-
-[微信服务端开发](https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/)
-[企业微信服务端开发](https://developer.work.weixin.qq.com/document/path/91201)
-
-[企业微信支持](https://github.com/NervJS/taro-plugin-platform-weapp-qy)
-
 ## 微信公众平台
 
 [微信公众平台](https://mp.weixin.qq.com/wxamp/home/guide?token=531739113&lang=zh_CN)
-
-## 交互
-
-[蓝湖](https://lanhuapp.com/web/#/item/project/stage?tid=ecd6277c-7331-439f-ae24-97fec186afb0&pid=3e60b410-3139-4450-a014-ba1c098c5517)
-[参考TAPD](https://www.tapd.cn/tapd_fe/65038933/story/detail/1165038933001001137)
 
 ## 架构
 
@@ -47,7 +37,7 @@ pnpm 10+
 [Zustand](https://github.com/pmndrs/zustand)
 [Zustand 中文](https://awesomedevin.github.io/zustand-vue/docs/introduce/start/zustand)
 
-## 持久化
+### 持久化
 
 [Persist](https://zustand.docs.pmnd.rs/middlewares/persist)
 [掘金教程](https://juejin.cn/post/7406247350668804105)
@@ -55,9 +45,3 @@ pnpm 10+
 ## 医疗健康图片
 
 [Medical Images](https://www.svgrepo.com/collection/medical-and-health/)
-
-## 接口要求
-
-- 二级分类需要下分类图片
-- 获取二级分类下的产品列表需要分页
-- 搜索商品列表分页

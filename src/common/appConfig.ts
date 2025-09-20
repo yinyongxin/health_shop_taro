@@ -1,3 +1,6 @@
+import devConfig from "../../public/configuration/dev.config";
+import prodConfig from "../../public/configuration/prod.config";
+
 type AppEnvConfig = {
   ENV: string;
   APPID: string;
@@ -6,9 +9,10 @@ type AppEnvConfig = {
   FILE_PREFIX: string;
   ORG_ID: string;
 };
+
 export const APP_ENV_CONFIG = {
   //@ts-ignore
-  development: window.devConfig as AppEnvConfig,
+  development: devConfig as AppEnvConfig,
   //@ts-ignore
-  production: window.prodConfig as AppEnvConfig,
+  production: prodConfig as AppEnvConfig,
 }[process.env.NODE_ENV];

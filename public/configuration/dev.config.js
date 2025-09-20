@@ -1,4 +1,4 @@
-window.devConfig = {
+const devConfig = {
   ENV: "dev",
   APP_NAME: "医疗服务智能预约平台",
   ORG_ID: "800001002",
@@ -7,3 +7,6 @@ window.devConfig = {
   API_PREFIX: "",
   FILE_PREFIX: "",
 };
+
+window.devConfig = devConfig;
+export default devConfig;

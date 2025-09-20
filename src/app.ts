@@ -8,7 +8,6 @@ import { getUrlCode, getWinxinLoginUrl, jumpWxGetCode } from "./utils";
 
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
-
   const checkLogin = async () => {
     // 获取URL中的微信登录码
     const wxLoginCode = getUrlCode();

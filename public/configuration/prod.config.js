@@ -1,4 +1,4 @@
-window.prodConfig = {
+const prodConfig = {
   ENV: "dev",
   APP_NAME: "医疗服务智能预约平台",
   ORG_ID: "800001002",
@@ -7,3 +7,6 @@ window.prodConfig = {
   API_PREFIX: "/zhfy",
   FILE_PREFIX: "",
 };
+
+window.prodConfig = prodConfig;
+export default prodConfig;
