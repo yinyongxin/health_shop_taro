@@ -1,7 +1,5 @@
-import { CateInfo, getWxShopCateList } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
+import { CateInfo } from "@/client";
 import Box from "@/components/Box";
-import { useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 
