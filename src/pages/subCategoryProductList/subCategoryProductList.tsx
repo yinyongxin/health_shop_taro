@@ -26,7 +26,7 @@ const SubCategoryProductList = () => {
       </View>
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
         <DownMenu />
-        <ScrollView scrollY className="flex-1 bg-white">
+        <ScrollView scrollY className="flex-1 bg-gray-100">
           <View className={classNames("pr-[24px] pb-[64px] flex flex-wrap")}>
             {dataRequest.data?.rows?.map((item) => (
               <SearchWareCard key={item.id} info={item} />

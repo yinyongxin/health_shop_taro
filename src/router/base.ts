@@ -18,7 +18,7 @@ export interface AllPagesQueryType
     tabActive?: string;
   };
   wareDetail: {
-    id: number;
+    id: string;
   };
   orderDetail: {
     id: string;
