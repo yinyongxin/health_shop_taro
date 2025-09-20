@@ -28,13 +28,14 @@ function App({ children }: PropsWithChildren<any>) {
         },
       });
       // 如果登录成功并获得访问令牌，则更新应用状态
-      if (res.data?.code === 0) {
-        appAuthStore.updateIsLogged(true);
-        const url = new URL(window.location.href);
-        url.searchParams.delete("code");
-        url.searchParams.delete("state");
-        window.location.href = url.toString();
+      if (res.data?.code !== 0) {
+        return;
       }
+      appAuthStore.updateIsLogged(true);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("code");
+      url.searchParams.delete("state");
+      window.location.href = url.toString();
     } else {
       // 如果没有登录码，则直接调用登录函数
       // jumpWxGetCode();
