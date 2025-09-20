@@ -3,6 +3,6 @@ window.devConfig = {
   ORG_ID: "800001002",
   APPID: "wxfaaff87825f44139",
   BASE_URL: "https://testpay.eh-med.com",
-  API_PREFIX: "/shopH5Api",
+  API_PREFIX: "",
   FILE_PREFIX: "",
 };

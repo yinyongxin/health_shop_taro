@@ -8,7 +8,7 @@ export default {
   h5: {
     devServer: {
       proxy: {
-        "/shopH5Api": {
+        "/wx": {
           target: `https://testpay.eh-med.com/zhfy`,
           changeOrigin: true,
         },
