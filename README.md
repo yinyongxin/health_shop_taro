@@ -5,6 +5,8 @@
 Nodejs 21+
 pnpm 10+
 
+[本地启动](http://localhost:10086/index#/pages/index/index)
+
 ## H5管理端
 
 [H5管理端](https://testpay.eh-med.com/zhfy/login)

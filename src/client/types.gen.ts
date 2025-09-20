@@ -71,9 +71,21 @@ export type GetWxRedirectByAppIdGreetData = {
   url: "/wx/redirect/{appId}/greet";
 };
 
+export type GetWxRedirectByAppIdGreetErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxRedirectByAppIdGreetError =
+  GetWxRedirectByAppIdGreetErrors[keyof GetWxRedirectByAppIdGreetErrors];
+
 export type GetWxRedirectByAppIdGreetResponses = {
   200: {
-    [key: string]: unknown;
+    code: number;
+    data: string;
+    msg: string;
   };
 };
 

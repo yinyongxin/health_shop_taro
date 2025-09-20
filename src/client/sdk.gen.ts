@@ -4,6 +4,7 @@ import type { Options as ClientOptions, TDataShape, Client } from "./client";
 import type {
   GetWxRedirectByAppIdGreetData,
   GetWxRedirectByAppIdGreetResponses,
+  GetWxRedirectByAppIdGreetErrors,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -60,7 +61,7 @@ export const getWxRedirectByAppIdGreet = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).get<
     GetWxRedirectByAppIdGreetResponses,
-    unknown,
+    GetWxRedirectByAppIdGreetErrors,
     ThrowOnError
   >({
     responseType: "json",

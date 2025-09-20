@@ -76,8 +76,8 @@ export const getUrlCode = () => {
 export const getWinxinLoginUrl = () => {
   const { APPID } = APP_ENV_CONFIG;
   const redirect_uri = encodeURIComponent(
-    window.location.origin + window.location.pathname + window.location.search,
-    // const wxLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+    // window.location.origin + window.location.pathname + window.location.search,
+    "https://sm-hospital.xmu.edu.cn",
   );
   const url = new URL(`https://open.weixin.qq.com/connect/oauth2/authorize`);
   url.searchParams.set("appid", APPID);
@@ -86,6 +86,7 @@ export const getWinxinLoginUrl = () => {
   // url.searchParams.set("scope", "snsapi_userinfo");
   url.searchParams.set("scope", "snsapi_base");
   url.searchParams.set("state", "STATE");
+  console.log(url.href);
   return url.href;
 };
 export const jumpWxGetCode = () => {

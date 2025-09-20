@@ -8,20 +8,14 @@ import classNames from "classnames";
 export type SidebarProps = {
   mainActive?: CateInfo;
   setMainActive: (value: CateInfo | undefined) => void;
+  cateList: CateInfo[];
 };
 
 export const Sidebar = (props: SidebarProps) => {
-  const { mainActive, setMainActive } = props;
-  const { data } = useRequest(async () => {
-    const res = await getWxShopCateList({
-      query: { orgId: APP_ENV_CONFIG.ORG_ID },
-    });
-    setMainActive(res.data?.data[0]);
-    return res.data;
-  });
+  const { mainActive, setMainActive, cateList } = props;
   return (
     <View className="h-full flex flex-col bg-linear-to-r from-white to-[#f6f6f6]">
-      {data?.data?.map((item) => {
+      {cateList.map((item) => {
         const isActived = item.id === mainActive?.id;
         return (
           <Box
