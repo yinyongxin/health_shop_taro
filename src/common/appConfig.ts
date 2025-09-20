@@ -1,18 +1,14 @@
 type AppEnvConfig = {
+  ENV: string;
+  APPID: string;
   BASE_URL: string;
   API_PREFIX: string;
   FILE_PREFIX: string;
+  ORG_ID: string;
 };
-
-export const APP_ENV_CONFIG: AppEnvConfig = {
-  development: {
-    BASE_URL: "http://192.168.31.246:3000",
-    API_PREFIX: "",
-    FILE_PREFIX: "",
-  },
-  production: {
-    BASE_URL: "http://localhost:3000",
-    API_PREFIX: "",
-    FILE_PREFIX: "",
-  },
+export const APP_ENV_CONFIG = {
+  //@ts-ignore
+  development: window.devConfig as AppEnvConfig,
+  //@ts-ignore
+  production: window.prodConfig as AppEnvConfig,
 }[process.env.NODE_ENV];

@@ -24,9 +24,9 @@ export const Home = () => {
             }}
           />
         </View>
-        <View className="px-[24px] pt-[32px]">
+        {/* <View className="px-[24px] pt-[32px]">
           <Banners />
-        </View>
+        </View> */}
         <View
           className="px-[24px] pt-[32px]"
           onClick={() => {

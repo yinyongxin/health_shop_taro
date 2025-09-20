@@ -6,7 +6,7 @@ export default defineAppConfig({
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "患者管理",
+    navigationBarTitleText: "医疗商城",
     navigationBarTextStyle: "black",
   },
 });

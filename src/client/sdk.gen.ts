@@ -2,18 +2,36 @@
 
 import type { Options as ClientOptions, TDataShape, Client } from "./client";
 import type {
-  GetGetWaresPageData,
-  GetGetWaresPageResponses,
-  GetGetWareData,
-  GetGetWareResponses,
-  GetGetWaresData,
-  GetGetWaresResponses,
-  GetGetBannerListData,
-  GetGetBannerListResponses,
-  GetGetClassifyListData,
-  GetGetClassifyListResponses,
-  GetGetClassifyData,
-  GetGetClassifyResponses,
+  GetWxRedirectByAppIdGreetData,
+  GetWxRedirectByAppIdGreetResponses,
+  GetWxShopCateListData,
+  GetWxShopCateListResponses,
+  GetWxShopCateProductData,
+  GetWxShopCateProductResponses,
+  GetWxShopProductSearchData,
+  GetWxShopProductSearchResponses,
+  GetWxShopProductDetailData,
+  GetWxShopProductDetailResponses,
+  PostWxShopCartAddData,
+  PostWxShopCartAddResponses,
+  GetWxShopCartLoadData,
+  GetWxShopCartLoadResponses,
+  GetWxShopCartDeleteData,
+  GetWxShopCartDeleteResponses,
+  PostWxShopOrderCreateData,
+  PostWxShopOrderCreateResponses,
+  PostWxShopOrderPayData,
+  PostWxShopOrderPayResponses,
+  PostWxShopCartUpdateData,
+  PostWxShopCartUpdateResponses,
+  GetWxShopAddrListData,
+  GetWxShopAddrListResponses,
+  PostWxShopAddrAddData,
+  PostWxShopAddrAddResponses,
+  PostWxShopAddrEditData,
+  PostWxShopAddrEditResponses,
+  GetWxShopAddrDelData,
+  GetWxShopAddrDelResponses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -35,103 +53,280 @@ export type Options<
 };
 
 /**
- * 获取商品分页
+ * 微信用户校验
  */
-export const getGetWaresPage = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetWaresPageData, ThrowOnError>,
+export const getWxRedirectByAppIdGreet = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxRedirectByAppIdGreetData, ThrowOnError>,
 ) => {
-  return (options?.client ?? _heyApiClient).get<
-    GetGetWaresPageResponses,
+  return (options.client ?? _heyApiClient).get<
+    GetWxRedirectByAppIdGreetResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getWaresPage",
+    url: "/wx/redirect/{appId}/greet",
     ...options,
   });
 };
 
 /**
- * 获取商品
+ * 一二级分类列表
  */
-export const getGetWare = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetWareData, ThrowOnError>,
+export const getWxShopCateList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopCateListData, ThrowOnError>,
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetGetWareResponses,
+    GetWxShopCateListResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getWare",
+    url: "/wx/shop/cate/list",
     ...options,
   });
 };
 
 /**
- * 获取商品列表
+ * 获取二级分类下的产品
  */
-export const getGetWares = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetWaresData, ThrowOnError>,
+export const getWxShopCateProduct = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopCateProductData, ThrowOnError>,
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetGetWaresResponses,
+    GetWxShopCateProductResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getWares",
+    url: "/wx/shop/cate/product",
     ...options,
   });
 };
 
 /**
- * 获取首页Banners
+ * 搜索产品（产品名搜索）
  */
-export const getGetBannerList = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetBannerListData, ThrowOnError>,
+export const getWxShopProductSearch = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopProductSearchData, ThrowOnError>,
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetGetBannerListResponses,
+    GetWxShopProductSearchResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getBannerList",
+    url: "/wx/shop/product/search",
     ...options,
   });
 };
 
 /**
- * 获取类型列表
+ * 获取产品详情
  */
-export const getGetClassifyList = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetClassifyListData, ThrowOnError>,
+export const getWxShopProductDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopProductDetailData, ThrowOnError>,
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetGetClassifyListResponses,
+    GetWxShopProductDetailResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getClassifyList",
+    url: "/wx/shop/product/detail",
     ...options,
   });
 };
 
 /**
- * 获取类型
+ * 加入购物车
  */
-export const getGetClassify = <ThrowOnError extends boolean = false>(
-  options?: Options<GetGetClassifyData, ThrowOnError>,
+export const postWxShopCartAdd = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopCartAddData, ThrowOnError>,
 ) => {
-  return (options?.client ?? _heyApiClient).get<
-    GetGetClassifyResponses,
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopCartAddResponses,
     unknown,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/getClassify",
+    url: "/wx/shop/cart/add",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取购物车信息
+ */
+export const getWxShopCartLoad = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopCartLoadData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopCartLoadResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/cart/load",
+    ...options,
+  });
+};
+
+/**
+ * 删除购物车商品
+ */
+export const getWxShopCartDelete = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopCartDeleteData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopCartDeleteResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/cart/delete",
+    ...options,
+  });
+};
+
+/**
+ * 生成订单
+ */
+export const postWxShopOrderCreate = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopOrderCreateData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopOrderCreateResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/create",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 支付订单（未完成）
+ */
+export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopOrderPayData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopOrderPayResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/pay",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 更新购物车商品的数量
+ */
+export const postWxShopCartUpdate = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopCartUpdateData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopCartUpdateResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/cart/update",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 我的地址列表
+ */
+export const getWxShopAddrList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopAddrListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopAddrListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/addr/list",
+    ...options,
+  });
+};
+
+/**
+ * 新增地址
+ */
+export const postWxShopAddrAdd = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopAddrAddData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopAddrAddResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/addr/add",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 更新地址
+ */
+export const postWxShopAddrEdit = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopAddrEditData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopAddrEditResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/addr/edit",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 删除地址
+ */
+export const getWxShopAddrDel = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopAddrDelData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopAddrDelResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/addr/del",
     ...options,
   });
 };

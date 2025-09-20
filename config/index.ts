@@ -13,7 +13,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
   // const { default: tailwindcss } = await import('@tailwindcss/vite')
 
   const baseConfig: UserConfigExport<"vite"> = {
-    projectName: "患者管理",
+    projectName: "医疗商城",
     date: "2025-2-23",
     designWidth: 750,
     deviceRatio: {

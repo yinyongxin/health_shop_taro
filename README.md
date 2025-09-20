@@ -5,6 +5,10 @@
 Nodejs 21+
 pnpm 10+
 
+## H5管理端
+
+[H5管理端](https://testpay.eh-med.com/zhfy/login)
+
 ## 微信小程序
 
 ### 文档
@@ -49,3 +53,8 @@ pnpm 10+
 ## 医疗健康图片
 
 [Medical Images](https://www.svgrepo.com/collection/medical-and-health/)
+
+## 接口要求
+
+- 二级分类需要下分类图片
+- 商品列表分页

@@ -71,6 +71,10 @@ export const createClient = (config: Config = {}): Client => {
   const request: Client["request"] = async (options) => {
     // @ts-expect-error
     const { opts, url } = await beforeRequest(options);
+    console.log("request", {
+      url,
+      opts,
+    });
     try {
       // assign Axios here for consistency with fetch
       const _axios = opts.axios!;
