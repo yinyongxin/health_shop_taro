@@ -1,5 +1,4 @@
 import { defineConfig } from "@hey-api/openapi-ts";
-import { APP_ENV_CONFIG } from "./src/common";
 
 export default defineConfig({
   // input: `${APP_ENV_CONFIG.BASE_URL}/api-json`,
