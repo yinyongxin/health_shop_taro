@@ -20,8 +20,8 @@ export const Classify = () => {
   if (loading) {
     return (
       <View className="flex gap-2 p-2 h-full pb-[180px]">
-        <View className="flex-1 bg-gray-300 rounded-lg"></View>
-        <View className="flex-3 bg-gray-300 rounded-lg"></View>
+        <View className="flex-1 bg-gray-200 rounded-lg"></View>
+        <View className="flex-3 bg-gray-200 rounded-lg"></View>
       </View>
     );
   }

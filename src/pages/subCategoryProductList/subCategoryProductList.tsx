@@ -27,11 +27,26 @@ const SubCategoryProductList = () => {
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
         <DownMenu />
         <ScrollView scrollY className="flex-1 bg-gray-100">
-          <View className={classNames("pr-[24px] pb-[64px] flex flex-wrap")}>
-            {dataRequest.data?.rows?.map((item) => (
-              <SearchWareCard key={item.id} info={item} />
-            ))}
-          </View>
+          {!dataRequest.loading && !dataRequest.data ? (
+            <View className="flex gap-2 p-2 h-full pb-[180px]">
+              <View className="flex-1 flex flex-col gap-2">
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+              </View>
+              <View className="flex-1 flex flex-col gap-2">
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+                <View className="bg-gray-200 rounded-lg h-[400px]"></View>
+              </View>
+            </View>
+          ) : (
+            <View className={classNames("pr-[24px] pb-[64px] flex flex-wrap")}>
+              {dataRequest.data?.rows?.map((item) => (
+                <SearchWareCard key={item.id} info={item} />
+              ))}
+            </View>
+          )}
         </ScrollView>
       </View>
     </BasePage>
