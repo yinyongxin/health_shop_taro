@@ -1,4 +1,3 @@
-import { APP_ENV_CONFIG } from "@/common";
 import type { UserConfigExport } from "@tarojs/cli";
 
 export default {

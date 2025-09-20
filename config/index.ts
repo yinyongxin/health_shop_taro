@@ -1,7 +1,9 @@
 import { defineConfig, type UserConfigExport } from "@tarojs/cli";
 import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
 import tailwindcss from "@tailwindcss/postcss";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import path from "path";
+import { normalizePath } from "vite";
 import devConfig from "./dev";
 import prodConfig from "./prod";
 // import tailwindcss from '@tailwindcss/vite'
@@ -11,7 +13,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
   console.log("command: ", command);
   console.log("mode: ", mode);
   // const { default: tailwindcss } = await import('@tailwindcss/vite')
-
+  console.log("asdds", normalizePath(path.resolve(process.cwd(), "public")));
   const baseConfig: UserConfigExport<"vite"> = {
     projectName: "医疗商城",
     date: "2025-2-23",
@@ -70,6 +72,14 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
             },
           },
           // appType: 'taro'
+        }),
+        viteStaticCopy({
+          targets: [
+            {
+              src: normalizePath(path.resolve(process.cwd(), "src/static")),
+              dest: "static",
+            },
+          ],
         }),
       ],
     },

@@ -1,9 +1,10 @@
 import type { UserConfigExport } from "@tarojs/cli";
 
-export default {
+const prod: UserConfigExport<"vite"> = {
   mini: {},
   h5: {
     // 确保产物为 es5
+
     legacy: false,
     /**
      * WebpackChain 插件配置
@@ -33,3 +34,5 @@ export default {
     // }
   },
 } satisfies UserConfigExport<"vite">;
+
+export default prod;
