@@ -26,14 +26,14 @@ export const Delivery = (props: DeliveryProps) => {
             <LucideIcon name="chevron-right" size={20} />
           </View>
         </View>
-        <View className="flex justify-between gap-2 py-[12px]">
+        <View className="flex justify-between items-center gap-2 py-[12px]">
           <View className="text-gray-400">地址</View>
           <View className="flex-1 text-black">浙江省 杭州市 西湖区</View>
           <View className="text-gray-400">
             <LucideIcon name="chevron-right" size={20} />
           </View>
         </View>
-        <View className="">
+        {/* <View className="">
           <View className="flex flex-col gap-[16px]">
             <View className="bg-gray-100 rounded">
               <View className="px-[24px] py-[24px]">
@@ -71,7 +71,7 @@ export const Delivery = (props: DeliveryProps) => {
               </View>
             </View>
           </View>
-        </View>
+        </View> */}
         <View className="flex justify-between items-center gap-2 py-[12px]">
           <View className="text-gray-400">服务</View>
           <ScrollView
@@ -91,7 +91,7 @@ export const Delivery = (props: DeliveryProps) => {
             ))}
           </ScrollView>
           <View className="text-gray-400">
-            <LucideIcon name="chevron-right" size={20} />
+            {/* <LucideIcon name="chevron-right" size={20} /> */}
           </View>
         </View>
       </View>

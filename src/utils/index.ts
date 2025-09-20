@@ -67,3 +67,27 @@ export const safeJson = {
     }
   },
 };
+
+export const getUrlCode = () => {
+  const url = new URL(window.location.href);
+  return url.searchParams.get("code");
+};
+
+export const getWinxinLoginUrl = () => {
+  const { APPID } = APP_ENV_CONFIG;
+  const redirect_uri = encodeURIComponent(
+    window.location.origin + window.location.pathname + window.location.search,
+    // const wxLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+  );
+  const url = new URL(`https://open.weixin.qq.com/connect/oauth2/authorize`);
+  url.searchParams.set("appid", APPID);
+  url.searchParams.set("redirect_uri", redirect_uri);
+  url.searchParams.set("response_type", "code");
+  // url.searchParams.set("scope", "snsapi_userinfo");
+  url.searchParams.set("scope", "snsapi_base");
+  url.searchParams.set("state", "STATE");
+  return url.href;
+};
+export const jumpWxGetCode = () => {
+  window.location.href = getWinxinLoginUrl();
+};
