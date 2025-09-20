@@ -18,7 +18,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
       onClick={() => {
         appRouter.navigateTo("wareDetail", {
           query: {
-            id: info.id,
+            id: info.id.toString(),
           },
         });
       }}

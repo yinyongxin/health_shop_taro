@@ -1,10 +1,11 @@
-import { WareInfo } from "@/client";
+import { ProductInfo } from "@/client";
 import { AppTag } from "@/components";
 import Box from "@/components/Box";
-import { View } from "@tarojs/components";
+import { safeJson } from "@/utils";
+import { View, Text } from "@tarojs/components";
 
 type BaseInfoProps = {
-  info: WareInfo;
+  info: ProductInfo;
 };
 
 export const BaseInfo = (props: BaseInfoProps) => {
@@ -17,18 +18,24 @@ export const BaseInfo = (props: BaseInfoProps) => {
     >
       <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">
         <View className="flex justify-between items-center">
-          <View className="text-[40px] font-bold text-rose-500">
-            ￥{info?.price}
+          <View className=" font-bold text-rose-500">
+            <Text className="text-[28px]">￥</Text>
+            <Text className="text-[40px] text-rose-500">{info?.price}</Text>
+            <Text className="text-[32px] text-gray-500 line-through">
+              {info.originalPrice}
+            </Text>
           </View>
-          <View className="text-gray-500">已售：{info?.sales}</View>
+          <View className="text-gray-500">{/* 已售：{info?.sales} */}</View>
         </View>
         <View className="text-[32px] font-bold">{info?.name}</View>
-        <View className="text-gray-500">{info?.deac}</View>
+        <View className="text-gray-500">{info?.description}</View>
         <View className="flex gap-[8px]">
-          <View>
-            <AppTag size="lg" status="error">
-              热销榜第一
-            </AppTag>
+          <View className="flex gap-1">
+            {safeJson.parse(info?.productTags, []).map((tag) => (
+              <AppTag key={tag} status="warning">
+                {tag}
+              </AppTag>
+            ))}
           </View>
         </View>
       </View>

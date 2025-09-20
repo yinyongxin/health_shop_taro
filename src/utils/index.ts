@@ -50,3 +50,20 @@ export const getAge = (birthday?: string) => {
 export function isIOS() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent);
 }
+
+export const safeJson = {
+  stringify: (data: unknown, defaultValue: string = "") => {
+    try {
+      return JSON.stringify(data);
+    } catch (error) {
+      return JSON.stringify(defaultValue);
+    }
+  },
+  parse: <D extends Record<string, any>>(data: string, defaultValue: D) => {
+    try {
+      return JSON.parse(data) as D;
+    } catch (error) {
+      return defaultValue;
+    }
+  },
+};

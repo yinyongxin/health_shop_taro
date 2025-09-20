@@ -2,15 +2,15 @@ import { BasePage } from "@/components";
 import { usePageParams, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
 import { Image, View } from "@tarojs/components";
-import { APP_ENV_CONFIG, WareTypeEnum } from "@/common";
-import { wareListMock } from "@/mock";
+import { APP_ENV_CONFIG } from "@/common";
+import { getWxShopProductDetail } from "@/client";
+import { safeJson } from "@/utils";
 import { Evaluate } from "./Evaluate";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
 import { ServiceBlock } from "./ServiceBlock";
 import { Delivery } from "./Delivery";
-import { getWxShopProductDetail } from "@/client";
 
 const WareDetail = () => {
   const pageParams = usePageParams<"wareDetail">();
@@ -27,7 +27,7 @@ const WareDetail = () => {
           <View className="pb-[200px]">
             <Swiper className="h-[600px]" autoplay={4000}>
               <Swiper.Indicator />
-              {data?.detailImages?.map((item, index) => (
+              {safeJson.parse(data?.detailImages, [])?.map((item, index) => (
                 <Swiper.Item key={index}>
                   <Image
                     src={item}
@@ -41,16 +41,16 @@ const WareDetail = () => {
               {data && <BaseInfo info={data} />}
             </View>
             <View className="px-[24px] pt-[32px]">
-              {data?.wareType === WareTypeEnum.GOODS ? (
-                <Delivery />
-              ) : (
+              {data?.type === "FW" ? (
                 <ServiceBlock />
+              ) : (
+                <Delivery info={data} />
               )}
             </View>
-            <View className="px-[24px] pt-[32px]">
+            {/* <View className="px-[24px] pt-[32px]">
               <Evaluate />
-            </View>
-            <DetailInfo />
+            </View> */}
+            <DetailInfo info={data} />
           </View>
 
           <Actions info={data} />

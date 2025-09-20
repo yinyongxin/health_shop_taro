@@ -1,11 +1,17 @@
+import { ProductInfo } from "@/client";
 import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
+import { safeJson } from "@/utils";
 import { ScrollView, View } from "@tarojs/components";
 
+type DeliveryProps = {
+  info: ProductInfo;
+};
 /**
  * 邮寄
  */
-export const Delivery = () => {
+export const Delivery = (props: DeliveryProps) => {
+  const { info } = props;
   return (
     <Box
       bgProps={{
@@ -72,38 +78,17 @@ export const Delivery = () => {
             scrollX
             className="flex-1 text-black flex gap-2 flex-nowrap"
           >
-            <AppTag
-              size="default"
-              status="secondary"
-              className="shrink-0"
-              prefix={<LucideIcon name="truck" />}
-            >
-              包邮
-            </AppTag>
-            <AppTag
-              size="default"
-              status="secondary"
-              className="shrink-0"
-              prefix={<LucideIcon name="truck" />}
-            >
-              包退
-            </AppTag>
-            <AppTag
-              size="default"
-              status="secondary"
-              className="shrink-0"
-              prefix={<LucideIcon name="truck" />}
-            >
-              包换
-            </AppTag>
-            <AppTag
-              size="default"
-              status="secondary"
-              className="shrink-0"
-              prefix={<LucideIcon name="truck" />}
-            >
-              七天无理由
-            </AppTag>
+            {safeJson.parse(info.serviceTags, []).map((tag) => (
+              <AppTag
+                key={tag}
+                size="default"
+                status="secondary"
+                className="shrink-0"
+                prefix={<LucideIcon name="truck" />}
+              >
+                包邮
+              </AppTag>
+            ))}
           </ScrollView>
           <View className="text-gray-400">
             <LucideIcon name="chevron-right" size={20} />
