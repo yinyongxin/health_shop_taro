@@ -1,6 +1,7 @@
 import { defineConfig, type UserConfigExport } from "@tarojs/cli";
 import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
 import tailwindcss from "@tailwindcss/postcss";
+// https://juejin.cn/post/7509830147449552947
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import path from "path";
 import { normalizePath } from "vite";
@@ -47,6 +48,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
     framework: "react",
     compiler: {
       type: "vite",
+
       vitePlugins: [
         //  No "exports" main defined
         // tailwindcss(),
@@ -76,8 +78,10 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
         viteStaticCopy({
           targets: [
             {
-              src: normalizePath(path.resolve(process.cwd(), "src/static")),
-              dest: "static",
+              src: normalizePath(
+                path.resolve(process.cwd(), "src/static/configuration"),
+              ),
+              dest: "",
             },
           ],
         }),
