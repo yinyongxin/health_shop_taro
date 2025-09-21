@@ -8,11 +8,12 @@ import { AppTag } from "../AppTag";
 
 type SkuSelectContentProps = {
   data: ProductInfo;
+  currentSku: SkuInfo;
+  setCurrentSku: (sku: SkuInfo) => void;
   btns: (sku: SkuInfo) => ReactNode;
 };
 export const SkuSelectContent = (props: SkuSelectContentProps) => {
-  const { data, btns } = props;
-  const [currentSku, setCurrentSku] = useState<SkuInfo>(data.skuList[0]);
+  const { data, btns, currentSku, setCurrentSku } = props;
 
   return (
     <View className="pt-[32px] pb-[32px]">
@@ -36,7 +37,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
         <Title>规格</Title>
         <View className="flex gap-[8px] flex-wrap mt-[24px]">
           {data.skuList.map((sku) => {
-            const skuName = safeJson.parse(sku.specs, {});
+            const skuName = safeJson.parse(sku.specs, { 规格: "默认" });
             return (
               <AppTag
                 key={sku.id}

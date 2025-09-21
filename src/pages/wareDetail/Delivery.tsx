@@ -11,30 +11,14 @@ import { ScrollView, View } from "@tarojs/components";
 
 type DeliveryProps = {
   info: ProductInfo;
+  currentSku: SkuInfo;
+  handleSelctSku: () => void;
 };
 /**
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
-  const appUserStore = useAppUserStore();
-  const { info } = props;
-  const control = usePopupControl();
-  const addCart = async (currentSku: SkuInfo) => {
-    const res = await postWxShopCartAdd({
-      body: {
-        productId: info.id,
-        skuId: currentSku.id,
-        quantity: 1,
-        cartId: appUserStore.cartInfo.id,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        productName: info.name,
-        skuName: currentSku.specs,
-      },
-    });
-    if (res.data?.code === 0) {
-      Toast.success("添加成功");
-    }
-  };
+  const { info, currentSku, handleSelctSku } = props;
   return (
     <>
       <Box
@@ -45,10 +29,14 @@ export const Delivery = (props: DeliveryProps) => {
         <View className="px-[24px] py-[12px] flex flex-col">
           <View
             className="flex justify-between items-center gap-2 py-[12px]"
-            onClick={() => control.setOpen(true)}
+            onClick={handleSelctSku}
           >
             <View className="text-gray-400">已选</View>
-            <View className="flex-1 text-black">我是已经选择的内容</View>
+            <View className="flex-1 text-black flex">
+              <AppTag size="default" status="secondary" className="shrink-0">
+                {safeJson.parse(currentSku.specs, { 规格: "默认" })["规格"]}
+              </AppTag>
+            </View>
             <View className="text-gray-400">
               <LucideIcon name="chevron-right" size={20} />
             </View>
@@ -123,25 +111,6 @@ export const Delivery = (props: DeliveryProps) => {
           </View>
         </View>
       </Box>
-      <AppPopup showClose {...control} title={info.name}>
-        <SkuSelectContent
-          data={info}
-          btns={(sku) => (
-            <View className="flex gap-[24px] pt-[48px]">
-              <AppButton
-                className="flex-1"
-                status="warning"
-                onClick={() => addCart(sku)}
-              >
-                加入购物车
-              </AppButton>
-              <AppButton className="flex-1" status="error">
-                立即购买
-              </AppButton>
-            </View>
-          )}
-        />
-      </AppPopup>
     </>
   );
 };

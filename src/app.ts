@@ -66,6 +66,9 @@ function App({ children }: PropsWithChildren<any>) {
     if (res.data?.code !== 0) {
       return;
     }
+    appUserStore.updateDefaultAddress(
+      res.data.data.find((item) => item.isDefault),
+    );
     appUserStore.updateAddressList(res.data.data);
   };
 

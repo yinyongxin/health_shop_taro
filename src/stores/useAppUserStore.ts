@@ -15,6 +15,8 @@ interface AppUserState {
   updateCartInfo: (cartInfo: Partial<CartInfo>) => void;
   addressList: AddressInfo[];
   updateAddressList: (addressList: AddressInfo[]) => void;
+  defaultAddress?: AddressInfo;
+  updateDefaultAddress: (address?: AddressInfo) => void;
   totalPrice: number;
   cartList: CartListItem[];
   addCart: (id: string) => void;
@@ -44,6 +46,9 @@ export const useAppUserStore = createAppStore<AppUserState>(
     addressList: [],
     updateAddressList: (addressList) => {
       set({ addressList });
+    },
+    updateDefaultAddress: (address) => {
+      set({ defaultAddress: address });
     },
     totalPrice: 0,
     cartList: [],
