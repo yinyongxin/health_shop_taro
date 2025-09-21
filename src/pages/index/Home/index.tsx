@@ -11,11 +11,7 @@ export const Home = () => {
   useLoad(() => {});
 
   return (
-    <BasePage
-      bgProps={{
-        children: <View className="page-bg"></View>,
-      }}
-    >
+    <BasePage>
       <View className="pt-[32px] pb-[144px]">
         <View className="px-[24px]">
           <TopSearch

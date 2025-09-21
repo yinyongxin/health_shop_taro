@@ -38,7 +38,7 @@ export const Cart = () => {
             status="error"
             onClick={() => {
               createOrder({
-                addressId: cartInfo.addressId,
+                addressId: appUserStore.defaultAddress?.id!,
                 itemList: cartInfo.itemList,
               });
             }}
