@@ -4,10 +4,23 @@ import { View } from "@tarojs/components";
 import { Grid } from "@taroify/core";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
+import { CateInfo, getWxShopCateList } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
+import { useRequest } from "@/hooks";
+import { useState } from "react";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 
 export const Home = () => {
+  const { data } = useRequest(async () => {
+    const res = await getWxShopCateList({
+      query: { orgId: APP_ENV_CONFIG.ORG_ID },
+    });
+    return res.data?.data
+      .map((item) => item.subCategoryList)
+      .flat()
+      .slice(0, 8);
+  });
   useLoad(() => {});
 
   return (
@@ -20,9 +33,9 @@ export const Home = () => {
             }}
           />
         </View>
-        {/* <View className="px-[24px] pt-[32px]">
+        <View className="px-[24px] pt-[32px]">
           <Banners />
-        </View> */}
+        </View>
         <View
           className="px-[24px] pt-[32px]"
           onClick={() => {
@@ -30,38 +43,20 @@ export const Home = () => {
           }}
         >
           <Grid columns={4} className="rounded-lg overflow-hidden">
-            <Grid.Item
-              icon={<LucideIcon name="hospital" size={32} />}
-              text="就医"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="heart-pulse" size={32} />}
-              text="心电图"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="biceps-flexed" size={32} />}
-              text="体检"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="pill" size={32} />}
-              text="药物"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="ambulance" size={32} />}
-              text="救护"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="mars" size={32} />}
-              text="男性健康"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="venus" size={32} />}
-              text="女性健康"
-            />
-            <Grid.Item
-              icon={<LucideIcon name="stethoscope" size={32} />}
-              text="门诊"
-            />
+            {data?.map((item) => (
+              <Grid.Item
+                onClick={() => {
+                  appRouter.navigateTo("subCategoryProductList", {
+                    query: {
+                      subCategoryId: item.id.toString(),
+                    },
+                  });
+                }}
+                key={item.id}
+                icon={<LucideIcon name="image" size={32} />}
+                text={item.categoryName}
+              />
+            ))}
           </Grid>
         </View>
         <View className="px-[24px] pt-[24px]">
