@@ -45,7 +45,7 @@ function App({ children }: PropsWithChildren<any>) {
       window.location.href = url.toString();
     } else {
       // 如果没有登录码，则直接调用登录函数
-      if (isDev) {
+      if (isDev || !appAuthStore.isLogged) {
         return;
       }
       jumpWxGetCode();
