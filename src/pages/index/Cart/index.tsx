@@ -31,6 +31,7 @@ export const Cart = () => {
           orderNo: res.orderNo,
         },
       });
+      appLoading.hide();
       WeixinJSBridge.invoke(
         "getBrandWCPayRequest",
         {
@@ -54,7 +55,6 @@ export const Cart = () => {
     } catch {
       appToast.error("支付失败，请稍后再试");
     } finally {
-      appLoading.hide();
     }
   };
   useEffect(() => {
