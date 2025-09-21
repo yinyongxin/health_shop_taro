@@ -3,8 +3,10 @@ import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { isIOS } from "@/utils";
+import { createOrder } from "@/utils/order";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
+import { create } from "domain";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();
@@ -35,10 +37,9 @@ export const Cart = () => {
             round
             status="error"
             onClick={() => {
-              appRouter.navigateTo("settlement", {
-                query: {
-                  list: appUserStore.cartList,
-                },
+              createOrder({
+                addressId: cartInfo.addressId,
+                itemList: cartInfo.itemList,
               });
             }}
           >
