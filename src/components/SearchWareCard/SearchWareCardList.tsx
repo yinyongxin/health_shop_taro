@@ -10,19 +10,25 @@ export type SearchWareCardListProps = {
   data?: ProductInfo[];
   className?: string;
   searchWareCardProps?: Partial<SearchWareCardProps>;
+  searchKey: string;
 };
 
 export const SearchWareCardList = (props: SearchWareCardListProps) => {
-  const dataRequest = useRequest(async () => {
-    const res = await getWxShopProductSearch({
-      query: {
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        searchKey: "",
-      },
-    });
-    return res.data;
-  });
-  const { className, searchWareCardProps } = props;
+  const { searchKey = "", className, searchWareCardProps } = props;
+  const dataRequest = useRequest(
+    async () => {
+      const res = await getWxShopProductSearch({
+        query: {
+          orgId: APP_ENV_CONFIG.ORG_ID,
+          searchKey: searchKey,
+        },
+      });
+      return res.data;
+    },
+    {
+      refreshDeps: [searchKey],
+    },
+  );
   if (dataRequest.loading && !dataRequest.data) {
     return (
       <View className="flex gap-2 p-2 h-full w-full pb-[180px]">
