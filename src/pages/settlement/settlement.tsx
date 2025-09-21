@@ -1,10 +1,4 @@
-import {
-  AppButton,
-  AppCell,
-  AppFeatureBlocksItem,
-  BasePage,
-  LucideIcon,
-} from "@/components";
+import { AppButton, AppCell, BasePage, LucideIcon } from "@/components";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePageParams } from "@/hooks";

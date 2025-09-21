@@ -13,8 +13,20 @@ export const OrderTabOptions = [
   { label: "退款/售后", value: "AfterSale", icon: "wallet" },
 ] as const;
 
-export type OrderTabOptionsValuesType = (typeof OrderTabOptions)[number]["value"];
+export type OrderTabOptionsValuesType =
+  (typeof OrderTabOptions)[number]["value"];
 
 export const getOrderTabOptionsLabel = (status: OrderTabOptionsValuesType) => {
-  return OrderTabOptions.find((item) => item.value === status)?.label || (status)
-}
+  return OrderTabOptions.find((item) => item.value === status)?.label || status;
+};
+
+export const OrderStatusIcon = [
+  "hand-coins",
+  "banknote-arrow-down",
+  "forklift",
+  "package-check",
+  "container",
+  "hand-coins",
+  "messages-square",
+  "wallet",
+];

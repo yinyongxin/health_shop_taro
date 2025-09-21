@@ -1,23 +1,18 @@
-import { WareInfo } from "@/client";
+import { OrderInfo } from "@/client";
 import { AppButton } from "@/components";
 import { CartWareCard } from "@/components/CartWareCard";
-import { useRequest } from "@/hooks";
-import { getOrderTabOptionsLabel, OrderTabOptionsValuesType } from "@/options";
+import { getOrderTabOptionsLabel } from "@/options";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
 
 type OrderCardProps = {
-  status?: OrderTabOptionsValuesType;
-  wareList?: WareInfo[];
+  info: OrderInfo;
 };
 export const OrderCard = (props: OrderCardProps) => {
-  const { status = "WaitReceipt", wareList } = props;
-  const { data } = useRequest(async () => {
-    return wareList;
-  });
+  const { info } = props;
 
   const getActions = () => {
-    if (status === "Received") {
+    if (info.status === 4) {
       return (
         <AppButton
           actived={false}
@@ -48,12 +43,10 @@ export const OrderCard = (props: OrderCardProps) => {
     <View className="rounded-lg bg-white app-shadow-lg shadow-gray-200">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">2025-01-01 00:00:00</View>
-        <View className="text-amber-500">
-          {getOrderTabOptionsLabel(status)}
-        </View>
+        <View className="text-amber-500">{info.status}</View>
       </View>
       <View>
-        {data?.map((item) => (
+        {[]?.map((item) => (
           <CartWareCard
             key={item.id}
             info={item}

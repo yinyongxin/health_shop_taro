@@ -5,6 +5,8 @@ import type {
   GetWxRedirectByAppIdGreetData,
   GetWxRedirectByAppIdGreetResponses,
   GetWxRedirectByAppIdGreetErrors,
+  GetWxRedirectQueryDictData,
+  GetWxRedirectQueryDictResponses,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -36,7 +38,11 @@ import type {
   GetWxShopAddrDelResponses,
   GetWxShopOrderMyData,
   GetWxShopOrderMyResponses,
-  GetWxShopOrderMyErrors,
+  GetWxShopOrderDetailData,
+  GetWxShopOrderDetailResponses,
+  GetWxShopOrderStatusCountData,
+  GetWxShopOrderStatusCountResponses,
+  GetWxShopOrderStatusCountErrors,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -70,6 +76,23 @@ export const getWxRedirectByAppIdGreet = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/redirect/{appId}/greet",
+    ...options,
+  });
+};
+
+/**
+ * 获取字典
+ */
+export const getWxRedirectQueryDict = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxRedirectQueryDictData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxRedirectQueryDictResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/redirect/queryDict",
     ...options,
   });
 };
@@ -345,11 +368,45 @@ export const getWxShopOrderMy = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? _heyApiClient).get<
     GetWxShopOrderMyResponses,
-    GetWxShopOrderMyErrors,
+    unknown,
     ThrowOnError
   >({
     responseType: "json",
     url: "/wx/shop/order/my",
+    ...options,
+  });
+};
+
+/**
+ * 订单详情
+ */
+export const getWxShopOrderDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/detail",
+    ...options,
+  });
+};
+
+/**
+ * 各个状态的订单数量
+ */
+export const getWxShopOrderStatusCount = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderStatusCountData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderStatusCountResponses,
+    GetWxShopOrderStatusCountErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/status/count",
     ...options,
   });
 };

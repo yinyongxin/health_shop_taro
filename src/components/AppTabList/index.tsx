@@ -41,7 +41,7 @@ export const AppTabList = (props: AppTabListProps) => {
       <ScrollView
         scrollX
         className={classNames(
-          "border-t-4 border-white rounded-t-xl",
+          "rounded-t-xl",
           "bg-linear-to-b from-[#F3F7FE] to-white",
           "w-full overflow-auto text-nowrap",
           "px-[24px] py-[24px]",

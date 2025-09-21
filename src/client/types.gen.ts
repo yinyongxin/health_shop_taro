@@ -26,6 +26,30 @@ export type SubCategoryInfo = {
   updatedAt: string;
 };
 
+export type OrderInfo = {
+  id: number;
+  orderNo: string;
+  orgId: string;
+  userId: string;
+  addressId: number;
+  totalAmount: number;
+  paymentAmount: number;
+  freightAmount: number;
+  discountAmount: number;
+  paymentType: unknown;
+  paymentTime: unknown;
+  status: number;
+  deliveryCompany: unknown;
+  deliveryNo: unknown;
+  deliveryTime: unknown;
+  receiveTime: unknown;
+  createdAt: string;
+  updatedAt: string;
+  remark: unknown;
+  applyPayNo: unknown;
+  payId: unknown;
+};
+
 export type AddressInfo = {
   id?: number;
   userId?: string;
@@ -173,6 +197,24 @@ export type CateInfo = {
   subCategoryList: Array<SubCategoryInfo>;
 };
 
+export type DictItem = {
+  createBy: string;
+  createTime: string;
+  updateTime: unknown;
+  updateBy: unknown;
+  remark: unknown;
+  dictCode: number;
+  dictSort: number;
+  dictLabel: string;
+  dictValue: string;
+  dictType: string;
+  cssClass: unknown;
+  listClass: unknown;
+  isDefault: string;
+  status: string;
+  default: boolean;
+};
+
 export type GetWxRedirectByAppIdGreetData = {
   body?: never;
   path: {
@@ -206,6 +248,26 @@ export type GetWxRedirectByAppIdGreetResponses = {
 
 export type GetWxRedirectByAppIdGreetResponse =
   GetWxRedirectByAppIdGreetResponses[keyof GetWxRedirectByAppIdGreetResponses];
+
+export type GetWxRedirectQueryDictData = {
+  body?: never;
+  path?: never;
+  query?: {
+    dictType?: string;
+  };
+  url: "/wx/redirect/queryDict";
+};
+
+export type GetWxRedirectQueryDictResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: Array<DictItem>;
+  };
+};
+
+export type GetWxRedirectQueryDictResponse =
+  GetWxRedirectQueryDictResponses[keyof GetWxRedirectQueryDictResponses];
 
 export type GetWxShopCateListData = {
   body?: never;
@@ -519,17 +581,62 @@ export type GetWxShopOrderMyData = {
   url: "/wx/shop/order/my";
 };
 
-export type GetWxShopOrderMyErrors = {
+export type GetWxShopOrderMyResponses = {
+  200: {
+    total: number;
+    rows: Array<OrderInfo>;
+    code: number;
+    msg: unknown;
+  };
+};
+
+export type GetWxShopOrderMyResponse =
+  GetWxShopOrderMyResponses[keyof GetWxShopOrderMyResponses];
+
+export type GetWxShopOrderDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    orderNo?: string;
+  };
+  url: "/wx/shop/order/detail";
+};
+
+export type GetWxShopOrderDetailResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: {
+      itemList: Array<CartItem>;
+      order: OrderInfo;
+    };
+  };
+};
+
+export type GetWxShopOrderDetailResponse =
+  GetWxShopOrderDetailResponses[keyof GetWxShopOrderDetailResponses];
+
+export type GetWxShopOrderStatusCountData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/shop/order/status/count";
+};
+
+export type GetWxShopOrderStatusCountErrors = {
   400: {
     code: number;
     msg: string;
   };
 };
 
-export type GetWxShopOrderMyError =
-  GetWxShopOrderMyErrors[keyof GetWxShopOrderMyErrors];
+export type GetWxShopOrderStatusCountError =
+  GetWxShopOrderStatusCountErrors[keyof GetWxShopOrderStatusCountErrors];
 
-export type GetWxShopOrderMyResponses = {
+export type GetWxShopOrderStatusCountResponses = {
   200: {
     code: number;
     msg: string;
@@ -537,8 +644,8 @@ export type GetWxShopOrderMyResponses = {
   };
 };
 
-export type GetWxShopOrderMyResponse =
-  GetWxShopOrderMyResponses[keyof GetWxShopOrderMyResponses];
+export type GetWxShopOrderStatusCountResponse =
+  GetWxShopOrderStatusCountResponses[keyof GetWxShopOrderStatusCountResponses];
 
 export type ClientOptions = {
   baseURL: string;

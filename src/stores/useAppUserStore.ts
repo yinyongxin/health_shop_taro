@@ -1,8 +1,9 @@
-import { showToast } from "@tarojs/taro";
 import { calculateTotalPrice } from "@/utils/price";
 import {
   AddressInfo,
   CartInfo,
+  DictItem,
+  getWxRedirectQueryDict,
   getWxShopAddrList,
   getWxShopCartLoad,
 } from "@/client";
@@ -23,6 +24,8 @@ interface AppUserState {
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
   totalPrice: number;
+  orderStatus: DictItem[];
+  updateOrderStatus: () => void;
 }
 
 export const useAppUserStore = createAppStore<AppUserState>(
@@ -68,6 +71,21 @@ export const useAppUserStore = createAppStore<AppUserState>(
       set({
         addressList: res.data.data,
         defaultAddress: res.data.data.find((item) => item.isDefault),
+      });
+    },
+
+    orderStatus: [],
+    updateOrderStatus: async () => {
+      const res = await getWxRedirectQueryDict({
+        query: {
+          dictType: "shop_order_status",
+        },
+      });
+      if (res.data?.code !== 0) {
+        return;
+      }
+      set({
+        orderStatus: res.data.data,
       });
     },
   }),

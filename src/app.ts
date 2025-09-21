@@ -54,6 +54,7 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    appUserStore.updateOrderStatus();
     await checkLogin();
     client.instance.interceptors.response.use((response) => {
       if (appAuthStore.isLogged && response.data.code === 506) {

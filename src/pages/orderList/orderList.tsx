@@ -1,25 +1,50 @@
-import {
-  AppTabList,
-  AppTabListItem,
-  AppTopSearch,
-  BasePage,
-} from "@/components";
-import { OrderTabOptions } from "@/options";
-import { View, ScrollView } from "@tarojs/components";
+import { AppTabList, AppTopSearch, BasePage } from "@/components";
+import { View } from "@tarojs/components";
 import { useState } from "react";
-import { wareListMock } from "@/mock";
+import { useAppUserStore } from "@/stores";
+import { OrderStatusIcon } from "@/options";
+import { useRequest } from "@/hooks";
+import { getWxShopOrderMy } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
+import { AppList } from "@/components/AppList";
 import { OrderCard } from "./OrderCard";
 
-const tabs = [
-  {
-    label: "全部",
-    value: "all",
-    icon: 'grid-2x2'
-  },
-  ...(OrderTabOptions as unknown as AppTabListItem[]),
-];
 const OrderList = () => {
-  const [active, setActive] = useState<string>(tabs[0].value);
+  const { orderStatus } = useAppUserStore();
+  const tabs = [
+    {
+      label: "全部",
+      value: "all",
+      icon: "grid-2x2",
+    },
+    ...orderStatus.map((item, index) => {
+      return {
+        label: item.dictLabel,
+        value: item.dictCode.toString(),
+        icon: OrderStatusIcon[index],
+      };
+    }),
+  ];
+  const [active, setActive] = useState(tabs[0].value);
+
+  const dataRequest = useRequest(async (pageNum: number = 1) => {
+    const res = await getWxShopOrderMy({
+      query: {
+        orgId: APP_ENV_CONFIG.ORG_ID,
+        status: active === "all" ? undefined : active,
+        pageNum: pageNum.toString(),
+        pageSize: "10",
+      },
+    });
+    return {
+      list: res?.data?.rows || [],
+      pagination: {
+        total: res?.data?.total || 0,
+        pageNum: pageNum || 1,
+        pageSize: 10,
+      },
+    };
+  });
   return (
     <BasePage
       bgProps={{ className: "page-bg" }}
@@ -30,15 +55,20 @@ const OrderList = () => {
         <AppTopSearch />
       </View>
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
-        <AppTabList active={active} tabs={tabs} onChange={setActive} />
-        <ScrollView scrollY className="flex-1 bg-white">
-          <View className="px-[24px] py-[32px] flex flex-col gap-[24px]">
-            <OrderCard
-              status="Received"
-              wareList={wareListMock.filter((item) => item.id === "2")}
-            />
-          </View>
-        </ScrollView>
+        <AppTabList
+          className="bg-none"
+          active={active}
+          tabs={tabs}
+          onChange={setActive}
+        />
+        <AppList
+          className="flex-1"
+          {...dataRequest.data}
+          bodyProps={{
+            className: "px-[24px] py-[32px] flex flex-col gap-[24px]",
+          }}
+          itemRender={(item) => <OrderCard info={item} />}
+        ></AppList>
       </View>
     </BasePage>
   );

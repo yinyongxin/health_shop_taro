@@ -1,10 +1,12 @@
 import { LucideIcon } from "@/components";
 import { View, Text } from "@tarojs/components";
 import { appRouter } from "@/router";
-import { OrderTabOptions } from "@/options";
+import { useAppUserStore } from "@/stores";
+import { OrderStatusIcon, OrderTabOptions } from "@/options";
 import { MyOrderItem } from "./MyOrderItem";
 
 export const MyOrder = () => {
+  const appUserStore = useAppUserStore();
   return (
     <View className="bg-white rounded-[24px]">
       <View className="px-[24px] pt-[24px] flex justify-between items-center">
@@ -20,14 +22,13 @@ export const MyOrder = () => {
         </View>
       </View>
       <View className="px-[24px] mt-[16px] pb-[24px] ">
-        <View className="flex justify-between">
-          {OrderTabOptions.map((option) => {
+        <View className="flex justify-between gap-2">
+          {appUserStore.orderStatus.map((status, index) => {
             return (
               <MyOrderItem
-                key={option.value}
-                className="w-1/6"
-                title={option.label}
-                icon={<LucideIcon name={option.icon} size={24} />}
+                key={status.dictCode}
+                title={status.dictLabel}
+                icon={<LucideIcon name={OrderStatusIcon[index]} size={24} />}
                 onClick={() => {
                   appRouter.navigateTo("orderList");
                 }}
