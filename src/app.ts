@@ -64,7 +64,6 @@ function App({ children }: PropsWithChildren<any>) {
       return response;
     });
     await checkLogin();
-    appUserStore.updateCartInfo();
     appUserStore.updateAddressList();
   });
 
