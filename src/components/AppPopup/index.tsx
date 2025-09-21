@@ -1,15 +1,17 @@
 import { Popup } from "@taroify/core";
 import { PopupProps } from "@taroify/core/popup/popup";
-import { View } from "@tarojs/components";
+import { ScrollView, View } from "@tarojs/components";
 import { ReactNode } from "react";
 import { Close } from "@taroify/icons";
 import classNames from "classnames";
+import { isIOS } from "@/utils";
 
 export type AppPopupProps = {
   title?: ReactNode;
   leftAction?: ReactNode;
   rightAction?: ReactNode;
   showClose?: boolean;
+  footer?: ReactNode;
 } & PopupProps;
 
 export const AppPopup = (props: AppPopupProps) => {
@@ -21,6 +23,7 @@ export const AppPopup = (props: AppPopupProps) => {
     rightAction,
     showClose = false,
     children,
+    footer,
     ...rest
   } = props;
   return (
@@ -46,8 +49,31 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         </View>
       )}
-
-      <View className={classNames({ "pt-[100px]": !!title })}>{children}</View>
+      <ScrollView className="absolute inset-0 overflow-auto">
+        <View
+          className={classNames(
+            { "pt-[100px]": !!title },
+            {
+              "pb-[160px]": footer,
+              "pb-[184px]": footer && isIOS(),
+            },
+          )}
+        >
+          {children}
+        </View>
+      </ScrollView>
+      {footer && (
+        <View
+          className={classNames(
+            "px-[24px] py-[24px] absolute bottom-0 w-full bg-blur",
+            {
+              "pb-[48px]": isIOS(),
+            },
+          )}
+        >
+          {footer}
+        </View>
+      )}
     </Popup>
   );
 };

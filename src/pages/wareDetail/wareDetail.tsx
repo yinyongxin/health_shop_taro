@@ -1,7 +1,7 @@
 import { AppButton, AppPopup, BasePage } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper, Toast } from "@taroify/core";
-import { Image, View } from "@tarojs/components";
+import { Image, View, Text, ScrollView } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
@@ -14,6 +14,7 @@ import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
 import { useState } from "react";
+import { appRouter } from "@/router";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -141,9 +142,28 @@ const WareDetail = () => {
             style={{
               height: "60vh",
             }}
-            showClose
             {...selectAddressControl}
             title="选择地址"
+            leftAction={
+              <Text
+                onClick={() => {
+                  appRouter.navigateTo("addAddress");
+                }}
+                className="text-sky-500 font-bold"
+              >
+                新增地址
+              </Text>
+            }
+            footer={
+              <AppButton
+                className="w-full"
+                status="error"
+                onClick={() => selectAddressControl.setOpen(false)}
+              >
+                确定
+              </AppButton>
+            }
+            showClose
           >
             <AddressList
               selectId={currentAddress?.id}
