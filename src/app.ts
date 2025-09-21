@@ -3,7 +3,7 @@ import { useLaunch } from "@tarojs/taro";
 import { useAppAuthStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
-import { getWxRedirectByAppIdGreet } from "./client";
+import { getWxRedirectByAppIdGreet, getWxShopCartLoad } from "./client";
 import { getUrlCode, getWinxinLoginUrl, jumpWxGetCode } from "./utils";
 
 function App({ children }: PropsWithChildren<any>) {
@@ -14,7 +14,7 @@ function App({ children }: PropsWithChildren<any>) {
     console.log("getWinxinLoginUrl", getWinxinLoginUrl());
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
-      return true;
+      return;
     }
     if (wxLoginCode) {
       // 使用微信登录码进行登录
@@ -40,9 +40,18 @@ function App({ children }: PropsWithChildren<any>) {
       // jumpWxGetCode();
     }
   };
+  const init = async () => {
+    const res = await getWxShopCartLoad({
+      query: {
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      }
+    });
+    console.log("getWxShopCartLoad", res.data);
+  }
 
   useLaunch(async () => {
-    checkLogin();
+    await checkLogin();
+    init()
     console.log("App Launch", APP_ENV_CONFIG);
   });
 

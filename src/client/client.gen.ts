@@ -23,9 +23,5 @@ export type CreateClientConfig<T extends DefaultClientOptions = ClientOptions> =
   ) => Config<Required<DefaultClientOptions> & T>;
 
 export const client = createClient(
-  createClientConfig(
-    createConfig<ClientOptions>({
-      baseURL: "https://testpay.eh-med.com:443/zhfy",
-    }),
-  ),
+  createClientConfig(createConfig<ClientOptions>()),
 );

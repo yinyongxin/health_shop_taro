@@ -26,6 +26,16 @@ export type SubCategoryInfo = {
   updatedAt: string;
 };
 
+export type CartInfo = {
+  id: number;
+  userId: string;
+  orgId: string;
+  sessionId: unknown;
+  createdAt: string;
+  updatedAt: string;
+  itemList: Array<string>;
+};
+
 export type ProductInfo = {
   id: number;
   orgId: string;
@@ -209,7 +219,9 @@ export type GetWxShopCartLoadData = {
 
 export type GetWxShopCartLoadResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
+    data: CartInfo;
   };
 };
 
@@ -267,25 +279,22 @@ export type PostWxShopOrderCreateResponse =
 
 export type PostWxShopOrderPayData = {
   body?: {
-    addressId: number;
-    orgId: string;
-    totalAmount: number;
-    paymentAmount: number;
-    freightAmount: number;
-    discountAmount: number;
-    itemList: Array<{
-      productId?: number;
-      productName?: string;
-      skuId?: number;
-      skuName?: string;
-      quantity?: number;
-      price?: number;
-    }>;
+    orderNo: string;
   };
   path?: never;
   query?: never;
   url: "/wx/shop/order/pay";
 };
+
+export type PostWxShopOrderPayErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostWxShopOrderPayError =
+  PostWxShopOrderPayErrors[keyof PostWxShopOrderPayErrors];
 
 export type PostWxShopOrderPayResponses = {
   200: {
@@ -407,5 +416,5 @@ export type GetWxShopAddrDelResponse =
   GetWxShopAddrDelResponses[keyof GetWxShopAddrDelResponses];
 
 export type ClientOptions = {
-  baseURL: "https://testpay.eh-med.com:443/zhfy" | (string & {});
+  baseURL: string;
 };
