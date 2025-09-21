@@ -61,6 +61,32 @@ export type CartItem = {
   updatedAt?: string;
 };
 
+export type CreateOrderBody = {
+  addressId: number;
+  orgId: string;
+  /**
+   * 总金额
+   * 总金额
+   */
+  totalAmount: number;
+  /**
+   * 付款金额
+   * 付款金额
+   */
+  paymentAmount: number;
+  /**
+   * 运费金额
+   * 运费金额
+   */
+  freightAmount: number;
+  /**
+   * 折扣
+   * 折扣
+   */
+  discountAmount: number;
+  itemList: Array<CartItem>;
+};
+
 export type CartInfo = {
   id: number;
   userId: string;
@@ -285,15 +311,7 @@ export type GetWxShopCartDeleteResponse =
   GetWxShopCartDeleteResponses[keyof GetWxShopCartDeleteResponses];
 
 export type PostWxShopOrderCreateData = {
-  body?: {
-    addressId: number;
-    orgId: string;
-    totalAmount: number;
-    paymentAmount: number;
-    freightAmount: number;
-    discountAmount: number;
-    itemList: Array<CartItem>;
-  };
+  body?: CreateOrderBody;
   path?: never;
   query?: never;
   url: "/wx/shop/order/create";

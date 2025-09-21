@@ -15,6 +15,7 @@ import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
 import { useState } from "react";
 import { appRouter } from "@/router";
+import { createOrder } from "@/utils/order";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -54,6 +55,13 @@ const WareDetail = () => {
     });
     if (res.data?.code === 0) {
       Toast.success("添加成功");
+    }
+  };
+
+  const handlePay = async () => {
+    if (!currentAddress?.id) {
+      selectAddressControl.setOpen(true);
+      return;
     }
   };
   return (
@@ -128,11 +136,17 @@ const WareDetail = () => {
                         {mode === ModeEnum.ADD_CART ? "确定" : "加入购物车"}
                       </AppButton>
                     )}
-                    {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
-                      <AppButton className="flex-1" status="error">
+                    {/* {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
+                      <AppButton
+                        className="flex-1"
+                        status="error"
+                        onClick={() => {
+                          handlePay();
+                        }}
+                      >
                         {mode === ModeEnum.BUY ? "确定" : "立即购买"}
                       </AppButton>
-                    )}
+                    )} */}
                   </View>
                 )}
               />

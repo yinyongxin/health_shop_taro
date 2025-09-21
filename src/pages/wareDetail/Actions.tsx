@@ -61,7 +61,7 @@ export const Actions = (props: ActionsProps) => {
           >
             加入购物车
           </AppButton>
-          <AppButton
+          {/* <AppButton
             status="error"
             className="flex-1"
             onClick={() => {
@@ -69,7 +69,7 @@ export const Actions = (props: ActionsProps) => {
             }}
           >
             立即购买
-          </AppButton>
+          </AppButton> */}
         </View>
       </View>
       <AppPopup title="购物车" {...popupControl}>
