@@ -24,6 +24,10 @@ export const pages = [
     path: "pages/addressManage/addressManage",
   },
   {
+    name: "addAddress",
+    path: "pages/addAddress/addAddress",
+  },
+  {
     name: "orderDetail",
     path: "pages/orderDetail/orderDetail",
   },

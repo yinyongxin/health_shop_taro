@@ -1,5 +1,5 @@
 import { APP_ENV_CONFIG } from "@/common";
-import Taro from "@tarojs/taro";
+import Taro, { getSystemInfoSync } from "@tarojs/taro";
 import { areaList } from "@vant/area-data";
 import dayjs from "dayjs";
 
@@ -15,7 +15,7 @@ export const isH5 = process.env.TARO_ENV === "h5";
 export const isWeapp = process.env.TARO_ENV === "weapp";
 
 const systemInfo = isWeapp
-  ? Taro.getSystemInfoSync()
+  ? getSystemInfoSync()
   : {
       environment: "h5",
     };
@@ -86,22 +86,7 @@ export const getWinxinLoginUrl = () => {
   url.searchParams.set("redirect_uri", redirect_uri);
   url.searchParams.set("response_type", "code");
   url.searchParams.set("scope", "snsapi_userinfo");
-  // url.searchParams.set("scope", "snsapi_base");
-  // url.searchParams.set("state", "STATE");
-  // https://open.weixin.qq.com/connect/oauth2/authorize?
-  // appid=wxfaaff87825f44139
-  // &redirect_uri=https%3A%2F%2Fchr.eh-med.com
-  // &response_type=code
-  // &scope=snsapi_userinfo
-  // #wechat_redirect
 
-  // https://open.weixin.qq.com/connect/oauth2/authorize?
-  // appid=wx520c15f417810387
-  // &redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60
-  // &response_type=code
-  // &scope=snsapi_base
-  // &state=123
-  // #wechat_redirect
   return url.href;
 };
 export const jumpWxGetCode = () => {

@@ -1,5 +1,6 @@
 import { AppButton, BasePage, LucideIcon } from "@/components";
 import { AddressList } from "@/components/AddressList";
+import { appRouter } from "@/router";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
@@ -24,18 +25,7 @@ const AddressManage = () => {
           prefix={<LucideIcon name="plus" />}
           round
           onClick={() => {
-            Taro.chooseAddress({
-              success: function (res) {
-                console.log(res.userName);
-                console.log(res.postalCode);
-                console.log(res.provinceName);
-                console.log(res.cityName);
-                console.log(res.countyName);
-                console.log(res.detailInfo);
-                console.log(res.nationalCode);
-                console.log(res.telNumber);
-              },
-            });
+            appRouter.navigateTo("addAddress");
           }}
         >
           新增地址
