@@ -54,7 +54,6 @@ function App({ children }: PropsWithChildren<any>) {
 
   useLaunch(async () => {
     client.instance.interceptors.response.use((response) => {
-      console.log("response", response);
       if (response.data.code === 506) {
         if (isDev) {
           appToast.error("登录已过期，请重新登录");
