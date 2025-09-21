@@ -1,6 +1,6 @@
 import { showToast } from "@tarojs/taro";
 import { calculateTotalPrice } from "@/utils/price";
-import { CartInfo } from "@/client";
+import { AddressInfo, CartInfo } from "@/client";
 import { createAppStore } from "./base";
 
 export type CartListItem = {
@@ -13,6 +13,8 @@ interface AppUserState {
   updateTabActive: (value: string) => void;
   cartInfo: CartInfo;
   updateCartInfo: (cartInfo: Partial<CartInfo>) => void;
+  addressList: AddressInfo[];
+  updateAddressList: (addressList: AddressInfo[]) => void;
   totalPrice: number;
   cartList: CartListItem[];
   addCart: (id: string) => void;
@@ -38,6 +40,10 @@ export const useAppUserStore = createAppStore<AppUserState>(
     updateCartInfo: (cartInfo) => {
       const currentCartInfo = get().cartInfo;
       set({ cartInfo: { ...currentCartInfo, ...cartInfo } });
+    },
+    addressList: [],
+    updateAddressList: (addressList) => {
+      set({ addressList });
     },
     totalPrice: 0,
     cartList: [],

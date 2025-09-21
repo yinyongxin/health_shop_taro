@@ -26,6 +26,32 @@ export type SubCategoryInfo = {
   updatedAt: string;
 };
 
+export type AddressInfo = {
+  id?: number;
+  userId?: string;
+  receiverName?: string;
+  receiverPhone?: string;
+  province?: string;
+  city?: string;
+  district?: string;
+  street?: string;
+  detailAddress?: string;
+  postalCode?: string;
+  isDefault?: number;
+  tag?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type CartItem = {
+  productId?: number;
+  productName?: string;
+  skuId?: number;
+  skuName?: string;
+  quantity?: number;
+  price?: number;
+};
+
 export type CartInfo = {
   id: number;
   userId: string;
@@ -193,6 +219,8 @@ export type PostWxShopCartAddData = {
     productId: number;
     quantity: number;
     skuId: number;
+    productName: string;
+    skuName: string;
   };
   path?: never;
   query?: never;
@@ -201,7 +229,8 @@ export type PostWxShopCartAddData = {
 
 export type PostWxShopCartAddResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
   };
 };
 
@@ -254,19 +283,22 @@ export type PostWxShopOrderCreateData = {
     paymentAmount: number;
     freightAmount: number;
     discountAmount: number;
-    itemList: Array<{
-      productId?: number;
-      productName?: string;
-      skuId?: number;
-      skuName?: string;
-      quantity?: number;
-      price?: number;
-    }>;
+    itemList: Array<CartItem>;
   };
   path?: never;
   query?: never;
   url: "/wx/shop/order/create";
 };
+
+export type PostWxShopOrderCreateErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostWxShopOrderCreateError =
+  PostWxShopOrderCreateErrors[keyof PostWxShopOrderCreateErrors];
 
 export type PostWxShopOrderCreateResponses = {
   200: {
@@ -335,7 +367,9 @@ export type GetWxShopAddrListData = {
 
 export type GetWxShopAddrListResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
+    data: Array<AddressInfo>;
   };
 };
 
@@ -362,7 +396,8 @@ export type PostWxShopAddrAddData = {
 
 export type PostWxShopAddrAddResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
   };
 };
 
@@ -384,13 +419,16 @@ export type PostWxShopAddrEditData = {
     tag: string;
   };
   path?: never;
-  query?: never;
+  query?: {
+    id?: string;
+  };
   url: "/wx/shop/addr/edit";
 };
 
 export type PostWxShopAddrEditResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
   };
 };
 
@@ -408,7 +446,8 @@ export type GetWxShopAddrDelData = {
 
 export type GetWxShopAddrDelResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
   };
 };
 

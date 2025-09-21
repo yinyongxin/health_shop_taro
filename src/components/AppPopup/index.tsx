@@ -35,7 +35,7 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         >
           <View className="flex-1 flex flex-start">{leftAction}</View>
-          <View className="flex-1 text-[28px] font-bold flex-center">
+          <View className="flex-2 text-[28px] font-bold flex-center">
             {title}
           </View>
           <View className="flex-1 flex flex-end">{rightAction}</View>

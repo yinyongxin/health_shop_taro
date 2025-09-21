@@ -3,7 +3,11 @@ import { useLaunch } from "@tarojs/taro";
 import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
-import { getWxRedirectByAppIdGreet, getWxShopCartLoad } from "./client";
+import {
+  getWxRedirectByAppIdGreet,
+  getWxShopAddrList,
+  getWxShopCartLoad,
+} from "./client";
 import { getUrlCode, getWinxinLoginUrl, jumpWxGetCode } from "./utils";
 
 function App({ children }: PropsWithChildren<any>) {
@@ -53,9 +57,22 @@ function App({ children }: PropsWithChildren<any>) {
     appUserStore.updateCartInfo(res.data.data);
   };
 
+  const initAddress = async () => {
+    const res = await getWxShopAddrList({
+      query: {
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (res.data?.code !== 0) {
+      return;
+    }
+    appUserStore.updateAddressList(res.data.data);
+  };
+
   useLaunch(async () => {
     await checkLogin();
     initCart();
+    initAddress();
   });
 
   // children 是将要会渲染的页面

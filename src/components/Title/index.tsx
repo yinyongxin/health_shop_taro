@@ -27,7 +27,7 @@ export const Title = (props: TitleProps) => {
         className,
       )}
     >
-      <View className="w-[12px] h-[32px] bg-linear-to-b from-blue-400 to-blue-500 rounded-full"></View>
+      <View className="w-[12px] h-[32px] bg-linear-to-b from-amber-400 to-amber-500 rounded-full"></View>
       <View className="flex-1 flex items-center gap-[12px] font-semibold ">
         <Text className="text-[32px]">{children}</Text>
         {more && (

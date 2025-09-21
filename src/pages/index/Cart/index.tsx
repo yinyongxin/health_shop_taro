@@ -8,11 +8,12 @@ import classNames from "classnames";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();
+  const { cartInfo } = appUserStore;
   return (
     <BasePage>
       <View className="pt-[24px] pb-[300px]">
         <View className="px-[24px]">
-          <CartWareCardList data={appUserStore.cartList} />
+          <CartWareCardList data={[]} />
         </View>
       </View>
       <View

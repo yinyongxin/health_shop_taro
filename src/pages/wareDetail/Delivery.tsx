@@ -1,7 +1,12 @@
-import { ProductInfo } from "@/client";
-import { LucideIcon, AppTag } from "@/components";
+import { postWxShopCartAdd, ProductInfo, SkuInfo } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
+import { LucideIcon, AppTag, AppPopup, AppButton } from "@/components";
 import Box from "@/components/Box";
+import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
+import { usePopupControl } from "@/hooks";
+import { useAppUserStore } from "@/stores";
 import { safeJson } from "@/utils";
+import { Toast } from "@taroify/core";
 import { ScrollView, View } from "@tarojs/components";
 
 type DeliveryProps = {
@@ -11,29 +16,51 @@ type DeliveryProps = {
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
+  const appUserStore = useAppUserStore();
   const { info } = props;
+  const control = usePopupControl();
+  const addCart = async (currentSku: SkuInfo) => {
+    const res = await postWxShopCartAdd({
+      body: {
+        productId: info.id,
+        skuId: currentSku.id,
+        quantity: 1,
+        cartId: appUserStore.cartInfo.id,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+        productName: info.name,
+        skuName: currentSku.specs,
+      },
+    });
+    if (res.data?.code === 0) {
+      Toast.success("添加成功");
+    }
+  };
   return (
-    <Box
-      bgProps={{
-        className: "bg-white rounded-lg",
-      }}
-    >
-      <View className="px-[24px] py-[12px] flex flex-col">
-        <View className="flex justify-between items-center gap-2 py-[12px]">
-          <View className="text-gray-400">已选</View>
-          <View className="flex-1 text-black">我是已经选择的内容</View>
-          <View className="text-gray-400">
-            <LucideIcon name="chevron-right" size={20} />
+    <>
+      <Box
+        bgProps={{
+          className: "bg-white rounded-lg",
+        }}
+      >
+        <View className="px-[24px] py-[12px] flex flex-col">
+          <View
+            className="flex justify-between items-center gap-2 py-[12px]"
+            onClick={() => control.setOpen(true)}
+          >
+            <View className="text-gray-400">已选</View>
+            <View className="flex-1 text-black">我是已经选择的内容</View>
+            <View className="text-gray-400">
+              <LucideIcon name="chevron-right" size={20} />
+            </View>
           </View>
-        </View>
-        <View className="flex justify-between items-center gap-2 py-[12px]">
-          <View className="text-gray-400">地址</View>
-          <View className="flex-1 text-black">浙江省 杭州市 西湖区</View>
-          <View className="text-gray-400">
-            <LucideIcon name="chevron-right" size={20} />
+          <View className="flex justify-between items-center gap-2 py-[12px]">
+            <View className="text-gray-400">地址</View>
+            <View className="flex-1 text-black">浙江省 杭州市 西湖区</View>
+            <View className="text-gray-400">
+              <LucideIcon name="chevron-right" size={20} />
+            </View>
           </View>
-        </View>
-        {/* <View className="">
+          {/* <View className="">
           <View className="flex flex-col gap-[16px]">
             <View className="bg-gray-100 rounded">
               <View className="px-[24px] py-[24px]">
@@ -72,29 +99,49 @@ export const Delivery = (props: DeliveryProps) => {
             </View>
           </View>
         </View> */}
-        <View className="flex justify-between items-center gap-2 py-[12px]">
-          <View className="text-gray-400">服务</View>
-          <ScrollView
-            scrollX
-            className="flex-1 text-black flex gap-2 flex-nowrap"
-          >
-            {safeJson.parse(info.serviceTags, []).map((tag) => (
-              <AppTag
-                key={tag}
-                size="default"
-                status="secondary"
-                className="shrink-0"
-                prefix={<LucideIcon name="truck" />}
-              >
-                包邮
-              </AppTag>
-            ))}
-          </ScrollView>
-          <View className="text-gray-400">
-            {/* <LucideIcon name="chevron-right" size={20} /> */}
+          <View className="flex justify-between items-center gap-2 py-[12px]">
+            <View className="text-gray-400">服务</View>
+            <ScrollView
+              scrollX
+              className="flex-1 text-black flex gap-2 flex-nowrap"
+            >
+              {safeJson.parse(info.serviceTags, []).map((tag) => (
+                <AppTag
+                  key={tag}
+                  size="default"
+                  status="secondary"
+                  className="shrink-0"
+                  prefix={<LucideIcon name="truck" />}
+                >
+                  包邮
+                </AppTag>
+              ))}
+            </ScrollView>
+            <View className="text-gray-400">
+              {/* <LucideIcon name="chevron-right" size={20} /> */}
+            </View>
           </View>
         </View>
-      </View>
-    </Box>
+      </Box>
+      <AppPopup showClose {...control} title={info.name}>
+        <SkuSelectContent
+          data={info}
+          btns={(sku) => (
+            <View className="flex gap-[24px] pt-[48px]">
+              <AppButton
+                className="flex-1"
+                status="warning"
+                onClick={() => addCart(sku)}
+              >
+                加入购物车
+              </AppButton>
+              <AppButton className="flex-1" status="error">
+                立即购买
+              </AppButton>
+            </View>
+          )}
+        />
+      </AppPopup>
+    </>
   );
 };
