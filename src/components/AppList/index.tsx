@@ -35,9 +35,9 @@ export function AppList<I>(props: AppListProps<I>) {
       scrollY
       className={classNames(className)}
       onScrollToLower={() => {
+        if (!hasNext) return;
         const newPageNum = (pagination?.pageNum || 0) + 1;
         onLoad?.(newPageNum);
-        console.log("onLoad", newPageNum);
       }}
     >
       {list && itemRender && (
