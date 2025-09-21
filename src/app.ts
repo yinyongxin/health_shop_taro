@@ -45,23 +45,10 @@ function App({ children }: PropsWithChildren<any>) {
       // jumpWxGetCode();
     }
   };
-  const initCart = async () => {
-    const res = await getWxShopCartLoad({
-      query: {
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (res.data?.code !== 0) {
-      return;
-    }
-    appUserStore.updateCartInfo(res.data.data);
-  };
-
- 
 
   useLaunch(async () => {
     await checkLogin();
-    initCart();
+    appUserStore.updateCartInfo();
     appUserStore.updateAddressList();
   });
 

@@ -1,6 +1,11 @@
 import { showToast } from "@tarojs/taro";
 import { calculateTotalPrice } from "@/utils/price";
-import { AddressInfo, CartInfo, getWxShopAddrList } from "@/client";
+import {
+  AddressInfo,
+  CartInfo,
+  getWxShopAddrList,
+  getWxShopCartLoad,
+} from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { createAppStore } from "./base";
 
@@ -13,7 +18,7 @@ interface AppUserState {
   tabActive: string;
   updateTabActive: (value: string) => void;
   cartInfo: CartInfo;
-  updateCartInfo: (cartInfo: Partial<CartInfo>) => void;
+  updateCartInfo: () => void;
   addressList: AddressInfo[];
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
@@ -38,9 +43,16 @@ export const useAppUserStore = createAppStore<AppUserState>(
       updatedAt: "",
       itemList: [],
     },
-    updateCartInfo: (cartInfo) => {
-      const currentCartInfo = get().cartInfo;
-      set({ cartInfo: { ...currentCartInfo, ...cartInfo } });
+    updateCartInfo: async () => {
+      const res = await getWxShopCartLoad({
+        query: {
+          orgId: APP_ENV_CONFIG.ORG_ID,
+        },
+      });
+      if (res.data?.code !== 0) {
+        return;
+      }
+      set({ cartInfo: res.data.data });
     },
     addressList: [],
     updateAddressList: async () => {

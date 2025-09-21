@@ -21,17 +21,26 @@ export const CartWareCard = (props: CartWareCardProps) => {
     const res = await postWxShopCartUpdate({
       body: {
         id: info.id!,
-        quantity: info?.quantity! + 0,
+        quantity: info?.quantity! + 1,
       },
     });
+    if (res.data?.code === 0) {
+      appUserStore.updateCartInfo();
+    }
   };
   const handleReduce = async () => {
+    if (info?.quantity! <= 1) {
+      return;
+    }
     const res = await postWxShopCartUpdate({
       body: {
         id: info.id!,
-        quantity: info?.quantity! + 0,
+        quantity: info?.quantity! - 1,
       },
     });
+    if (res.data?.code === 0) {
+      appUserStore.updateCartInfo();
+    }
   };
   return (
     <View>

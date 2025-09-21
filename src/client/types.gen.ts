@@ -43,6 +43,12 @@ export type AddressInfo = {
   updatedAt?: string;
 };
 
+export type DefaultResult = {
+  code: number;
+  msg: string;
+  data: string;
+};
+
 export type CartItem = {
   id?: number;
   cartId?: number;
@@ -374,10 +380,18 @@ export type PostWxShopCartUpdateData = {
   url: "/wx/shop/cart/update";
 };
 
-export type PostWxShopCartUpdateResponses = {
-  200: {
-    [key: string]: unknown;
+export type PostWxShopCartUpdateErrors = {
+  400: {
+    code: number;
+    msg: string;
   };
+};
+
+export type PostWxShopCartUpdateError =
+  PostWxShopCartUpdateErrors[keyof PostWxShopCartUpdateErrors];
+
+export type PostWxShopCartUpdateResponses = {
+  200: DefaultResult;
 };
 
 export type PostWxShopCartUpdateResponse =
