@@ -4,9 +4,9 @@ import { CateInfo, getWxShopCateList } from "@/client";
 import { useState } from "react";
 import { APP_ENV_CONFIG } from "@/common";
 import { useRequest } from "@/hooks";
-import { Skeleton } from "@taroify/core";
 import { Sidebar } from "./Sidebar";
 import { ClassifyItem } from "./ClassifyItem";
+import { Skeleton } from "./Skeleton";
 
 export const Classify = () => {
   const [mainActive, setMainActive] = useState<CateInfo>();
@@ -18,7 +18,7 @@ export const Classify = () => {
     setMainActive(res.data?.data[0]);
     return res.data;
   });
-  if (loading) {
+  if (loading && !data) {
     return <Skeleton />;
   }
 
