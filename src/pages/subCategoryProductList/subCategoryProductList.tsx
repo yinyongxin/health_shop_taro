@@ -4,9 +4,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopCateProduct, ProductInfo } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
 import { AppList } from "@/components/AppList";
-import { DownMenu } from "./DowmMenu";
 import "./subCategoryProductList.css";
-import { waitTime } from "@/utils";
 
 const SubCategoryProductList = () => {
   const pageParams = usePageParams<"subCategoryProductList">();

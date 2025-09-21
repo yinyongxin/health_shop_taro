@@ -31,12 +31,15 @@ export function AppList<I>(props: AppListProps<I>) {
   const hasNext = pagination
     ? pagination.total > pagination.pageSize * pagination.pageNum
     : false;
-  const load = hasNext &&
-    loading &&
-    pagination?.pageNum &&
-    pagination.pageNum > 1 && (
-      <View className="w-full text-center pb-[32px] pt-[24px]">加载中...</View>
-    );
+  const load = (
+    <View className="w-full h-[120px] flex flex-center">
+      {hasNext &&
+        loading &&
+        pagination?.pageNum &&
+        pagination.pageNum > 1 &&
+        " 加载中..."}
+    </View>
+  );
   if (pagination && pagination.total === 0) {
     return (
       <Empty>
