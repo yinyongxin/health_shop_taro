@@ -101,6 +101,10 @@ export const getUrlCode = () => {
   return url.searchParams.get("code");
 };
 
+/**
+ *
+ * https://developers.weixin.qq.com/doc/service/guide/h5/auth.html
+ */
 export const getWinxinLoginUrl = () => {
   const { APPID } = APP_ENV_CONFIG;
   const redirect_uri = encodeURI(
@@ -113,7 +117,10 @@ export const getWinxinLoginUrl = () => {
   url.searchParams.set("appid", APPID);
   url.searchParams.set("redirect_uri", redirect_uri);
   url.searchParams.set("response_type", "code");
-  url.searchParams.set("scope", "snsapi_userinfo");
+  // snsapi_base：用来获取进入页面的用户的openid的，并且是静默授权并自动跳转到回调页的。（不会弹出信息确认框,仅能获取用户 openid 等信息，无法获取昵称头像）
+  url.searchParams.set("scope", "snsapi_base");
+  // snsapi_userinfo：用来获取用户的基本信息的。但这种授权需要用户手动同意。（由于用户同意过，所以无须依赖用户关注服务号，就可在授权后获取该用户的基本信息）
+  // url.searchParams.set("scope", "snsapi_userinfo");
 
   return url.href;
 };
