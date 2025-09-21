@@ -1,6 +1,7 @@
 import { showToast } from "@tarojs/taro";
 import { calculateTotalPrice } from "@/utils/price";
-import { AddressInfo, CartInfo } from "@/client";
+import { AddressInfo, CartInfo, getWxShopAddrList } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
 import { createAppStore } from "./base";
 
 export type CartListItem = {
@@ -14,12 +15,10 @@ interface AppUserState {
   cartInfo: CartInfo;
   updateCartInfo: (cartInfo: Partial<CartInfo>) => void;
   addressList: AddressInfo[];
-  updateAddressList: (addressList: AddressInfo[]) => void;
+  updateAddressList: () => void;
   defaultAddress?: AddressInfo;
-  updateDefaultAddress: (address?: AddressInfo) => void;
   totalPrice: number;
   cartList: CartListItem[];
-  addCart: (id: string) => void;
   deleteCard: (id: string) => void;
   updateCartNum: (id: string, num: number) => void;
 }
@@ -44,11 +43,19 @@ export const useAppUserStore = createAppStore<AppUserState>(
       set({ cartInfo: { ...currentCartInfo, ...cartInfo } });
     },
     addressList: [],
-    updateAddressList: (addressList) => {
-      set({ addressList });
-    },
-    updateDefaultAddress: (address) => {
-      set({ defaultAddress: address });
+    updateAddressList: async () => {
+      const res = await getWxShopAddrList({
+        query: {
+          orgId: APP_ENV_CONFIG.ORG_ID,
+        },
+      });
+      if (res.data?.code !== 0) {
+        return;
+      }
+      set({
+        addressList: res.data.data,
+        defaultAddress: res.data.data.find((item) => item.isDefault),
+      });
     },
     totalPrice: 0,
     cartList: [],

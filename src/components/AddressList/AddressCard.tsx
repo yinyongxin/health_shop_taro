@@ -1,7 +1,9 @@
-import { AddressInfo } from "@/client";
+import { AddressInfo, getWxShopAddrDel } from "@/client";
 import { Checkbox } from "@taroify/core";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
+import { appToast } from "@/utils";
+import { useAppUserStore } from "@/stores";
 import { AppTag } from "../AppTag";
 
 export type AddressCardProps = {
@@ -13,7 +15,21 @@ export type AddressCardProps = {
 
 export const AddressCard = (props: AddressCardProps) => {
   const { showActions = true, className, info, checked } = props;
+  const appUserStore = useAppUserStore();
   console.log({ checked });
+  const handleDelete = async () => {
+    const res = await getWxShopAddrDel({
+      query: {
+        id: info.id?.toString(),
+      },
+    });
+    if (res.data?.code === 0) {
+      appUserStore.updateAddressList();
+      appToast.success("删除成功");
+    } else {
+      appToast.error(res?.data?.msg ?? "删除失败");
+    }
+  };
   return (
     <View
       className={classNames(
@@ -52,7 +68,9 @@ export const AddressCard = (props: AddressCardProps) => {
             默认地址
           </Checkbox>
           <View className="flex gap-2 items-center">
-            <View className="text-rose-500">删除</View>
+            <View className="text-rose-500" onClick={handleDelete}>
+              删除
+            </View>
             <View className="text-sky-500">编辑</View>
           </View>
         </View>

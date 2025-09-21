@@ -4,23 +4,24 @@ import { ReactNode, useEffect, useRef } from "react";
 import { Field, Form, Input, Textarea } from "@taroify/core";
 import { FormController, FormInstance } from "@taroify/core/form";
 import { NAME_REGEXP_STR, PHONE_REGEXP_STR } from "@/common";
-import { AddressInfo } from "@/client";
-import { getAreaChinese } from "@/utils";
+import { AddressInfo, postWxShopAddrAdd } from "@/client";
+import { useAppUserStore } from "@/stores";
+import { appLoading, appToast, getAreaChinese } from "@/utils";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
 
 type EditAddressContentProps = {
   className?: string;
-  btn: (form: FormInstance) => ReactNode;
+  btn: ReactNode;
   success?: () => void;
   defaultValues?: AddressInfo;
 };
 export const EditAddressContent = (props: EditAddressContentProps) => {
+  const appUserStore = useAppUserStore();
   const { className, btn, success, defaultValues } = props;
   const formRef = useRef<FormInstance>(null);
   const getDefaultValues = () => {
     return {
-      receiverName: defaultValues?.receiverName,
-      receiverPhone: defaultValues?.receiverPhone,
+      defaultValues,
       picker: [
         defaultValues?.province,
         defaultValues?.city,
@@ -32,9 +33,54 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     formRef.current?.setValues(getDefaultValues());
   }, [defaultValues]);
 
-  const onSubmit = (values: AddressInfo) => {
-    console.log("values", values);
-    success?.();
+  const add = async (values: Required<AddressInfo>) => {
+    const res = await postWxShopAddrAdd({
+      body: {
+        ...values,
+        isDefault: appUserStore.addressList.length === 0 ? 1 : 0,
+      },
+    });
+    if (res.data?.code === 0) {
+      appToast.success("添加成功");
+      success?.();
+    }
+    appToast.error("添加失败");
+    throw res.data?.msg;
+  };
+
+  const update = async (values: Required<AddressInfo>) => {
+    const res = await postWxShopAddrAdd({
+      body: {
+        ...defaultValues,
+        ...values,
+      },
+    });
+    if (res.data?.code === 0) {
+      appToast.success("添加成功");
+      success?.();
+    }
+    appToast.error("添加失败");
+  };
+  const onSubmit = async (values: AddressInfo & { area: string[] }) => {
+    try {
+      appLoading.show();
+      const { area, ...rest } = values;
+      const [province, city, district] = getAreaChinese(area);
+      const lastValues = {
+        ...rest,
+        province,
+        city,
+        district,
+      } as Required<AddressInfo>;
+      console.log("lastValues", lastValues);
+      if (defaultValues) {
+        await update(lastValues);
+      } else {
+        await add(lastValues);
+      }
+    } finally {
+      appLoading.hide();
+    }
   };
   return (
     <>
@@ -42,9 +88,12 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         <Form
           ref={formRef}
           onSubmit={(e) => {
-            onSubmit(e.detail.value as AddressInfo);
+            onSubmit(e.detail.value as any);
           }}
         >
+          <Field required label="标签" name="tag">
+            <Input maxlength={10} placeholder="标签" />
+          </Field>
           <Field
             required
             label="姓名"
@@ -79,7 +128,9 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             isLink
             rules={[
               {
-                required: true,
+                validator: (value) => {
+                  return value.length === 3;
+                },
                 message: "请选择地区",
               },
             ]}
@@ -125,7 +176,20 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
           >
             <Input placeholder="街道" />
           </Field>
-          <Field required name="detailAddress" align="start" label="详细地址">
+          <Field
+            required
+            name="detailAddress"
+            align="start"
+            label="详细地址"
+            rules={[
+              {
+                validator: (value) => {
+                  return value.length > 0;
+                },
+                message: "请输入详细地址",
+              },
+            ]}
+          >
             <Textarea
               style={{ height: "48px" }}
               limit={100}
@@ -133,9 +197,12 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               placeholder="详细地址"
             />
           </Field>
+          <Field label="邮政编码" name="postalCode">
+            <Input maxlength={10} placeholder="邮政编码" />
+          </Field>
         </Form>
       </View>
-      {btn(formRef.current!)}
+      <View onClick={() => formRef.current?.submit()}>{btn}</View>
     </>
   );
 };

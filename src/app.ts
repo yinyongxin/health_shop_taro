@@ -57,25 +57,12 @@ function App({ children }: PropsWithChildren<any>) {
     appUserStore.updateCartInfo(res.data.data);
   };
 
-  const initAddress = async () => {
-    const res = await getWxShopAddrList({
-      query: {
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (res.data?.code !== 0) {
-      return;
-    }
-    appUserStore.updateDefaultAddress(
-      res.data.data.find((item) => item.isDefault),
-    );
-    appUserStore.updateAddressList(res.data.data);
-  };
+ 
 
   useLaunch(async () => {
     await checkLogin();
     initCart();
-    initAddress();
+    appUserStore.updateAddressList();
   });
 
   // children 是将要会渲染的页面

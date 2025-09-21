@@ -44,12 +44,21 @@ export type AddressInfo = {
 };
 
 export type CartItem = {
+  id?: number;
+  cartId?: number;
+  orgId?: string;
   productId?: number;
   productName?: string;
   skuId?: number;
   skuName?: string;
   quantity?: number;
   price?: number;
+  isService?: number;
+  serviceDate?: unknown;
+  qrCodeStatus?: number;
+  selected?: number;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type CartInfo = {
@@ -59,7 +68,7 @@ export type CartInfo = {
   sessionId: unknown;
   createdAt: string;
   updatedAt: string;
-  itemList: Array<string>;
+  itemList: Array<CartItem>;
 };
 
 export type ProductInfo = {

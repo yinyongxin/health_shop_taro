@@ -1,5 +1,10 @@
 import { APP_ENV_CONFIG } from "@/common";
-import Taro, { getSystemInfoSync } from "@tarojs/taro";
+import {
+  getSystemInfoSync,
+  showToast,
+  showLoading,
+  hideLoading,
+} from "@tarojs/taro";
 import { areaList } from "@vant/area-data";
 import dayjs from "dayjs";
 
@@ -91,4 +96,32 @@ export const getWinxinLoginUrl = () => {
 };
 export const jumpWxGetCode = () => {
   window.location.href = getWinxinLoginUrl();
+};
+
+export const appToast = {
+  success: (message?: string) => {
+    showToast({
+      title: message || "成功",
+      icon: "success",
+      duration: 2000,
+    });
+  },
+  error: (message?: string) => {
+    showToast({
+      title: message || "失败",
+      icon: "error",
+      duration: 2000,
+    });
+  },
+};
+
+export const appLoading = {
+  show: (message?: string) => {
+    showLoading({
+      title: message || "加载中...",
+    });
+  },
+  hide: () => {
+    hideLoading();
+  },
 };

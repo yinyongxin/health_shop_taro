@@ -14,22 +14,19 @@ const AddAddress = () => {
         <View className="px-[24px] ">
           <EditAddressContent
             className="rounded-lg overflow-hiddenn bg-white"
-            btn={(form) => {
-              console.log(form);
-              return (
-                <AppFixedBottom>
-                  <AppButton
-                    className="w-full"
-                    status="primary"
-                    onClick={() => {
-                      form.submit();
-                    }}
-                  >
-                    保存
-                  </AppButton>
-                </AppFixedBottom>
-              );
-            }}
+            btn={
+              <AppFixedBottom>
+                <AppButton
+                  className="w-full"
+                  status="primary"
+                  // onClick={() => {
+                  //   form.submit();
+                  // }}
+                >
+                  保存
+                </AppButton>
+              </AppFixedBottom>
+            }
           />
         </View>
       </BasePage>
