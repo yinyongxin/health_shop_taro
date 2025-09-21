@@ -99,6 +99,13 @@ export const jumpWxGetCode = () => {
 };
 
 export const appToast = {
+  info: (message: string) => {
+    showToast({
+      title: message,
+      icon: "none",
+      duration: 2000,
+    });
+  },
   success: (message?: string) => {
     showToast({
       title: message || "成功",

@@ -2,7 +2,7 @@ import { ProductInfo } from "@/client";
 import { LucideIcon, AppButton, AppPopup } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePopupControl } from "@/hooks";
-import { isIOS } from "@/utils";
+import { appToast, isIOS } from "@/utils";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 
@@ -26,7 +26,12 @@ export const Actions = (props: ActionsProps) => {
         )}
       >
         <View className="flex-1 flex items-center justify-around">
-          <View className="flex flex-col active:text-blue-500 items-center gap-1">
+          <View
+            className="flex flex-col active:text-blue-500 items-center gap-1"
+            onClick={() => {
+              appToast.info("功能开发中");
+            }}
+          >
             <LucideIcon name="headphones" size={18} />
             <Text className="text-[20px]">客服</Text>
           </View>
