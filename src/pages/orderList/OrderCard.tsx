@@ -1,8 +1,8 @@
 import { OrderInfo } from "@/client";
 import { AppButton } from "@/components";
 import { CartWareCard } from "@/components/CartWareCard";
-import { getOrderTabOptionsLabel } from "@/options";
 import { appRouter } from "@/router";
+import { useAppUserStore } from "@/stores";
 import { View } from "@tarojs/components";
 
 type OrderCardProps = {
@@ -11,22 +11,24 @@ type OrderCardProps = {
 export const OrderCard = (props: OrderCardProps) => {
   const { info } = props;
 
+  const appUserStore = useAppUserStore();
+
   const getActions = () => {
-    if (info.status === 4) {
-      return (
-        <AppButton
-          actived={false}
-          size="sm"
-          onClick={() => {
-            appRouter.navigateTo("orderDetail", {
-              query: { id: "1" },
-            });
-          }}
-        >
-          查看详情
-        </AppButton>
-      );
-    }
+    // if (info.status === 4) {
+    return (
+      <AppButton
+        actived={false}
+        size="sm"
+        onClick={() => {
+          appRouter.navigateTo("orderDetail", {
+            query: { id: "1" },
+          });
+        }}
+      >
+        查看详情
+      </AppButton>
+    );
+    // }
     return (
       <>
         <AppButton status="secondary" actived={false} size="sm">
@@ -39,11 +41,17 @@ export const OrderCard = (props: OrderCardProps) => {
     );
   };
 
+  const getStatusText = () => {
+    return appUserStore.orderStatus.find((item) => {
+      return item.dictValue === info.status.toString();
+    })?.dictLabel;
+  };
+
   return (
     <View className="rounded-lg bg-white app-shadow-lg shadow-gray-200">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
-        <View className="text-[28px] font-semibold">2025-01-01 00:00:00</View>
-        <View className="text-amber-500">{info.status}</View>
+        <View className="text-[28px] font-semibold">{info.createdAt}</View>
+        <View className="text-amber-500">{getStatusText()}</View>
       </View>
       <View>
         {[]?.map((item) => (

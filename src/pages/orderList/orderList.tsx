@@ -18,7 +18,6 @@ const OrderList = () => {
       icon: "grid-2x2",
     },
     ...orderStatus.map((item, index) => {
-      console.log(item);
       return {
         label: item.dictLabel,
         value: item.dictValue,
@@ -44,11 +43,12 @@ const OrderList = () => {
       } else {
         list = res.data?.rows || [];
       }
+      console.log(res);
       return {
         list,
         pagination: {
           total: res?.data?.total || 0,
-          pageNum: pageNum || 1,
+          pageNum,
           pageSize: 10,
         },
       };
