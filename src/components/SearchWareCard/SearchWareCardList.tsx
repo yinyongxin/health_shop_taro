@@ -1,10 +1,9 @@
 import { getWxShopProductSearch, ProductInfo } from "@/client";
 import { View } from "@tarojs/components";
-import classNames from "classnames";
 import { useRequest } from "@/hooks";
 import { APP_ENV_CONFIG } from "@/common";
-import { appLoading } from "@/utils";
 import { SearchWareCard, SearchWareCardProps } from ".";
+import { AppList } from "../AppList";
 
 export type SearchWareCardListProps = {
   data?: ProductInfo[];
@@ -22,20 +21,29 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     refreshNumber,
   } = props;
   const dataRequest = useRequest(
-    async () => {
-      if (dataRequest.data) {
-        appLoading.show("正在加载中...");
-      }
+    async (pageNum: number = 1) => {
       const res = await getWxShopProductSearch({
         query: {
           orgId: APP_ENV_CONFIG.ORG_ID,
           searchKey: searchKey,
+          pageNum: pageNum.toString(),
+          pageSize: "20",
         },
       });
-      if (dataRequest.data) {
-        appLoading.hide();
+      let list: ProductInfo[] = [];
+      if (pageNum !== 1) {
+        list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
+      } else {
+        list = res.data?.rows || [];
       }
-      return res.data;
+      return {
+        list,
+        pagination: {
+          total: res?.data?.total || 0,
+          pageNum,
+          pageSize: 20,
+        },
+      };
     },
     {
       refreshDeps: [searchKey, refreshNumber],
@@ -59,16 +67,17 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
   }
 
   return (
-    <View
-      className={classNames("pr-[24px] pb-[64px] flex flex-wrap", className)}
-    >
-      {dataRequest.data?.rows?.map((item, index) => (
-        <SearchWareCard
-          key={item.id + index}
-          info={item}
-          {...searchWareCardProps}
-        />
-      ))}
-    </View>
+    <AppList
+      {...dataRequest.data}
+      loading={dataRequest.loading}
+      bodyProps={{
+        className: "pr-[24px] pb-[64px] flex flex-wrap",
+      }}
+      itemRender={(item) => (
+        <SearchWareCard info={item} {...searchWareCardProps} />
+      )}
+      className={className}
+      onLoad={dataRequest.run}
+    ></AppList>
   );
 };

@@ -43,7 +43,6 @@ const OrderList = () => {
       } else {
         list = res.data?.rows || [];
       }
-      console.log(res);
       return {
         list,
         pagination: {

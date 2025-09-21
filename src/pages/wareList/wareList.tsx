@@ -24,13 +24,11 @@ const WareList = () => {
       </View>
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
         <DownMenu />
-        <ScrollView scrollY className="flex-1 bg-white">
-          <SearchWareCardList
-            searchWareCardProps={{ border: true }}
-            searchKey={value}
-            refreshNumber={refreshNumber}
-          />
-        </ScrollView>
+        <SearchWareCardList
+          searchWareCardProps={{ border: true }}
+          searchKey={value}
+          refreshNumber={refreshNumber}
+        />
       </View>
     </BasePage>
   );

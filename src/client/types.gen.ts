@@ -316,9 +316,21 @@ export type GetWxShopProductSearchData = {
   query?: {
     orgId?: string;
     searchKey?: string;
+    pageNum?: string;
+    pageSize?: string;
   };
   url: "/wx/shop/product/search";
 };
+
+export type GetWxShopProductSearchErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopProductSearchError =
+  GetWxShopProductSearchErrors[keyof GetWxShopProductSearchErrors];
 
 export type GetWxShopProductSearchResponses = {
   200: {
