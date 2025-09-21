@@ -4,7 +4,6 @@ import { useRequest } from "@/hooks";
 import { APP_ENV_CONFIG } from "@/common";
 import { SearchWareCard, SearchWareCardProps } from ".";
 import { AppList } from "../AppList";
-import { waitTime } from "@/utils";
 
 export type SearchWareCardListProps = {
   data?: ProductInfo[];

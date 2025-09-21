@@ -32,7 +32,7 @@ export function AppList<I>(props: AppListProps<I>) {
     ? pagination.total > pagination.pageSize * pagination.pageNum
     : false;
   const load = (
-    <View className="w-full h-[120px] flex flex-center">
+    <View className="w-full h-[80px] flex flex-center">
       {hasNext &&
         loading &&
         pagination?.pageNum &&
