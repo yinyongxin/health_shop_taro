@@ -1,35 +1,37 @@
-import { WareInfo } from "@/client";
+import { CartItem, postWxShopCartUpdate } from "@/client";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
-import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { AppTag } from "../AppTag";
 import { useAppUserStore } from "@/stores";
+import classNames from "classnames";
+import { safeJson } from "@/utils";
+import { useState } from "react";
+import { AppTag } from "../AppTag";
 
 export type CartWareCardProps = {
-  info: WareInfo;
+  info: CartItem;
   border?: boolean;
   showNumControl?: boolean;
   shadow?: boolean;
-  numChange?: (num: number) => void;
-  defaultNum?: number
+  defaultNum?: number;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
-  const appUserStore = useAppUserStore()
-  const { border, showNumControl = true, shadow = true, numChange, defaultNum = 1 } = props;
-  const [num, setNum] = useState(defaultNum);
-  const handleAdd = () => {
-    appUserStore.updateCartNum(props.info.id, num + 1)
-    setNum(num + 1);
-    numChange?.(num + 1)
+  const appUserStore = useAppUserStore();
+  const { border, showNumControl = true, shadow = true, info } = props;
+  const handleAdd = async () => {
+    const res = await postWxShopCartUpdate({
+      body: {
+        id: info.id!,
+        quantity: info?.quantity! + 0,
+      },
+    });
   };
-  const handleReduce = () => {
-    if (num <= 1) {
-      return;
-    }
-    appUserStore.updateCartNum(props.info.id, num - 1)
-    setNum(num - 1);
-    numChange?.(num - 1)
+  const handleReduce = async () => {
+    const res = await postWxShopCartUpdate({
+      body: {
+        id: info.id!,
+        quantity: info?.quantity! + 0,
+      },
+    });
   };
   return (
     <View>
@@ -43,12 +45,12 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <Image
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={props.info.mainPicture}
+            src={props.info?.mainPicture}
             onClick={() => {
               appRouter.navigateTo("wareDetail", {
                 query: {
-                  id: props.info.id,
-                }
+                  id: props.info.productName?.toString()!,
+                },
               });
             }}
           />
@@ -59,16 +61,17 @@ export const CartWareCard = (props: CartWareCardProps) => {
             onClick={() => {
               appRouter.navigateTo("wareDetail", {
                 query: {
-                  id: props.info.id,
-                }
+                  id: props.info.productId?.toString()!,
+                },
               });
             }}
           >
-            {props.info.name}
+            {props.info.productName}
           </View>
           <View className="flex gap-1">
-            <AppTag status="secondary">大小</AppTag>
-            <AppTag status="secondary">颜色</AppTag>
+            <AppTag status="secondary">
+              {Object.values(safeJson.parse(props.info?.skuName || "", {}))}
+            </AppTag>
           </View>
           <View className="flex justify-between items-end">
             <View className="flex-1 text-[32px] text-rose-500">
@@ -88,7 +91,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
                 </AppTag>
               )}
               {!showNumControl && <View className="text-[28px]">数量</View>}
-              <View className="text-[28px]">{num}</View>
+              <View className="text-[28px]">{info.quantity}</View>
               {showNumControl && (
                 <AppTag
                   status="secondary"

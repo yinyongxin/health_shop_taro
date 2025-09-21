@@ -1,40 +1,38 @@
-import { getGetWaresPage, WareInfo } from "@/client";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { useRequest } from "@/hooks";
 import { SwipeCell } from "@taroify/core";
 import { wareListMock } from "@/mock";
+import { useAppUserStore } from "@/stores";
+import { CartItem } from "@/client";
 import { CartWareCard, CartWareCardProps } from ".";
 import { LucideIcon } from "../LucideIcon";
-import { CartListItem, useAppUserStore } from "@/stores";
 
 export type CartWareCardListProps = {
-  data?: CartListItem[];
+  data?: CartItem[];
   className?: string;
   cartWareCardProps?: Partial<CartWareCardProps>;
 };
 
 export const CartWareCardList = (props: CartWareCardListProps) => {
-  const appUserStore = useAppUserStore()
+  const appUserStore = useAppUserStore();
 
   const { data = [], className, cartWareCardProps } = props;
 
   return (
-    <View
-      className={classNames("flex flex-col gap-[24px]", className)}
-    >
+    <View className={classNames("flex flex-col gap-[24px]", className)}>
       {data.map((item) => {
-        const wareInfo = wareListMock.find((wareItem) => wareItem.id === item.id)
-        if (!wareInfo) {
-          return
-        }
         return (
           <SwipeCell key={item.id}>
-            <CartWareCard info={wareInfo} {...cartWareCardProps} defaultNum={item.num} />
+            <CartWareCard
+              info={item}
+              defaultNum={item.quantity}
+              {...cartWareCardProps}
+            />
             <SwipeCell.Actions side="right">
-              <View className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
+              <View
+                className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
                 onClick={() => {
-                  appUserStore.deleteCard(item.id)
+                  // appUserStore.deleteCard(item.id)
                 }}
               >
                 <LucideIcon name="trash" size={20} />
@@ -42,7 +40,7 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
               </View>
             </SwipeCell.Actions>
           </SwipeCell>
-        )
+        );
       })}
     </View>
   );

@@ -13,7 +13,7 @@ export const Cart = () => {
     <BasePage>
       <View className="pt-[24px] pb-[300px]">
         <View className="px-[24px]">
-          <CartWareCardList data={[]} />
+          <CartWareCardList data={cartInfo.itemList} />
         </View>
       </View>
       <View
