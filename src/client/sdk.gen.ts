@@ -21,7 +21,6 @@ import type {
   GetWxShopCartDeleteResponses,
   PostWxShopOrderCreateData,
   PostWxShopOrderCreateResponses,
-  PostWxShopOrderCreateErrors,
   PostWxShopOrderPayData,
   PostWxShopOrderPayResponses,
   PostWxShopOrderPayErrors,
@@ -204,7 +203,7 @@ export const postWxShopOrderCreate = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? _heyApiClient).post<
     PostWxShopOrderCreateResponses,
-    PostWxShopOrderCreateErrors,
+    unknown,
     ThrowOnError
   >({
     responseType: "json",

@@ -19,7 +19,7 @@ export const FeatureBlocks = () => {
             title="收藏"
             icon={<LucideIcon name="star" size={28} />}
             onClick={() => {
-              appRouter.navigateTo("myLikeList");
+              showToast({ title: "尽请期待", icon: "none" });
             }}
           />
           <View className="w-1/5"></View>

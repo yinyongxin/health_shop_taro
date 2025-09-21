@@ -4,9 +4,10 @@ import { calculateTotalPrice } from "./price";
 
 export const createOrder = async (data: {
   addressId: number;
+  cartId: number;
   itemList: CartItem[];
 }) => {
-  const { addressId, itemList } = data;
+  const { addressId, itemList, cartId } = data;
   //   const res = await request.post("/order/create", data);
   //   return res;
   const paymentAmount = calculateTotalPrice(itemList);
@@ -14,6 +15,7 @@ export const createOrder = async (data: {
   const discountAmount = 0;
   const body: CreateOrderBody = {
     addressId,
+    cartId,
     orgId: APP_ENV_CONFIG.ORG_ID,
     totalAmount: discountAmount + paymentAmount + freightAmount,
     paymentAmount,
@@ -26,5 +28,4 @@ export const createOrder = async (data: {
   if (res.data?.code === 0) {
     return res.data.data;
   }
-  throw new Error(res.data.msg);
 };

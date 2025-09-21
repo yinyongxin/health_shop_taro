@@ -49,6 +49,30 @@ export type DefaultResult = {
   data: string;
 };
 
+export type CreateOrderResult = {
+  id: number;
+  orderNo: string;
+  orgId: string;
+  userId: string;
+  addressId: number;
+  totalAmount: number;
+  paymentAmount: number;
+  freightAmount: number;
+  discountAmount: number;
+  paymentType: unknown;
+  paymentTime: unknown;
+  status: number;
+  deliveryCompany: unknown;
+  deliveryNo: unknown;
+  deliveryTime: unknown;
+  receiveTime: unknown;
+  createdAt: unknown;
+  updatedAt: unknown;
+  remark: unknown;
+  applyPayNo: unknown;
+  payId: unknown;
+};
+
 export type CartItem = {
   id?: number;
   cartId?: number;
@@ -91,6 +115,7 @@ export type CreateOrderBody = {
    */
   discountAmount: number;
   itemList: Array<CartItem>;
+  cartId: number;
 };
 
 export type CartInfo = {
@@ -323,19 +348,11 @@ export type PostWxShopOrderCreateData = {
   url: "/wx/shop/order/create";
 };
 
-export type PostWxShopOrderCreateErrors = {
-  400: {
-    code: number;
-    msg: string;
-  };
-};
-
-export type PostWxShopOrderCreateError =
-  PostWxShopOrderCreateErrors[keyof PostWxShopOrderCreateErrors];
-
 export type PostWxShopOrderCreateResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
+    data: CreateOrderResult;
   };
 };
 
