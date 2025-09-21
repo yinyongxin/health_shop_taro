@@ -27,24 +27,29 @@ const OrderList = () => {
   ];
   const [active, setActive] = useState(tabs[0].value);
 
-  const dataRequest = useRequest(async (pageNum: number = 1) => {
-    const res = await getWxShopOrderMy({
-      query: {
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        status: active === "all" ? undefined : active,
-        pageNum: pageNum.toString(),
-        pageSize: "10",
-      },
-    });
-    return {
-      list: res?.data?.rows || [],
-      pagination: {
-        total: res?.data?.total || 0,
-        pageNum: pageNum || 1,
-        pageSize: 10,
-      },
-    };
-  });
+  const dataRequest = useRequest(
+    async (pageNum: number = 1) => {
+      const res = await getWxShopOrderMy({
+        query: {
+          orgId: APP_ENV_CONFIG.ORG_ID,
+          status: active === "all" ? undefined : active,
+          pageNum: pageNum.toString(),
+          pageSize: "10",
+        },
+      });
+      return {
+        list: res?.data?.rows || [],
+        pagination: {
+          total: res?.data?.total || 0,
+          pageNum: pageNum || 1,
+          pageSize: 10,
+        },
+      };
+    },
+    {
+      refreshDeps: [active],
+    },
+  );
   return (
     <BasePage
       bgProps={{ className: "page-bg" }}
