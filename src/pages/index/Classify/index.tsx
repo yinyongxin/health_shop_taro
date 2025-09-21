@@ -4,6 +4,7 @@ import { CateInfo, getWxShopCateList } from "@/client";
 import { useState } from "react";
 import { APP_ENV_CONFIG } from "@/common";
 import { useRequest } from "@/hooks";
+import { Skeleton } from "@taroify/core";
 import { Sidebar } from "./Sidebar";
 import { ClassifyItem } from "./ClassifyItem";
 
@@ -18,12 +19,7 @@ export const Classify = () => {
     return res.data;
   });
   if (loading) {
-    return (
-      <View className="flex gap-2 p-2 h-full pb-[180px]">
-        <View className="flex-1 bg-gray-200 rounded-lg"></View>
-        <View className="flex-3 bg-gray-200 rounded-lg"></View>
-      </View>
-    );
+    return <Skeleton />;
   }
 
   return (
