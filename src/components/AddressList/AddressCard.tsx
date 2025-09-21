@@ -4,7 +4,7 @@ import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { AppTag } from "../AppTag";
 
-type AddressCardProps = {
+export type AddressCardProps = {
   info: AddressInfo;
   showActions?: boolean;
   className?: string;

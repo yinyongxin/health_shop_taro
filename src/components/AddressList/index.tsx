@@ -1,13 +1,19 @@
 import { View } from "@tarojs/components";
 import { useAppUserStore } from "@/stores";
-import { AddressCard } from "./AddressCard";
+import { AddressCard, AddressCardProps } from "./AddressCard";
 
-export const AddressList = () => {
+type AddressListProps = {
+  addressCardProps?: Partial<Omit<AddressCardProps, "info">>;
+};
+export const AddressList = (props: AddressListProps) => {
+  const { addressCardProps } = props;
   const { addressList } = useAppUserStore();
   return (
     <View className="flex flex-col gap-[16px] px-[24px]">
       {addressList.map((address) => {
-        return <AddressCard key={address.id} info={address} />;
+        return (
+          <AddressCard key={address.id} info={address} {...addressCardProps} />
+        );
       })}
     </View>
   );

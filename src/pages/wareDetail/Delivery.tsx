@@ -1,24 +1,27 @@
-import { postWxShopCartAdd, ProductInfo, SkuInfo } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
-import { LucideIcon, AppTag, AppPopup, AppButton } from "@/components";
+import { AddressInfo, ProductInfo, SkuInfo } from "@/client";
+import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
-import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
-import { usePopupControl } from "@/hooks";
-import { useAppUserStore } from "@/stores";
 import { safeJson } from "@/utils";
-import { Toast } from "@taroify/core";
 import { ScrollView, View } from "@tarojs/components";
 
 type DeliveryProps = {
   info: ProductInfo;
   currentSku: SkuInfo;
+  currentAddress?: AddressInfo;
+  handleSelectAddress: () => void;
   handleSelctSku: () => void;
 };
 /**
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
-  const { info, currentSku, handleSelctSku } = props;
+  const {
+    info,
+    currentSku,
+    handleSelctSku,
+    currentAddress,
+    handleSelectAddress,
+  } = props;
   return (
     <>
       <Box
@@ -43,7 +46,18 @@ export const Delivery = (props: DeliveryProps) => {
           </View>
           <View className="flex justify-between items-center gap-2 py-[12px]">
             <View className="text-gray-400">地址</View>
-            <View className="flex-1 text-black">浙江省 杭州市 西湖区</View>
+
+            <View className="flex-1 text-black" onClick={handleSelectAddress}>
+              {currentAddress ? (
+                <View className="flex-1 text-black flex gap-2">
+                  <View>{currentAddress.province}</View>
+                  <View>{currentAddress.city}</View>
+                  <View>{currentAddress.district}</View>
+                </View>
+              ) : (
+                <View className="flex-1 text-black flex">去添加</View>
+              )}
+            </View>
             <View className="text-gray-400">
               <LucideIcon name="chevron-right" size={20} />
             </View>

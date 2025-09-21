@@ -3,10 +3,16 @@ import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper, Toast } from "@taroify/core";
 import { Image, View } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
-import { getWxShopProductDetail, postWxShopCartAdd, SkuInfo } from "@/client";
+import {
+  AddressInfo,
+  getWxShopProductDetail,
+  postWxShopCartAdd,
+  SkuInfo,
+} from "@/client";
 import { safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
+import { AddressList } from "@/components/AddressList";
 import { useState } from "react";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
@@ -21,7 +27,11 @@ const WareDetail = () => {
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
+  const selectAddressControl = usePopupControl();
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
+  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
+    appUserStore.defaultAddress,
+  );
   const { data } = useRequest(async () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -72,6 +82,10 @@ const WareDetail = () => {
                 <Delivery
                   info={data}
                   currentSku={currentSku}
+                  currentAddress={currentAddress}
+                  handleSelectAddress={() => {
+                    selectAddressControl.setOpen(true);
+                  }}
                   handleSelctSku={() => {
                     setMode(ModeEnum.ALL);
                     control.setOpen(true);
@@ -122,6 +136,16 @@ const WareDetail = () => {
                 )}
               />
             )}
+          </AppPopup>
+          <AppPopup
+            style={{
+              height: "60vh",
+            }}
+            showClose
+            {...selectAddressControl}
+            title="选择地址"
+          >
+            <AddressList addressCardProps={{ showActions: false }} />
           </AppPopup>
         </>
       )}
