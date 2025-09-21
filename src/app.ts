@@ -55,7 +55,6 @@ function App({ children }: PropsWithChildren<any>) {
 
   useLaunch(async () => {
     await checkLogin();
-
     client.instance.interceptors.response.use((response) => {
       if (appAuthStore.isLogged && response.data.code === 506) {
         if (isDev) {

@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { SwipeCell } from "@taroify/core";
+import { Empty, SwipeCell } from "@taroify/core";
 import { useAppUserStore } from "@/stores";
 import { CartItem, getWxShopCartDelete } from "@/client";
 import { appLoading, appToast } from "@/utils";
@@ -32,6 +32,14 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
       appLoading.hide();
     }
   };
+  if (data.length === 0) {
+    return (
+      <Empty>
+        <Empty.Image />
+        <Empty.Description>购物车空空如也</Empty.Description>
+      </Empty>
+    );
+  }
 
   return (
     <View className={classNames("flex flex-col gap-[24px]", className)}>
