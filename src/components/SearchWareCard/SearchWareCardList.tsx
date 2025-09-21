@@ -23,7 +23,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     return res.data;
   });
   const { className, searchWareCardProps } = props;
-  if (!dataRequest.loading && !dataRequest.data) {
+  if (dataRequest.loading && !dataRequest.data) {
     return (
       <View className="flex gap-2 p-2 h-full w-full pb-[180px]">
         <View className="flex-1 flex flex-col gap-2">

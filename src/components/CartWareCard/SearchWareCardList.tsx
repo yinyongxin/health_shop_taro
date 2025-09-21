@@ -14,8 +14,6 @@ export type CartWareCardListProps = {
 };
 
 export const CartWareCardList = (props: CartWareCardListProps) => {
-  const appUserStore = useAppUserStore();
-
   const { data = [], className, cartWareCardProps } = props;
 
   return (

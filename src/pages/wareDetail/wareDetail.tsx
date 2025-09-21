@@ -173,7 +173,6 @@ const WareDetail = () => {
             footer={
               <AppButton
                 className="w-full"
-                status="error"
                 onClick={() => selectAddressControl.setOpen(false)}
               >
                 确定
