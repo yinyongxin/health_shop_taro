@@ -33,4 +33,7 @@ export interface AllPagesQueryType
   editAddress: {
     detail?: AddressInfo;
   };
+  orderList: {
+    status?: string;
+  };
 }

@@ -14,7 +14,7 @@ export const MyOrder = () => {
         <View
           className="flex items-center gap-[8px] active:text-blue-500"
           onClick={() => {
-            appRouter.navigateTo("orderList");
+            appRouter.navigateTo("orderList", { query: { status: "all" } });
           }}
         >
           <Text>全部订单</Text>
@@ -30,7 +30,11 @@ export const MyOrder = () => {
                 title={status.dictLabel}
                 icon={<LucideIcon name={OrderStatusIcon[index]} size={24} />}
                 onClick={() => {
-                  appRouter.navigateTo("orderList");
+                  appRouter.navigateTo("orderList", {
+                    query: {
+                      status: status.dictValue,
+                    },
+                  });
                 }}
               />
             );

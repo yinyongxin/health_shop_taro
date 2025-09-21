@@ -3,13 +3,14 @@ import { View } from "@tarojs/components";
 import { useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
-import { useRequest } from "@/hooks";
+import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopOrderMy, OrderInfo } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import { OrderCard } from "./OrderCard";
 
 const OrderList = () => {
+  const pageParams = usePageParams<"orderList">();
   const { orderStatus } = useAppUserStore();
   const tabs = [
     {
@@ -25,7 +26,7 @@ const OrderList = () => {
       };
     }),
   ];
-  const [active, setActive] = useState(tabs[0].value);
+  const [active, setActive] = useState(pageParams.status || "all");
 
   const dataRequest = useRequest(
     async (pageNum: number = 1) => {
