@@ -58,7 +58,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
             onClick={() => {
               appRouter.navigateTo("wareDetail", {
                 query: {
-                  id: props.info.productName?.toString()!,
+                  id: props.info.id?.toString()!,
                 },
               });
             }}
