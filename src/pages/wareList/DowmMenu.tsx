@@ -4,14 +4,14 @@ import { useState } from "react";
 
 const options1 = [
   { title: "全部商品", value: 0 },
-  { title: "新款商品", value: 1 },
-  { title: "活动商品", value: 2 },
+  // { title: "新款商品", value: 1 },
+  // { title: "活动商品", value: 2 },
 ];
 
 const options2 = [
   { title: "默认排序", value: 0 },
-  { title: "好评排序", value: 1 },
-  { title: "销量排序", value: 2 },
+  // { title: "好评排序", value: 1 },
+  // { title: "销量排序", value: 2 },
 ];
 
 export type DownMenuProps = {
