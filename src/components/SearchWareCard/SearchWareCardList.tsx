@@ -2,10 +2,9 @@ import { getWxShopProductSearch, ProductInfo } from "@/client";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { useRequest } from "@/hooks";
-import { wareListMock } from "@/mock";
 import { APP_ENV_CONFIG } from "@/common";
-import { SearchWareCard, SearchWareCardProps } from ".";
 import { appLoading } from "@/utils";
+import { SearchWareCard, SearchWareCardProps } from ".";
 
 export type SearchWareCardListProps = {
   data?: ProductInfo[];
