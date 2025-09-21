@@ -17,17 +17,18 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     const res = await getWxShopProductSearch({
       query: {
         orgId: APP_ENV_CONFIG.ORG_ID,
+        searchKey: "",
       },
     });
     return res.data;
   });
-  const { data, className, searchWareCardProps } = props;
+  const { className, searchWareCardProps } = props;
 
   return (
     <View
       className={classNames("pr-[24px] pb-[64px] flex flex-wrap", className)}
     >
-      {(dataRequest.data?.rows)?.map((item, index) => (
+      {dataRequest.data?.rows?.map((item, index) => (
         <SearchWareCard
           key={item.id + index}
           info={item}
