@@ -8,10 +8,12 @@ export type AddressCardProps = {
   info: AddressInfo;
   showActions?: boolean;
   className?: string;
+  checked?: boolean;
 };
 
 export const AddressCard = (props: AddressCardProps) => {
-  const { showActions = true, className, info } = props;
+  const { showActions = true, className, info, checked } = props;
+  console.log({ checked });
   return (
     <View
       className={classNames(
@@ -21,10 +23,15 @@ export const AddressCard = (props: AddressCardProps) => {
     >
       <View className="w-full px-2 flex justify-between">
         <View className="flex items-center gap-2">
+          <AppTag>{info.tag}</AppTag>
           <View className="text-[28px] font-semibold">{info.receiverName}</View>
           <View>{info.receiverPhone}</View>
         </View>
-        <AppTag>{info.tag}</AppTag>
+        <View>
+          {checked !== undefined && checked && (
+            <AppTag status="error">当前地址</AppTag>
+          )}
+        </View>
       </View>
       <View className="flex items-center gap-2 px-2">
         <View>{info.province}</View>

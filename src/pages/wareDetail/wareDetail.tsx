@@ -145,7 +145,10 @@ const WareDetail = () => {
             {...selectAddressControl}
             title="选择地址"
           >
-            <AddressList addressCardProps={{ showActions: false }} />
+            <AddressList
+              selectId={currentAddress?.id}
+              addressCardProps={{ showActions: false }}
+            />
           </AppPopup>
         </>
       )}
