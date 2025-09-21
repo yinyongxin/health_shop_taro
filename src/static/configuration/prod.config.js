@@ -1,5 +1,5 @@
 window.prodConfig = {
-  ENV: "dev",
+  ENV: "prod",
   APP_NAME: "医疗服务智能预约平台",
   ORG_ID: "800001002",
   APPID: "wxfaaff87825f44139",
