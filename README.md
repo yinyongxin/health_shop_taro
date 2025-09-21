@@ -43,6 +43,6 @@ pnpm 10+
 [Persist](https://zustand.docs.pmnd.rs/middlewares/persist)
 [掘金教程](https://juejin.cn/post/7406247350668804105)
 
-## 医疗健康图片
+## 医疗健康 图片
 
 [Medical Images](https://www.svgrepo.com/collection/medical-and-health/)
