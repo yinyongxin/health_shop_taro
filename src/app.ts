@@ -8,7 +8,7 @@ import {
   getWxShopAddrList,
   getWxShopCartLoad,
 } from "./client";
-import { getUrlCode, getWinxinLoginUrl, jumpWxGetCode } from "./utils";
+import { getUrlCode, getWinxinLoginUrl, isDev, jumpWxGetCode } from "./utils";
 
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
@@ -42,7 +42,10 @@ function App({ children }: PropsWithChildren<any>) {
       window.location.href = url.toString();
     } else {
       // 如果没有登录码，则直接调用登录函数
-      // jumpWxGetCode();
+      if (isDev) {
+        return;
+      }
+      jumpWxGetCode();
     }
   };
 

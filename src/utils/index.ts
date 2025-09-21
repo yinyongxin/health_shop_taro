@@ -36,6 +36,8 @@ export const getAreaCode = (values: {
   ];
 };
 
+export const isDev = process.env.NODE_ENV === "development";
+
 export const isH5 = process.env.TARO_ENV === "h5";
 
 export const isWeapp = process.env.TARO_ENV === "weapp";
