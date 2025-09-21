@@ -1,12 +1,10 @@
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
-import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { isIOS } from "@/utils";
 import { createOrder } from "@/utils/order";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { create } from "domain";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();

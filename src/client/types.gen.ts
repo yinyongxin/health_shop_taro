@@ -334,7 +334,8 @@ export type GetWxShopCartDeleteData = {
 
 export type GetWxShopCartDeleteResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
   };
 };
 

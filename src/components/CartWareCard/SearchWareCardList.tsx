@@ -1,9 +1,9 @@
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { SwipeCell } from "@taroify/core";
-import { wareListMock } from "@/mock";
 import { useAppUserStore } from "@/stores";
-import { CartItem } from "@/client";
+import { CartItem, getWxShopCartDelete } from "@/client";
+import { appLoading, appToast } from "@/utils";
 import { CartWareCard, CartWareCardProps } from ".";
 import { LucideIcon } from "../LucideIcon";
 
@@ -14,7 +14,24 @@ export type CartWareCardListProps = {
 };
 
 export const CartWareCardList = (props: CartWareCardListProps) => {
+  const appUserStore = useAppUserStore();
   const { data = [], className, cartWareCardProps } = props;
+  const handleDelete = async (value: CartItem) => {
+    try {
+      appLoading.show("删除中...");
+      const res = await getWxShopCartDelete({
+        query: { cartItemId: value?.id?.toString() },
+      });
+      if (res.data?.code === 0) {
+        appToast.success("删除成功");
+        appUserStore.updateCartInfo();
+      } else {
+        appToast.error(res?.data?.msg ?? "删除失败");
+      }
+    } finally {
+      appLoading.hide();
+    }
+  };
 
   return (
     <View className={classNames("flex flex-col gap-[24px]", className)}>
@@ -29,7 +46,9 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
             <SwipeCell.Actions side="right">
               <View
                 className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
-                onClick={() => {}}
+                onClick={() => {
+                  handleDelete(item);
+                }}
               >
                 <LucideIcon name="trash" size={20} />
                 <Text className="text-[28px] font-semibold">删除</Text>
