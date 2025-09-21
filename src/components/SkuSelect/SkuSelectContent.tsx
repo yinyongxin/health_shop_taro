@@ -1,7 +1,8 @@
 import { ProductInfo, SkuInfo } from "@/client";
 import { View, Text } from "@tarojs/components";
 import { ReactNode, useState } from "react";
-import { safeJson } from "@/utils";
+import { isIOS, safeJson } from "@/utils";
+import classNames from "classnames";
 import { AppImage } from "../AppImage";
 import { Title } from "../Title";
 import { AppTag } from "../AppTag";
@@ -14,9 +15,21 @@ type SkuSelectContentProps = {
 };
 export const SkuSelectContent = (props: SkuSelectContentProps) => {
   const { data, btns, currentSku, setCurrentSku } = props;
+  const [quantity, setQuantity] = useState(1);
+  const handleAdd = () => {
+    if (quantity >= currentSku.stock) {
+      return;
+    }
+    setQuantity(quantity + 1);
+  };
+  const handleReduce = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   return (
-    <View className="pt-[32px] pb-[32px]">
+    <View className="pt-[32px] pb-[32px] min-h-[50vh] relative">
       <View className="flex gap-[16px] px-[24px]">
         <AppImage
           className="size-[120px] bg-gray-200"
@@ -35,7 +48,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
       </View>
       <View className="mt-[32px] px-[24px]">
         <Title>规格</Title>
-        <View className="flex gap-[8px] flex-wrap mt-[24px]">
+        <View className="flex gap-[24px] flex-wrap mt-[24px]">
           {data.skuList.map((sku) => {
             const skuName = safeJson.parse(sku.specs, { 规格: "默认" });
             return (
@@ -50,8 +63,38 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
             );
           })}
         </View>
+        <Title className="mt-[32px]">数量</Title>
+        <View className="flex gap-[8px] flex-wrap mt-[24px]">
+          <View className="shirnk-0 flex items-center gap-2">
+            <AppTag
+              status="secondary"
+              className="size-[48px]"
+              onClick={() => {
+                handleReduce();
+              }}
+            >
+              -
+            </AppTag>
+            <View className="text-[28px]">{quantity}</View>
+            <AppTag
+              status="secondary"
+              className="size-[48px]"
+              onClick={() => {
+                handleAdd();
+              }}
+            >
+              +
+            </AppTag>
+          </View>
+        </View>
       </View>
-      <View className="mt-[32px] px-[24px]">{btns?.(currentSku)}</View>
+      <View
+        className={classNames("p-[24px] absolute bottom-0 left-0 right-0", {
+          "pb-[40px]": isIOS(),
+        })}
+      >
+        {btns?.(currentSku)}
+      </View>
     </View>
   );
 };
