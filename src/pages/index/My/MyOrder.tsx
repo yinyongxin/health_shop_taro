@@ -2,7 +2,7 @@ import { LucideIcon } from "@/components";
 import { View, Text } from "@tarojs/components";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { OrderStatusIcon, OrderTabOptions } from "@/options";
+import { OrderStatusIcon } from "@/options";
 import { MyOrderItem } from "./MyOrderItem";
 
 export const MyOrder = () => {

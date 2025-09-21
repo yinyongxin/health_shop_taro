@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { useRequest } from "@/hooks";
-import { getWxShopOrderMy } from "@/client";
+import { getWxShopOrderMy, OrderInfo } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import { OrderCard } from "./OrderCard";
@@ -18,9 +18,10 @@ const OrderList = () => {
       icon: "grid-2x2",
     },
     ...orderStatus.map((item, index) => {
+      console.log(item);
       return {
         label: item.dictLabel,
-        value: item.dictCode.toString(),
+        value: item.dictValue,
         icon: OrderStatusIcon[index],
       };
     }),
@@ -37,8 +38,14 @@ const OrderList = () => {
           pageSize: "10",
         },
       });
+      let list: OrderInfo[] = [];
+      if (pageNum !== 1) {
+        list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
+      } else {
+        list = res.data?.rows || [];
+      }
       return {
-        list: res?.data?.rows || [],
+        list,
         pagination: {
           total: res?.data?.total || 0,
           pageNum: pageNum || 1,
@@ -68,6 +75,7 @@ const OrderList = () => {
         />
         <AppList
           className="flex-1"
+          loading={dataRequest.loading}
           {...dataRequest.data}
           bodyProps={{
             className: "px-[24px] py-[32px] flex flex-col gap-[24px]",
