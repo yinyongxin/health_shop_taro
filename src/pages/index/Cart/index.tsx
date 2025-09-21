@@ -1,7 +1,7 @@
 import { postWxShopOrderPay } from "@/client";
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
-import { useAppUserStore } from "@/stores";
+import { useAppAuthStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast, isIOS } from "@/utils";
 import { createOrder } from "@/utils/order";
 import { View, Text } from "@tarojs/components";
@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();
+  const appAuthStore = useAppAuthStore();
   const { cartInfo } = appUserStore;
 
   const handlePay = async () => {
@@ -54,8 +55,10 @@ export const Cart = () => {
     }
   };
   useEffect(() => {
-    appUserStore.updateCartInfo();
-  }, []);
+    if (appAuthStore.isLogged) {
+      appUserStore.updateCartInfo();
+    }
+  }, [appAuthStore.isLogged]);
   return (
     <BasePage>
       <View className="pt-[24px] pb-[300px]">

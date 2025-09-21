@@ -35,12 +35,7 @@ export const Home = () => {
         <View className="px-[24px] pt-[32px]">
           <Banners />
         </View>
-        <View
-          className="px-[24px] pt-[32px]"
-          onClick={() => {
-            showToast({ title: "尽请期待", icon: "none" });
-          }}
-        >
+        <View className="px-[24px] pt-[32px]">
           {loading && !data ? (
             <View className="flex flex-col bg-white rounded-lg p-[24px] gap-2">
               <View className="flex gap-2">
