@@ -58,10 +58,8 @@ export const Cart = () => {
     }
   };
   useEffect(() => {
-    if (appAuthStore.isLogged) {
-      appUserStore.updateCartInfo();
-    }
-  }, [appAuthStore.isLogged]);
+    appUserStore.updateCartInfo();
+  }, []);
   return (
     <BasePage>
       <View className="pt-[24px] pb-[300px]">

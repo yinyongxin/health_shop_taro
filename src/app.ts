@@ -55,8 +55,9 @@ function App({ children }: PropsWithChildren<any>) {
 
   useLaunch(async () => {
     await checkLogin();
+
     client.instance.interceptors.response.use((response) => {
-      if (response.data.code === 506) {
+      if (appAuthStore.isLogged && response.data.code === 506) {
         if (isDev) {
           appToast.error("登录已过期，请重新登录");
         } else {
@@ -65,7 +66,6 @@ function App({ children }: PropsWithChildren<any>) {
       }
       return response;
     });
-    appUserStore.updateCartInfo();
   });
 
   // children 是将要会渲染的页面
