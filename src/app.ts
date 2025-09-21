@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { useLaunch } from "@tarojs/taro";
-import { useAppAuthStore } from "./stores";
+import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet, getWxShopCartLoad } from "./client";
@@ -8,6 +8,7 @@ import { getUrlCode, getWinxinLoginUrl, jumpWxGetCode } from "./utils";
 
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
+  const appUserStore = useAppUserStore();
   const checkLogin = async () => {
     // 获取URL中的微信登录码
     const wxLoginCode = getUrlCode();
@@ -40,19 +41,21 @@ function App({ children }: PropsWithChildren<any>) {
       // jumpWxGetCode();
     }
   };
-  const init = async () => {
+  const initCart = async () => {
     const res = await getWxShopCartLoad({
       query: {
         orgId: APP_ENV_CONFIG.ORG_ID,
-      }
+      },
     });
-    console.log("getWxShopCartLoad", res.data);
-  }
+    if (res.data?.code !== 0) {
+      return;
+    }
+    appUserStore.updateCartInfo(res.data.data);
+  };
 
   useLaunch(async () => {
     await checkLogin();
-    init()
-    console.log("App Launch", APP_ENV_CONFIG);
+    initCart();
   });
 
   // children 是将要会渲染的页面
