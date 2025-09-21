@@ -8,8 +8,6 @@ export const createOrder = async (data: {
   itemList: CartItem[];
 }) => {
   const { addressId, itemList, cartId } = data;
-  //   const res = await request.post("/order/create", data);
-  //   return res;
   const paymentAmount = calculateTotalPrice(itemList);
   const freightAmount = 0;
   const discountAmount = 0;
@@ -27,5 +25,7 @@ export const createOrder = async (data: {
   const res = await postWxShopOrderCreate({ body });
   if (res.data?.code === 0) {
     return res.data.data;
+  } else {
+    throw new Error(res.data?.msg);
   }
 };

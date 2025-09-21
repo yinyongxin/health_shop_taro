@@ -1,14 +1,61 @@
+import { postWxShopOrderPay } from "@/client";
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { useAppUserStore } from "@/stores";
-import { isIOS } from "@/utils";
+import { appLoading, appToast, isIOS } from "@/utils";
 import { createOrder } from "@/utils/order";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
+import { useEffect } from "react";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();
   const { cartInfo } = appUserStore;
+
+  const handlePay = async () => {
+    if (cartInfo.itemList.length === 0) {
+      return;
+    }
+    try {
+      appLoading.show("创建支付中...");
+      const res = await createOrder({
+        addressId: appUserStore.defaultAddress?.id!,
+        cartId: cartInfo.id,
+        itemList: cartInfo.itemList,
+      });
+
+      const payData = await postWxShopOrderPay({
+        body: {
+          orderNo: res.orderNo,
+        },
+      });
+      WeixinJSBridge.invoke(
+        "getBrandWCPayRequest",
+        {
+          appId: payData.data?.data.app_id, //公众号ID，由商户传入
+          timeStamp: payData.data?.data.time_stamp, //时间戳，自1970年以来的秒数
+          nonceStr: payData.data?.data.nonce_str, //随机串
+          package: payData.data?.data.package,
+          signType: payData.data?.data.sign_type, //微信签名方式：
+          paySign: payData.data?.data.pay_sign, //微信签名
+        },
+        (res) => {
+          console.log(res);
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            // 使用以上方式判断前端返回,微信团队郑重提示：
+            //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠，商户需进一步调用后端查单确认支付结果。
+          }
+        },
+      );
+    } catch {
+      appToast.error("支付失败，请稍后再试");
+    } finally {
+      appLoading.hide();
+    }
+  };
+  useEffect(() => {
+    appUserStore.updateCartInfo();
+  }, []);
   return (
     <BasePage>
       <View className="pt-[24px] pb-[300px]">
@@ -35,11 +82,7 @@ export const Cart = () => {
             round
             status="error"
             onClick={() => {
-              createOrder({
-                cartId: appUserStore.cartInfo?.id!,
-                addressId: appUserStore.defaultAddress?.id!,
-                itemList: cartInfo.itemList,
-              });
+              handlePay();
             }}
           >
             去结算

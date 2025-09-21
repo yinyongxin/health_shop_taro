@@ -23,7 +23,6 @@ import type {
   PostWxShopOrderCreateResponses,
   PostWxShopOrderPayData,
   PostWxShopOrderPayResponses,
-  PostWxShopOrderPayErrors,
   PostWxShopCartUpdateData,
   PostWxShopCartUpdateResponses,
   PostWxShopCartUpdateErrors,
@@ -35,6 +34,9 @@ import type {
   PostWxShopAddrEditResponses,
   GetWxShopAddrDelData,
   GetWxShopAddrDelResponses,
+  GetWxShopOrderMyData,
+  GetWxShopOrderMyResponses,
+  GetWxShopOrderMyErrors,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -224,7 +226,7 @@ export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? _heyApiClient).post<
     PostWxShopOrderPayResponses,
-    PostWxShopOrderPayErrors,
+    unknown,
     ThrowOnError
   >({
     responseType: "json",
@@ -330,6 +332,24 @@ export const getWxShopAddrDel = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/addr/del",
+    ...options,
+  });
+};
+
+/**
+ * 我的订单
+ * 查全部订单， status参数 不传，
+ */
+export const getWxShopOrderMy = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderMyData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderMyResponses,
+    GetWxShopOrderMyErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/my",
     ...options,
   });
 };

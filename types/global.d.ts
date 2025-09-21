@@ -18,6 +18,9 @@ declare var window: Window &
     prodConfig: any;
   };
 
+declare var WeixinJSBridge: any;
+
+
 declare namespace NodeJS {
   interface ProcessEnv {
     /** NODE 内置环境变量, 会影响到最终构建生成产物 */

@@ -49,6 +49,19 @@ export type DefaultResult = {
   data: string;
 };
 
+export type PayResult = {
+  nonce_str: string;
+  package: string;
+  time_stamp: string;
+  pay_option: string;
+  mch_order_id: string;
+  pay_id: string;
+  app_id: string;
+  sign_type: string;
+  pay_sign: string;
+  status: string;
+};
+
 export type CreateOrderResult = {
   id: number;
   orderNo: string;
@@ -369,19 +382,11 @@ export type PostWxShopOrderPayData = {
   url: "/wx/shop/order/pay";
 };
 
-export type PostWxShopOrderPayErrors = {
-  400: {
-    code: number;
-    msg: string;
-  };
-};
-
-export type PostWxShopOrderPayError =
-  PostWxShopOrderPayErrors[keyof PostWxShopOrderPayErrors];
-
 export type PostWxShopOrderPayResponses = {
   200: {
-    [key: string]: unknown;
+    msg: string;
+    code: number;
+    data: PayResult;
   };
 };
 
@@ -498,6 +503,42 @@ export type GetWxShopAddrDelResponses = {
 
 export type GetWxShopAddrDelResponse =
   GetWxShopAddrDelResponses[keyof GetWxShopAddrDelResponses];
+
+export type GetWxShopOrderMyData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    /**
+     * 非必填，不传查全部
+     */
+    status?: string;
+    pageSize?: string;
+    pageNum?: string;
+  };
+  url: "/wx/shop/order/my";
+};
+
+export type GetWxShopOrderMyErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopOrderMyError =
+  GetWxShopOrderMyErrors[keyof GetWxShopOrderMyErrors];
+
+export type GetWxShopOrderMyResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: string;
+  };
+};
+
+export type GetWxShopOrderMyResponse =
+  GetWxShopOrderMyResponses[keyof GetWxShopOrderMyResponses];
 
 export type ClientOptions = {
   baseURL: string;

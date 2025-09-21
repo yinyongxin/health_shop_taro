@@ -21,9 +21,9 @@ function App({ children }: PropsWithChildren<any>) {
     const wxLoginCode = getUrlCode();
     console.log("getWinxinLoginUrl", getWinxinLoginUrl());
     // 如果已经登录，则返回true
-    if (appAuthStore.isLogged) {
-      return;
-    }
+    // if (appAuthStore.isLogged) {
+    //   return;
+    // }
     if (wxLoginCode) {
       // 使用微信登录码进行登录
       const res = await getWxRedirectByAppIdGreet({
