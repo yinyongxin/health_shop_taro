@@ -10,7 +10,7 @@ export type SearchWareCardListProps = {
   data?: ProductInfo[];
   className?: string;
   searchWareCardProps?: Partial<SearchWareCardProps>;
-  searchKey: string;
+  searchKey?: string;
   refreshNumber?: number;
 };
 

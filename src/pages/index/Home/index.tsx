@@ -4,10 +4,9 @@ import { View } from "@tarojs/components";
 import { Grid } from "@taroify/core";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
-import { CateInfo, getWxShopCateList } from "@/client";
+import { getWxShopCateList } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useRequest } from "@/hooks";
-import { useState } from "react";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 
