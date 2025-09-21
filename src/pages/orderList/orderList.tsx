@@ -73,6 +73,9 @@ const OrderList = () => {
             className: "px-[24px] py-[32px] flex flex-col gap-[24px]",
           }}
           itemRender={(item) => <OrderCard info={item} />}
+          onLoad={(pageNum) => {
+            dataRequest.run(pageNum);
+          }}
         ></AppList>
       </View>
     </BasePage>
