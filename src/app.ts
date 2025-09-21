@@ -65,6 +65,7 @@ function App({ children }: PropsWithChildren<any>) {
       }
       return response;
     });
+    appUserStore.updateCartInfo();
   });
 
   // children 是将要会渲染的页面
