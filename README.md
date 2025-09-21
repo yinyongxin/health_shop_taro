@@ -5,6 +5,7 @@
 Nodejs 21+
 pnpm 10+
 
+[线上](https://chr.eh-med.com/hmall/#)
 [本地启动](http://localhost:10086/index#/pages/index/index)
 
 ## TPPD
