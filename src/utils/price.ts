@@ -1,13 +1,9 @@
-import { wareListMock } from "@/mock"
-import { CartListItem } from "@/stores"
+import { CartItem } from "@/client";
 
-export const calculateTotalPrice = (cartList: CartListItem[]) => {
+export const calculateTotalPrice = (cartList: CartItem[]) => {
   const totalPrice = cartList.reduce((pre, cur) => {
-    const wareInfo = wareListMock.find((item) => item.id === cur.id)
-    if (wareInfo) {
-      return pre + wareInfo.price * cur.num
-    }
-    return pre
-  }, 0)
-  return Number(totalPrice.toFixed(2))
-}
+    const { price = 0, quantity = 1 } = cur;
+    return pre + price * quantity;
+  }, 0);
+  return Number(totalPrice.toFixed(2));
+};

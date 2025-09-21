@@ -23,9 +23,6 @@ interface AppUserState {
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
   totalPrice: number;
-  cartList: CartListItem[];
-  deleteCard: (id: string) => void;
-  updateCartNum: (id: string, num: number) => void;
 }
 
 export const useAppUserStore = createAppStore<AppUserState>(
@@ -43,6 +40,7 @@ export const useAppUserStore = createAppStore<AppUserState>(
       updatedAt: "",
       itemList: [],
     },
+    totalPrice: 0,
     updateCartInfo: async () => {
       const res = await getWxShopCartLoad({
         query: {
@@ -52,7 +50,10 @@ export const useAppUserStore = createAppStore<AppUserState>(
       if (res.data?.code !== 0) {
         return;
       }
-      set({ cartInfo: res.data.data });
+      set({
+        cartInfo: res.data.data,
+        totalPrice: calculateTotalPrice(res.data.data.itemList),
+      });
     },
     addressList: [],
     updateAddressList: async () => {
@@ -67,52 +68,6 @@ export const useAppUserStore = createAppStore<AppUserState>(
       set({
         addressList: res.data.data,
         defaultAddress: res.data.data.find((item) => item.isDefault),
-      });
-    },
-    totalPrice: 0,
-    cartList: [],
-    addCart: (id) => {
-      const currentList = get().cartList;
-      const isIn = currentList.some((item) => item.id === id);
-      if (isIn) {
-        showToast({
-          title: "请勿重复添加",
-          icon: "error",
-          duration: 2000,
-        });
-        return;
-      }
-      const newCartList = [...currentList, { id, num: 1 }];
-      set({
-        cartList: newCartList,
-        totalPrice: calculateTotalPrice(newCartList),
-      });
-      showToast({
-        title: "加入购物车成功",
-        icon: "success",
-        duration: 2000,
-      });
-    },
-    deleteCard: (id) => {
-      const currentList = get().cartList;
-      const index = currentList.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        currentList.splice(index, 1);
-      }
-      set({
-        cartList: currentList,
-        totalPrice: calculateTotalPrice(currentList),
-      });
-    },
-    updateCartNum: (id, num) => {
-      const currentList = get().cartList;
-      const index = currentList.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        currentList[index].num = num;
-      }
-      set({
-        cartList: currentList,
-        totalPrice: calculateTotalPrice(currentList),
       });
     },
   }),

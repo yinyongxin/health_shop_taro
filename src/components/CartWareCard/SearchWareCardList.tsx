@@ -31,9 +31,7 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
             <SwipeCell.Actions side="right">
               <View
                 className="flex flex-col gap-[8px] justify-center items-center px-[40px] text-red-500"
-                onClick={() => {
-                  // appUserStore.deleteCard(item.id)
-                }}
+                onClick={() => {}}
               >
                 <LucideIcon name="trash" size={20} />
                 <Text className="text-[28px] font-semibold">删除</Text>

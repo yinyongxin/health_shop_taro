@@ -1,5 +1,6 @@
 import { CartItem, CreateOrderBody, postWxShopOrderCreate } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
+import { calculateTotalPrice } from "./price";
 
 export const createOrder = async (data: {
   addressId: number;
@@ -8,9 +9,7 @@ export const createOrder = async (data: {
   const { addressId, itemList } = data;
   //   const res = await request.post("/order/create", data);
   //   return res;
-  const paymentAmount = itemList.reduce((acc, item) => {
-    return acc + (item?.price || 0) * (item?.quantity || 1);
-  }, 0);
+  const paymentAmount = calculateTotalPrice(itemList);
   const freightAmount = 0;
   const discountAmount = 0;
   const body: CreateOrderBody = {
