@@ -11,6 +11,7 @@ import type {
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
   GetWxShopCateProductResponses,
+  GetWxShopCateProductErrors,
   GetWxShopProductSearchData,
   GetWxShopProductSearchResponses,
   GetWxShopProductSearchErrors,
@@ -123,7 +124,7 @@ export const getWxShopCateProduct = <ThrowOnError extends boolean = false>(
 ) => {
   return (options?.client ?? _heyApiClient).get<
     GetWxShopCateProductResponses,
-    unknown,
+    GetWxShopCateProductErrors,
     ThrowOnError
   >({
     responseType: "json",

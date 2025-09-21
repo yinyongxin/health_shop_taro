@@ -1,5 +1,5 @@
 import { AppTopSearch, BasePage } from "@/components";
-import { ScrollView, View } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import { useState } from "react";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { DownMenu } from "./DowmMenu";
@@ -22,7 +22,7 @@ const WareList = () => {
           }}
         />
       </View>
-      <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
+      <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden bg-gray-100">
         <DownMenu />
         <SearchWareCardList
           searchWareCardProps={{ border: true }}

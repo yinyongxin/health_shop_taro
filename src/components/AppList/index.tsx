@@ -1,3 +1,4 @@
+import { Empty } from "@taroify/core";
 import { ScrollView, View, ViewProps } from "@tarojs/components";
 import classNames from "classnames";
 
@@ -36,6 +37,14 @@ export function AppList<I>(props: AppListProps<I>) {
     pagination.pageNum > 1 && (
       <View className="w-full text-center pb-[32px] pt-[24px]">加载中...</View>
     );
+  if (pagination && pagination.total === 0) {
+    return (
+      <Empty>
+        <Empty.Image />
+        <Empty.Description>空空如也</Empty.Description>
+      </Empty>
+    );
+  }
   return (
     <ScrollView
       scrollY

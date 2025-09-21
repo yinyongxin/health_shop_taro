@@ -294,9 +294,21 @@ export type GetWxShopCateProductData = {
   path?: never;
   query?: {
     subCategoryId?: string;
+    pageSize?: string;
+    pageNum?: string;
   };
   url: "/wx/shop/cate/product";
 };
+
+export type GetWxShopCateProductErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopCateProductError =
+  GetWxShopCateProductErrors[keyof GetWxShopCateProductErrors];
 
 export type GetWxShopCateProductResponses = {
   200: {
