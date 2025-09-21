@@ -69,7 +69,7 @@ export const Home = () => {
                   }}
                   key={item.id}
                   icon={<LucideIcon name="image" size={32} />}
-                  text={item.categoryName}
+                  text={item.name}
                 />
               ))}
             </Grid>
