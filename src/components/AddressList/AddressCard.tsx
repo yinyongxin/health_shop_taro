@@ -1,4 +1,4 @@
-import { AddressInfo, getWxShopAddrDel } from "@/client";
+import { AddressInfo, getWxShopAddrDel, postWxShopAddrEdit } from "@/client";
 import { Checkbox } from "@taroify/core";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
@@ -11,12 +11,12 @@ export type AddressCardProps = {
   showActions?: boolean;
   className?: string;
   checked?: boolean;
+  handleClick?: (info: AddressInfo) => void;
 };
 
 export const AddressCard = (props: AddressCardProps) => {
-  const { showActions = true, className, info, checked } = props;
+  const { showActions = true, className, info, checked, handleClick } = props;
   const appUserStore = useAppUserStore();
-  console.log({ checked });
   const handleDelete = async () => {
     const res = await getWxShopAddrDel({
       query: {
@@ -30,12 +30,31 @@ export const AddressCard = (props: AddressCardProps) => {
       appToast.error(res?.data?.msg ?? "删除失败");
     }
   };
+
+  const handleSetDefault = async () => {
+    const res = await postWxShopAddrEdit({
+      query: {
+        id: info.id?.toString(),
+      },
+      body: {
+        isDefault: info.isDefault === 1 ? 0 : 1,
+      },
+    });
+    if (res.data?.code === 0) {
+      appUserStore.updateAddressList();
+      appToast.success("设置成功");
+    } else {
+      appToast.error(res?.data?.msg ?? "设置失败");
+    }
+  };
+
   return (
     <View
       className={classNames(
         "bg-white rounded-lg app-shadow py-[24px] flex flex-col gap-[16px]",
         className,
       )}
+      onClick={() => handleClick?.(info)}
     >
       <View className="w-full px-2 flex justify-between">
         <View className="flex items-center gap-2">
@@ -64,6 +83,7 @@ export const AddressCard = (props: AddressCardProps) => {
             checked={info.isDefault === 1}
             size={18}
             className="text-[24px]!"
+            onClick={handleSetDefault}
           >
             默认地址
           </Checkbox>

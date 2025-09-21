@@ -414,19 +414,7 @@ export type PostWxShopAddrAddResponse =
   PostWxShopAddrAddResponses[keyof PostWxShopAddrAddResponses];
 
 export type PostWxShopAddrEditData = {
-  body?: {
-    id: string;
-    receiverName: string;
-    receiverPhone: string;
-    province: string;
-    city: string;
-    district: string;
-    street: string;
-    detailAddress: string;
-    postalCode: string;
-    isDefault: number;
-    tag: string;
-  };
+  body?: AddressInfo;
   path?: never;
   query?: {
     id?: string;

@@ -147,7 +147,12 @@ const WareDetail = () => {
           >
             <AddressList
               selectId={currentAddress?.id}
-              addressCardProps={{ showActions: false }}
+              addressCardProps={{
+                showActions: false,
+                handleClick: (info) => {
+                  setCurrentAddress(info);
+                },
+              }}
             />
           </AppPopup>
         </>
