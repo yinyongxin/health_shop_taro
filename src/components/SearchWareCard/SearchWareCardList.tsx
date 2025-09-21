@@ -11,10 +11,16 @@ export type SearchWareCardListProps = {
   className?: string;
   searchWareCardProps?: Partial<SearchWareCardProps>;
   searchKey: string;
+  refreshNumber?: number;
 };
 
 export const SearchWareCardList = (props: SearchWareCardListProps) => {
-  const { searchKey = "", className, searchWareCardProps } = props;
+  const {
+    searchKey = "",
+    className,
+    searchWareCardProps,
+    refreshNumber,
+  } = props;
   const dataRequest = useRequest(
     async () => {
       if (dataRequest.data) {
@@ -32,7 +38,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
       return res.data;
     },
     {
-      refreshDeps: [searchKey],
+      refreshDeps: [searchKey, refreshNumber],
     },
   );
   if (dataRequest.loading && !dataRequest.data) {

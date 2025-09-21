@@ -7,6 +7,7 @@ import "./wareList.css";
 
 const WareList = () => {
   const [value, setValue] = useState("");
+  const [refreshNumber, setRefreshNumber] = useState(0);
   return (
     <BasePage
       bgProps={{ className: "page-bg" }}
@@ -14,7 +15,12 @@ const WareList = () => {
       className="flex-1 wareListPage"
     >
       <View className="p-[24px]">
-        <AppTopSearch onSearch={setValue} />
+        <AppTopSearch
+          onSearch={(val) => {
+            setValue(val);
+            setRefreshNumber(refreshNumber + 1);
+          }}
+        />
       </View>
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
         <DownMenu />
@@ -22,6 +28,7 @@ const WareList = () => {
           <SearchWareCardList
             searchWareCardProps={{ border: true }}
             searchKey={value}
+            refreshNumber={refreshNumber}
           />
         </ScrollView>
       </View>
