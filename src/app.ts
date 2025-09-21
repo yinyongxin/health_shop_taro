@@ -3,12 +3,15 @@ import { useLaunch } from "@tarojs/taro";
 import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
+import { getWxRedirectByAppIdGreet } from "./client";
 import {
-  getWxRedirectByAppIdGreet,
-  getWxShopAddrList,
-  getWxShopCartLoad,
-} from "./client";
-import { getUrlCode, getWinxinLoginUrl, isDev, jumpWxGetCode } from "./utils";
+  appToast,
+  getUrlCode,
+  getWinxinLoginUrl,
+  isDev,
+  jumpWxGetCode,
+} from "./utils";
+import { client } from "./client/client.gen";
 
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
@@ -50,6 +53,17 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    client.instance.interceptors.response.use((response) => {
+      console.log("response", response);
+      if (response.data.code === 506) {
+        if (isDev) {
+          appToast.error("登录已过期，请重新登录");
+        } else {
+          appAuthStore.logout();
+        }
+      }
+      return response;
+    });
     await checkLogin();
     appUserStore.updateCartInfo();
     appUserStore.updateAddressList();

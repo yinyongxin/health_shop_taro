@@ -31,6 +31,7 @@ export const useAppAuthStore = createAppStore<AppAuthState>(
     },
     logout: () => {
       set({ token: "", isLogged: false });
+      jumpWxGetCode();
     },
   }),
   "appAuth",
