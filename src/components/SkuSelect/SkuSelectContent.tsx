@@ -12,19 +12,21 @@ type SkuSelectContentProps = {
   currentSku: SkuInfo;
   setCurrentSku: (sku: SkuInfo) => void;
   btns: (sku: SkuInfo) => ReactNode;
+  quantity: number;
+  quantityChange: (quantity: number) => void;
 };
 export const SkuSelectContent = (props: SkuSelectContentProps) => {
-  const { data, btns, currentSku, setCurrentSku } = props;
-  const [quantity, setQuantity] = useState(1);
+  const { data, btns, currentSku, setCurrentSku, quantity, quantityChange } =
+    props;
   const handleAdd = () => {
     if (quantity >= currentSku.stock) {
       return;
     }
-    setQuantity(quantity + 1);
+    quantityChange(quantity + 1);
   };
   const handleReduce = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      quantityChange(quantity - 1);
     }
   };
 

@@ -15,7 +15,6 @@ import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
 import { useState } from "react";
 import { appRouter } from "@/router";
-import { createOrder } from "@/utils/order";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -30,6 +29,7 @@ const WareDetail = () => {
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
   const selectAddressControl = usePopupControl();
+  const [quantity, setQuantity] = useState(1);
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
@@ -46,7 +46,7 @@ const WareDetail = () => {
       body: {
         productId: data?.id!,
         skuId: sky.id,
-        quantity: 1,
+        quantity,
         cartId: appUserStore.cartInfo.id,
         orgId: APP_ENV_CONFIG.ORG_ID,
         productName: data?.name!,
@@ -85,22 +85,22 @@ const WareDetail = () => {
               {data && <BaseInfo info={data} />}
             </View>
             <View className="px-[24px] pt-[32px]">
-              {data?.type === "FW" ? (
+              {/* {data?.type === "FW" ? (
                 <ServiceBlock />
-              ) : (
-                <Delivery
-                  info={data}
-                  currentSku={currentSku}
-                  currentAddress={currentAddress}
-                  handleSelectAddress={() => {
-                    selectAddressControl.setOpen(true);
-                  }}
-                  handleSelctSku={() => {
-                    setMode(ModeEnum.ALL);
-                    control.setOpen(true);
-                  }}
-                />
-              )}
+              ) : ( */}
+              <Delivery
+                info={data}
+                currentSku={currentSku}
+                currentAddress={currentAddress}
+                handleSelectAddress={() => {
+                  selectAddressControl.setOpen(true);
+                }}
+                handleSelctSku={() => {
+                  setMode(ModeEnum.ALL);
+                  control.setOpen(true);
+                }}
+              />
+              {/* )} */}
             </View>
             {/* <View className="px-[24px] pt-[32px]">
               <Evaluate />
@@ -122,6 +122,8 @@ const WareDetail = () => {
           <AppPopup showClose {...control} title={data.name}>
             {currentSku && (
               <SkuSelectContent
+                quantity={quantity}
+                quantityChange={setQuantity}
                 currentSku={currentSku}
                 setCurrentSku={setCurrentSku}
                 data={data}
