@@ -416,9 +416,7 @@ export type PostWxShopAddrAddResponse =
 export type PostWxShopAddrEditData = {
   body?: AddressInfo;
   path?: never;
-  query?: {
-    id?: string;
-  };
+  query?: never;
   url: "/wx/shop/addr/edit";
 };
 

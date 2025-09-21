@@ -33,10 +33,8 @@ export const AddressCard = (props: AddressCardProps) => {
 
   const handleSetDefault = async () => {
     const res = await postWxShopAddrEdit({
-      query: {
-        id: info.id?.toString(),
-      },
       body: {
+        id: info.id,
         isDefault: info.isDefault === 1 ? 0 : 1,
       },
     });

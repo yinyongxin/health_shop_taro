@@ -49,7 +49,7 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         </View>
       )}
-      <ScrollView className="absolute inset-0 overflow-auto">
+      <ScrollView className="h-full">
         <View
           className={classNames(
             { "pt-[100px]": !!title },
