@@ -12,7 +12,7 @@ import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 
 export const Home = () => {
-  const { data } = useRequest(async () => {
+  const { data, loading } = useRequest(async () => {
     const res = await getWxShopCateList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
     });
@@ -42,22 +42,39 @@ export const Home = () => {
             showToast({ title: "尽请期待", icon: "none" });
           }}
         >
-          <Grid columns={4} className="rounded-lg overflow-hidden">
-            {data?.map((item) => (
-              <Grid.Item
-                onClick={() => {
-                  appRouter.navigateTo("subCategoryProductList", {
-                    query: {
-                      subCategoryId: item.id.toString(),
-                    },
-                  });
-                }}
-                key={item.id}
-                icon={<LucideIcon name="image" size={32} />}
-                text={item.categoryName}
-              />
-            ))}
-          </Grid>
+          {loading && !data ? (
+            <View className="flex flex-col bg-white rounded-lg p-[24px] gap-2">
+              <View className="flex gap-2">
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+              </View>
+              <View className="flex gap-2">
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+                <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+              </View>
+            </View>
+          ) : (
+            <Grid columns={4} className="rounded-lg overflow-hidden">
+              {data?.map((item) => (
+                <Grid.Item
+                  onClick={() => {
+                    appRouter.navigateTo("subCategoryProductList", {
+                      query: {
+                        subCategoryId: item.id.toString(),
+                      },
+                    });
+                  }}
+                  key={item.id}
+                  icon={<LucideIcon name="image" size={32} />}
+                  text={item.categoryName}
+                />
+              ))}
+            </Grid>
+          )}
         </View>
         <View className="px-[24px] pt-[24px]">
           <Title
