@@ -44,8 +44,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
       appToast.success("添加成功");
       success?.();
     }
-    appToast.error("添加失败");
-    throw res.data?.msg;
+    appToast.error(res.data?.msg ?? "添加失败");
   };
 
   const update = async (values: Required<AddressInfo>) => {
@@ -53,10 +52,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
       body: { ...values },
     });
     if (res.data?.code === 0) {
-      appToast.success("添加成功");
+      appToast.success("修改成功");
       success?.();
     }
-    appToast.error("添加失败");
+    appToast.error(res.data?.msg ?? "修改失败");
   };
   const onSubmit = async (values: AddressInfo & { area: string[] }) => {
     try {
