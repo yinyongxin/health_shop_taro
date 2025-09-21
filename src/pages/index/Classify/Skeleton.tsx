@@ -21,10 +21,6 @@ export const Skeleton = () => {
           <View className="flex-1 bg-white rounded-lg h-[280px]"></View>
           <View className="flex-1 bg-white rounded-lg h-[280px]"></View>
         </View>
-        <View className="flex gap-2">
-          <View className="flex-1 bg-white rounded-lg h-[280px]"></View>
-          <View className="flex-1 bg-white rounded-lg h-[280px]"></View>
-        </View>
       </View>
     </View>
   );
