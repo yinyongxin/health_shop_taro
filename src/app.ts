@@ -22,6 +22,7 @@ function App({ children }: PropsWithChildren<any>) {
     console.log("getWinxinLoginUrl", getWinxinLoginUrl());
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
+      appUserStore.updateAddressList();
       return;
     }
     if (wxLoginCode) {
@@ -53,6 +54,7 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    await checkLogin();
     client.instance.interceptors.response.use((response) => {
       if (response.data.code === 506) {
         if (isDev) {
@@ -63,8 +65,6 @@ function App({ children }: PropsWithChildren<any>) {
       }
       return response;
     });
-    await checkLogin();
-    appUserStore.updateAddressList();
   });
 
   // children 是将要会渲染的页面
