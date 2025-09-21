@@ -69,7 +69,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         district,
       } as Required<AddressInfo>;
       if (defaultValues) {
-        await update({ ...lastValues, id: defaultValues.id! });
+        await update({
+          ...defaultValues,
+          ...lastValues,
+        });
       } else {
         await add(lastValues);
       }
@@ -186,10 +189,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             ]}
           >
             <Textarea
-              style={{ height: "48px" }}
               limit={100}
               maxlength={100}
               placeholder="详细地址"
+              className="w-full"
             />
           </Field>
           <Field label="邮政编码" name="postalCode">

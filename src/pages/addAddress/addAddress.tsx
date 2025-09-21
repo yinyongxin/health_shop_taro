@@ -1,10 +1,12 @@
 import { AppButton, BasePage } from "@/components";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { EditAddressContent } from "@/components/EditAddressContent";
+import { useAppUserStore } from "@/stores";
 import { View } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 
 const AddAddress = () => {
+  const appUserStore = useAppUserStore();
   return (
     <>
       <BasePage
@@ -16,6 +18,7 @@ const AddAddress = () => {
           <EditAddressContent
             className="rounded-lg overflow-hiddenn bg-white"
             success={() => {
+              appUserStore.updateAddressList();
               navigateBack({
                 delta: 1,
               });
