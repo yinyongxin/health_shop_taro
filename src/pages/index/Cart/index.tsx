@@ -2,7 +2,7 @@ import { postWxShopOrderPay } from "@/client";
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
-import { useAppAuthStore, useAppUserStore } from "@/stores";
+import { useAppUserStore } from "@/stores";
 import { appLoading, appToast, isIOS } from "@/utils";
 import { createOrder } from "@/utils/order";
 import { View, Text } from "@tarojs/components";
@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 export const Cart = () => {
   const appUserStore = useAppUserStore();
-  const appAuthStore = useAppAuthStore();
   const { cartInfo } = appUserStore;
 
   const handlePay = async () => {
@@ -25,13 +24,12 @@ export const Cart = () => {
         cartId: cartInfo.id,
         itemList: cartInfo.itemList,
       });
-
+      appLoading.hide();
       const payData = await postWxShopOrderPay({
         body: {
           orderNo: res.orderNo,
         },
       });
-      appLoading.hide();
       WeixinJSBridge.invoke(
         "getBrandWCPayRequest",
         {
@@ -43,7 +41,6 @@ export const Cart = () => {
           paySign: payData.data?.data.pay_sign, //微信签名
         },
         (res) => {
-          console.log(res);
           if (res.err_msg == "get_brand_wcpay_request:ok") {
             appUserStore.updateCartInfo();
             appRouter.navigateTo("payResult");
@@ -55,6 +52,7 @@ export const Cart = () => {
     } catch {
       appToast.error("支付失败，请稍后再试");
     } finally {
+      appUserStore.updateCartInfo();
     }
   };
   useEffect(() => {
