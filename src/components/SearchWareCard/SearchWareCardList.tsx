@@ -5,6 +5,7 @@ import { useRequest } from "@/hooks";
 import { wareListMock } from "@/mock";
 import { APP_ENV_CONFIG } from "@/common";
 import { SearchWareCard, SearchWareCardProps } from ".";
+import { appLoading } from "@/utils";
 
 export type SearchWareCardListProps = {
   data?: ProductInfo[];
@@ -17,12 +18,18 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
   const { searchKey = "", className, searchWareCardProps } = props;
   const dataRequest = useRequest(
     async () => {
+      if (dataRequest.data) {
+        appLoading.show("正在加载中...");
+      }
       const res = await getWxShopProductSearch({
         query: {
           orgId: APP_ENV_CONFIG.ORG_ID,
           searchKey: searchKey,
         },
       });
+      if (dataRequest.data) {
+        appLoading.hide();
+      }
       return res.data;
     },
     {
