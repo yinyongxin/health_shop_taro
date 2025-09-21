@@ -28,6 +28,10 @@ export const pages = [
     path: "pages/addAddress/addAddress",
   },
   {
+    name: "editeAddress",
+    path: "pages/editeAddress/editeAddress",
+  },
+  {
     name: "orderDetail",
     path: "pages/orderDetail/orderDetail",
   },
