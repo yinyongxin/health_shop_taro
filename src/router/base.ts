@@ -1,4 +1,5 @@
 import { CartListItem } from "@/stores";
+import { AddressInfo } from "@/client";
 import { pages } from "./pages";
 
 export const AllPages = [
@@ -24,9 +25,12 @@ export interface AllPagesQueryType
     id: string;
   };
   settlement: {
-    list: CartListItem[]
+    list: CartListItem[];
   };
-  subCategoryProductList:{
-    subCategoryId: string
-  }
+  subCategoryProductList: {
+    subCategoryId: string;
+  };
+  editAddress: {
+    detail?: AddressInfo;
+  };
 }

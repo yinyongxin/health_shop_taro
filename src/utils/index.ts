@@ -15,6 +15,27 @@ export const getAreaChinese = (areaValue: string[]) => {
   });
 };
 
+export const getAreaCode = (values: {
+  province: string;
+  city: string;
+  district: string;
+}) => {
+  const provinceIndex = Object.values(areaList.province_list).findIndex(
+    (val) => val === values.province,
+  );
+  const cityIndex = Object.values(areaList.city_list).findIndex(
+    (val) => val === values.city,
+  );
+  const districtIndex = Object.values(areaList.county_list).findIndex(
+    (val) => val === values.district,
+  );
+  return [
+    Object.keys(areaList.province_list)[provinceIndex],
+    Object.keys(areaList.city_list)[cityIndex],
+    Object.keys(areaList.county_list)[districtIndex],
+  ];
+};
+
 export const isH5 = process.env.TARO_ENV === "h5";
 
 export const isWeapp = process.env.TARO_ENV === "weapp";

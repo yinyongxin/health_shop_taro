@@ -4,9 +4,9 @@ import { ReactNode, useEffect, useRef } from "react";
 import { Field, Form, Input, Textarea } from "@taroify/core";
 import { FormController, FormInstance } from "@taroify/core/form";
 import { NAME_REGEXP_STR, PHONE_REGEXP_STR } from "@/common";
-import { AddressInfo, postWxShopAddrAdd } from "@/client";
+import { AddressInfo, postWxShopAddrAdd, postWxShopAddrEdit } from "@/client";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast, getAreaChinese } from "@/utils";
+import { appLoading, appToast, getAreaChinese, getAreaCode } from "@/utils";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
 
 type EditAddressContentProps = {
@@ -21,12 +21,12 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   const formRef = useRef<FormInstance>(null);
   const getDefaultValues = () => {
     return {
-      defaultValues,
-      picker: [
-        defaultValues?.province,
-        defaultValues?.city,
-        defaultValues?.district,
-      ].filter((item) => !!item), // 默认选中
+      ...defaultValues,
+      area: getAreaCode({
+        province: defaultValues?.province!,
+        city: defaultValues?.city!,
+        district: defaultValues?.district!,
+      }).filter((item) => !!item), // 默认选中
     };
   };
   useEffect(() => {
@@ -49,11 +49,8 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   };
 
   const update = async (values: Required<AddressInfo>) => {
-    const res = await postWxShopAddrAdd({
-      body: {
-        ...defaultValues,
-        ...values,
-      },
+    const res = await postWxShopAddrEdit({
+      body: { ...values },
     });
     if (res.data?.code === 0) {
       appToast.success("添加成功");
@@ -72,9 +69,8 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         city,
         district,
       } as Required<AddressInfo>;
-      console.log("lastValues", lastValues);
       if (defaultValues) {
-        await update(lastValues);
+        await update({ ...lastValues, id: defaultValues.id! });
       } else {
         await add(lastValues);
       }

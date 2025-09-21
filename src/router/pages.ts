@@ -28,8 +28,8 @@ export const pages = [
     path: "pages/addAddress/addAddress",
   },
   {
-    name: "editeAddress",
-    path: "pages/editeAddress/editeAddress",
+    name: "editAddress",
+    path: "pages/editAddress/editAddress",
   },
   {
     name: "orderDetail",

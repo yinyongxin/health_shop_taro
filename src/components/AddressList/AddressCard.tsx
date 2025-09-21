@@ -3,6 +3,7 @@ import { Checkbox } from "@taroify/core";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { appToast } from "@/utils";
+import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { AppTag } from "../AppTag";
 
@@ -89,7 +90,16 @@ export const AddressCard = (props: AddressCardProps) => {
             <View className="text-rose-500" onClick={handleDelete}>
               删除
             </View>
-            <View className="text-sky-500">编辑</View>
+            <View
+              className="text-sky-500"
+              onClick={() => {
+                appRouter.navigateTo("editAddress", {
+                  query: { detail: info },
+                });
+              }}
+            >
+              编辑
+            </View>
           </View>
         </View>
       )}

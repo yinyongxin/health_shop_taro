@@ -1,9 +1,11 @@
 import { AppButton, BasePage } from "@/components";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { EditAddressContent } from "@/components/EditAddressContent";
+import { usePageParams } from "@/hooks";
 import { View } from "@tarojs/components";
 
 const EditeAddress = () => {
+  const { detail } = usePageParams<"editAddress">();
   return (
     <>
       <BasePage
@@ -14,6 +16,7 @@ const EditeAddress = () => {
         <View className="px-[24px] ">
           <EditAddressContent
             className="rounded-lg overflow-hiddenn bg-white"
+            defaultValues={detail}
             btn={
               <AppFixedBottom>
                 <AppButton className="w-full" status="primary">
