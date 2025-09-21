@@ -71,7 +71,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
       {...dataRequest.data}
       loading={dataRequest.loading}
       bodyProps={{
-        className: "pr-[24px] pb-[64px] flex flex-wrap",
+        className: "pr-[24px] flex flex-wrap",
       }}
       itemRender={(item) => (
         <SearchWareCard info={item} {...searchWareCardProps} />

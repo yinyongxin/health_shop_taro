@@ -30,6 +30,12 @@ export function AppList<I>(props: AppListProps<I>) {
   const hasNext = pagination
     ? pagination.total > pagination.pageSize * pagination.pageNum
     : false;
+  const load = hasNext &&
+    loading &&
+    pagination?.pageNum &&
+    pagination.pageNum > 1 && (
+      <View className="w-full text-center pb-[32px] pt-[24px]">加载中...</View>
+    );
   return (
     <ScrollView
       scrollY
@@ -40,15 +46,12 @@ export function AppList<I>(props: AppListProps<I>) {
         onLoad?.(newPageNum);
       }}
     >
-      {list && itemRender && (
-        <View {...bodyProps}>
-          {list.map((item, index) => itemRender(item, index))}
-        </View>
-      )}
-      {children}
-      {hasNext && loading && pagination?.pageNum !== 1 && (
-        <View className="text-center">加载中...</View>
-      )}
+      <View {...bodyProps}>
+        {list && itemRender
+          ? list.map((item, index) => itemRender(item, index))
+          : children}
+        {load}
+      </View>
     </ScrollView>
   );
 }
