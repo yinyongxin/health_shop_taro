@@ -1,5 +1,5 @@
 import { AddressInfo, getWxShopAddrDel, postWxShopAddrEdit } from "@/client";
-import { Checkbox } from "@taroify/core";
+import { Checkbox, Dialog } from "@taroify/core";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 import { appToast } from "@/utils";
@@ -87,7 +87,18 @@ export const AddressCard = (props: AddressCardProps) => {
             默认地址
           </Checkbox>
           <View className="flex gap-2 items-center">
-            <View className="text-rose-500" onClick={handleDelete}>
+            <View
+              className="text-rose-500"
+              onClick={() => {
+                Dialog.confirm({
+                  title: "确定删除吗？",
+
+                  onConfirm: () => {
+                    handleDelete();
+                  },
+                });
+              }}
+            >
               删除
             </View>
             <View

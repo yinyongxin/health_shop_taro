@@ -3,7 +3,6 @@ import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
 import classNames from "classnames";
 
 const AddressManage = () => {
