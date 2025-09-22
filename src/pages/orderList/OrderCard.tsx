@@ -14,7 +14,22 @@ export const OrderCard = (props: OrderCardProps) => {
   const appUserStore = useAppUserStore();
 
   const getActions = () => {
-    // if (info.status === 4) {
+    if (info.status === 0) {
+      return (
+        <AppButton
+          actived={false}
+          size="sm"
+          status="error"
+          onClick={() => {
+            appRouter.navigateTo("orderPay", {
+              query: { orderNo: info.orderNo },
+            });
+          }}
+        >
+          去支付
+        </AppButton>
+      );
+    }
     return (
       <AppButton
         actived={false}
