@@ -56,7 +56,7 @@ export const BasePage = (props: BasePageProps) => {
       >
         {children}
       </View>
-      {loading && <View className="absolute inset-0 bg-black/20 z-[10]"></View>}
+      {loading && <View className="absolute inset-0 bg-black/30 z-[10]"></View>}
     </View>
   );
 };
