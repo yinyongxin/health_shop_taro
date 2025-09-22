@@ -19,7 +19,7 @@ export const TabBar = (props: TabBarProps) => {
   const { tabs, currentActive, handleClick } = props;
   return (
     <View
-      className={classNames("fixed bottom-0 left-0 right-0 z-[10]", {
+      className={classNames("fixed bottom-0 left-0 right-0 z-[100]", {
         "pb-[32px]": isIOS(),
       })}
     >

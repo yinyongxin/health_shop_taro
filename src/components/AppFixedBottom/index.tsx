@@ -11,7 +11,7 @@ export const AppFixedBottom = (props: AppFixedBottomProps) => {
   return (
     <View
       className={classNames(
-        "fixed bottom-0 left-0 right-0 bg-white px-[24px] py-[24px] app-shadow",
+        "fixed z-[50] bottom-0 left-0 right-0 bg-white px-[24px] py-[24px] app-shadow",
         {
           "pb-[48px]": isIOS(),
         },

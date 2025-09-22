@@ -6,11 +6,19 @@ export type BasePageProps = {
   bgProps?: ViewProps;
   wapperProps?: ViewProps;
   fullScreen?: boolean;
+  loading?: boolean;
 } & ViewProps;
 
 export const BasePage = (props: BasePageProps) => {
-  const { bgProps, children, className, wapperProps, fullScreen, ...rest } =
-    props;
+  const {
+    bgProps,
+    children,
+    className,
+    wapperProps,
+    fullScreen,
+    loading,
+    ...rest
+  } = props;
   const {
     children: bgChildren,
     className: bgClassName,
@@ -37,6 +45,7 @@ export const BasePage = (props: BasePageProps) => {
           {bgChildren}
         </View>
       )}
+
       <View
         className={classNames(
           "relative flex-1 flex flex-col",
@@ -47,6 +56,7 @@ export const BasePage = (props: BasePageProps) => {
       >
         {children}
       </View>
+      {loading && <View className="absolute inset-0 bg-black/20 z-[10]"></View>}
     </View>
   );
 };

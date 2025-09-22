@@ -13,10 +13,18 @@ export type AddressCardProps = {
   className?: string;
   checked?: boolean;
   handleClick?: (info: AddressInfo) => void;
+  rightAction?: React.ReactNode;
 };
 
 export const AddressCard = (props: AddressCardProps) => {
-  const { showActions = true, className, info, checked, handleClick } = props;
+  const {
+    showActions = true,
+    className,
+    info,
+    checked,
+    handleClick,
+    rightAction,
+  } = props;
   const appUserStore = useAppUserStore();
   const handleDelete = async () => {
     const res = await getWxShopAddrDel({
@@ -50,31 +58,38 @@ export const AddressCard = (props: AddressCardProps) => {
   return (
     <View
       className={classNames(
-        "bg-white rounded-lg app-shadow py-[24px] flex flex-col gap-[16px]",
+        "bg-white rounded-lg app-shadow py-[24px] ",
         className,
       )}
       onClick={() => handleClick?.(info)}
     >
-      <View className="w-full px-2 flex justify-between">
-        <View className="flex items-center gap-2">
-          <AppTag>{info.tag}</AppTag>
-          <View className="text-[28px] font-semibold">{info.receiverName}</View>
-          <View>{info.receiverPhone}</View>
+      <View className="flex">
+        <View className="flex-1 flex flex-col gap-[16px]">
+          <View className="w-full px-2 flex justify-between">
+            <View className="flex items-center gap-2">
+              <AppTag>{info.tag}</AppTag>
+              <View className="text-[28px] font-semibold">
+                {info.receiverName}
+              </View>
+              <View>{info.receiverPhone}</View>
+            </View>
+            <View>
+              {checked !== undefined && checked && (
+                <AppTag status="error">当前地址</AppTag>
+              )}
+            </View>
+          </View>
+          <View className="flex items-center gap-2 px-2">
+            <View>{info.province}</View>
+            <View>{info.city}</View>
+            <View>{info.district}</View>
+            <View>{info.street}</View>
+          </View>
+          <View className="px-2">
+            <View>{info.detailAddress}</View>
+          </View>
         </View>
-        <View>
-          {checked !== undefined && checked && (
-            <AppTag status="error">当前地址</AppTag>
-          )}
-        </View>
-      </View>
-      <View className="flex items-center gap-2 px-2">
-        <View>{info.province}</View>
-        <View>{info.city}</View>
-        <View>{info.district}</View>
-        <View>{info.street}</View>
-      </View>
-      <View className="px-2">
-        <View>{info.detailAddress}</View>
+        {rightAction}
       </View>
       {showActions && (
         <View className="border-t border-gray-200 px-2 pt-2 flex justify-between items-center">
