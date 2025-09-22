@@ -20,7 +20,6 @@ export const Home = () => {
       .flat()
       .slice(0, 8);
   });
-  useLoad(() => {});
 
   return (
     <BasePage>
@@ -64,7 +63,11 @@ export const Home = () => {
                   }}
                   key={item.id}
                   icon={<LucideIcon name="image" size={32} />}
-                  text={<View className="truncate w-[130px] text-center">{item.name}</View>}
+                  text={
+                    <View className="truncate w-[130px] text-center">
+                      {item.name}
+                    </View>
+                  }
                 />
               ))}
             </Grid>
