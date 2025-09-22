@@ -11,30 +11,31 @@ export const Banners = () => {
     });
     return res?.data;
   });
-  return (
-    <View className="rounded-lg overflow-hidden">
-      <Swiper className="h-[350px]" autoplay={4000}>
-        <Swiper.Indicator />
-        {dataRequest.data?.rows?.map((item, index) => (
-          <Swiper.Item
-            key={index}
-            className="bg-white"
-            onClick={() => {
-              appRouter.navigateTo("wareDetail", {
-                query: {
-                  id: item.id.toString(),
-                },
-              });
-            }}
-          >
-            <Image
-              src={item.mainImage}
-              className="w-full h-full rounded-lg"
-              mode="aspectFill"
-            />
-          </Swiper.Item>
-        ))}
-      </Swiper>
-    </View>
+  const content = dataRequest.loading ? (
+    <View className="h-[350px] flex-center bg-white"></View>
+  ) : (
+    <Swiper className="h-[350px]" autoplay={4000}>
+      <Swiper.Indicator />
+      {dataRequest.data?.rows?.map((item, index) => (
+        <Swiper.Item
+          key={index}
+          className="bg-white"
+          onClick={() => {
+            appRouter.navigateTo("wareDetail", {
+              query: {
+                id: item.id.toString(),
+              },
+            });
+          }}
+        >
+          <Image
+            src={item.mainImage}
+            className="w-full h-full rounded-lg"
+            mode="aspectFill"
+          />
+        </Swiper.Item>
+      ))}
+    </Swiper>
   );
+  return <View className="rounded-lg overflow-hidden">{content}</View>;
 };
