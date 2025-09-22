@@ -65,14 +65,12 @@ export const AppButton = (props: AppButtonProps) => {
     <View
       className={classNames([
         "flex gap-[8px] items-center justify-center",
-        "active:opacity-75",
         sizes?.[size],
         {
-          [activeColors?.[status]]: actived && !disabled,
+          [activeColors?.[status]]: actived,
           [colors?.[status]]: !actived,
+          "active:opacity-75": !disabled,
           "opacity-50": disabled,
-        },
-        {
           "rounded-full": round,
         },
         className,
