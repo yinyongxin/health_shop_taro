@@ -95,7 +95,7 @@ export const AddressCard = (props: AddressCardProps) => {
         {rightAction}
       </View>
       {showActions && (
-        <View className="border-t border-gray-200 px-2 pt-2 flex justify-between items-center">
+        <View className="border-t border-gray-200 px-2 pt-2 mt-2 flex justify-between items-center">
           <Checkbox
             checked={info.isDefault === 1}
             size={18}
