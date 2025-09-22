@@ -24,7 +24,7 @@ interface AppUserState {
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
   totalPrice: number;
-  orderStatus: DictItem[];
+  orderStatusList: DictItem[];
   updateOrderStatus: () => void;
 }
 
@@ -74,7 +74,7 @@ export const useAppUserStore = createAppStore<AppUserState>(
       });
     },
 
-    orderStatus: [],
+    orderStatusList: [],
     updateOrderStatus: async () => {
       const res = await getWxRedirectQueryDict({
         query: {
@@ -85,7 +85,7 @@ export const useAppUserStore = createAppStore<AppUserState>(
         return;
       }
       set({
-        orderStatus: res.data.data,
+        orderStatusList: res.data.data,
       });
     },
   }),

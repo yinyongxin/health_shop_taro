@@ -23,7 +23,7 @@ export const MyOrder = () => {
       </View>
       <View className="px-[24px] mt-[16px] pb-[24px] ">
         <View className="flex justify-between gap-2">
-          {appUserStore.orderStatus.map((status, index) => {
+          {appUserStore.orderStatusList.map((status, index) => {
             return (
               <MyOrderItem
                 key={status.dictCode}

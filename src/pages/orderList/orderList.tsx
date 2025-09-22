@@ -11,14 +11,14 @@ import { OrderCard } from "./OrderCard";
 
 const OrderList = () => {
   const pageParams = usePageParams<"orderList">();
-  const { orderStatus } = useAppUserStore();
+  const { orderStatusList } = useAppUserStore();
   const tabs = [
     {
       label: "全部",
       value: "all",
       icon: "grid-2x2",
     },
-    ...orderStatus.map((item, index) => {
+    ...orderStatusList.map((item, index) => {
       return {
         label: item.dictLabel,
         value: item.dictValue,

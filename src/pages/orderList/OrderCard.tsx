@@ -57,7 +57,7 @@ export const OrderCard = (props: OrderCardProps) => {
   };
 
   const getStatusText = () => {
-    return appUserStore.orderStatus.find((item) => {
+    return appUserStore.orderStatusList.find((item) => {
       return item.dictValue === info.status.toString();
     })?.dictLabel;
   };
