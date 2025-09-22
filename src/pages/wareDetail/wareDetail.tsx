@@ -55,6 +55,7 @@ const WareDetail = () => {
     });
     if (res.data?.code === 0) {
       Toast.success("添加成功");
+      control.setOpen(false);
     }
   };
 

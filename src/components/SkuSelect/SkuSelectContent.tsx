@@ -65,28 +65,30 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
             );
           })}
         </View>
-        <Title className="mt-[32px]">数量</Title>
-        <View className="flex gap-[8px] flex-wrap mt-[24px]">
-          <View className="shirnk-0 flex items-center gap-2">
-            <AppTag
-              status="secondary"
-              className="size-[48px]"
-              onClick={() => {
-                handleReduce();
-              }}
-            >
-              -
-            </AppTag>
-            <View className="text-[28px]">{quantity}</View>
-            <AppTag
-              status="secondary"
-              className="size-[48px]"
-              onClick={() => {
-                handleAdd();
-              }}
-            >
-              +
-            </AppTag>
+        <View className="flex justify-between items-center mt-[48px]">
+          <Title>数量</Title>
+          <View className="flex gap-[8px] flex-wrap">
+            <View className="shirnk-0 flex items-center gap-2">
+              <AppTag
+                status="secondary"
+                className="size-[48px]"
+                onClick={() => {
+                  handleReduce();
+                }}
+              >
+                -
+              </AppTag>
+              <View className="text-[28px]">{quantity}</View>
+              <AppTag
+                status="secondary"
+                className="size-[48px]"
+                onClick={() => {
+                  handleAdd();
+                }}
+              >
+                +
+              </AppTag>
+            </View>
           </View>
         </View>
       </View>

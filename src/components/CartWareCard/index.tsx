@@ -54,7 +54,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <Image
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={props.info?.mainPicture}
+            src={props.info?.image || ""}
             onClick={() => {
               appRouter.navigateTo("wareDetail", {
                 query: {
