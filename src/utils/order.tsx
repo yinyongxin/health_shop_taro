@@ -35,7 +35,7 @@ export const createOrder = async (data: {
   }
 };
 
-export const orderNoPayWx = async (
+export const orderPayByWx = async (
   orderNo: string,
   options?: {
     success?: () => void;

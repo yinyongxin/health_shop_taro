@@ -5,8 +5,10 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { usePageParams, useRequest } from "@/hooks";
 import { useAppUserStore } from "@/stores";
-import { waitTime } from "@/utils";
+import { appToast, waitTime } from "@/utils";
+import { orderPayByWx } from "@/utils/order";
 import { View } from "@tarojs/components";
+import { navigateBack } from "@tarojs/taro";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
@@ -32,6 +34,15 @@ const OrderPayPage = () => {
   );
 
   const orderPayRequest = useRequest(async () => {
+    if (!orderDetailRequest.data?.order.orderNo) {
+      return;
+    }
+    orderPayByWx(orderDetailRequest.data?.order.orderNo, {
+      success: () => {
+        appToast.success("支付成功");
+        navigateBack();
+      },
+    });
     await waitTime(1000 * 3);
   });
 
