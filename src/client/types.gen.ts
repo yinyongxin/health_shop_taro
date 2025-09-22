@@ -126,6 +126,7 @@ export type CartItem = {
   selected?: number;
   createdAt?: string;
   updatedAt?: string;
+  image?: string;
 };
 
 export type CreateOrderBody = {

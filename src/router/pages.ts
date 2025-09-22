@@ -36,6 +36,10 @@ export const pages = [
     path: "pages/orderDetail/orderDetail",
   },
   {
+    name: "orderPay",
+    path: "pages/orderPay/orderPay",
+  },
+  {
     name: "settlement",
     path: "pages/settlement/settlement",
   },

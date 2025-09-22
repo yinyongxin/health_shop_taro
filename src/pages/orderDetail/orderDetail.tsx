@@ -4,20 +4,28 @@ import { usePageParams, useRequest } from "@/hooks";
 import { wareListMock } from "@/mock";
 import { View, Image } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
+import { getWxShopOrderDetail } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
 
 export default () => {
   const pageParams = usePageParams<"orderDetail">();
   const { data } = useRequest(async () => {
-    return wareListMock.find((item) => item.id === "2");
+    const res = await getWxShopOrderDetail({
+      query: {
+        orgId: APP_ENV_CONFIG.ORG_ID,
+        orderNo: pageParams.orderNo,
+      },
+    });
+    console.log(res.data);
   });
   return (
     <BasePage>
       <View className="flex flex-col gap-[32px] p-[24px]">
         <View className="text-[32px] font-semibold">已收货</View>
         <View className="bg-white rounded-lg flex flex-col gap-1 pb-[24px]">
-          {data && (
+          {/* {data && (
             <CartWareCard showNumControl={false} shadow={false} info={data} />
-          )}
+          )} */}
           <View className="flex-center flex-col h-[500px]">
             <Image
               className="size-[300px]"

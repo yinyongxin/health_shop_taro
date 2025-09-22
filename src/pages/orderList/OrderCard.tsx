@@ -21,7 +21,7 @@ export const OrderCard = (props: OrderCardProps) => {
         size="sm"
         onClick={() => {
           appRouter.navigateTo("orderDetail", {
-            query: { id: "1" },
+            query: { orderNo: info.orderNo },
           });
         }}
       >
@@ -52,16 +52,6 @@ export const OrderCard = (props: OrderCardProps) => {
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info.createdAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
-      </View>
-      <View>
-        {[]?.map((item) => (
-          <CartWareCard
-            key={item.id}
-            info={item}
-            showNumControl={false}
-            shadow={false}
-          />
-        ))}
       </View>
       <View className="flex items-center px-[24px] pb-[24px]">
         <View className="flex-1">

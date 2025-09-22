@@ -22,7 +22,7 @@ export interface AllPagesQueryType
     id: string;
   };
   orderDetail: {
-    id: string;
+    orderNo: string;
   };
   settlement: {
     list: CartListItem[];

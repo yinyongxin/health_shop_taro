@@ -19,7 +19,7 @@ export const Cart = () => {
     }
     try {
       appLoading.show("创建支付中...");
-      const res = await createOrder({
+      const createOrderRes = await createOrder({
         addressId: appUserStore.defaultAddress?.id!,
         cartId: cartInfo.id,
         itemList: cartInfo.itemList,
@@ -27,7 +27,7 @@ export const Cart = () => {
       appLoading.hide();
       const payData = await postWxShopOrderPay({
         body: {
-          orderNo: res.orderNo,
+          orderNo: createOrderRes.orderNo,
         },
       });
       WeixinJSBridge.invoke(
@@ -40,7 +40,8 @@ export const Cart = () => {
           signType: payData.data?.data.sign_type, //微信签名方式：
           paySign: payData.data?.data.pay_sign, //微信签名
         },
-        (res) => {
+        // @ts-ignore
+        (res: any) => {
           if (res.err_msg == "get_brand_wcpay_request:ok") {
             appUserStore.updateCartInfo();
             appRouter.navigateTo("payResult");

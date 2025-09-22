@@ -1,5 +1,4 @@
-import { AppTabList, AppTopSearch, BasePage } from "@/components";
-import { View } from "@tarojs/components";
+import { AppTabList, BasePage } from "@/components";
 import { useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
@@ -7,6 +6,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopOrderMy, OrderInfo } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
+import classNames from "classnames";
 import { OrderCard } from "./OrderCard";
 
 const OrderList = () => {
@@ -63,29 +63,31 @@ const OrderList = () => {
       fullScreen
       className="flex-1 myLikeList"
     >
-      <View className="p-[24px]">
-        <AppTopSearch />
-      </View>
-      <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
+      {pageParams.status === "all" && (
         <AppTabList
           className="bg-none"
           active={active}
           tabs={tabs}
           onChange={setActive}
         />
-        <AppList
-          className="flex-1"
-          loading={dataRequest.loading}
-          {...dataRequest.data}
-          bodyProps={{
-            className: "px-[24px] py-[32px] flex flex-col gap-[24px]",
-          }}
-          itemRender={(item) => <OrderCard info={item} />}
-          onLoad={(pageNum) => {
-            dataRequest.run(pageNum);
-          }}
-        ></AppList>
-      </View>
+      )}
+      <AppList
+        className="flex-1"
+        loading={dataRequest.loading}
+        {...dataRequest.data}
+        bodyProps={{
+          className: classNames(
+            "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px]",
+            {
+              "pt-[24px]": pageParams.status !== "all",
+            },
+          ),
+        }}
+        itemRender={(item) => <OrderCard info={item} />}
+        onLoad={(pageNum) => {
+          dataRequest.run(pageNum);
+        }}
+      ></AppList>
     </BasePage>
   );
 };
