@@ -7,6 +7,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { useAppUserStore } from "@/stores";
 import { appToast, waitTime } from "@/utils";
 import { orderPayByWx } from "@/utils/order";
+import { Empty } from "@taroify/core";
 import { View } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 
@@ -21,6 +22,7 @@ const OrderPayPage = () => {
       return res?.data?.data;
     }
     appToast.error(res.data?.msg ?? "获取订单详情失败");
+    throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
   const addressDetailRequest = useRequest(
     async () => {
@@ -48,6 +50,23 @@ const OrderPayPage = () => {
     });
     await waitTime(1000 * 3);
   });
+  if (orderDetailRequest.error) {
+    return (
+      <Empty>
+        <Empty.Image></Empty.Image>
+        <Empty.Description>
+          {orderDetailRequest.error.message}
+        </Empty.Description>
+        <AppButton
+          actived={false}
+          className="mt-[48px] w-[300px]"
+          onClick={() => navigateBack()}
+        >
+          返回
+        </AppButton>
+      </Empty>
+    );
+  }
 
   return (
     <>
