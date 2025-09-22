@@ -24,34 +24,14 @@ export const Cart = () => {
         cartId: cartInfo.id,
         itemList: cartInfo.itemList,
       });
-      appLoading.hide();
-      const payData = await postWxShopOrderPay({
-        body: {
+      appRouter.navigateTo("orderPay", {
+        query: {
           orderNo: createOrderRes.orderNo,
         },
       });
-      WeixinJSBridge.invoke(
-        "getBrandWCPayRequest",
-        {
-          appId: payData.data?.data.app_id, //公众号ID，由商户传入
-          timeStamp: payData.data?.data.time_stamp, //时间戳，自1970年以来的秒数
-          nonceStr: payData.data?.data.nonce_str, //随机串
-          package: payData.data?.data.package,
-          signType: payData.data?.data.sign_type, //微信签名方式：
-          paySign: payData.data?.data.pay_sign, //微信签名
-        },
-        // @ts-ignore
-        (res: any) => {
-          if (res.err_msg == "get_brand_wcpay_request:ok") {
-            appUserStore.updateCartInfo();
-            appRouter.navigateTo("payResult");
-            // 使用以上方式判断前端返回,微信团队郑重提示：
-            //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠，商户需进一步调用后端查单确认支付结果。
-          }
-        },
-      );
+      appLoading.hide();
     } catch {
-      appToast.error("支付失败，请稍后再试");
+      appToast.error("创建失败");
     } finally {
       appUserStore.updateCartInfo();
     }

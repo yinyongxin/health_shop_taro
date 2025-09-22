@@ -24,6 +24,9 @@ export interface AllPagesQueryType
   orderDetail: {
     orderNo: string;
   };
+  orderPay: {
+    orderNo: string;
+  };
   settlement: {
     list: CartListItem[];
   };
