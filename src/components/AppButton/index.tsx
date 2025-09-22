@@ -44,6 +44,7 @@ export type AppButtonProps = PropsWithChildren<{
   prefix?: ReactNode;
   suffix?: ReactNode;
   loading?: boolean;
+  disabled?: boolean;
 }>;
 
 export const AppButton = (props: AppButtonProps) => {
@@ -58,6 +59,7 @@ export const AppButton = (props: AppButtonProps) => {
     prefix,
     suffix,
     loading = false,
+    disabled = false,
   } = props;
   return (
     <View
@@ -66,8 +68,9 @@ export const AppButton = (props: AppButtonProps) => {
         "active:opacity-75",
         sizes?.[size],
         {
-          [activeColors?.[status]]: actived,
+          [activeColors?.[status]]: actived && !disabled,
           [colors?.[status]]: !actived,
+          "opacity-50": disabled,
         },
         {
           "rounded-full": round,

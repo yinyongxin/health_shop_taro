@@ -17,7 +17,10 @@ const OrderPayPage = () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    return res?.data?.data;
+    if (res.data?.code === 0) {
+      return res?.data?.data;
+    }
+    appToast.error(res.data?.msg ?? "获取订单详情失败");
   });
   const addressDetailRequest = useRequest(
     async () => {
@@ -68,6 +71,7 @@ const OrderPayPage = () => {
       </BasePage>
       <AppFixedBottom>
         <AppButton
+          disabled={!orderDetailRequest.data?.order.orderNo}
           className="w-full"
           loading={orderPayRequest.loading}
           onClick={() => {
