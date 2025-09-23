@@ -1,5 +1,6 @@
 import {
   AddressInfo,
+  getWxShopOrderAddrChange,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
@@ -28,6 +29,7 @@ const OrderPayPage = () => {
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
+  const [selectAddress, setSelectAddress] = useState<AddressInfo>();
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -55,18 +57,22 @@ const OrderPayPage = () => {
     initAddress();
   }, [orderDetailRequest.data?.order.addressId]);
 
-  const orderPayRequest = useRequest(async () => {
-    if (!orderDetailRequest.data?.order.orderNo) {
-      return;
-    }
-    orderPayByWx(orderDetailRequest.data?.order.orderNo, {
-      success: () => {
-        appToast.success("支付成功");
-        navigateBack();
-      },
-    });
-    await waitTime(1000 * 3);
-  });
+  const orderPayRequest = useRequest(
+    async () => {
+      if (!orderDetailRequest.data?.order.orderNo) {
+        return;
+      }
+      orderPayByWx(orderDetailRequest.data?.order.orderNo, {
+        success: () => {
+          appToast.success("支付成功");
+          navigateBack();
+        },
+      });
+    },
+    {
+      manual: true,
+    },
+  );
   if (orderDetailRequest.error) {
     return (
       <Empty>
@@ -85,16 +91,36 @@ const OrderPayPage = () => {
     );
   }
 
-  if (orderDetailRequest.loading) {
+  const updataOrderAddress = async () => {
+    if (!selectAddress) {
+      return;
+    }
+    const updateOrderAddressRes = await getWxShopOrderAddrChange({
+      query: {
+        orderNo: pageParams.orderNo,
+        addId: selectAddress.id,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (updateOrderAddressRes.data?.code === 0) {
+      orderDetailRequest.run();
+    }
+  };
+
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
 
   return (
     <>
-      <BasePage loading={orderPayRequest.loading}>
+      <BasePage>
         <View className="px-[24px] pt-[24px]">
           {currentAddress && (
             <AddressCard
+              handleClick={() => {
+                selectAddressControl.setOpen(true);
+                setSelectAddress(currentAddress);
+              }}
               info={currentAddress}
               showActions={false}
               rightAction={
@@ -213,19 +239,26 @@ const OrderPayPage = () => {
         footer={
           <AppButton
             className="w-full"
-            onClick={() => selectAddressControl.setOpen(false)}
+            onClick={() => {
+              selectAddressControl.setOpen(false);
+              updataOrderAddress();
+            }}
           >
             确定
           </AppButton>
         }
+        onClose={() => {
+          setSelectAddress(undefined);
+          selectAddressControl.setOpen(false);
+        }}
         showClose
       >
         <AddressList
-          selectId={currentAddress?.id}
+          selectId={selectAddress?.id}
           addressCardProps={{
             showActions: false,
             handleClick: (info) => {
-              setCurrentAddress(info);
+              setSelectAddress(info);
             },
           }}
         />

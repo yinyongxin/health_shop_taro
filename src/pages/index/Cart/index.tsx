@@ -1,4 +1,3 @@
-import { postWxShopOrderPay } from "@/client";
 import { AppButton, BasePage } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
@@ -18,7 +17,7 @@ export const Cart = () => {
       return;
     }
     try {
-      appLoading.show("创建支付中...");
+      appLoading.show("创建订单中...");
       const createOrderRes = await createOrder({
         addressId: appUserStore.defaultAddress?.id!,
         cartId: cartInfo.id,

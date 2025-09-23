@@ -51,26 +51,32 @@ export const orderPayByWx = async (
   if (payData.data?.code === 0) {
     appToast.error("支付失败");
     fail?.();
-    return;
+    throw new Error("支付失败");
   }
-  WeixinJSBridge.invoke(
-    "getBrandWCPayRequest",
-    {
-      appId: payData.data?.data.app_id, //公众号ID，由商户传入
-      timeStamp: payData.data?.data.time_stamp, //时间戳，自1970年以来的秒数
-      nonceStr: payData.data?.data.nonce_str, //随机串
-      package: payData.data?.data.package,
-      signType: payData.data?.data.sign_type, //微信签名方式：
-      paySign: payData.data?.data.pay_sign, //微信签名
-    },
-    // @ts-ignore
-    (res: any) => {
-      if (res.err_msg == "get_brand_wcpay_request:ok") {
-        success?.();
-        return;
-      }
-      appToast.error("支付失败");
-      fail?.();
-    },
-  );
+
+  try {
+    WeixinJSBridge.invoke(
+      "getBrandWCPayRequest",
+      {
+        appId: payData.data?.data.app_id, //公众号ID，由商户传入
+        timeStamp: payData.data?.data.time_stamp, //时间戳，自1970年以来的秒数
+        nonceStr: payData.data?.data.nonce_str, //随机串
+        package: payData.data?.data.package,
+        signType: payData.data?.data.sign_type, //微信签名方式：
+        paySign: payData.data?.data.pay_sign, //微信签名
+      },
+      // @ts-ignore
+      (res: any) => {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          success?.();
+          return;
+        }
+        appToast.error("支付失败");
+        fail?.();
+      },
+    );
+  } catch (error) {
+    appToast.error("支付失败");
+    throw new Error("支付失败");
+  }
 };
