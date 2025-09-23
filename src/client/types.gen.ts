@@ -26,6 +26,30 @@ export type SubCategoryInfo = {
   updatedAt: string;
 };
 
+export type OrderDetail = {
+  id: number;
+  orderNo: string;
+  orgId: string;
+  userId: string;
+  addressId: number;
+  totalAmount: number;
+  paymentAmount: number;
+  freightAmount: number;
+  discountAmount: number;
+  paymentType: unknown;
+  paymentTime: unknown;
+  status: number;
+  deliveryCompany: unknown;
+  deliveryNo: unknown;
+  deliveryTime: unknown;
+  receiveTime: unknown;
+  createdAt: string;
+  updatedAt: string;
+  remark: unknown;
+  applyPayNo: unknown;
+  payId: unknown;
+};
+
 export type OrderInfo = {
   id: number;
   orderNo: string;
@@ -48,6 +72,26 @@ export type OrderInfo = {
   remark: unknown;
   applyPayNo: unknown;
   payId: unknown;
+  itemList: Array<CartItem>;
+};
+
+export type CartItem = {
+  id?: number;
+  cartId?: number;
+  orgId?: string;
+  productId?: number;
+  productName?: string;
+  skuId?: number;
+  skuName?: string;
+  quantity?: number;
+  price?: number;
+  isService?: number;
+  serviceDate?: unknown;
+  qrCodeStatus?: number;
+  selected?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  image?: string;
 };
 
 export type AddressInfo = {
@@ -108,25 +152,6 @@ export type CreateOrderResult = {
   remark: unknown;
   applyPayNo: unknown;
   payId: unknown;
-};
-
-export type CartItem = {
-  id?: number;
-  cartId?: number;
-  orgId?: string;
-  productId?: number;
-  productName?: string;
-  skuId?: number;
-  skuName?: string;
-  quantity?: number;
-  price?: number;
-  isService?: number;
-  serviceDate?: unknown;
-  qrCodeStatus?: number;
-  selected?: number;
-  createdAt?: string;
-  updatedAt?: string;
-  image?: string;
 };
 
 export type CreateOrderBody = {
@@ -634,7 +659,7 @@ export type GetWxShopOrderDetailResponses = {
     code: number;
     data: {
       itemList: Array<CartItem>;
-      order: OrderInfo;
+      order: OrderDetail;
     };
   };
 };
