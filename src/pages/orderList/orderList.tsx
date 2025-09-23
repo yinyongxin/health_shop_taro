@@ -1,5 +1,5 @@
 import { AppTabList, BasePage } from "@/components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
@@ -55,20 +55,24 @@ const OrderList = () => {
       };
     },
     {
-      refreshDeps: [active],
+      manual: true,
     },
   );
+  const isInit = useRef(true);
 
   useEffect(() => {
-    dataRequest.run(1);
+    if (!isInit.current) {
+      dataRequest.run(1);
+    }
+    isInit.current = false;
   }, [active]);
 
   useDidShow(() => {
-    const { pageNum = 1, total = 0 } = dataRequest.data?.pagination || {};
-    if (pageNum > 1) {
+    const { pageNum = 1 } = dataRequest.data?.pagination || {};
+    if (pageNum === 1) {
       dataRequest.run(1);
     } else {
-      dataRequest.run(1, pageNum * total);
+      dataRequest.run(1, pageNum * 10);
     }
   });
 
