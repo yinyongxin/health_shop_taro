@@ -42,6 +42,13 @@ export const CartWareCard = (props: CartWareCardProps) => {
       appUserStore.updateCartInfo();
     }
   };
+  const goToDetailPage = () => {
+    appRouter.navigateTo("wareDetail", {
+      query: {
+        id: props.info.productId?.toString()!,
+      },
+    });
+  };
   return (
     <View>
       <View
@@ -56,11 +63,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
             mode="aspectFill"
             src={props.info?.image || ""}
             onClick={() => {
-              appRouter.navigateTo("wareDetail", {
-                query: {
-                  id: props.info.id?.toString()!,
-                },
-              });
+              goToDetailPage();
             }}
           />
         </View>
@@ -68,11 +71,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <View
             className="text-[28px] font-semibold truncate"
             onClick={() => {
-              appRouter.navigateTo("wareDetail", {
-                query: {
-                  id: props.info.productId?.toString()!,
-                },
-              });
+              goToDetailPage();
             }}
           >
             {props.info.productName}
