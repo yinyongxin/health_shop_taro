@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { useLaunch } from "@tarojs/taro";
+import VConsole from "vconsole";
 import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
@@ -53,6 +54,11 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    const url = new URL(window.location.href);
+    const showVConsole = url.searchParams.get("vConsole");
+    if (showVConsole) {
+      new VConsole();
+    }
     appUserStore.updateOrderStatus();
     await checkLogin();
     client.instance.interceptors.response.use((response) => {
