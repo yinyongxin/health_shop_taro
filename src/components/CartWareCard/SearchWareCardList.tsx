@@ -23,8 +23,8 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
         query: { cartItemId: value?.id?.toString() },
       });
       if (res.data?.code === 0) {
+        await appUserStore.updateCartInfo();
         appToast.success("删除成功");
-        appUserStore.updateCartInfo();
       } else {
         appToast.error(res?.data?.msg ?? "删除失败");
       }
