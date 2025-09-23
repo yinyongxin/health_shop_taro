@@ -17,11 +17,12 @@ import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { appToast, waitTime } from "@/utils";
 import { orderPayByWx } from "@/utils/order";
-import { Empty } from "@taroify/core";
+import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./Skeleton";
+import dayjs from "dayjs";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
@@ -114,16 +115,34 @@ const OrderPayPage = () => {
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
+  console.log(
+    dayjs()
+      .add(30, "minute")
+      .diff(orderDetailRequest.data?.order.createdAt, "s"),
+  );
 
   return (
     <>
       <BasePage>
+        {!isCancel && (
+          <View className="text-[32px] font-semibold text-rose-500 flex justify-center items-center gap-2 mt-[24px]">
+            支付倒计时
+            <Countdown
+              value={dayjs(orderDetailRequest.data?.order.createdAt)
+                .add(30, "minute")
+                .diff(dayjs(), "ms")}
+              format="mm:ss"
+              className="h-[32px]"
+            />
+          </View>
+        )}
         <View className="px-[24px] pt-[24px]">
           {isCancel && (
             <View className="text-[32px] font-semibold text-rose-500">
               订单已取消
             </View>
           )}
+
           {currentAddress && (
             <AddressCard
               className="shadow-none!"
@@ -144,6 +163,7 @@ const OrderPayPage = () => {
             />
           )}
         </View>
+
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
             <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
