@@ -115,12 +115,6 @@ const OrderPayPage = () => {
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
-  console.log(
-    dayjs()
-      .add(30, "minute")
-      .diff(orderDetailRequest.data?.order.createdAt, "s"),
-  );
-
   return (
     <>
       <BasePage className="pb-[200px]">
