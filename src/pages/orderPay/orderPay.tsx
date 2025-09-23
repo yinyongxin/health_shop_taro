@@ -155,6 +155,7 @@ const OrderPayPage = () => {
                 info={item}
                 border={false}
                 showNumControl={false}
+                shadow={false}
               />
             ))}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">

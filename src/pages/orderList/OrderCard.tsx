@@ -79,6 +79,7 @@ export const OrderCard = (props: OrderCardProps) => {
             info={item}
             border={false}
             showNumControl={false}
+            shadow={false}
           />
         ))}
         <View className="flex flex-col gap-2 px-[24px]">
