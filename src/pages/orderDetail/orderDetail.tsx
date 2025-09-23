@@ -75,7 +75,7 @@ export default () => {
     if (orderDetailRequest.data?.order.status === 1) {
       return (
         <AppFixedBottom>
-          <AppButton status="error" onClick={cancelOrder}>
+          <AppButton status="error" actived={false} onClick={cancelOrder}>
             取消订单
           </AppButton>
         </AppFixedBottom>
