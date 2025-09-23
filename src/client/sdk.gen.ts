@@ -45,6 +45,12 @@ import type {
   GetWxShopOrderStatusCountData,
   GetWxShopOrderStatusCountResponses,
   GetWxShopOrderStatusCountErrors,
+  PostWxShopAddrViewByIdData,
+  PostWxShopAddrViewByIdResponses,
+  GetWxShopOrderAddrChangeData,
+  GetWxShopOrderAddrChangeResponses,
+  GetWxShopOrderCancelData,
+  GetWxShopOrderCancelResponses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -409,6 +415,57 @@ export const getWxShopOrderStatusCount = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/order/status/count",
+    ...options,
+  });
+};
+
+/**
+ * 根据id获取地址详情
+ */
+export const postWxShopAddrViewById = <ThrowOnError extends boolean = false>(
+  options: Options<PostWxShopAddrViewByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    PostWxShopAddrViewByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/addr/view/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 修改订单地址
+ */
+export const getWxShopOrderAddrChange = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderAddrChangeData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderAddrChangeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/addr/change",
+    ...options,
+  });
+};
+
+/**
+ * 取消订单
+ */
+export const getWxShopOrderCancel = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderCancelData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderCancelResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/cancel",
     ...options,
   });
 };

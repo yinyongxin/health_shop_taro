@@ -28,9 +28,10 @@ const WareDetail = () => {
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
-  const selectAddressControl = usePopupControl();
   const [quantity, setQuantity] = useState(1);
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
+  
+  const selectAddressControl = usePopupControl();
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );

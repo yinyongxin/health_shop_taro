@@ -672,6 +672,79 @@ export type GetWxShopOrderStatusCountResponses = {
 export type GetWxShopOrderStatusCountResponse =
   GetWxShopOrderStatusCountResponses[keyof GetWxShopOrderStatusCountResponses];
 
+export type PostWxShopAddrViewByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/shop/addr/view/{id}";
+};
+
+export type PostWxShopAddrViewByIdResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: AddressInfo;
+  };
+};
+
+export type PostWxShopAddrViewByIdResponse =
+  PostWxShopAddrViewByIdResponses[keyof PostWxShopAddrViewByIdResponses];
+
+export type GetWxShopOrderAddrChangeData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    /**
+     * 地址的id
+     */
+    addId?: number;
+    /**
+     * 订单编号
+     */
+    orderNo?: string;
+  };
+  url: "/wx/shop/order/addr/change";
+};
+
+export type GetWxShopOrderAddrChangeResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: Array<AddressInfo>;
+  };
+};
+
+export type GetWxShopOrderAddrChangeResponse =
+  GetWxShopOrderAddrChangeResponses[keyof GetWxShopOrderAddrChangeResponses];
+
+export type GetWxShopOrderCancelData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    /**
+     * 订单编号
+     */
+    orderNo?: string;
+  };
+  url: "/wx/shop/order/cancel";
+};
+
+export type GetWxShopOrderCancelResponses = {
+  200: {
+    msg: string;
+    code: number;
+  };
+};
+
+export type GetWxShopOrderCancelResponse =
+  GetWxShopOrderCancelResponses[keyof GetWxShopOrderCancelResponses];
+
 export type ClientOptions = {
   baseURL: string;
 };
