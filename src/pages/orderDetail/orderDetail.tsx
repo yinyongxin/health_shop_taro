@@ -74,9 +74,11 @@ export default () => {
   const renderBottomBtns = () => {
     if (orderDetailRequest.data?.order.status === 1) {
       return (
-        <AppButton status="error" onClick={cancelOrder}>
-          取消订单
-        </AppButton>
+        <AppFixedBottom>
+          <AppButton status="error" onClick={cancelOrder}>
+            取消订单
+          </AppButton>
+        </AppFixedBottom>
       );
     }
   };
