@@ -1,67 +1,180 @@
-import { AppTag, BasePage } from "@/components";
+import { AppButton, BasePage, LucideIcon } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
-import { usePageParams, useRequest } from "@/hooks";
-import { wareListMock } from "@/mock";
-import { View, Image } from "@tarojs/components";
+import { usePageParams, usePopupControl, useRequest } from "@/hooks";
+import { View, Text } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
-import { getWxShopOrderDetail } from "@/client";
+import {
+  AddressInfo,
+  getWxShopOrderDetail,
+  postWxShopAddrViewById,
+} from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
+import { useAppUserStore } from "@/stores";
+import { appToast } from "@/utils";
+import { Empty, Skeleton } from "@taroify/core";
+import { useState, useEffect } from "react";
+import { navigateBack } from "@tarojs/taro";
+import { AddressCard } from "@/components/AddressList/AddressCard";
+import { AppFixedBottom } from "@/components/AppFixedBottom";
 
 export default () => {
-  const pageParams = usePageParams<"orderDetail">();
-  const { data } = useRequest(async () => {
+  const appUserStore = useAppUserStore();
+  const pageParams = usePageParams<"orderPay">();
+  const selectAddressControl = usePopupControl();
+  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
+    appUserStore.defaultAddress,
+  );
+  const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
-      query: {
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        orderNo: pageParams.orderNo,
-      },
+      query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    console.log(res.data);
+    if (res.data?.code === 0) {
+      return res?.data?.data;
+    }
+    throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
+  const initAddress = async () => {
+    if (!orderDetailRequest.data?.order.addressId) {
+      return;
+    }
+    const getAddressRes = await postWxShopAddrViewById({
+      path: { id: orderDetailRequest.data?.order.addressId.toString() },
+      query: { orgId: orderDetailRequest.data?.order.addressId.toString() },
+    });
+    if (getAddressRes.data?.code === 0) {
+      setCurrentAddress(getAddressRes.data?.data);
+    } else {
+      appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
+    }
+  };
+  useEffect(() => {
+    initAddress();
+  }, [orderDetailRequest.data?.order.addressId]);
+
+  const getStatusLabel = (status: string) => {
+    return appUserStore.orderStatusList.find(
+      (item) => item.dictValue === status,
+    );
+  };
+
+  if (orderDetailRequest.error) {
+    return (
+      <Empty>
+        <Empty.Image></Empty.Image>
+        <Empty.Description>
+          {orderDetailRequest.error.message}
+        </Empty.Description>
+        <AppButton
+          actived={false}
+          className="mt-[48px] w-[300px]"
+          onClick={() => navigateBack()}
+        >
+          返回
+        </AppButton>
+      </Empty>
+    );
+  }
+
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
+    return <Skeleton />;
+  }
   return (
-    <BasePage>
-      <View className="flex flex-col gap-[32px] p-[24px]">
-        <View className="text-[32px] font-semibold">已收货</View>
-        <View className="bg-white rounded-lg flex flex-col gap-1 pb-[24px]">
-          {/* {data && (
-            <CartWareCard showNumControl={false} shadow={false} info={data} />
-          )} */}
-          <View className="flex-center flex-col h-[500px]">
-            <Image
-              className="size-[300px]"
-              src="https://img1.baidu.com/it/u=2359346518,83708928&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+    <>
+      <BasePage>
+        <View className="px-[24px] pt-[24px]">
+          <View className="text-[32px] font-semibold">
+            {
+              getStatusLabel(orderDetailRequest.data?.order?.status.toString()!)
+                ?.dictLabel
+            }
+          </View>
+        </View>
+
+        <View className="mt-[24px] px-[24px]">
+          <View className="bg-white rounded-lg">
+            <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
+              <View>共{orderDetailRequest.data?.itemList.length}件商品</View>
+            </View>
+            {orderDetailRequest.data?.itemList?.map((item) => (
+              <CartWareCard
+                key={item.id}
+                info={item}
+                border={false}
+                showNumControl={false}
+              />
+            ))}
+            <View className="px-[24px] pb-[24px] flex flex-col gap-2">
+              <InfoCardItem
+                label="总金额"
+                valueClassName="text-end"
+                value={
+                  <View className="text-[32px]">
+                    <Text>￥</Text>
+                    <Text>{orderDetailRequest.data?.order.totalAmount}</Text>
+                  </View>
+                }
+              />
+              <InfoCardItem
+                label="快递费"
+                valueClassName="text-end"
+                value={
+                  <View className="text-[32px]">
+                    <Text>￥</Text>
+                    <Text>{orderDetailRequest.data?.order.freightAmount}</Text>
+                  </View>
+                }
+              />
+              <InfoCardItem
+                label="折扣"
+                valueClassName="text-end"
+                value={
+                  <View className="text-[32px] text-rose-500">
+                    <Text>-</Text>
+                    <Text>￥</Text>
+                    <Text>{orderDetailRequest.data?.order.discountAmount}</Text>
+                  </View>
+                }
+              />
+              <View className="border-t-[1px] border-gray-200 pt-[24px]">
+                <InfoCardItem
+                  label="付款金额"
+                  lableClassName="text-[32px] font-semibold w-auto"
+                  valueClassName="text-end"
+                  value={
+                    <View className="text-[32px] font-semibold">
+                      <Text>￥</Text>
+                      <Text>
+                        {orderDetailRequest.data?.order.paymentAmount}
+                      </Text>
+                    </View>
+                  }
+                />
+              </View>
+            </View>
+          </View>
+          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+            <InfoCardItem
+              label="订单编号"
+              value={orderDetailRequest.data?.order.orderNo}
             />
-            <View className="text-[32px] font-semibold mt-[24px]">
-              0107 2435 2566 23
-            </View>
-          </View>
-          <View className="px-[24px]">
-            <View className="flex items-center justify-between">
-              <View className="flex items-center gap-[16px]">
-                <View className="text-[32px] font-semibold">待使用</View>
-                <View className="text-gray-500F">2025-10-10 00:00:00过期</View>
-              </View>
-              <View>
-                <AppTag status="secondary">申请退款</AppTag>
-              </View>
-            </View>
-          </View>
-          <View className="px-[24px]">
-            <View className="text-gray-500F">
-              请在过期时间内使用，过期后将无法使用
-            </View>
+            <InfoCardItem
+              label="下单时间"
+              value={orderDetailRequest.data?.order.createdAt}
+            />
           </View>
         </View>
-        <View className="bg-white rounded-lg p-[24px] flex flex-col gap-1">
-          <InfoCardItem label="手机号码" value="17637810750" />
-          <InfoCardItem label="订单编号" value="DDBH134543523453254" />
-          <InfoCardItem
-            label="交易快照"
-            value="当日发生交易纠纷是可作为交易凭证"
-          />
-          <InfoCardItem label="下单时间" value="2025-05-05 05:05:05" />
+
+        <View className="px-[24px] mt-[24px]">
+          {currentAddress && (
+            <AddressCard
+              className="shadow-none!"
+              info={currentAddress}
+              showActions={false}
+            />
+          )}
         </View>
-      </View>
-    </BasePage>
+      </BasePage>
+      {/* <AppFixedBottom></AppFixedBottom> */}
+    </>
   );
 };

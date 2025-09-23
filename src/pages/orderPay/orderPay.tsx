@@ -57,6 +57,22 @@ const OrderPayPage = () => {
     initAddress();
   }, [orderDetailRequest.data?.order.addressId]);
 
+  const updataOrderAddress = async () => {
+    if (!selectAddress) {
+      return;
+    }
+    const updateOrderAddressRes = await getWxShopOrderAddrChange({
+      query: {
+        orderNo: pageParams.orderNo,
+        addId: selectAddress.id,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (updateOrderAddressRes.data?.code === 0) {
+      orderDetailRequest.run();
+    }
+  };
+
   const orderPayRequest = useRequest(
     async () => {
       if (!orderDetailRequest.data?.order.orderNo) {
@@ -91,22 +107,6 @@ const OrderPayPage = () => {
     );
   }
 
-  const updataOrderAddress = async () => {
-    if (!selectAddress) {
-      return;
-    }
-    const updateOrderAddressRes = await getWxShopOrderAddrChange({
-      query: {
-        orderNo: pageParams.orderNo,
-        addId: selectAddress.id,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (updateOrderAddressRes.data?.code === 0) {
-      orderDetailRequest.run();
-    }
-  };
-
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
@@ -117,6 +117,7 @@ const OrderPayPage = () => {
         <View className="px-[24px] pt-[24px]">
           {currentAddress && (
             <AddressCard
+              className="shadow-none!"
               handleClick={() => {
                 selectAddressControl.setOpen(true);
                 setSelectAddress(currentAddress);
