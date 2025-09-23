@@ -123,7 +123,7 @@ const OrderPayPage = () => {
 
   return (
     <>
-      <BasePage>
+      <BasePage className="pb-[200px]">
         {!isCancel && (
           <View className="text-[32px] font-semibold text-rose-500 flex justify-center items-center gap-2 mt-[24px]">
             支付倒计时
