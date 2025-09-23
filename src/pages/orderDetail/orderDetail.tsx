@@ -5,6 +5,7 @@ import { View, Text } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import {
   AddressInfo,
+  getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
@@ -20,7 +21,6 @@ import { AppFixedBottom } from "@/components/AppFixedBottom";
 export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
-  const selectAddressControl = usePopupControl();
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
@@ -55,6 +55,30 @@ export default () => {
     return appUserStore.orderStatusList.find(
       (item) => item.dictValue === status,
     );
+  };
+
+  const cancelOrder = async () => {
+    const res = await getWxShopOrderCancel({
+      query: {
+        orderNo: orderDetailRequest.data?.order.orderNo,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (res.data?.code === 0) {
+      orderDetailRequest.run();
+    } else {
+      appToast.error("取消订单失败");
+    }
+  };
+
+  const renderBottomBtns = () => {
+    if (orderDetailRequest.data?.order.status === 1) {
+      return (
+        <AppButton status="error" onClick={cancelOrder}>
+          取消订单
+        </AppButton>
+      );
+    }
   };
 
   if (orderDetailRequest.error) {
@@ -174,6 +198,7 @@ export default () => {
           )}
         </View>
       </BasePage>
+      {renderBottomBtns()}
       {/* <AppFixedBottom></AppFixedBottom> */}
     </>
   );

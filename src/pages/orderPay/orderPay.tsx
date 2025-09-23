@@ -93,19 +93,6 @@ const OrderPayPage = () => {
     },
   );
 
-  const cancelOrder = async () => {
-    const res = await getWxShopOrderCancel({
-      query: {
-        orderNo: orderDetailRequest.data?.order.orderNo,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (res.data?.code === 0) {
-      orderDetailRequest.run();
-    } else {
-      appToast.error("取消订单失败");
-    }
-  };
   if (orderDetailRequest.error) {
     return (
       <Empty>
@@ -235,19 +222,19 @@ const OrderPayPage = () => {
         <AppFixedBottom className="flex gap-2">
           <AppButton
             disabled={!orderDetailRequest.data?.order.orderNo}
-            className="w-full"
+            className="flex-1"
             loading={orderPayRequest.loading}
             status="primary"
             actived={false}
             onClick={() => {
-              cancelOrder();
+              navigateBack();
             }}
           >
-            取消订单
+            返回
           </AppButton>
           <AppButton
             disabled={!orderDetailRequest.data?.order.orderNo}
-            className="w-full"
+            className="flex-2"
             loading={orderPayRequest.loading}
             onClick={() => {
               orderPayRequest.run();
