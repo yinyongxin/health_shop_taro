@@ -59,7 +59,7 @@ const OrderList = () => {
   );
   return (
     <BasePage
-      bgProps={{ className: "page-bg" }}
+      // bgProps={{ className: "page-bg" }}
       fullScreen
       className="flex-1 myLikeList"
     >

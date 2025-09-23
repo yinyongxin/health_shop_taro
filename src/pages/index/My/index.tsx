@@ -20,7 +20,7 @@ const UserMy = () => {
           <View className="flex gap-[24px]">
             <Avatar size="large" />
             <View className="flex-1 flex flex-col justify-around">
-              <View className="text-[32px] font-semibold">用户名</View>
+              <View className="text-[32px] font-semibold">微信用户</View>
             </View>
           </View>
         </View>
