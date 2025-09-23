@@ -40,8 +40,9 @@ export const AddressCard = (props: AddressCardProps) => {
     }
   };
 
-  const handleSetDefault = async (isDefault: number) => {
-    if (appUserStore.addressList.length === 1 && info.isDefault === 1) {
+  const handleSetDefault = async () => {
+    const isDefault = info.isDefault === 1 ? 0 : 1;
+    if (appUserStore.addressList.length === 1 || info.isDefault === 1) {
       return;
     }
     const res = await postWxShopAddrEdit({
@@ -100,7 +101,7 @@ export const AddressCard = (props: AddressCardProps) => {
             checked={info.isDefault === 1}
             size={18}
             className="text-[24px]!"
-            onClick={() => handleSetDefault(info.isDefault === 1 ? 0 : 1)}
+            onClick={() => handleSetDefault()}
           >
             默认地址
           </Checkbox>
