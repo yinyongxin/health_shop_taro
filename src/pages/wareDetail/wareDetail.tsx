@@ -30,7 +30,7 @@ const WareDetail = () => {
   const control = usePopupControl();
   const [quantity, setQuantity] = useState(1);
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
-  
+
   const selectAddressControl = usePopupControl();
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
@@ -60,12 +60,12 @@ const WareDetail = () => {
     }
   };
 
-  const handlePay = async () => {
-    if (!currentAddress?.id) {
-      selectAddressControl.setOpen(true);
-      return;
-    }
-  };
+  // const handlePay = async () => {
+  //   if (!currentAddress?.id) {
+  //     selectAddressControl.setOpen(true);
+  //     return;
+  //   }
+  // };
   return (
     <BasePage>
       {data && currentSku && (

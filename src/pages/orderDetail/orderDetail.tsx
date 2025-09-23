@@ -68,6 +68,7 @@ export default () => {
       });
       if (res.data?.code !== 0) {
         appToast.error("取消订单失败");
+        return;
       }
       appToast.success("取消订单成功");
       orderDetailRequest.run();
