@@ -69,37 +69,36 @@ export const OrderCard = (props: OrderCardProps) => {
         <View className="text-[28px] font-semibold">{info.createdAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
       </View>
-      <View className="mt-[24px] px-[24px]">
-        <View className="bg-white rounded-lg">
-          <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
-            <View>共{info.itemList.length}件商品</View>
-          </View>
-          {info.itemList?.map((item) => (
-            <CartWareCard
-              key={item.id}
-              info={item}
-              border={false}
-              showNumControl={false}
+      <View className="bg-white rounded-lg">
+        <View className="px-[24px] text-[32px] font-semibold">
+          <View>共{info.itemList.length}件商品</View>
+        </View>
+        {info.itemList?.map((item) => (
+          <CartWareCard
+            key={item.id}
+            info={item}
+            border={false}
+            showNumControl={false}
+          />
+        ))}
+        <View className="flex flex-col gap-2 px-[24px]">
+          <View className="border-t-[1px] border-gray-200 pt-[24px] ">
+            <InfoCardItem
+              label="付款金额"
+              lableClassName="text-[32px] font-semibold w-auto"
+              valueClassName="text-end"
+              value={
+                <View className="text-[32px] font-semibold">
+                  <Text>￥</Text>
+                  <Text>{info.paymentAmount}</Text>
+                </View>
+              }
             />
-          ))}
-          <View className="px-[24px] pb-[24px] flex flex-col gap-2">
-            <View className="border-t-[1px] border-gray-200 pt-[24px]">
-              <InfoCardItem
-                label="付款金额"
-                lableClassName="text-[32px] font-semibold w-auto"
-                valueClassName="text-end"
-                value={
-                  <View className="text-[32px] font-semibold">
-                    <Text>￥</Text>
-                    <Text>{info.paymentAmount}</Text>
-                  </View>
-                }
-              />
-            </View>
           </View>
         </View>
       </View>
-      <View className="flex items-center px-[24px] pb-[24px]">
+
+      <View className="flex items-center px-[24px] pb-[24px] pt-[24px]">
         <View className="flex-1">
           <View className="text-gray-500 text-[28px]">更多</View>
         </View>
