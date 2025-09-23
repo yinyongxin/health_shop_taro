@@ -9,6 +9,7 @@ import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
 import { OrderCard } from "./OrderCard";
+import { Skeleton } from "./Skeleton";
 
 const OrderList = () => {
   const pageParams = usePageParams<"orderList">();
@@ -90,23 +91,27 @@ const OrderList = () => {
           onChange={setActive}
         />
       )}
-      <AppList
-        className="flex-1"
-        loading={dataRequest.loading}
-        {...dataRequest.data}
-        bodyProps={{
-          className: classNames(
-            "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px]",
-            {
-              "pt-[24px]": pageParams.status !== "all",
-            },
-          ),
-        }}
-        itemRender={(item) => <OrderCard info={item} />}
-        onLoad={(pageNum) => {
-          dataRequest.run(pageNum);
-        }}
-      ></AppList>
+      {dataRequest.loading && !dataRequest.data ? (
+        <Skeleton />
+      ) : (
+        <AppList
+          className="flex-1"
+          loading={dataRequest.loading}
+          {...dataRequest.data}
+          bodyProps={{
+            className: classNames(
+              "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px]",
+              {
+                "pt-[24px]": pageParams.status !== "all",
+              },
+            ),
+          }}
+          itemRender={(item) => <OrderCard info={item} />}
+          onLoad={(pageNum) => {
+            dataRequest.run(pageNum);
+          }}
+        ></AppList>
+      )}
     </BasePage>
   );
 };
