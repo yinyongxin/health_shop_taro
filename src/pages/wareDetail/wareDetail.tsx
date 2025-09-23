@@ -13,7 +13,7 @@ import { safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { appRouter } from "@/router";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
@@ -35,6 +35,9 @@ const WareDetail = () => {
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
+  useEffect(() => {
+    setCurrentAddress(appUserStore.defaultAddress);
+  }, [appUserStore.defaultAddress]);
   const { data } = useRequest(async () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -43,6 +46,10 @@ const WareDetail = () => {
     return res.data?.data;
   });
   const addCartRequest = useRequest(async (sky: SkuInfo) => {
+    if (!currentAddress) {
+      appRouter.navigateTo("addAddress");
+      return;
+    }
     const res = await postWxShopCartAdd({
       body: {
         productId: data?.id!,
