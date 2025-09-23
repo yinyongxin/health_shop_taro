@@ -101,7 +101,7 @@ export const OrderCard = (props: OrderCardProps) => {
 
       <View className="flex items-center px-[24px] pb-[24px] pt-[24px]">
         <View className="flex-1">
-          <View className="text-gray-500 text-[28px]">更多</View>
+          <View className="text-gray-500 text-[28px]">{/* 更多 */}</View>
         </View>
         <View className=" flex gap-2">{getActions()}</View>
       </View>

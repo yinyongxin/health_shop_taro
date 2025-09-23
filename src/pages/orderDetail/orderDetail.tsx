@@ -11,7 +11,7 @@ import {
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
-import { appToast } from "@/utils";
+import { appLoading, appToast } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
@@ -58,16 +58,21 @@ export default () => {
   };
 
   const cancelOrder = async () => {
-    const res = await getWxShopOrderCancel({
-      query: {
-        orderNo: orderDetailRequest.data?.order.orderNo,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (res.data?.code === 0) {
+    try {
+      appLoading.show("取消订单中...");
+      const res = await getWxShopOrderCancel({
+        query: {
+          orderNo: orderDetailRequest.data?.order.orderNo,
+          orgId: APP_ENV_CONFIG.ORG_ID,
+        },
+      });
+      if (res.data?.code !== 0) {
+        appToast.error("取消订单失败");
+      }
+      appToast.success("取消订单成功");
       orderDetailRequest.run();
-    } else {
-      appToast.error("取消订单失败");
+    } finally {
+      appLoading.hide();
     }
   };
 
