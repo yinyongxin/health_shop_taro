@@ -21,8 +21,8 @@ import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
-import { Skeleton } from "./Skeleton";
 import dayjs from "dayjs";
+import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
