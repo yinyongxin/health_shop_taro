@@ -48,7 +48,7 @@ export const orderPayByWx = async (
       orderNo,
     },
   });
-  if (payData.data?.code === 0) {
+  if (payData.data?.code !== 0) {
     appToast.error("支付失败");
     fail?.();
     throw new Error("支付失败");
@@ -77,6 +77,6 @@ export const orderPayByWx = async (
     );
   } catch (error) {
     appToast.error("支付失败");
-    throw new Error("支付失败");
+    throw new Error(error.message);
   }
 };
