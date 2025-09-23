@@ -42,7 +42,7 @@ const WareDetail = () => {
     setCurrentSku(res.data?.data?.skuList[0]);
     return res.data?.data;
   });
-  const addCart = async (sky: SkuInfo) => {
+  const addCartRequest = useRequest(async (sky: SkuInfo) => {
     const res = await postWxShopCartAdd({
       body: {
         productId: data?.id!,
@@ -58,7 +58,7 @@ const WareDetail = () => {
       Toast.success("添加成功");
       control.setOpen(false);
     }
-  };
+  });
 
   // const handlePay = async () => {
   //   if (!currentAddress?.id) {
@@ -135,7 +135,9 @@ const WareDetail = () => {
                       <AppButton
                         className="flex-1"
                         status="warning"
-                        onClick={() => addCart(sku)}
+                        disabled={addCartRequest.loading}
+                        loading={addCartRequest.loading}
+                        onClick={() => addCartRequest.run(sku)}
                       >
                         {mode === ModeEnum.ADD_CART ? "确定" : "加入购物车"}
                       </AppButton>
