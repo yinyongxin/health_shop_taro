@@ -1,6 +1,7 @@
 import {
   AddressInfo,
   getWxShopOrderAddrChange,
+  getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
@@ -39,6 +40,8 @@ const OrderPayPage = () => {
     }
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
+
+  const isCancel = orderDetailRequest.data?.order.status === 4;
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -89,6 +92,20 @@ const OrderPayPage = () => {
       manual: true,
     },
   );
+
+  const cancelOrder = async () => {
+    const res = await getWxShopOrderCancel({
+      query: {
+        orderNo: orderDetailRequest.data?.order.orderNo,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (res.data?.code === 0) {
+      orderDetailRequest.run();
+    } else {
+      appToast.error("取消订单失败");
+    }
+  };
   if (orderDetailRequest.error) {
     return (
       <Empty>
@@ -115,6 +132,11 @@ const OrderPayPage = () => {
     <>
       <BasePage>
         <View className="px-[24px] pt-[24px]">
+          {isCancel && (
+            <View className="text-[32px] font-semibold text-rose-500">
+              订单已取消
+            </View>
+          )}
           {currentAddress && (
             <AddressCard
               className="shadow-none!"
@@ -209,18 +231,32 @@ const OrderPayPage = () => {
           </View>
         </View>
       </BasePage>
-      <AppFixedBottom>
-        <AppButton
-          disabled={!orderDetailRequest.data?.order.orderNo}
-          className="w-full"
-          loading={orderPayRequest.loading}
-          onClick={() => {
-            orderPayRequest.run();
-          }}
-        >
-          确认支付
-        </AppButton>
-      </AppFixedBottom>
+      {!isCancel && (
+        <AppFixedBottom className="flex gap-2">
+          <AppButton
+            disabled={!orderDetailRequest.data?.order.orderNo}
+            className="w-full"
+            loading={orderPayRequest.loading}
+            status="primary"
+            actived={false}
+            onClick={() => {
+              cancelOrder();
+            }}
+          >
+            取消订单
+          </AppButton>
+          <AppButton
+            disabled={!orderDetailRequest.data?.order.orderNo}
+            className="w-full"
+            loading={orderPayRequest.loading}
+            onClick={() => {
+              orderPayRequest.run();
+            }}
+          >
+            确认支付
+          </AppButton>
+        </AppFixedBottom>
+      )}
       <AppPopup
         style={{
           height: "60vh",

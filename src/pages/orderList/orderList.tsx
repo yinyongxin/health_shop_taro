@@ -1,5 +1,5 @@
 import { AppTabList, BasePage } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
@@ -7,6 +7,7 @@ import { getWxShopOrderMy, OrderInfo } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
+import { useDidShow } from "@tarojs/taro";
 import { OrderCard } from "./OrderCard";
 
 const OrderList = () => {
@@ -29,13 +30,13 @@ const OrderList = () => {
   const [active, setActive] = useState(pageParams.status || "all");
 
   const dataRequest = useRequest(
-    async (pageNum: number = 1) => {
+    async (pageNum: number = 1, pageSize?: number) => {
       const res = await getWxShopOrderMy({
         query: {
           orgId: APP_ENV_CONFIG.ORG_ID,
           status: active === "all" ? undefined : active,
           pageNum: pageNum.toString(),
-          pageSize: "10",
+          pageSize: pageSize?.toString() ?? "10",
         },
       });
       let list: OrderInfo[] = [];
@@ -57,6 +58,20 @@ const OrderList = () => {
       refreshDeps: [active],
     },
   );
+
+  useEffect(() => {
+    dataRequest.run(1);
+  }, [active]);
+
+  useDidShow(() => {
+    const { pageNum = 1, total = 0 } = dataRequest.data?.pagination || {};
+    if (pageNum > 1) {
+      dataRequest.run(1);
+    } else {
+      dataRequest.run(1, pageNum * total);
+    }
+  });
+
   return (
     <BasePage
       // bgProps={{ className: "page-bg" }}
