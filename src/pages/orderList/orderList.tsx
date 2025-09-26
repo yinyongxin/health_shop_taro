@@ -84,7 +84,6 @@ const OrderList = () => {
       // bgProps={{ className: "page-bg" }}
       fullScreen
       className="flex-1 myLikeList"
-      loading={pageLoading}
     >
       {pageParams.status === "all" && (
         <AppTabList
@@ -94,7 +93,7 @@ const OrderList = () => {
           onChange={setActive}
         />
       )}
-      {dataRequest.loading && !dataRequest.data ? (
+      {(dataRequest.loading && !dataRequest.data) || pageLoading ? (
         <Skeleton />
       ) : (
         <AppList
