@@ -14,7 +14,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
   console.log("command: ", command);
   console.log("mode: ", mode);
   // const { default: tailwindcss } = await import('@tailwindcss/vite')
-  console.log("asdds", normalizePath(path.resolve(process.cwd(), "public")));
+
   const baseConfig: UserConfigExport<"vite"> = {
     projectName: "医疗商城",
     date: "2025-2-23",

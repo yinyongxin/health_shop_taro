@@ -10,7 +10,21 @@ const prod: UserConfigExport<"vite"> = {
      * WebpackChain 插件配置
      * @docs https://github.com/neutrinojs/webpack-chain
      */
+    output: {
+      //   path: path.resolve(__dirname, "dist"),
+    },
+    webpack:{
+      optimization: {
+        minimize: true,
+        splitChunks: { chunks: "all" },
+      },
+    },
+
     webpackChain(chain) {
+      console.log("chain", chain);
+      chain.optimization.minimize(true);
+      chain.optimization.nodeEnv("production");
+      chain.optimization.splitChunks({ chunks: "all" });
       //   /**
       //    * 如果 h5 端编译后体积过大，可以使用 webpack-bundle-analyzer 插件对打包体积进行分析。
       //    * @docs https://github.com/webpack-contrib/webpack-bundle-analyzer
