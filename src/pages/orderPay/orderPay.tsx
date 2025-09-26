@@ -126,7 +126,6 @@ const OrderPayPage = () => {
                 .add(30, "minute")
                 .diff(dayjs(), "ms")}
               format="mm:ss"
-              className="h-[32px]"
             />
           </View>
         )}
