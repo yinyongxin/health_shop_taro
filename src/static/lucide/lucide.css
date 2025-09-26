@@ -1,9 +1,9 @@
 @font-face {
   font-family: "lucide";
   src:
-    url("./lucide.woff2?t=1756207470009") format("woff2"),
-    url("./lucide.woff?t=1756207470009") format("woff"),
-    url("./lucide.ttf?t=1756207470009") format("truetype");
+    url("../fonts/lucide.woff2?t=1756207470009") format("woff2"),
+    url("../fonts/lucide.woff?t=1756207470009") format("woff"),
+    url("../fonts/lucide.ttf?t=1756207470009") format("truetype");
 }
 
 [class^="icon-"],
