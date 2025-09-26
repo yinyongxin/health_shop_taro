@@ -27,12 +27,12 @@ export const Cart = () => {
         cartId: cartInfo.id,
         itemList: cartInfo.itemList,
       });
+      appLoading.hide();
       appRouter.navigateTo("orderPay", {
         query: {
           orderNo: createOrderRes.orderNo,
         },
       });
-      appLoading.hide();
     } catch {
       appToast.error("创建失败");
     } finally {
