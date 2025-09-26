@@ -39,15 +39,11 @@ const SubCategoryProductList = () => {
     },
   );
   return (
-    <BasePage
-      bgProps={{ className: "page-bg" }}
-      fullScreen
-      className="flex-1 subCategoryProductListPage"
-    >
+    <BasePage fullScreen className="flex-1 subCategoryProductListPage">
       {/* <View className="p-[24px]">
         <AppTopSearch />
       </View> */}
-      <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden">
+      <View className="flex-1 flex flex-col overflow-hidden">
         {/* <DownMenu /> */}
         {dataRequest.loading && !dataRequest.data ? (
           <View className="flex gap-2 p-2 h-full pb-[180px]">
