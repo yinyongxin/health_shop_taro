@@ -78,7 +78,15 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
         viteStaticCopy({
           targets: [
             {
-              src: normalizePath(path.resolve(process.cwd(), "src/static")),
+              src: normalizePath(
+                path.resolve(process.cwd(), "src/static/configuration"),
+              ),
+              dest: "static",
+            },
+            {
+              src: normalizePath(
+                path.resolve(process.cwd(), "src/static/lucide"),
+              ),
               dest: "static",
             },
           ],
