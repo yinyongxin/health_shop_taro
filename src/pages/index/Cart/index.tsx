@@ -13,6 +13,10 @@ export const Cart = () => {
   const { cartInfo } = appUserStore;
 
   const handlePay = async () => {
+    if (appUserStore.addressList.length === 0) {
+      appRouter.navigateTo("addAddress");
+      return;
+    }
     if (cartInfo.itemList.length === 0) {
       return;
     }
