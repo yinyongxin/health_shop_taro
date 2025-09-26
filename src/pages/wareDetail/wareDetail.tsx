@@ -32,12 +32,15 @@ const WareDetail = () => {
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
 
   const selectAddressControl = usePopupControl();
+  // 默认地址
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
+  // 初始化默认地址
   useEffect(() => {
     setCurrentAddress(appUserStore.defaultAddress);
   }, [appUserStore.defaultAddress]);
+  // 商品详情
   const { data } = useRequest(async () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -45,27 +48,32 @@ const WareDetail = () => {
     setCurrentSku(res.data?.data?.skuList[0]);
     return res.data?.data;
   });
-  const addCartRequest = useRequest(async (sky: SkuInfo) => {
-    if (!currentAddress) {
-      appRouter.navigateTo("addAddress");
-      return;
-    }
-    const res = await postWxShopCartAdd({
-      body: {
-        productId: data?.id!,
-        skuId: sky.id,
-        quantity,
-        cartId: appUserStore.cartInfo.id,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        productName: data?.name!,
-        skuName: sky.specs,
-      },
-    });
-    if (res.data?.code === 0) {
-      Toast.success("添加成功");
-      control.setOpen(false);
-    }
-  });
+  const addCartRequest = useRequest(
+    async (sky: SkuInfo) => {
+      if (!currentAddress) {
+        appRouter.navigateTo("addAddress");
+        return;
+      }
+      const res = await postWxShopCartAdd({
+        body: {
+          productId: data?.id!,
+          skuId: sky.id,
+          quantity,
+          cartId: appUserStore.cartInfo.id,
+          orgId: APP_ENV_CONFIG.ORG_ID,
+          productName: data?.name!,
+          skuName: sky.specs,
+        },
+      });
+      if (res.data?.code === 0) {
+        Toast.success("添加成功");
+        control.setOpen(false);
+      }
+    },
+    {
+      manual: true,
+    },
+  );
 
   // const handlePay = async () => {
   //   if (!currentAddress?.id) {
