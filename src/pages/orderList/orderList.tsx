@@ -69,12 +69,7 @@ const OrderList = () => {
   }, [active]);
 
   useDidShow(() => {
-    const { pageNum = 1 } = dataRequest.data?.pagination || {};
-    if (pageNum === 1) {
-      dataRequest.run(1);
-    } else {
-      dataRequest.run(1, pageNum * 10);
-    }
+    dataRequest.run(1);
   });
 
   return (

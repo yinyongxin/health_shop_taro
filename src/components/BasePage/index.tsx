@@ -7,6 +7,7 @@ export type BasePageProps = {
   wapperProps?: ViewProps;
   fullScreen?: boolean;
   loading?: boolean;
+  loadingText?: string;
 } & ViewProps;
 
 export const BasePage = (props: BasePageProps) => {
@@ -17,6 +18,7 @@ export const BasePage = (props: BasePageProps) => {
     wapperProps,
     fullScreen,
     loading,
+    loadingText = "加载中...",
     ...rest
   } = props;
   const {
@@ -56,7 +58,11 @@ export const BasePage = (props: BasePageProps) => {
       >
         {children}
       </View>
-      {loading && <View className="absolute inset-0 bg-black/30 z-[10]"></View>}
+      {loading && (
+        <View className="absolute inset-0 bg-black/30 z-[10] flex-center text-white text-[32px]">
+          {loadingText}
+        </View>
+      )}
     </View>
   );
 };
