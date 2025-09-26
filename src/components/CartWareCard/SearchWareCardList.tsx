@@ -17,19 +17,15 @@ export const CartWareCardList = (props: CartWareCardListProps) => {
   const appUserStore = useAppUserStore();
   const { data = [], className, cartWareCardProps } = props;
   const handleDelete = async (value: CartItem) => {
-    try {
-      appLoading.show("删除中...");
-      const res = await getWxShopCartDelete({
-        query: { cartItemId: value?.id?.toString() },
-      });
-      if (res.data?.code === 0) {
-        await appUserStore.updateCartInfo();
-        appToast.success("删除成功");
-      } else {
-        appToast.error(res?.data?.msg ?? "删除失败");
-      }
-    } finally {
-      appLoading.hide();
+    appLoading.show("删除中...");
+    const res = await getWxShopCartDelete({
+      query: { cartItemId: value?.id?.toString() },
+    });
+    if (res.data?.code === 0) {
+      await appUserStore.updateCartInfo();
+      appToast.success("删除成功");
+    } else {
+      appToast.error(res?.data?.msg ?? "删除失败");
     }
   };
   if (data.length === 0) {
