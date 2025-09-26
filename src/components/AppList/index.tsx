@@ -1,6 +1,7 @@
 import { Empty } from "@taroify/core";
 import { ScrollView, View, ViewProps } from "@tarojs/components";
 import classNames from "classnames";
+import React from "react";
 
 export type AppListProps<I = unknown> = {
   className?: string;
@@ -60,7 +61,11 @@ export function AppList<I>(props: AppListProps<I>) {
     >
       <View {...bodyProps}>
         {list && itemRender
-          ? list.map((item, index) => itemRender(item, index))
+          ? list.map((item, index) => (
+              <React.Fragment key={index}>
+                {itemRender(item, index)}
+              </React.Fragment>
+            ))
           : children}
         {load}
       </View>
