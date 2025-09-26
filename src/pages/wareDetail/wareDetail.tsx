@@ -32,14 +32,17 @@ const WareDetail = () => {
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
 
   const selectAddressControl = usePopupControl();
+
   // 默认地址
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
+
   // 初始化默认地址
-  useEffect(() => {
-    setCurrentAddress(appUserStore.defaultAddress);
-  }, [appUserStore.defaultAddress]);
+  // useEffect(() => {
+  //   setCurrentAddress(appUserStore.defaultAddress);
+  // }, [appUserStore.defaultAddress]);
+
   // 商品详情
   const { data } = useRequest(async () => {
     const res = await getWxShopProductDetail({
@@ -48,12 +51,10 @@ const WareDetail = () => {
     setCurrentSku(res.data?.data?.skuList[0]);
     return res.data?.data;
   });
+
+  // 添加购物车
   const addCartRequest = useRequest(
     async (sky: SkuInfo) => {
-      if (!currentAddress) {
-        appRouter.navigateTo("addAddress");
-        return;
-      }
       const res = await postWxShopCartAdd({
         body: {
           productId: data?.id!,
