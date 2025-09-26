@@ -61,9 +61,16 @@ const OrderList = () => {
   );
   const isInit = useRef(true);
 
+  const [pageLoading, setPageLoading] = useState(false);
+
+  const acitveChange = async () => {
+    setPageLoading(true);
+    await dataRequest.run(1);
+    setPageLoading(false);
+  };
   useEffect(() => {
     if (!isInit.current) {
-      dataRequest.run(1);
+      acitveChange();
     }
     isInit.current = false;
   }, [active]);
@@ -77,7 +84,7 @@ const OrderList = () => {
       // bgProps={{ className: "page-bg" }}
       fullScreen
       className="flex-1 myLikeList"
-      loading={!!(dataRequest.loading && dataRequest.data)}
+      loading={pageLoading}
     >
       {pageParams.status === "all" && (
         <AppTabList
