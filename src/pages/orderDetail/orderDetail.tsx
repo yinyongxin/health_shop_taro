@@ -58,23 +58,19 @@ export default () => {
   };
 
   const cancelOrder = async () => {
-    try {
-      appLoading.show("取消订单中...");
-      const res = await getWxShopOrderCancel({
-        query: {
-          orderNo: orderDetailRequest.data?.order.orderNo,
-          orgId: APP_ENV_CONFIG.ORG_ID,
-        },
-      });
-      if (res.data?.code !== 0) {
-        appToast.error("取消订单失败");
-        return;
-      }
-      appToast.success("取消订单成功");
-      orderDetailRequest.run();
-    } finally {
-      appLoading.hide();
+    appLoading.show("取消订单中...");
+    const res = await getWxShopOrderCancel({
+      query: {
+        orderNo: orderDetailRequest.data?.order.orderNo,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+      },
+    });
+    if (res.data?.code !== 0) {
+      appToast.error("取消订单失败");
+      return;
     }
+    appToast.success("取消订单成功");
+    orderDetailRequest.run();
   };
 
   const renderBottomBtns = () => {
