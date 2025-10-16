@@ -10,7 +10,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
   const { info } = props;
   return (
     <View
-      className="w-1/2 pl-2 pt-2 "
+      className="w-1/3 pl-2 pt-2 "
       onClick={() => {
         appRouter.navigateTo("subCategoryProductList", {
           query: { subCategoryId: info.id.toString() },
@@ -18,11 +18,11 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
       }}
     >
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
-        <View className="h-[180px] flex-center">
+        <View className="h-[100px] flex-center">
           {info?.logo ? (
             <Image
               src={info.logo || ""}
-              className="size-[160px]"
+              className="size-[80px]"
               mode="aspectFill"
             />
           ) : (
