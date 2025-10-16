@@ -9,7 +9,7 @@ import { calculateTotalPrice } from "./price";
 import { appToast } from ".";
 
 export const createOrder = async (data: {
-  addressId: number;
+  addressId?: number;
   cartId: number;
   itemList: CartItem[];
 }) => {

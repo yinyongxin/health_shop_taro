@@ -10,12 +10,13 @@ import {
   postWxShopCartAdd,
   SkuInfo,
 } from "@/client";
-import { appToast, safeJson } from "@/utils";
+import { appLoading, appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
 import { useEffect, useState } from "react";
 import { appRouter } from "@/router";
+import { createOrder } from "@/utils/order";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -77,40 +78,59 @@ const WareDetail = () => {
     },
   );
 
-  const handlePay = useRequest(async (sky: SkuInfo) => {
+  const clearCart = async () => {
     const { itemList } = appUserStore.cartInfo;
-    if (itemList.length > 0) {
-      await Promise.all(
-        itemList.map(async (item) => {
-          await getWxShopCartDelete({
-            query: {
-              cartItemId: item.id?.toString(),
-            },
-          });
-        }),
-      );
-      await appUserStore.updateCartInfo();
-    }
-    console.log(appUserStore.cartInfo);
-    const res = await postWxShopCartAdd({
-      body: {
-        productId: data?.id!,
-        skuId: sky.id,
-        quantity,
-        cartId: appUserStore.cartInfo.id,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-        productName: data?.name!,
-        skuName: sky.specs,
-      },
-    });
-    if (res.data?.code !== 0) {
-      appToast.error("购买失败");
+    if (itemList.length === 0) {
       return;
     }
-    console.log(appUserStore.cartInfo);
-    const updateCartInfoRes = await appUserStore.updateCartInfo();
-    control.setOpen(false);
-    console.log(updateCartInfoRes.cartInfo);
+    await Promise.all(
+      itemList.map(async (item) => {
+        await getWxShopCartDelete({
+          query: {
+            cartItemId: item.id?.toString(),
+          },
+        });
+      }),
+    );
+    await appUserStore.updateCartInfo();
+  };
+
+  const handlePay = useRequest(async (sky: SkuInfo) => {
+    try {
+      appLoading.show("创建订单中...");
+      await clearCart();
+      const res = await postWxShopCartAdd({
+        body: {
+          productId: data?.id!,
+          skuId: sky.id,
+          quantity,
+          cartId: appUserStore.cartInfo.id,
+          orgId: APP_ENV_CONFIG.ORG_ID,
+          productName: data?.name!,
+          skuName: sky.specs,
+        },
+      });
+      if (res.data?.code !== 0) {
+        throw new Error("添加失败");
+      }
+      const updateCartInfoRes = await appUserStore.updateCartInfo();
+
+      const createOrderRes = await createOrder({
+        cartId: updateCartInfoRes.cartInfo.id,
+        itemList: updateCartInfoRes.cartInfo.itemList,
+      });
+      appLoading.hide();
+      appRouter.navigateTo("orderPay", {
+        query: {
+          orderNo: createOrderRes.orderNo,
+        },
+      });
+    } catch {
+      appToast.error("创建失败");
+    } finally {
+      appUserStore.updateCartInfo();
+      control.setOpen(false);
+    }
   });
   return (
     <BasePage>

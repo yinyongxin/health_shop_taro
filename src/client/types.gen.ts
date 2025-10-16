@@ -156,7 +156,7 @@ export type CreateOrderResult = {
 };
 
 export type CreateOrderBody = {
-  addressId: number;
+  addressId?: number;
   orgId: string;
   /**
    * 总金额
