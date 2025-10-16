@@ -134,8 +134,8 @@ export default () => {
   }
 
   const getQrCode = (info: CartItem) => {
-    if (info.isService === 2) {
-      return
+    if (info.isService === 2 || orderDetailRequest.data?.order.status !== 2) {
+      return;
     }
     return <QrCode className="pb-[24px]" />;
   };
