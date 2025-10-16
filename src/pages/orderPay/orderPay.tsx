@@ -235,6 +235,7 @@ const OrderPayPage = () => {
       {!isCancel && (
         <AppFixedBottom className="flex gap-2">
           <AppButton
+            round
             disabled={!orderDetailRequest.data?.order.orderNo}
             className="flex-1"
             loading={orderPayRequest.loading}
@@ -247,6 +248,7 @@ const OrderPayPage = () => {
             返回
           </AppButton>
           <AppButton
+            round
             disabled={!orderDetailRequest.data?.order.orderNo}
             className="flex-2"
             loading={orderPayRequest.loading}
