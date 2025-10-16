@@ -12,7 +12,7 @@ import {
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
-import { Empty, Skeleton } from "@taroify/core";
+import { Dialog, Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
@@ -77,7 +77,20 @@ export default () => {
     if (orderDetailRequest.data?.order.status === 1) {
       return (
         <AppFixedBottom>
-          <AppButton status="error" actived={false} onClick={cancelOrder}>
+          <AppButton
+            status="error"
+            onClick={() => {
+              Dialog.confirm({
+                theme: "rounded",
+                title: "提示",
+                message: "取消后不能恢复，确定取消订单吗？",
+                onConfirm: () => {
+                  cancelOrder();
+                },
+              });
+            }}
+            round
+          >
             取消订单
           </AppButton>
         </AppFixedBottom>
@@ -93,6 +106,7 @@ export default () => {
           {orderDetailRequest.error.message}
         </Empty.Description>
         <AppButton
+          round
           actived={false}
           className="mt-[48px] w-[300px]"
           onClick={() => navigateBack()}

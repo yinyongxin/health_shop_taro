@@ -28,7 +28,9 @@ export const BaseInfo = (props: BaseInfoProps) => {
           <View className="text-gray-500">{/* 已售：{info?.sales} */}</View>
         </View>
         <View className="text-[32px] font-bold">{info?.name}</View>
-        <View className="text-gray-500">{info?.description}</View>
+        <View className="text-gray-500">
+          {info?.description || "没有任何描述"}
+        </View>
         <View className="flex gap-[8px]">
           <View className="flex gap-1">
             {safeJson.parse(info?.productTags, []).map((tag) => (
