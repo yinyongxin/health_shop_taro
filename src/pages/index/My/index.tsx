@@ -41,14 +41,14 @@ const UserMy = () => {
               地址管理
             </AppCell>
             <AppDivier className="px-[32px]" />
-            <AppCell
+            {/* <AppCell
               icon={<LucideIcon name="settings" size={20} />}
               onClick={() => {
                 showToast({ title: "尽请期待", icon: "none" });
               }}
             >
               设置
-            </AppCell>
+            </AppCell> */}
           </View>
         </View>
       </View>
