@@ -60,7 +60,7 @@ export const Actions = (props: ActionsProps) => {
           </View>
         </View> */}
         <View className="flex-3 flex gap-[16px] py-[24px]">
-          <AppButton
+          {/* <AppButton
             status="warning"
             className="flex-2"
             onClick={() => {
@@ -69,7 +69,7 @@ export const Actions = (props: ActionsProps) => {
             round
           >
             加入购物车
-          </AppButton>
+          </AppButton> */}
           <AppButton
             status="error"
             className="flex-3"
