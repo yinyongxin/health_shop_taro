@@ -96,7 +96,7 @@ export default () => {
             }}
             round
           >
-            取消订单
+            取消订单并退款
           </AppButton>
         </AppFixedBottom>
       );
