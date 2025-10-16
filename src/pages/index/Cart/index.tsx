@@ -18,6 +18,7 @@ export const Cart = () => {
       return;
     }
     if (cartInfo.itemList.length === 0) {
+      appToast.info("请选择商品");
       return;
     }
     try {

@@ -76,12 +76,12 @@ const WareDetail = () => {
     },
   );
 
-  // const handlePay = async () => {
-  //   if (!currentAddress?.id) {
-  //     selectAddressControl.setOpen(true);
-  //     return;
-  //   }
-  // };
+  const handlePay = async () => {
+    if (!currentAddress?.id) {
+      selectAddressControl.setOpen(true);
+      return;
+    }
+  };
   return (
     <BasePage>
       {data && currentSku && (
@@ -146,7 +146,7 @@ const WareDetail = () => {
                 setCurrentSku={setCurrentSku}
                 data={data}
                 btns={(sku) => (
-                  <View className="flex gap-[24px] pt-[48px]">
+                  <View className="flex gap-[24px]">
                     {(mode === ModeEnum.ALL || mode === ModeEnum.ADD_CART) && (
                       <AppButton
                         className="flex-1"
@@ -159,17 +159,18 @@ const WareDetail = () => {
                         {mode === ModeEnum.ADD_CART ? "确定" : "加入购物车"}
                       </AppButton>
                     )}
-                    {/* {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
+                    {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
                       <AppButton
                         className="flex-1"
                         status="error"
+                        round
                         onClick={() => {
                           handlePay();
                         }}
                       >
                         {mode === ModeEnum.BUY ? "确定" : "立即购买"}
                       </AppButton>
-                    )} */}
+                    )}
                   </View>
                 )}
               />
