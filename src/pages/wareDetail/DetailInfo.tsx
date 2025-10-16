@@ -8,7 +8,12 @@ export const DetailInfo = (props: DetailInfoProps) => {
   const { info } = props;
   return (
     <View className="pt-[32px] px-[24px]">
-      <RichText nodes={info.detailContent} />
+      <RichText
+        nodes={info.detailContent.replace(
+          /\<img/gi,
+          '<img style="width:100%;height:auto"',
+        )}
+      />
     </View>
   );
 };
