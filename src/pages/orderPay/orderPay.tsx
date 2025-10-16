@@ -152,15 +152,16 @@ const OrderPayPage = () => {
             />
           </View>
         )}
-        <View className="px-[24px] pt-[24px]">
-          {isCancel && (
+        {isCancel && (
+          <View className="px-[24px] pt-[24px]">
             <View className="text-[32px] font-semibold text-rose-500">
               订单已取消
             </View>
-          )}
-
-          {hasNotServiceWare &&
-            (currentAddress ? (
+          </View>
+        )}
+        {hasNotServiceWare && (
+          <View className="px-[24px] pt-[24px]">
+            {currentAddress ? (
               <AddressCard
                 className="shadow-none!"
                 handleClick={() => {
@@ -180,8 +181,9 @@ const OrderPayPage = () => {
               />
             ) : (
               <Box>请选择地址</Box>
-            ))}
-        </View>
+            )}
+          </View>
+        )}
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
