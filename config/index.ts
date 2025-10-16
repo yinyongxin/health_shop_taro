@@ -85,7 +85,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
             },
             {
               src: normalizePath(
-                path.resolve(process.cwd(), "src/static/iamges"),
+                path.resolve(process.cwd(), "src/static/images"),
               ),
               dest: "static",
             },
