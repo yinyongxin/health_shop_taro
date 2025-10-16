@@ -86,7 +86,10 @@ export default () => {
   };
 
   const renderBottomBtns = () => {
-    if (orderDetailRequest.data?.order.status === 1) {
+    if (!orderDetailRequest.data?.order) {
+      return;
+    }
+    if ([1].includes(orderDetailRequest.data?.order.status)) {
       return (
         <AppFixedBottom>
           <AppButton

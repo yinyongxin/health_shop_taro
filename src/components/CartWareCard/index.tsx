@@ -4,8 +4,8 @@ import { View, Image, Text } from "@tarojs/components";
 import { useAppUserStore } from "@/stores";
 import classNames from "classnames";
 import { safeJson } from "@/utils";
+import { ReactNode } from "react";
 import { AppTag } from "../AppTag";
-import React from "react";
 
 export type CartWareCardProps = {
   info: CartItem;
@@ -13,7 +13,7 @@ export type CartWareCardProps = {
   showNumControl?: boolean;
   shadow?: boolean;
   defaultNum?: number;
-  bottom?: React.ReactNode;
+  bottom?: ReactNode;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
   const appUserStore = useAppUserStore();
