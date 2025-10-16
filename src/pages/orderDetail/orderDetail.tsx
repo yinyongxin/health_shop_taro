@@ -141,7 +141,7 @@ export default () => {
   }
   return (
     <>
-      <BasePage>
+      <BasePage className="pb-[200px]">
         <View className="px-[24px] pt-[24px]">
           <View className="text-[32px] font-semibold">
             {
