@@ -29,9 +29,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
             <LucideIcon className="text-gray-200" name="image" size={60} />
           )}
         </View>
-        <View>
-          <Text>{info.name}</Text>
-        </View>
+        <View className="line-clamp-1">{info.name}</View>
       </View>
     </View>
   );
