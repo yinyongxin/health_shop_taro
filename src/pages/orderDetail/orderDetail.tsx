@@ -5,6 +5,7 @@ import { View, Text } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import {
   AddressInfo,
+  CartItem,
   getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
@@ -132,7 +133,10 @@ export default () => {
     );
   }
 
-  const getQrCode = () => {
+  const getQrCode = (info: CartItem) => {
+    if (info.isService === 2) {
+      return
+    }
     return <QrCode className="pb-[24px]" />;
   };
 
@@ -163,7 +167,7 @@ export default () => {
                 border={false}
                 showNumControl={false}
                 shadow={false}
-                bottom={getQrCode()}
+                bottom={getQrCode(item)}
               />
             ))}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
