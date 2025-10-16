@@ -71,7 +71,7 @@ export const AppButton = (props: AppButtonProps) => {
           [colors?.[status]]: !actived,
           "active:opacity-75": !disabled,
           "opacity-50": disabled,
-          "rounded-full": round,
+          "rounded-[999px]": round,
         },
         className,
       ])}

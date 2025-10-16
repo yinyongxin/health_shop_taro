@@ -151,6 +151,7 @@ const WareDetail = () => {
                       <AppButton
                         className="flex-1"
                         status="warning"
+                        round
                         disabled={addCartRequest.loading}
                         loading={addCartRequest.loading}
                         onClick={() => addCartRequest.run(sku)}

@@ -118,7 +118,7 @@ export const Delivery = (props: DeliveryProps) => {
                   className="shrink-0"
                   prefix={<LucideIcon name="truck" />}
                 >
-                  包邮
+                  {tag}
                 </AppTag>
               ))}
             </ScrollView>

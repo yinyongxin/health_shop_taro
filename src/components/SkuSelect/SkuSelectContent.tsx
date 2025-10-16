@@ -34,8 +34,9 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
     <View className="pt-[32px] pb-[32px] min-h-[50vh] relative">
       <View className="flex gap-[16px] px-[24px]">
         <AppImage
-          className="size-[120px] bg-gray-200"
+          className="size-[120px] bg-gray-200 rounded-[12px]"
           src={currentSku?.image || "/fixed-files/images/my-patient.png"}
+          mode="aspectFill"
         />
         <View className="flex flex-col justify-center gap-[16px]">
           <View className=" font-bold text-rose-500">

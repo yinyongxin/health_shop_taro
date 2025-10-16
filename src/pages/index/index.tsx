@@ -17,13 +17,13 @@ const tabs = [
       return <LucideIcon name="house"></LucideIcon>;
     },
   },
-  {
-    label: "分类",
-    value: "classify",
-    icon: () => {
-      return <LucideIcon name="layout-grid"></LucideIcon>;
-    },
-  },
+  // {
+  //   label: "分类",
+  //   value: "classify",
+  //   icon: () => {
+  //     return <LucideIcon name="layout-grid"></LucideIcon>;
+  //   },
+  // },
   {
     label: "购物车",
     value: "cart",
@@ -48,7 +48,7 @@ export default () => {
   const content: Record<Values, ReactNode> = {
     home: <Home />,
     my: <My />,
-    classify: <Classify />,
+    // classify: <Classify />,
     cart: <Cart />,
   };
 

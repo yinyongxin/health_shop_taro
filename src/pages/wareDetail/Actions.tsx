@@ -2,6 +2,8 @@ import { ProductInfo } from "@/client";
 import { LucideIcon, AppButton, AppPopup } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePopupControl } from "@/hooks";
+import { appRouter } from "@/router";
+import { useAppUserStore } from "@/stores";
 import { appToast, isIOS } from "@/utils";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
@@ -14,6 +16,7 @@ type ActionsProps = {
 
 export const Actions = (props: ActionsProps) => {
   const { info, handleAddCart, handleBuy } = props;
+  const appUserStore = useAppUserStore();
   const popupControl = usePopupControl();
   return (
     <>
@@ -45,7 +48,7 @@ export const Actions = (props: ActionsProps) => {
             />
             <Text className="text-[20px]">收藏</Text>
           </View> */}
-          {/* <View
+          <View
             className="flex flex-col active:text-blue-500 items-center gap-1"
             onClick={() => {
               appUserStore.updateTabActive("cart");
@@ -54,7 +57,7 @@ export const Actions = (props: ActionsProps) => {
           >
             <LucideIcon name="shopping-cart" size={20} />
             <Text className="text-[20px]">购物车</Text>
-          </View> */}
+          </View>
         </View>
         <View className="flex-3 flex gap-[16px] py-[24px]">
           <AppButton
@@ -63,6 +66,7 @@ export const Actions = (props: ActionsProps) => {
             onClick={() => {
               handleAddCart();
             }}
+            round
           >
             加入购物车
           </AppButton>
