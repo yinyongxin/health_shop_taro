@@ -19,7 +19,10 @@ interface AppUserState {
   tabActive: string;
   updateTabActive: (value: string) => void;
   cartInfo: CartInfo;
-  updateCartInfo: () => void;
+  updateCartInfo: () => Promise<{
+    cartInfo: CartInfo;
+    totalPrice: number;
+  }>;
   addressList: AddressInfo[];
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
@@ -51,12 +54,17 @@ export const useAppUserStore = createAppStore<AppUserState>(
         },
       });
       if (res.data?.code !== 0) {
-        return;
+        return {
+          cartInfo: get().cartInfo,
+          totalPrice: get().totalPrice,
+        };
       }
-      set({
+      const data = {
         cartInfo: res.data.data,
         totalPrice: calculateTotalPrice(res.data.data.itemList),
-      });
+      };
+      set(data);
+      return data;
     },
     addressList: [],
     updateAddressList: async () => {

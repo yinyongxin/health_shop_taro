@@ -5,11 +5,12 @@ import { Image, View, Text, ScrollView } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
+  getWxShopCartDelete,
   getWxShopProductDetail,
   postWxShopCartAdd,
   SkuInfo,
 } from "@/client";
-import { safeJson } from "@/utils";
+import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
 import { AddressList } from "@/components/AddressList";
@@ -76,12 +77,41 @@ const WareDetail = () => {
     },
   );
 
-  const handlePay = async () => {
-    if (!currentAddress?.id) {
-      selectAddressControl.setOpen(true);
+  const handlePay = useRequest(async (sky: SkuInfo) => {
+    const { itemList } = appUserStore.cartInfo;
+    if (itemList.length > 0) {
+      await Promise.all(
+        itemList.map(async (item) => {
+          await getWxShopCartDelete({
+            query: {
+              cartItemId: item.id?.toString(),
+            },
+          });
+        }),
+      );
+      await appUserStore.updateCartInfo();
+    }
+    console.log(appUserStore.cartInfo);
+    const res = await postWxShopCartAdd({
+      body: {
+        productId: data?.id!,
+        skuId: sky.id,
+        quantity,
+        cartId: appUserStore.cartInfo.id,
+        orgId: APP_ENV_CONFIG.ORG_ID,
+        productName: data?.name!,
+        skuName: sky.specs,
+      },
+    });
+    if (res.data?.code !== 0) {
+      appToast.error("购买失败");
       return;
     }
-  };
+    console.log(appUserStore.cartInfo);
+    const updateCartInfoRes = await appUserStore.updateCartInfo();
+    control.setOpen(false);
+    console.log(updateCartInfoRes.cartInfo);
+  });
   return (
     <BasePage>
       {data && currentSku && (
@@ -165,7 +195,7 @@ const WareDetail = () => {
                         status="error"
                         round
                         onClick={() => {
-                          handlePay();
+                          handlePay.run(sku);
                         }}
                       >
                         {mode === ModeEnum.BUY ? "确定" : "立即购买"}

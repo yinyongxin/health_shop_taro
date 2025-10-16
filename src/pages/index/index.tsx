@@ -32,7 +32,8 @@ const tabs = [
     icon: () => {
       return <LucideIcon name="shopping-cart"></LucideIcon>;
     },
-    show: false,
+    // show: false,
+    show: true,
   },
   {
     label: "我的",
