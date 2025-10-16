@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: "医疗服务",
+  navigationBarTitleText: "医疗商城",
 });

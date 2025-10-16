@@ -10,7 +10,7 @@ pnpm 10+
 
 ## TPPD
 
-[eh医疗服务智能预约平台TAPD](https://www.tapd.cn/tapd_fe/63673026/story/list?categoryId=1163673026001000206&useScene=storyList&groupType=&conf_id=1163673026001004237)
+[eh医疗商城智能预约平台TAPD](https://www.tapd.cn/tapd_fe/63673026/story/list?categoryId=1163673026001000206&useScene=storyList&groupType=&conf_id=1163673026001004237)
 
 ## H5管理端
 
