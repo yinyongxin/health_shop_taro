@@ -234,7 +234,7 @@ const OrderPayPage = () => {
       </BasePage>
       {!isCancel && (
         <AppFixedBottom className="flex gap-2">
-          <AppButton
+          {/* <AppButton
             round
             disabled={!orderDetailRequest.data?.order.orderNo}
             className="flex-1"
@@ -246,7 +246,7 @@ const OrderPayPage = () => {
             }}
           >
             返回
-          </AppButton>
+          </AppButton> */}
           <AppButton
             round
             disabled={!orderDetailRequest.data?.order.orderNo}
