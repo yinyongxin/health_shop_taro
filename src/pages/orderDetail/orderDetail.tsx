@@ -33,6 +33,11 @@ export default () => {
     }
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
+
+  /** 是否有非服务商品 */
+  const hasNotServiceWare = orderDetailRequest.data?.itemList.some(
+    (item) => item.isService === 2,
+  );
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -208,7 +213,7 @@ export default () => {
         </View>
 
         <View className="px-[24px] mt-[24px]">
-          {currentAddress && (
+          {hasNotServiceWare && currentAddress && (
             <AddressCard
               className="shadow-none!"
               info={currentAddress}

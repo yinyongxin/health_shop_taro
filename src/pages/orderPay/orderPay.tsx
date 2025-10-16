@@ -6,7 +6,13 @@ import {
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
-import { AppButton, AppPopup, BasePage, LucideIcon } from "@/components";
+import {
+  AppButton,
+  AppCell,
+  AppPopup,
+  BasePage,
+  LucideIcon,
+} from "@/components";
 import { AddressList } from "@/components/AddressList";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
@@ -20,6 +26,7 @@ import { orderPayByWx } from "@/utils/order";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
+import Box from "@/components/Box";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Skeleton } from "./Skeleton";
@@ -42,7 +49,13 @@ const OrderPayPage = () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
+  /** 是否取消订单 */
   const isCancel = orderDetailRequest.data?.order.status === 4;
+
+  /** 是否有非服务商品 */
+  const hasNotServiceWare = orderDetailRequest.data?.itemList.some(
+    (item) => item.isService === 2,
+  );
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -57,9 +70,12 @@ const OrderPayPage = () => {
       appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
     }
   };
+
   useEffect(() => {
-    initAddress();
-  }, [orderDetailRequest.data?.order.addressId]);
+    if (orderDetailRequest.data && hasNotServiceWare) {
+      initAddress();
+    }
+  }, [orderDetailRequest.data?.order]);
 
   const updataOrderAddress = async () => {
     if (!selectAddress) {
@@ -68,7 +84,7 @@ const OrderPayPage = () => {
     const updateOrderAddressRes = await getWxShopOrderAddrChange({
       query: {
         orderNo: pageParams.orderNo,
-        addId: selectAddress.id,
+        addId: hasNotServiceWare ? selectAddress.id : undefined,
         orgId: APP_ENV_CONFIG.ORG_ID,
       },
     });
@@ -79,6 +95,11 @@ const OrderPayPage = () => {
 
   const orderPayRequest = useRequest(
     async () => {
+      // 创建订单时没有地址
+      if (hasNotServiceWare && appUserStore.addressList.length === 0) {
+        appRouter.navigateTo("addAddress");
+        return;
+      }
       if (!orderDetailRequest.data?.order.orderNo) {
         return;
       }
@@ -136,25 +157,28 @@ const OrderPayPage = () => {
             </View>
           )}
 
-          {currentAddress && (
-            <AddressCard
-              className="shadow-none!"
-              handleClick={() => {
-                selectAddressControl.setOpen(true);
-                setSelectAddress(currentAddress);
-              }}
-              info={currentAddress}
-              showActions={false}
-              rightAction={
-                <View className="flex flex-col justify-center">
-                  <LucideIcon
-                    name="chevron-right text-gray-500 pr-[16px]"
-                    size={24}
-                  />
-                </View>
-              }
-            />
-          )}
+          {hasNotServiceWare &&
+            (currentAddress ? (
+              <AddressCard
+                className="shadow-none!"
+                handleClick={() => {
+                  selectAddressControl.setOpen(true);
+                  setSelectAddress(currentAddress);
+                }}
+                info={currentAddress}
+                showActions={false}
+                rightAction={
+                  <View className="flex flex-col justify-center">
+                    <LucideIcon
+                      name="chevron-right text-gray-500 pr-[16px]"
+                      size={24}
+                    />
+                  </View>
+                }
+              />
+            ) : (
+              <Box>请选择地址</Box>
+            ))}
         </View>
 
         <View className="mt-[24px] px-[24px]">
@@ -229,6 +253,19 @@ const OrderPayPage = () => {
               label="下单时间"
               value={orderDetailRequest.data?.order.createdAt}
             />
+          </View>
+          <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
+            <AppCell
+              right={
+                <LucideIcon
+                  name="check"
+                  className="text-green-500"
+                  size={20}
+                ></LucideIcon>
+              }
+            >
+              微信支付
+            </AppCell>
           </View>
         </View>
       </BasePage>

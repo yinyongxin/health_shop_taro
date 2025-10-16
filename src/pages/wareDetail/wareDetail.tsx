@@ -95,43 +95,48 @@ const WareDetail = () => {
     await appUserStore.updateCartInfo();
   };
 
-  const handlePay = useRequest(async (sky: SkuInfo) => {
-    try {
-      appLoading.show("创建订单中...");
-      await clearCart();
-      const res = await postWxShopCartAdd({
-        body: {
-          productId: data?.id!,
-          skuId: sky.id,
-          quantity,
-          cartId: appUserStore.cartInfo.id,
-          orgId: APP_ENV_CONFIG.ORG_ID,
-          productName: data?.name!,
-          skuName: sky.specs,
-        },
-      });
-      if (res.data?.code !== 0) {
-        throw new Error("添加失败");
-      }
-      const updateCartInfoRes = await appUserStore.updateCartInfo();
+  const handlePay = useRequest(
+    async (sky: SkuInfo) => {
+      try {
+        appLoading.show("创建订单中...");
+        await clearCart();
+        const res = await postWxShopCartAdd({
+          body: {
+            productId: data?.id!,
+            skuId: sky.id,
+            quantity,
+            cartId: appUserStore.cartInfo.id,
+            orgId: APP_ENV_CONFIG.ORG_ID,
+            productName: data?.name!,
+            skuName: sky.specs,
+          },
+        });
+        if (res.data?.code !== 0) {
+          throw new Error("添加失败");
+        }
+        const updateCartInfoRes = await appUserStore.updateCartInfo();
 
-      const createOrderRes = await createOrder({
-        cartId: updateCartInfoRes.cartInfo.id,
-        itemList: updateCartInfoRes.cartInfo.itemList,
-      });
-      appLoading.hide();
-      appRouter.navigateTo("orderPay", {
-        query: {
-          orderNo: createOrderRes.orderNo,
-        },
-      });
-    } catch {
-      appToast.error("创建失败");
-    } finally {
-      appUserStore.updateCartInfo();
-      control.setOpen(false);
-    }
-  });
+        const createOrderRes = await createOrder({
+          cartId: updateCartInfoRes.cartInfo.id,
+          itemList: updateCartInfoRes.cartInfo.itemList,
+        });
+        appLoading.hide();
+        appRouter.navigateTo("orderPay", {
+          query: {
+            orderNo: createOrderRes.orderNo,
+          },
+        });
+      } catch {
+        appToast.error("创建失败");
+      } finally {
+        appUserStore.updateCartInfo();
+        control.setOpen(false);
+      }
+    },
+    {
+      manual: true,
+    },
+  );
   return (
     <BasePage>
       {data && currentSku && (
