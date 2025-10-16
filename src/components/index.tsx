@@ -14,3 +14,4 @@ export * from "./AppCell";
 export * from "./AppDivier";
 export * from "./AppButton";
 export * from "./AppPopup";
+export * from "./QrCode";

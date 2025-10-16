@@ -1,4 +1,4 @@
-import { AppButton, BasePage, LucideIcon } from "@/components";
+import { AppButton, BasePage, LucideIcon, QrCode } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -17,6 +17,7 @@ import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
+import drawQrcode from "weapp-qrcode-canvas-2d";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -128,6 +129,10 @@ export default () => {
     );
   }
 
+  const getQrCode = () => {
+    return <QrCode />;
+  };
+
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
@@ -155,6 +160,7 @@ export default () => {
                 border={false}
                 showNumControl={false}
                 shadow={false}
+                bottom={getQrCode()}
               />
             ))}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
