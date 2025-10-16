@@ -16,20 +16,23 @@ const tabs = [
       // return <LucideIcon name="house"></LucideIcon>;
       return <LucideIcon name="house"></LucideIcon>;
     },
+    show: true,
   },
-  // {
-  //   label: "分类",
-  //   value: "classify",
-  //   icon: () => {
-  //     return <LucideIcon name="layout-grid"></LucideIcon>;
-  //   },
-  // },
+  {
+    label: "分类",
+    value: "classify",
+    icon: () => {
+      return <LucideIcon name="layout-grid"></LucideIcon>;
+    },
+    show: true,
+  },
   {
     label: "购物车",
     value: "cart",
     icon: () => {
       return <LucideIcon name="shopping-cart"></LucideIcon>;
     },
+    show: false,
   },
   {
     label: "我的",
@@ -37,6 +40,7 @@ const tabs = [
     icon: () => {
       return <LucideIcon name="user"></LucideIcon>;
     },
+    show: true,
   },
 ] as const;
 
@@ -48,7 +52,7 @@ export default () => {
   const content: Record<Values, ReactNode> = {
     home: <Home />,
     my: <My />,
-    // classify: <Classify />,
+    classify: <Classify />,
     cart: <Cart />,
   };
 
@@ -61,7 +65,7 @@ export default () => {
         handleClick={(tab) => {
           appUserStore.updateTabActive(tab.value);
         }}
-        tabs={tabs}
+        tabs={tabs.filter((tab) => tab.show)}
       />
     </>
   );
