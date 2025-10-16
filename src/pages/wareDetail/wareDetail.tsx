@@ -26,7 +26,7 @@ import { ModeEnum } from "./enum";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
-  const [mode, setMode] = useState<ModeEnum>(ModeEnum.ALL);
+  const [mode, setMode] = useState<ModeEnum>(ModeEnum.BUY);
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
@@ -202,7 +202,7 @@ const WareDetail = () => {
                 data={data}
                 btns={(sku) => (
                   <View className="flex gap-[24px]">
-                    {(mode === ModeEnum.ALL || mode === ModeEnum.ADD_CART) && (
+                    {/* {(mode === ModeEnum.ALL || mode === ModeEnum.ADD_CART) && (
                       <AppButton
                         className="flex-1"
                         status="warning"
@@ -213,7 +213,7 @@ const WareDetail = () => {
                       >
                         {mode === ModeEnum.ADD_CART ? "确定" : "加入购物车"}
                       </AppButton>
-                    )}
+                    )} */}
                     {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
                       <AppButton
                         className="flex-1"
