@@ -18,7 +18,7 @@ const UserMy = () => {
       <View className="pb-[144px]">
         <View className="px-[24px] mt-[32px]">
           <View className="flex gap-[24px]">
-            <Avatar src="/static/images/default-avatar.png" size="large" />
+            <Avatar src="./static/images/default-avatar.png" size="large" />
             <View className="flex-1 flex flex-col justify-around">
               <View className="text-[32px] font-semibold">微信用户</View>
             </View>

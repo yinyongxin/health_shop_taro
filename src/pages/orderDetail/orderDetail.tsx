@@ -133,7 +133,7 @@ export default () => {
   }
 
   const getQrCode = () => {
-    return <QrCode />;
+    return <QrCode className="pb-[24px]" />;
   };
 
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
