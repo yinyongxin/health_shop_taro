@@ -21,7 +21,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { appToast, waitTime } from "@/utils";
+import { appLoading, appToast, waitTime } from "@/utils";
 import { orderPayByWx } from "@/utils/order";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
@@ -78,18 +78,20 @@ const OrderPayPage = () => {
   }, [orderDetailRequest.data?.order]);
 
   const updataOrderAddress = async () => {
-    if (!selectAddress) {
-      return;
-    }
-    const updateOrderAddressRes = await getWxShopOrderAddrChange({
-      query: {
-        orderNo: pageParams.orderNo,
-        addId: hasNotServiceWare ? selectAddress.id : undefined,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (updateOrderAddressRes.data?.code === 0) {
-      orderDetailRequest.run();
+    try {
+      appLoading.show("修改订单地址中...");
+      const updateOrderAddressRes = await getWxShopOrderAddrChange({
+        query: {
+          orderNo: pageParams.orderNo,
+          addId: hasNotServiceWare ? selectAddress?.id : undefined,
+          orgId: APP_ENV_CONFIG.ORG_ID,
+        },
+      });
+      if (updateOrderAddressRes.data?.code === 0) {
+        await orderDetailRequest.run();
+      }
+    } finally {
+      appLoading.hide();
     }
   };
 
@@ -316,6 +318,7 @@ const OrderPayPage = () => {
         footer={
           <AppButton
             className="w-full"
+            round
             onClick={() => {
               selectAddressControl.setOpen(false);
               updataOrderAddress();
