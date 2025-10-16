@@ -38,6 +38,12 @@ export default () => {
   const hasNotServiceWare = orderDetailRequest.data?.itemList.some(
     (item) => item.isService === 2,
   );
+
+  const isPayed =
+    orderDetailRequest.data?.order.status &&
+    orderDetailRequest.data?.order.status !== 0;
+
+  console.log(orderDetailRequest.data?.order.status, isPayed);
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;

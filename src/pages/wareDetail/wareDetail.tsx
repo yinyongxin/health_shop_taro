@@ -1,4 +1,4 @@
-import { AppButton, AppPopup, BasePage } from "@/components";
+import { AppButton, AppImage, AppPopup, BasePage } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper, Toast } from "@taroify/core";
 import { Image, View, Text, ScrollView } from "@tarojs/components";
@@ -146,7 +146,7 @@ const WareDetail = () => {
               <Swiper.Indicator />
               {safeJson.parse(data?.detailImages, [])?.map((item, index) => (
                 <Swiper.Item key={index}>
-                  <Image
+                  <AppImage
                     src={item}
                     className="w-full h-full bg-gray-200"
                     mode="aspectFill"

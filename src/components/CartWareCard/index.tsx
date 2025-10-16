@@ -4,8 +4,8 @@ import { View, Image, Text } from "@tarojs/components";
 import { useAppUserStore } from "@/stores";
 import classNames from "classnames";
 import { safeJson } from "@/utils";
-import { useState } from "react";
 import { AppTag } from "../AppTag";
+import React from "react";
 
 export type CartWareCardProps = {
   info: CartItem;
@@ -13,10 +13,11 @@ export type CartWareCardProps = {
   showNumControl?: boolean;
   shadow?: boolean;
   defaultNum?: number;
+  bottom?: React.ReactNode;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
   const appUserStore = useAppUserStore();
-  const { border, showNumControl = true, shadow = true, info } = props;
+  const { border, showNumControl = true, shadow = true, info, bottom } = props;
   const handleAdd = async () => {
     const res = await postWxShopCartUpdate({
       body: {
@@ -50,9 +51,13 @@ export const CartWareCard = (props: CartWareCardProps) => {
     });
   };
   return (
-    <View>
+    <View
+      className={classNames(
+        "rounded-lg  bg-white overflow-hidden flex flex-col gap-[12px]",
+      )}
+    >
       <View
-        className={classNames("rounded-lg  bg-white overflow-hidden", "flex", {
+        className={classNames("flex", {
           "app-shadow-sm": shadow,
           "border-2 border-gray-100": border,
         })}
@@ -115,6 +120,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           </View>
         </View>
       </View>
+      {bottom}
     </View>
   );
 };
