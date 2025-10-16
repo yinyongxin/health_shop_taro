@@ -1,6 +1,5 @@
 import { BasePage, LucideIcon, Title } from "@/components";
-import { useLoad, showToast } from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import { Grid } from "@taroify/core";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
@@ -62,7 +61,23 @@ export const Home = () => {
                     });
                   }}
                   key={item.id}
-                  icon={<LucideIcon name="image" size={32} />}
+                  icon={
+                    <View>
+                      {item?.logo ? (
+                        <Image
+                          src={item.logo || ""}
+                          className="size-[60px]"
+                          mode="aspectFill"
+                        />
+                      ) : (
+                        <LucideIcon
+                          className="text-gray-200"
+                          name="image"
+                          size={60}
+                        />
+                      )}
+                    </View>
+                  }
                   text={
                     <View className="truncate w-[130px] text-center">
                       {item.name}

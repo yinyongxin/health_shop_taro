@@ -24,6 +24,7 @@ export type SubCategoryInfo = {
   status: number;
   createdAt: string;
   updatedAt: string;
+  logo: string;
 };
 
 export type OrderDetail = {
