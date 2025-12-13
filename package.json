@@ -31,8 +31,7 @@
     "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch",
     "open": "weapp open -p",
     "postinstall": "weapp-tw patch",
-    "openapi-ts:dev": "cross-env NODE_ENV=development openapi-ts",
-    "openapi-ts:prod": "cross-env NODE_ENV=production openapi-ts"
+    "openapi-ts": "openapi-ts"
   },
   "browserslist": {
     "development": [
