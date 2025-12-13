@@ -1,12 +1,9 @@
 import { useAppUserStore } from "@/stores";
 import { LucideIcon, TabBar } from "@/components";
-import { usePageParams } from "@/hooks";
-import { useLoad } from "@tarojs/taro";
 import { ReactNode } from "react";
 import { Home } from "./Home";
 import My from "./My";
 import { Classify } from "./Classify";
-import { Cart } from "./Cart";
 
 const tabs = [
   {
@@ -27,15 +24,6 @@ const tabs = [
     show: true,
   },
   {
-    label: "购物车",
-    value: "cart",
-    icon: () => {
-      return <LucideIcon name="shopping-cart"></LucideIcon>;
-    },
-    show: false,
-    // show: true,
-  },
-  {
     label: "我的",
     value: "my",
     icon: () => {
@@ -54,7 +42,6 @@ export default () => {
     home: <Home />,
     my: <My />,
     classify: <Classify />,
-    cart: <Cart />,
   };
 
   return (

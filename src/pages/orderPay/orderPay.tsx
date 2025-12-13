@@ -1,9 +1,10 @@
 import {
   AddressInfo,
   getWxShopOrderAddrChange,
-  getWxShopOrderCancel,
   getWxShopOrderDetail,
+  getWxShopOrderPay2,
   postWxShopAddrViewById,
+  postWxShopOrderPay,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import {
@@ -21,14 +22,14 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast, waitTime } from "@/utils";
-import { orderPayByWx } from "@/utils/order";
+import { appLoading, appToast } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 import Box from "@/components/Box";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import { orderPayByWx } from "@/utils/order";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
@@ -93,6 +94,7 @@ const OrderPayPage = () => {
 
   const orderPayRequest = useRequest(
     async () => {
+      appLoading.show("正在支付...");
       // 创建订单时没有地址
       if (appUserStore.addressList.length === 0) {
         appRouter.navigateTo("addAddress");
@@ -101,6 +103,21 @@ const OrderPayPage = () => {
       if (!orderDetailRequest.data?.order.orderNo) {
         return;
       }
+      const payRes = await getWxShopOrderPay2({
+        query: {
+          orderNo: orderDetailRequest.data.order.orderNo,
+        },
+      });
+      if (payRes.data?.code !== 0 || !payRes?.data?.data) {
+        appToast.error("支付失败");
+        return;
+      }
+      await orderPayByWx(payRes.data.data, {
+        success: () => {
+          appToast.success("支付成功");
+        },
+      });
+      appLoading.hide();
     },
     {
       manual: true,
