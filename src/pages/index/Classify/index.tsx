@@ -33,8 +33,8 @@ export const Classify = () => {
           />
         </View>
         <ScrollView scrollY className="flex-3">
-          <View className="flex flex-wrap pr-2 pb-[144px]">
-            {subCategoryList.map((item) => (
+          <View className="flex flex-wrap pr-2 pb-[180px]">
+            {[...subCategoryList].map((item) => (
               <ClassifyItem key={item.id} info={item} />
             ))}
           </View>

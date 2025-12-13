@@ -1,6 +1,6 @@
 import { CateInfo } from "@/client";
 import Box from "@/components/Box";
-import { View, Text } from "@tarojs/components";
+import { View, Text, ScrollView } from "@tarojs/components";
 import classNames from "classnames";
 
 export type SidebarProps = {
@@ -12,15 +12,15 @@ export type SidebarProps = {
 export const Sidebar = (props: SidebarProps) => {
   const { mainActive, setMainActive, cateList } = props;
   return (
-    <View className="h-full flex flex-col bg-linear-to-r from-white to-[#f6f6f6]">
-      {cateList.map((item) => {
+    <ScrollView scrollY className="h-full pb-[180px] flex flex-col">
+      {[...cateList].map((item) => {
         const isActived = item.id === mainActive?.id;
         return (
           <Box
             key={item.id}
             className="w-full"
             wapperProps={{
-              className: "p-[16px]",
+              className: "p-2",
             }}
             onClick={() => {
               setMainActive(item);
@@ -36,6 +36,6 @@ export const Sidebar = (props: SidebarProps) => {
           </Box>
         );
       })}
-    </View>
+    </ScrollView>
   );
 };
