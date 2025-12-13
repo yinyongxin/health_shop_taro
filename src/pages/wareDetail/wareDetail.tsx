@@ -1,28 +1,28 @@
 import { AppButton, AppImage, AppPopup, BasePage } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
-import { Swiper, Toast } from "@taroify/core";
-import { Image, View, Text, ScrollView } from "@tarojs/components";
+import { Swiper } from "@taroify/core";
+import { View } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
   getWxShopCartDelete,
   getWxShopProductDetail,
-  postWxShopCartAdd,
+  postWxShopOrderPay,
   SkuInfo,
 } from "@/client";
-import { appLoading, appToast, safeJson } from "@/utils";
+import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
-import { AddressList } from "@/components/AddressList";
-import { useEffect, useState } from "react";
-import { appRouter } from "@/router";
-import { createOrder } from "@/utils/order";
+import { useState } from "react";
+import Box from "@/components/Box";
+import { orderPayByWx } from "@/utils/order";
+import { add, multiply, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
-import { ServiceBlock } from "./ServiceBlock";
 import { Delivery } from "./Delivery";
 import { ModeEnum } from "./enum";
+import AddressSelect from "./AddressSelect";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
@@ -33,17 +33,10 @@ const WareDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [currentSku, setCurrentSku] = useState<SkuInfo>();
 
-  const selectAddressControl = usePopupControl();
-
   // 默认地址
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
-
-  // 初始化默认地址
-  // useEffect(() => {
-  //   setCurrentAddress(appUserStore.defaultAddress);
-  // }, [appUserStore.defaultAddress]);
 
   // 商品详情
   const { data } = useRequest(async () => {
@@ -55,81 +48,142 @@ const WareDetail = () => {
   });
 
   // 添加购物车
-  const addCartRequest = useRequest(
-    async (sky: SkuInfo) => {
-      const res = await postWxShopCartAdd({
-        body: {
-          productId: data?.id!,
-          skuId: sky.id,
-          quantity,
-          cartId: appUserStore.cartInfo.id,
-          orgId: APP_ENV_CONFIG.ORG_ID,
-          productName: data?.name!,
-          skuName: sky.specs,
-        },
-      });
-      if (res.data?.code === 0) {
-        Toast.success("添加成功");
-        control.setOpen(false);
-      }
-    },
-    {
-      manual: true,
-    },
-  );
+  // const addCartRequest = useRequest(
+  //   async (sky: SkuInfo) => {
+  //     const res = await postWxShopCartAdd({
+  //       body: {
+  //         productId: data?.id!,
+  //         skuId: sky.id,
+  //         quantity,
+  //         cartId: appUserStore.cartInfo.id,
+  //         orgId: APP_ENV_CONFIG.ORG_ID,
+  //         productName: data?.name!,
+  //         skuName: sky.specs,
+  //       },
+  //     });
+  //     if (res.data?.code === 0) {
+  //       Toast.success("添加成功");
+  //       control.setOpen(false);
+  //     }
+  //   },
+  //   {
+  //     manual: true,
+  //   },
+  // );
 
-  const clearCart = async () => {
-    const { itemList } = appUserStore.cartInfo;
-    if (itemList.length === 0) {
-      return;
-    }
-    await Promise.all(
-      itemList.map(async (item) => {
-        await getWxShopCartDelete({
-          query: {
-            cartItemId: item.id?.toString(),
-          },
-        });
-      }),
-    );
-    await appUserStore.updateCartInfo();
-  };
+  // const clearCart = async () => {
+  //   const { itemList } = appUserStore.cartInfo;
+  //   if (itemList.length === 0) {
+  //     return;
+  //   }
+  //   await Promise.all(
+  //     itemList.map(async (item) => {
+  //       await getWxShopCartDelete({
+  //         query: {
+  //           cartItemId: item.id?.toString(),
+  //         },
+  //       });
+  //     }),
+  //   );
+  //   await appUserStore.updateCartInfo();
+  // };
+
+  // const handlePay = useRequest(
+  //   async (sky: SkuInfo) => {
+  //     try {
+  //       appLoading.show("创建订单中...");
+  //       await clearCart();
+  //       const res = await postWxShopCartAdd({
+  //         body: {
+  //           productId: data?.id!,
+  //           skuId: sky.id,
+  //           quantity,
+  //           cartId: appUserStore.cartInfo.id,
+  //           orgId: APP_ENV_CONFIG.ORG_ID,
+  //           productName: data?.name!,
+  //           skuName: sky.specs,
+  //         },
+  //       });
+  //       if (res.data?.code !== 0) {
+  //         throw new Error("添加失败");
+  //       }
+  //       const updateCartInfoRes = await appUserStore.updateCartInfo();
+
+  //       const createOrderRes = await createOrder({
+  //         cartId: updateCartInfoRes.cartInfo.id,
+  //         itemList: updateCartInfoRes.cartInfo.itemList,
+  //       });
+  //       appLoading.hide();
+  //       appRouter.navigateTo("orderPay", {
+  //         query: {
+  //           orderNo: createOrderRes.orderNo,
+  //         },
+  //       });
+  //     } catch {
+  //       appToast.error("创建失败");
+  //     } finally {
+  //       appUserStore.updateCartInfo();
+  //       control.setOpen(false);
+  //     }
+  //   },
+  //   {
+  //     manual: true,
+  //   },
+  // );
 
   const handlePay = useRequest(
-    async (sky: SkuInfo) => {
+    async (sku: SkuInfo) => {
+      if (!data) {
+        return;
+      }
+      if (!currentAddress?.id) {
+        appToast.error("请选择收货地址");
+        return;
+      }
       try {
-        appLoading.show("创建订单中...");
-        await clearCart();
-        const res = await postWxShopCartAdd({
+        const freightAmount = 0;
+        const totalAmount = multiply(quantity, sku.price);
+        const discountAmount = multiply(
+          quantity,
+          subtract(sku.price, sku.originalPrice),
+        );
+        const paymentAmount = subtract(totalAmount, discountAmount);
+        const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
-            productId: data?.id!,
-            skuId: sky.id,
-            quantity,
-            cartId: appUserStore.cartInfo.id,
             orgId: APP_ENV_CONFIG.ORG_ID,
-            productName: data?.name!,
-            skuName: sky.specs,
+            addressId: currentAddress.id,
+            payType: 1,
+            totalAmount,
+            freightAmount,
+            paymentAmount,
+            discountAmount,
+            productList: [
+              {
+                productId: data.id,
+                productName: data.name,
+                skuList: [
+                  {
+                    skuId: sku.id,
+                    skuName: sku.specs,
+                    num: quantity,
+                    price: sku.price,
+                  },
+                ],
+              },
+            ],
           },
         });
-        if (res.data?.code !== 0) {
+        if (postWxShopOrderPayRes.data?.code !== 0) {
           throw new Error("添加失败");
         }
-        const updateCartInfoRes = await appUserStore.updateCartInfo();
-
-        const createOrderRes = await createOrder({
-          cartId: updateCartInfoRes.cartInfo.id,
-          itemList: updateCartInfoRes.cartInfo.itemList,
-        });
-        appLoading.hide();
-        appRouter.navigateTo("orderPay", {
-          query: {
-            orderNo: createOrderRes.orderNo,
+        orderPayByWx(postWxShopOrderPayRes.data.data, {
+          success: () => {
+            appToast.success("支付成功");
           },
         });
       } catch {
-        appToast.error("创建失败");
+        appToast.error("支付失败");
       } finally {
-        appUserStore.updateCartInfo();
         control.setOpen(false);
       }
     },
@@ -164,15 +218,26 @@ const WareDetail = () => {
               <Delivery
                 info={data}
                 currentSku={currentSku}
-                currentAddress={currentAddress}
-                handleSelectAddress={() => {
-                  selectAddressControl.setOpen(true);
-                }}
                 handleSelctSku={() => {
                   setMode(ModeEnum.ALL);
                   control.setOpen(true);
                 }}
               />
+              <Box
+                className="mt-[16px]"
+                bgProps={{
+                  className: "bg-white rounded-lg",
+                }}
+              >
+                <View className="px-[24px] py-[12px]">
+                  <AddressSelect
+                    address={currentAddress}
+                    handleSelectAddress={(val) => {
+                      setCurrentAddress(val);
+                    }}
+                  />
+                </View>
+              </Box>
               {/* )} */}
             </View>
             {/* <View className="px-[24px] pt-[32px]">
@@ -230,43 +295,6 @@ const WareDetail = () => {
                 )}
               />
             )}
-          </AppPopup>
-          <AppPopup
-            style={{
-              height: "60vh",
-            }}
-            {...selectAddressControl}
-            title="选择地址"
-            leftAction={
-              <Text
-                onClick={() => {
-                  appRouter.navigateTo("addAddress");
-                }}
-                className="text-sky-500 font-bold"
-              >
-                新增地址
-              </Text>
-            }
-            footer={
-              <AppButton
-                className="w-full"
-                round
-                onClick={() => selectAddressControl.setOpen(false)}
-              >
-                确定
-              </AppButton>
-            }
-            showClose
-          >
-            <AddressList
-              selectId={currentAddress?.id}
-              addressCardProps={{
-                showActions: false,
-                handleClick: (info) => {
-                  setCurrentAddress(info);
-                },
-              }}
-            />
           </AppPopup>
         </>
       )}

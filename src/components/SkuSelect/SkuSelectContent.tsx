@@ -93,6 +93,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
           </View>
         </View>
       </View>
+
       <View
         className={classNames("p-[24px] absolute bottom-0 left-0 right-0", {
           "pb-[40px]": isIOS(),

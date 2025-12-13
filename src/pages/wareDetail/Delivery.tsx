@@ -7,41 +7,13 @@ import { ScrollView, View } from "@tarojs/components";
 type DeliveryProps = {
   info: ProductInfo;
   currentSku: SkuInfo;
-  currentAddress?: AddressInfo;
-  handleSelectAddress: () => void;
   handleSelctSku: () => void;
 };
 /**
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
-  const {
-    info,
-    currentSku,
-    handleSelctSku,
-    currentAddress,
-    handleSelectAddress,
-  } = props;
-  const addressSelect = (
-    <View className="flex justify-between items-center gap-2 py-[12px]">
-      <View className="text-gray-400">地址</View>
-
-      <View className="flex-1 text-black" onClick={handleSelectAddress}>
-        {currentAddress ? (
-          <View className="flex-1 text-black flex gap-2">
-            <View>{currentAddress.province}</View>
-            <View>{currentAddress.city}</View>
-            <View>{currentAddress.district}</View>
-          </View>
-        ) : (
-          <View className="flex-1 text-black flex">去添加</View>
-        )}
-      </View>
-      <View className="text-gray-400">
-        <LucideIcon name="chevron-right" size={20} />
-      </View>
-    </View>
-  );
+  const { info, currentSku, handleSelctSku } = props;
   return (
     <>
       <Box
@@ -64,7 +36,7 @@ export const Delivery = (props: DeliveryProps) => {
               <LucideIcon name="chevron-right" size={20} />
             </View>
           </View>
-          {/* {addressSelect} */}
+
           {/* <View className="">
           <View className="flex flex-col gap-[16px]">
             <View className="bg-gray-100 rounded">
