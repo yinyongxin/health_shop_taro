@@ -5,6 +5,7 @@ import { getWxShopCateProduct, ProductInfo } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
 import { AppList } from "@/components/AppList";
 import "./subCategoryProductList.css";
+import { Skeleton } from "./Skeleton";
 
 const SubCategoryProductList = () => {
   const pageParams = usePageParams<"subCategoryProductList">();
@@ -38,6 +39,12 @@ const SubCategoryProductList = () => {
       refreshDeps: [],
     },
   );
+
+  if (dataRequest.loading && !dataRequest.data) {
+    // if (true) {
+    return <Skeleton />;
+  }
+
   return (
     <BasePage fullScreen className="flex-1 subCategoryProductListPage">
       {/* <View className="p-[24px]">
@@ -45,31 +52,16 @@ const SubCategoryProductList = () => {
       </View> */}
       <View className="flex-1 flex flex-col overflow-hidden">
         {/* <DownMenu /> */}
-        {dataRequest.loading && !dataRequest.data ? (
-          <View className="flex gap-2 p-2 h-full pb-[180px]">
-            <View className="flex-1 flex flex-col gap-2">
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-            </View>
-            <View className="flex-1 flex flex-col gap-2">
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-              <View className="bg-gray-200 rounded-lg h-[400px]"></View>
-            </View>
-          </View>
-        ) : (
-          <AppList
-            {...dataRequest.data}
-            loading={dataRequest.loading}
-            bodyProps={{
-              className: "pr-[24px] flex flex-wrap",
-            }}
-            itemRender={(item) => <SearchWareCard key={item.id} info={item} />}
-            className="flex-1 overflow-y-auto"
-            onLoad={dataRequest.run}
-          ></AppList>
-        )}
+        <AppList
+          {...dataRequest.data}
+          loading={dataRequest.loading}
+          bodyProps={{
+            className: "pr-[24px] flex flex-wrap",
+          }}
+          itemRender={(item) => <SearchWareCard key={item.id} info={item} />}
+          className="flex-1 overflow-y-auto"
+          onLoad={dataRequest.run}
+        />
       </View>
     </BasePage>
   );
