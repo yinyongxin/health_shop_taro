@@ -167,20 +167,16 @@ const WareDetail = () => {
                 setCurrentSku={setCurrentSku}
                 data={data}
                 btns={(sku) => (
-                  <View className="flex gap-[24px]">
-                    {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
-                      <AppButton
-                        className="flex-1"
-                        status="error"
-                        round
-                        onClick={() => {
-                          handlePay.run(sku);
-                        }}
-                      >
-                        {mode === ModeEnum.BUY ? "确定" : "立即购买"}
-                      </AppButton>
-                    )}
-                  </View>
+                  <AppButton
+                    className="flex-1"
+                    status="error"
+                    round
+                    onClick={() => {
+                      handlePay.run(sku);
+                    }}
+                  >
+                    立即购买
+                  </AppButton>
                 )}
               />
             )}
