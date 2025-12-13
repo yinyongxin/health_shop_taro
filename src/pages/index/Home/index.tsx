@@ -30,7 +30,7 @@ export const Home = () => {
             }}
           />
         </View>
-        <View className="px-[24px] pt-[32px]">
+        <View className="pt-[32px]">
           <Banners />
         </View>
         <View className="px-[24px] pt-[32px]">

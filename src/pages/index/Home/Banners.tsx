@@ -26,7 +26,7 @@ export const Banners = () => {
       {dataRequest.data?.rows?.map((item, index) => (
         <Swiper.Item
           key={index}
-          className="bg-white"
+          className="px-[24px]"
           onClick={() => {
             appRouter.navigateTo("wareDetail", {
               query: {
@@ -35,14 +35,16 @@ export const Banners = () => {
             });
           }}
         >
-          <Image
-            src={item.mainImage}
-            className="w-full h-full rounded-lg"
-            mode="aspectFill"
-          />
+          <View className="bg-white size-full">
+            <Image
+              src={item.mainImage}
+              className="w-full h-full rounded-lg"
+              mode="aspectFill"
+            />
+          </View>
         </Swiper.Item>
       ))}
     </Swiper>
   );
-  return <View className="rounded-lg overflow-hidden">{content}</View>;
+  return <View className="overflow-hidden">{content}</View>;
 };
