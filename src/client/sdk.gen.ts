@@ -2,6 +2,13 @@
 
 import type { Options as ClientOptions, TDataShape, Client } from "./client";
 import type {
+  GetWxRedirectByAppIdGreetData,
+  GetWxRedirectByAppIdGreetResponses,
+  GetWxRedirectByAppIdGreetErrors,
+  GetWxRedirectQueryDictData,
+  GetWxRedirectQueryDictResponses,
+  GetWxRedirectQueryConfigData,
+  GetWxRedirectQueryConfigResponses,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -64,6 +71,58 @@ export type Options<
    * used to access values that aren't defined as part of the SDK function.
    */
   meta?: Record<string, unknown>;
+};
+
+/**
+ * 微信用户校验
+ */
+export const getWxRedirectByAppIdGreet = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxRedirectByAppIdGreetData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxRedirectByAppIdGreetResponses,
+    GetWxRedirectByAppIdGreetErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/redirect/{appId}/greet",
+    ...options,
+  });
+};
+
+/**
+ * 获取字典
+ */
+export const getWxRedirectQueryDict = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxRedirectQueryDictData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxRedirectQueryDictResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/redirect/queryDict",
+    ...options,
+  });
+};
+
+/**
+ * 获取系统参数
+ * 只能获取非系统内置的参数
+ */
+export const getWxRedirectQueryConfig = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxRedirectQueryConfigData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxRedirectQueryConfigResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/redirect/queryConfig",
+    ...options,
+  });
 };
 
 /**

@@ -223,6 +223,96 @@ export type CateInfo = {
   subCategoryList: Array<SubCategoryInfo>;
 };
 
+export type DictItem = {
+  createBy: string;
+  createTime: string;
+  updateTime: unknown;
+  updateBy: unknown;
+  remark: unknown;
+  dictCode: number;
+  dictSort: number;
+  dictLabel: string;
+  dictValue: string;
+  dictType: string;
+  cssClass: unknown;
+  listClass: unknown;
+  isDefault: string;
+  status: string;
+  default: boolean;
+};
+
+export type GetWxRedirectByAppIdGreetData = {
+  body?: never;
+  path: {
+    appId: string;
+  };
+  query?: {
+    code?: string;
+    state?: string;
+    orgId?: string;
+  };
+  url: "/wx/redirect/{appId}/greet";
+};
+
+export type GetWxRedirectByAppIdGreetErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxRedirectByAppIdGreetError =
+  GetWxRedirectByAppIdGreetErrors[keyof GetWxRedirectByAppIdGreetErrors];
+
+export type GetWxRedirectByAppIdGreetResponses = {
+  200: {
+    code: number;
+    data: string;
+    msg: string;
+  };
+};
+
+export type GetWxRedirectByAppIdGreetResponse =
+  GetWxRedirectByAppIdGreetResponses[keyof GetWxRedirectByAppIdGreetResponses];
+
+export type GetWxRedirectQueryDictData = {
+  body?: never;
+  path?: never;
+  query?: {
+    dictType?: string;
+  };
+  url: "/wx/redirect/queryDict";
+};
+
+export type GetWxRedirectQueryDictResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: Array<DictItem>;
+  };
+};
+
+export type GetWxRedirectQueryDictResponse =
+  GetWxRedirectQueryDictResponses[keyof GetWxRedirectQueryDictResponses];
+
+export type GetWxRedirectQueryConfigData = {
+  body?: never;
+  path?: never;
+  query?: {
+    key?: string;
+  };
+  url: "/wx/redirect/queryConfig";
+};
+
+export type GetWxRedirectQueryConfigResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxRedirectQueryConfigResponse =
+  GetWxRedirectQueryConfigResponses[keyof GetWxRedirectQueryConfigResponses];
+
 export type GetWxShopCateListData = {
   body?: never;
   path?: never;
