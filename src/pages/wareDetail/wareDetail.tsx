@@ -138,20 +138,14 @@ const WareDetail = () => {
             </View>
             <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
               {isFW && <ServiceBlock />}
-              <Box
-                bgProps={{
-                  className: "bg-white rounded-lg",
+
+              <AddressSelect
+                address={currentAddress}
+                handleSelectAddress={(val) => {
+                  setCurrentAddress(val);
                 }}
-              >
-                <View className="px-[24px] py-[12px]">
-                  <AddressSelect
-                    address={currentAddress}
-                    handleSelectAddress={(val) => {
-                      setCurrentAddress(val);
-                    }}
-                  />
-                </View>
-              </Box>
+              />
+
               {/* <Evaluate /> */}
               <ServiceTags productInfo={productInfo} />
             </View>
@@ -171,19 +165,24 @@ const WareDetail = () => {
               {...control}
               title={productInfo.name}
               footer={
-                <AppButton
-                  className="flex-1"
-                  status="error"
-                  round
-                  onClick={() => {}}
-                >
-                  立即购买
-                </AppButton>
+                <View>
+                  <AddressSelect
+                    className="py-[24px]"
+                    address={currentAddress}
+                    handleSelectAddress={(val) => {
+                      setCurrentAddress(val);
+                    }}
+                  />
+                  <AppButton
+                    className="flex-1"
+                    status="error"
+                    onClick={() => {}}
+                  >
+                    立即购买
+                  </AppButton>
+                </View>
               }
             >
-              <ServiceBlock />
-              <ServiceBlock />
-              <ServiceBlock />
               <ServiceBlock />
             </AppPopup>
           ) : (
@@ -192,20 +191,28 @@ const WareDetail = () => {
               {...control}
               title={productInfo.name}
               footer={
-                <AppButton
-                  className="flex-1"
-                  status="error"
-                  round
-                  onClick={() => {
-                    if (!currentSku) {
-                      appToast.error("请选择商品规格");
-                      return;
-                    }
-                    handlePay.run(currentSku);
-                  }}
-                >
-                  立即购买
-                </AppButton>
+                <View>
+                  <AddressSelect
+                    className="py-[24px]"
+                    address={currentAddress}
+                    handleSelectAddress={(val) => {
+                      setCurrentAddress(val);
+                    }}
+                  />
+                  <AppButton
+                    className="flex-1"
+                    status="error"
+                    onClick={() => {
+                      if (!currentSku) {
+                        appToast.error("请选择商品规格");
+                        return;
+                      }
+                      handlePay.run(currentSku);
+                    }}
+                  >
+                    立即购买
+                  </AppButton>
+                </View>
               }
             >
               {currentSku && (

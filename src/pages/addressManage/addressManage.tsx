@@ -22,7 +22,6 @@ const AddressManage = () => {
       >
         <AppButton
           prefix={<LucideIcon name="plus" />}
-          round
           onClick={() => {
             appRouter.navigateTo("addAddress");
           }}

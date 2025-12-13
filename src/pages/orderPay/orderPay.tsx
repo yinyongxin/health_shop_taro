@@ -294,7 +294,6 @@ const OrderPayPage = () => {
             返回
           </AppButton> */}
           <AppButton
-            round
             disabled={!orderDetailRequest.data?.order.orderNo}
             className="flex-2"
             loading={orderPayRequest.loading}
@@ -325,7 +324,6 @@ const OrderPayPage = () => {
         footer={
           <AppButton
             className="w-full"
-            round
             onClick={() => {
               selectAddressControl.setOpen(false);
               updataOrderAddress();

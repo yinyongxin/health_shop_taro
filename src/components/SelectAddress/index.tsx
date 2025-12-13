@@ -36,7 +36,6 @@ export const SelectAddress = (props: SelectAddressProps) => {
         footer={
           <AppButton
             className="w-full"
-            round
             onClick={() => selectAddressControl.setOpen(false)}
           >
             确定

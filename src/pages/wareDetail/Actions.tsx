@@ -51,7 +51,6 @@ export const Actions = (props: ActionsProps) => {
             onClick={() => {
               handleBuy();
             }}
-            round
           >
             立即购买
           </AppButton>

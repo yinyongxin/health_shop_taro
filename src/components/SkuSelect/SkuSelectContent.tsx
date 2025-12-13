@@ -28,7 +28,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
   };
 
   return (
-    <View className="pt-[32px] pb-[32px] min-h-[50vh] relative flex flex-col">
+    <View className="flex flex-col gap-[24px] min-h-[40vh] relative flex flex-col">
       <View className="flex gap-[16px] px-[24px]">
         <AppImage
           className="size-[120px] bg-gray-200 rounded-[12px]"
@@ -46,7 +46,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
           <View>库存：{currentSku?.stock}</View>
         </View>
       </View>
-      <View className="flex-1 mt-[32px] px-[24px] ">
+      <View className="flex-1 px-[24px] ">
         <Title>规格</Title>
         <View className="flex gap-[24px] flex-wrap mt-[24px]">
           {data.skuList.map((sku) => {
@@ -64,7 +64,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
           })}
         </View>
       </View>
-      <View className="px-[24px] flex justify-between items-center pt-[24px] ">
+      <View className="px-[24px] flex justify-between items-center ">
         <Title>数量</Title>
         <View className="flex gap-[8px] flex-wrap">
           <View className="shirnk-0 flex items-center gap-2">

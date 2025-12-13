@@ -4,17 +4,25 @@ import { AppButton, AppPopup, LucideIcon } from "@/components";
 import { usePopupControl } from "@/hooks";
 import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
+import Box from "@/components/Box";
+import classNames from "classnames";
 
 type AddressSelectProps = {
   address?: AddressInfo;
   handleSelectAddress?: (val: AddressInfo) => void;
+  className?: string;
 };
 const AddressSelect = (props: AddressSelectProps) => {
-  const { address, handleSelectAddress } = props;
+  const { address, handleSelectAddress, className } = props;
   const selectAddressControl = usePopupControl();
   return (
     <>
-      <View className="flex justify-between items-center gap-2 py-[12px]">
+      <View
+        className={classNames(
+          "flex justify-between items-center gap-2 py-[12px]",
+          className,
+        )}
+      >
         <View className="text-gray-400">地址</View>
 
         <View
@@ -56,7 +64,6 @@ const AddressSelect = (props: AddressSelectProps) => {
         footer={
           <AppButton
             className="w-full"
-            round
             onClick={() => selectAddressControl.setOpen(false)}
           >
             确定

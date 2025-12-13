@@ -27,7 +27,12 @@ export const AppPopup = (props: AppPopupProps) => {
     ...rest
   } = props;
   return (
-    <Popup placement={placement} rounded={rounded} {...rest}>
+    <Popup
+      placement={placement}
+      rounded={rounded}
+      {...rest}
+      className="flex flex-col max-h-[80vh]"
+    >
       {(leftAction || leftAction || title) && (
         <View
           className={classNames(
@@ -49,13 +54,13 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         </View>
       )}
-      <ScrollView scrollY className="max-h-[70vh]">
+      <ScrollView scrollY className="flex-1">
         <View
           className={classNames(
             { "pt-[100px]": !!title },
             {
-              "pb-[140px]": footer,
-              "pb-[164px]": footer && isIOS(),
+              "pb-[24px]": !footer,
+              "pb-[48px]": !footer && isIOS(),
             },
           )}
         >
@@ -64,12 +69,9 @@ export const AppPopup = (props: AppPopupProps) => {
       </ScrollView>
       {footer && (
         <View
-          className={classNames(
-            "px-[24px] py-[24px] absolute bottom-0 w-full bg-blur",
-            {
-              "pb-[48px]": isIOS(),
-            },
-          )}
+          className={classNames("px-[24px] py-[24px]", {
+            "pb-[48px]": isIOS(),
+          })}
         >
           {footer}
         </View>

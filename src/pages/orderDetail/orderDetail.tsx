@@ -99,7 +99,6 @@ export default () => {
                 },
               });
             }}
-            round
           >
             取消订单并退款
           </AppButton>
@@ -116,7 +115,6 @@ export default () => {
           {orderDetailRequest.error.message}
         </Empty.Description>
         <AppButton
-          round
           actived={false}
           className="mt-[48px] w-[300px]"
           onClick={() => navigateBack()}
