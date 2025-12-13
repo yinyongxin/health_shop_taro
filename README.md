@@ -14,7 +14,8 @@ pnpm 10+
 
 ## H5管理端
 
-[H5管理端](https://testpay.eh-med.com/zhfy/login)
+https://testpay.eh-med.com/zhfy
+jysy 123456
 
 ## 微信公众平台
 
