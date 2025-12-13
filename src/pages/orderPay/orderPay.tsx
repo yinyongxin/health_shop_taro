@@ -52,10 +52,6 @@ const OrderPayPage = () => {
   /** 是否取消订单 */
   const isCancel = orderDetailRequest.data?.order.status === 4;
 
-  /** 是否有非服务商品 */
-  const hasNotServiceWare = orderDetailRequest.data?.itemList.some(
-    (item) => item.isService === 2,
-  );
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -72,7 +68,7 @@ const OrderPayPage = () => {
   };
 
   useEffect(() => {
-    if (orderDetailRequest.data && hasNotServiceWare) {
+    if (orderDetailRequest.data) {
       initAddress();
     }
   }, [orderDetailRequest.data?.order]);
@@ -83,7 +79,7 @@ const OrderPayPage = () => {
       const updateOrderAddressRes = await getWxShopOrderAddrChange({
         query: {
           orderNo: pageParams.orderNo,
-          addId: hasNotServiceWare ? selectAddress?.id : undefined,
+          addId: selectAddress?.id,
           orgId: APP_ENV_CONFIG.ORG_ID,
         },
       });
@@ -98,19 +94,13 @@ const OrderPayPage = () => {
   const orderPayRequest = useRequest(
     async () => {
       // 创建订单时没有地址
-      if (hasNotServiceWare && appUserStore.addressList.length === 0) {
+      if (appUserStore.addressList.length === 0) {
         appRouter.navigateTo("addAddress");
         return;
       }
       if (!orderDetailRequest.data?.order.orderNo) {
         return;
       }
-      orderPayByWx(orderDetailRequest.data?.order.orderNo, {
-        success: () => {
-          appToast.success("支付成功");
-          navigateBack();
-        },
-      });
     },
     {
       manual: true,
@@ -159,31 +149,29 @@ const OrderPayPage = () => {
             </View>
           </View>
         )}
-        {hasNotServiceWare && (
-          <View className="px-[24px] pt-[24px]">
-            {currentAddress ? (
-              <AddressCard
-                className="shadow-none!"
-                handleClick={() => {
-                  selectAddressControl.setOpen(true);
-                  setSelectAddress(currentAddress);
-                }}
-                info={currentAddress}
-                showActions={false}
-                rightAction={
-                  <View className="flex flex-col justify-center">
-                    <LucideIcon
-                      name="chevron-right text-gray-500 pr-[16px]"
-                      size={24}
-                    />
-                  </View>
-                }
-              />
-            ) : (
-              <Box>请选择地址</Box>
-            )}
-          </View>
-        )}
+        <View className="px-[24px] pt-[24px]">
+          {currentAddress ? (
+            <AddressCard
+              className="shadow-none!"
+              handleClick={() => {
+                selectAddressControl.setOpen(true);
+                setSelectAddress(currentAddress);
+              }}
+              info={currentAddress}
+              showActions={false}
+              rightAction={
+                <View className="flex flex-col justify-center">
+                  <LucideIcon
+                    name="chevron-right text-gray-500 pr-[16px]"
+                    size={24}
+                  />
+                </View>
+              }
+            />
+          ) : (
+            <Box>请选择地址</Box>
+          )}
+        </View>
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
