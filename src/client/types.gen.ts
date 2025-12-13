@@ -24,6 +24,7 @@ export type SubCategoryInfo = {
   status: number;
   createdAt: string;
   updatedAt: string;
+  logo?: string;
 };
 
 export type OrderDetail = {
@@ -221,6 +222,7 @@ export type CateInfo = {
   sortOrder: number;
   status: number;
   subCategoryList: Array<SubCategoryInfo>;
+  logo?: string;
 };
 
 export type DictItem = {
@@ -850,6 +852,26 @@ export type GetWxShopOrderCancelResponses = {
 
 export type GetWxShopOrderCancelResponse =
   GetWxShopOrderCancelResponses[keyof GetWxShopOrderCancelResponses];
+
+export type GetWxShopOrderPay2Data = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderNo?: string;
+  };
+  url: "/wx/shop/order/pay2";
+};
+
+export type GetWxShopOrderPay2Responses = {
+  200: {
+    msg: string;
+    code: number;
+    data: PayResult;
+  };
+};
+
+export type GetWxShopOrderPay2Response =
+  GetWxShopOrderPay2Responses[keyof GetWxShopOrderPay2Responses];
 
 export type ClientOptions = {
   baseURL: string;

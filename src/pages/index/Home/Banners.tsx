@@ -7,8 +7,9 @@ import { View } from "@tarojs/components";
 export const Banners = () => {
   const dataRequest = useRequest(async () => {
     const res = await getWxShopCateProduct({
-      query: { subCategoryId: "1" },
+      query: { subCategoryId: "49" },
     });
+    console.log("res?.data", res?.data);
     return res?.data;
   });
   const content = dataRequest.loading ? (

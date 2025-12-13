@@ -53,6 +53,8 @@ import type {
   GetWxShopOrderAddrChangeResponses,
   GetWxShopOrderCancelData,
   GetWxShopOrderCancelResponses,
+  GetWxShopOrderPay2Data,
+  GetWxShopOrderPay2Responses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -486,6 +488,23 @@ export const getWxShopOrderCancel = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/order/cancel",
+    ...options,
+  });
+};
+
+/**
+ * 订单页面付款接口
+ */
+export const getWxShopOrderPay2 = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopOrderPay2Data, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopOrderPay2Responses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/order/pay2",
     ...options,
   });
 };

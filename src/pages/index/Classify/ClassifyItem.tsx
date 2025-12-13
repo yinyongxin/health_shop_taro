@@ -10,7 +10,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
   const { info } = props;
   return (
     <View
-      className="w-1/3 pl-2 pt-2 "
+      className="w-1/2 pl-2 pt-2 "
       onClick={() => {
         appRouter.navigateTo("subCategoryProductList", {
           query: { subCategoryId: info.id.toString() },
