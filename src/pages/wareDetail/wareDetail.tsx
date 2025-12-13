@@ -16,7 +16,7 @@ import { useAppUserStore } from "@/stores";
 import { useState } from "react";
 import Box from "@/components/Box";
 import { orderPayByWx } from "@/utils/order";
-import { add, multiply, subtract } from "lodash-es";
+import { multiply, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -174,7 +174,7 @@ const WareDetail = () => {
           },
         });
         if (postWxShopOrderPayRes.data?.code !== 0) {
-          throw new Error("添加失败");
+          throw new Error("订单创建失败");
         }
         orderPayByWx(postWxShopOrderPayRes.data.data, {
           success: () => {
