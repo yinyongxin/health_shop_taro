@@ -1,6 +1,6 @@
-import { AppButton, BasePage, LucideIcon, QrCode } from "@/components";
+import { AppButton, BasePage, QrCode } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
-import { usePageParams, usePopupControl, useRequest } from "@/hooks";
+import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import {
@@ -18,7 +18,6 @@ import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
-import drawQrcode from "weapp-qrcode-canvas-2d";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -35,11 +34,6 @@ export default () => {
     }
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
-
-  /** 是否有非服务商品 */
-  const hasNotServiceWare = orderDetailRequest.data?.itemList.some(
-    (item) => item.isService === 2,
-  );
 
   const isPayed =
     orderDetailRequest.data?.order.status &&
@@ -232,7 +226,7 @@ export default () => {
         </View>
 
         <View className="px-[24px] mt-[24px]">
-          {hasNotServiceWare && currentAddress && (
+          {currentAddress && (
             <AddressCard
               className="shadow-none!"
               info={currentAddress}
