@@ -21,7 +21,7 @@ export const getDayIsStop = (
     weekList: number[];
   },
 ) => {
-  const { dateList, weekList } = options;
+  const { dateList = [], weekList = [] } = options;
   const weekCheck = weekList.includes(date.day());
   const inCustomDate = dateList.find((item) => item.isSame(date, "day"));
   let isStop = false;

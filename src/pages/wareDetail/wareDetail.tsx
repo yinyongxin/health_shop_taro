@@ -138,13 +138,20 @@ const WareDetail = () => {
             </View>
             <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
               {isFW && <ServiceBlock />}
-
-              <AddressSelect
-                address={currentAddress}
-                handleSelectAddress={(val) => {
-                  setCurrentAddress(val);
+              <Box
+                bgProps={{
+                  className: "bg-white rounded-lg",
                 }}
-              />
+              >
+                <View className="px-[24px] py-[12px] flex flex-col">
+                  <AddressSelect
+                    address={currentAddress}
+                    handleSelectAddress={(val) => {
+                      setCurrentAddress(val);
+                    }}
+                  />
+                </View>
+              </Box>
 
               {/* <Evaluate /> */}
               <ServiceTags productInfo={productInfo} />
