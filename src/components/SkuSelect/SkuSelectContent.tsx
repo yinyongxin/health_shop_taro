@@ -1,6 +1,5 @@
 import { ProductInfo, SkuInfo } from "@/client";
 import { View, Text } from "@tarojs/components";
-import { ReactNode, useState } from "react";
 import { isIOS, safeJson } from "@/utils";
 import classNames from "classnames";
 import { AppImage } from "../AppImage";
@@ -11,13 +10,11 @@ type SkuSelectContentProps = {
   data: ProductInfo;
   currentSku: SkuInfo;
   setCurrentSku: (sku: SkuInfo) => void;
-  btns: (sku: SkuInfo) => ReactNode;
   quantity: number;
   quantityChange: (quantity: number) => void;
 };
 export const SkuSelectContent = (props: SkuSelectContentProps) => {
-  const { data, btns, currentSku, setCurrentSku, quantity, quantityChange } =
-    props;
+  const { data, currentSku, setCurrentSku, quantity, quantityChange } = props;
   const handleAdd = () => {
     if (quantity >= currentSku.stock) {
       return;
@@ -67,7 +64,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
           })}
         </View>
       </View>
-      <View className="px-[24px] pb-[120px] flex justify-between items-center pt-[24px] ">
+      <View className="px-[24px] flex justify-between items-center pt-[24px] ">
         <Title>数量</Title>
         <View className="flex gap-[8px] flex-wrap">
           <View className="shirnk-0 flex items-center gap-2">
@@ -92,14 +89,6 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
             </AppTag>
           </View>
         </View>
-      </View>
-
-      <View
-        className={classNames("p-[24px] absolute bottom-0 left-0 right-0", {
-          "pb-[40px]": isIOS(),
-        })}
-      >
-        {btns?.(currentSku)}
       </View>
     </View>
   );

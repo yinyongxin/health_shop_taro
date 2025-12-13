@@ -3,11 +3,13 @@ import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
 import { safeJson } from "@/utils";
 import { View, ScrollView } from "@tarojs/components";
-import { info } from "console";
 
 export interface ServiceTagsProps {
   productInfo: ProductInfo;
 }
+/**
+ * 服务标签
+ */
 export const ServiceTags = (props: ServiceTagsProps) => {
   const { productInfo } = props;
   return (

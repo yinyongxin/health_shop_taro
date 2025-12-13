@@ -1,6 +1,6 @@
 import { AppButton, AppImage, AppPopup, BasePage } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
-import { Swiper } from "@taroify/core";
+import { Flex, Swiper } from "@taroify/core";
 import { View } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
@@ -19,15 +19,13 @@ import { multiply, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
-import { ModeEnum } from "./enum";
 import AddressSelect from "./AddressSelect";
 import { ServiceBlock } from "./ServiceBlock";
 import { ServiceTags } from "./ServiceTags";
-import { Evaluate } from "./Evaluate";
+import { Skeleton } from "./Skeleton";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
-  const [mode, setMode] = useState<ModeEnum>(ModeEnum.BUY);
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
@@ -40,7 +38,7 @@ const WareDetail = () => {
   );
 
   // 商品详情
-  const { data } = useRequest(async () => {
+  const { data: productInfo, loading } = useRequest(async () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
@@ -50,7 +48,7 @@ const WareDetail = () => {
 
   const handlePay = useRequest(
     async (sku: SkuInfo) => {
-      if (!data) {
+      if (!productInfo) {
         return;
       }
       if (!currentAddress?.id) {
@@ -76,16 +74,18 @@ const WareDetail = () => {
             discountAmount,
             productList: [
               {
-                productId: data.id,
-                productName: data.name,
-                skuList: [
-                  {
-                    skuId: sku.id,
-                    skuName: sku.specs,
-                    num: quantity,
-                    price: sku.price,
-                  },
-                ],
+                productId: productInfo.id,
+                productName: productInfo.name,
+                skuList: sku
+                  ? [
+                      {
+                        skuId: sku.id,
+                        skuName: sku.specs,
+                        num: quantity,
+                        price: sku.price,
+                      },
+                    ]
+                  : [],
               },
             ],
           },
@@ -109,28 +109,35 @@ const WareDetail = () => {
     },
   );
 
+  if (loading && !productInfo) {
+    return <Skeleton />;
+  }
+
+  const isFW = productInfo?.type === "FW";
   return (
     <BasePage>
-      {data && (
+      {productInfo && (
         <>
           <View className="pb-[200px]">
             <Swiper className="h-[600px]" autoplay={4000}>
               <Swiper.Indicator />
-              {safeJson.parse(data?.detailImages, [])?.map((item, index) => (
-                <Swiper.Item key={index}>
-                  <AppImage
-                    src={item}
-                    className="w-full h-full bg-gray-200"
-                    mode="aspectFill"
-                  />
-                </Swiper.Item>
-              ))}
+              {safeJson
+                .parse(productInfo?.detailImages, [])
+                ?.map((item, index) => (
+                  <Swiper.Item key={index}>
+                    <AppImage
+                      src={item}
+                      className="w-full h-full bg-gray-200"
+                      mode="aspectFill"
+                    />
+                  </Swiper.Item>
+                ))}
             </Swiper>
             <View className="px-[24px] pt-[32px]">
-              {data && <BaseInfo info={data} />}
+              <BaseInfo info={productInfo} />
             </View>
             <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
-              {data?.type === "FW" && <ServiceBlock />}
+              {isFW && <ServiceBlock />}
               <Box
                 bgProps={{
                   className: "bg-white rounded-lg",
@@ -145,42 +152,73 @@ const WareDetail = () => {
                   />
                 </View>
               </Box>
-              <Evaluate />
-              <ServiceTags productInfo={data} />
+              {/* <Evaluate /> */}
+              <ServiceTags productInfo={productInfo} />
             </View>
-            <DetailInfo info={data} />
+            <DetailInfo info={productInfo} />
           </View>
 
           <Actions
-            info={data}
+            info={productInfo}
             handleBuy={() => {
-              setMode(ModeEnum.BUY);
               control.setOpen(true);
             }}
           />
-          <AppPopup showClose {...control} title={data.name}>
-            {currentSku && (
-              <SkuSelectContent
-                quantity={quantity}
-                quantityChange={setQuantity}
-                currentSku={currentSku}
-                setCurrentSku={setCurrentSku}
-                data={data}
-                btns={(sku) => (
-                  <AppButton
-                    className="flex-1"
-                    status="error"
-                    round
-                    onClick={() => {
-                      handlePay.run(sku);
-                    }}
-                  >
-                    立即购买
-                  </AppButton>
-                )}
-              />
-            )}
-          </AppPopup>
+
+          {isFW ? (
+            <AppPopup
+              showClose
+              {...control}
+              title={productInfo.name}
+              footer={
+                <AppButton
+                  className="flex-1"
+                  status="error"
+                  round
+                  onClick={() => {}}
+                >
+                  立即购买
+                </AppButton>
+              }
+            >
+              <ServiceBlock />
+              <ServiceBlock />
+              <ServiceBlock />
+              <ServiceBlock />
+            </AppPopup>
+          ) : (
+            <AppPopup
+              showClose
+              {...control}
+              title={productInfo.name}
+              footer={
+                <AppButton
+                  className="flex-1"
+                  status="error"
+                  round
+                  onClick={() => {
+                    if (!currentSku) {
+                      appToast.error("请选择商品规格");
+                      return;
+                    }
+                    handlePay.run(currentSku);
+                  }}
+                >
+                  立即购买
+                </AppButton>
+              }
+            >
+              {currentSku && (
+                <SkuSelectContent
+                  quantity={quantity}
+                  quantityChange={setQuantity}
+                  currentSku={currentSku}
+                  setCurrentSku={setCurrentSku}
+                  data={productInfo}
+                />
+              )}
+            </AppPopup>
+          )}
         </>
       )}
     </BasePage>

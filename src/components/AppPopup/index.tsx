@@ -38,7 +38,7 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         >
           <View className="flex-1 flex flex-start">{leftAction}</View>
-          <View className="flex-2 text-[28px] font-bold flex-center line-clamp-1">
+          <View className="flex-2 text-[28px] font-bold text-center line-clamp-1">
             {title}
           </View>
           <View className="flex-1 flex flex-end">{rightAction}</View>
@@ -49,13 +49,13 @@ export const AppPopup = (props: AppPopupProps) => {
           )}
         </View>
       )}
-      <ScrollView className="h-full">
+      <ScrollView scrollY className="max-h-[70vh]">
         <View
           className={classNames(
             { "pt-[100px]": !!title },
             {
-              "pb-[160px]": footer,
-              "pb-[184px]": footer && isIOS(),
+              "pb-[140px]": footer,
+              "pb-[164px]": footer && isIOS(),
             },
           )}
         >
