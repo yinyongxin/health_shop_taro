@@ -1,7 +1,10 @@
-import { LucideIcon, AppTag } from "@/components"
-import Box from "@/components/Box"
-import { View } from "@tarojs/components"
+import { LucideIcon, AppTag } from "@/components";
+import Box from "@/components/Box";
+import { View } from "@tarojs/components";
 
+/**
+ * 评价
+ */
 export const Evaluate = () => {
   return (
     <Box
@@ -41,5 +44,5 @@ export const Evaluate = () => {
         </View>
       </View>
     </Box>
-  )
-}
+  );
+};

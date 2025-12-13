@@ -1,22 +1,18 @@
 import { ProductInfo } from "@/client";
-import { LucideIcon, AppButton, AppPopup } from "@/components";
+import { AppButton, AppPopup } from "@/components";
 import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePopupControl } from "@/hooks";
-import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
-import { appToast, isIOS } from "@/utils";
-import { View, Text } from "@tarojs/components";
+import { isIOS } from "@/utils";
+import { View } from "@tarojs/components";
 import classNames from "classnames";
 
 type ActionsProps = {
   info: ProductInfo;
-  handleAddCart: () => void;
   handleBuy: () => void;
 };
 
 export const Actions = (props: ActionsProps) => {
-  const { handleAddCart, handleBuy } = props;
-  const appUserStore = useAppUserStore();
+  const { handleBuy } = props;
   const popupControl = usePopupControl();
   return (
     <>
@@ -47,29 +43,8 @@ export const Actions = (props: ActionsProps) => {
               size={20}
             />
             <Text className="text-[20px]">收藏</Text>
-          </View>
-          <View
-            className="flex flex-col active:text-blue-500 items-center gap-1"
-            onClick={() => {
-              appUserStore.updateTabActive("cart");
-              appRouter.reLaunch("index");
-            }}
-          >
-            <LucideIcon name="shopping-cart" size={20} />
-            <Text className="text-[20px]">购物车</Text>
-          </View>
-        </View> */}
+          </View> */}
         <View className="flex-3 flex gap-[16px] py-[24px]">
-          {/* <AppButton
-            status="warning"
-            className="flex-2"
-            onClick={() => {
-              handleAddCart();
-            }}
-            round
-          >
-            加入购物车
-          </AppButton> */}
           <AppButton
             status="error"
             className="flex-3"

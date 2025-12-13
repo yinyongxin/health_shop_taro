@@ -5,7 +5,6 @@ import { View } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
-  getWxShopCartDelete,
   getWxShopProductDetail,
   postWxShopOrderPay,
   SkuInfo,
@@ -20,9 +19,11 @@ import { multiply, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
-import { Delivery } from "./Delivery";
 import { ModeEnum } from "./enum";
 import AddressSelect from "./AddressSelect";
+import { ServiceBlock } from "./ServiceBlock";
+import { ServiceTags } from "./ServiceTags";
+import { Evaluate } from "./Evaluate";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
@@ -46,90 +47,6 @@ const WareDetail = () => {
     setCurrentSku(res.data?.data?.skuList[0]);
     return res.data?.data;
   });
-
-  // 添加购物车
-  // const addCartRequest = useRequest(
-  //   async (sky: SkuInfo) => {
-  //     const res = await postWxShopCartAdd({
-  //       body: {
-  //         productId: data?.id!,
-  //         skuId: sky.id,
-  //         quantity,
-  //         cartId: appUserStore.cartInfo.id,
-  //         orgId: APP_ENV_CONFIG.ORG_ID,
-  //         productName: data?.name!,
-  //         skuName: sky.specs,
-  //       },
-  //     });
-  //     if (res.data?.code === 0) {
-  //       Toast.success("添加成功");
-  //       control.setOpen(false);
-  //     }
-  //   },
-  //   {
-  //     manual: true,
-  //   },
-  // );
-
-  // const clearCart = async () => {
-  //   const { itemList } = appUserStore.cartInfo;
-  //   if (itemList.length === 0) {
-  //     return;
-  //   }
-  //   await Promise.all(
-  //     itemList.map(async (item) => {
-  //       await getWxShopCartDelete({
-  //         query: {
-  //           cartItemId: item.id?.toString(),
-  //         },
-  //       });
-  //     }),
-  //   );
-  //   await appUserStore.updateCartInfo();
-  // };
-
-  // const handlePay = useRequest(
-  //   async (sky: SkuInfo) => {
-  //     try {
-  //       appLoading.show("创建订单中...");
-  //       await clearCart();
-  //       const res = await postWxShopCartAdd({
-  //         body: {
-  //           productId: data?.id!,
-  //           skuId: sky.id,
-  //           quantity,
-  //           cartId: appUserStore.cartInfo.id,
-  //           orgId: APP_ENV_CONFIG.ORG_ID,
-  //           productName: data?.name!,
-  //           skuName: sky.specs,
-  //         },
-  //       });
-  //       if (res.data?.code !== 0) {
-  //         throw new Error("添加失败");
-  //       }
-  //       const updateCartInfoRes = await appUserStore.updateCartInfo();
-
-  //       const createOrderRes = await createOrder({
-  //         cartId: updateCartInfoRes.cartInfo.id,
-  //         itemList: updateCartInfoRes.cartInfo.itemList,
-  //       });
-  //       appLoading.hide();
-  //       appRouter.navigateTo("orderPay", {
-  //         query: {
-  //           orderNo: createOrderRes.orderNo,
-  //         },
-  //       });
-  //     } catch {
-  //       appToast.error("创建失败");
-  //     } finally {
-  //       appUserStore.updateCartInfo();
-  //       control.setOpen(false);
-  //     }
-  //   },
-  //   {
-  //     manual: true,
-  //   },
-  // );
 
   const handlePay = useRequest(
     async (sku: SkuInfo) => {
@@ -191,9 +108,10 @@ const WareDetail = () => {
       manual: true,
     },
   );
+
   return (
     <BasePage>
-      {data && currentSku && (
+      {data && (
         <>
           <View className="pb-[200px]">
             <Swiper className="h-[600px]" autoplay={4000}>
@@ -211,20 +129,9 @@ const WareDetail = () => {
             <View className="px-[24px] pt-[32px]">
               {data && <BaseInfo info={data} />}
             </View>
-            <View className="px-[24px] pt-[32px]">
-              {/* {data?.type === "FW" ? (
-                <ServiceBlock />
-              ) : ( */}
-              <Delivery
-                info={data}
-                currentSku={currentSku}
-                handleSelctSku={() => {
-                  setMode(ModeEnum.ALL);
-                  control.setOpen(true);
-                }}
-              />
+            <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
+              {data?.type === "FW" && <ServiceBlock />}
               <Box
-                className="mt-[16px]"
                 bgProps={{
                   className: "bg-white rounded-lg",
                 }}
@@ -238,20 +145,14 @@ const WareDetail = () => {
                   />
                 </View>
               </Box>
-              {/* )} */}
-            </View>
-            {/* <View className="px-[24px] pt-[32px]">
               <Evaluate />
-            </View> */}
+              <ServiceTags productInfo={data} />
+            </View>
             <DetailInfo info={data} />
           </View>
 
           <Actions
             info={data}
-            handleAddCart={() => {
-              setMode(ModeEnum.ADD_CART);
-              control.setOpen(true);
-            }}
             handleBuy={() => {
               setMode(ModeEnum.BUY);
               control.setOpen(true);
@@ -267,18 +168,6 @@ const WareDetail = () => {
                 data={data}
                 btns={(sku) => (
                   <View className="flex gap-[24px]">
-                    {/* {(mode === ModeEnum.ALL || mode === ModeEnum.ADD_CART) && (
-                      <AppButton
-                        className="flex-1"
-                        status="warning"
-                        round
-                        disabled={addCartRequest.loading}
-                        loading={addCartRequest.loading}
-                        onClick={() => addCartRequest.run(sku)}
-                      >
-                        {mode === ModeEnum.ADD_CART ? "确定" : "加入购物车"}
-                      </AppButton>
-                    )} */}
                     {(mode === ModeEnum.ALL || mode === ModeEnum.BUY) && (
                       <AppButton
                         className="flex-1"
