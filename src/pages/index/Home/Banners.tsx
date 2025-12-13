@@ -1,4 +1,5 @@
-import { getWxShopCateProduct } from "@/client";
+import { getWxShopCateList, getWxShopCateProduct } from "@/client";
+import { APP_ENV_CONFIG } from "@/common";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { Swiper, Image } from "@taroify/core";
@@ -6,10 +7,12 @@ import { View } from "@tarojs/components";
 
 export const Banners = () => {
   const dataRequest = useRequest(async () => {
-    const res = await getWxShopCateProduct({
-      query: { subCategoryId: "49" },
+    const cateListRes = await getWxShopCateList({
+      query: { orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    console.log("res?.data", res?.data);
+    const res = await getWxShopCateProduct({
+      query: { subCategoryId: cateListRes.data?.data[0].id.toString() },
+    });
     return res?.data;
   });
   const content = dataRequest.loading ? (

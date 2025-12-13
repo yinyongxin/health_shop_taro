@@ -18,11 +18,11 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
       }}
     >
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
-        <View className="h-[100px] flex-center">
+        <View className="h-[140px] flex-center">
           {info?.logo ? (
             <Image
               src={info.logo || ""}
-              className="size-[80px]"
+              className="size-[120px]"
               mode="aspectFill"
             />
           ) : (
