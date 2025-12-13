@@ -11,7 +11,10 @@ export const Banners = () => {
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
     });
     const res = await getWxShopCateProduct({
-      query: { subCategoryId: cateListRes.data?.data[0].id.toString() },
+      query: {
+        subCategoryId:
+          cateListRes.data?.data?.[0].subCategoryList?.[0].id.toString(),
+      },
     });
     return res?.data;
   });
