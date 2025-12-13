@@ -2,11 +2,6 @@
 
 import type { Options as ClientOptions, TDataShape, Client } from "./client";
 import type {
-  GetWxRedirectByAppIdGreetData,
-  GetWxRedirectByAppIdGreetResponses,
-  GetWxRedirectByAppIdGreetErrors,
-  GetWxRedirectQueryDictData,
-  GetWxRedirectQueryDictResponses,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -69,40 +64,6 @@ export type Options<
    * used to access values that aren't defined as part of the SDK function.
    */
   meta?: Record<string, unknown>;
-};
-
-/**
- * 微信用户校验
- */
-export const getWxRedirectByAppIdGreet = <ThrowOnError extends boolean = false>(
-  options: Options<GetWxRedirectByAppIdGreetData, ThrowOnError>,
-) => {
-  return (options.client ?? _heyApiClient).get<
-    GetWxRedirectByAppIdGreetResponses,
-    GetWxRedirectByAppIdGreetErrors,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/redirect/{appId}/greet",
-    ...options,
-  });
-};
-
-/**
- * 获取字典
- */
-export const getWxRedirectQueryDict = <ThrowOnError extends boolean = false>(
-  options?: Options<GetWxRedirectQueryDictData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    GetWxRedirectQueryDictResponses,
-    unknown,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/redirect/queryDict",
-    ...options,
-  });
 };
 
 /**
@@ -174,7 +135,7 @@ export const getWxShopProductDetail = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 加入购物车
+ * （废弃）加入购物车
  */
 export const postWxShopCartAdd = <ThrowOnError extends boolean = false>(
   options?: Options<PostWxShopCartAddData, ThrowOnError>,
@@ -195,7 +156,7 @@ export const postWxShopCartAdd = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 获取购物车信息
+ * （废弃）获取购物车信息
  */
 export const getWxShopCartLoad = <ThrowOnError extends boolean = false>(
   options?: Options<GetWxShopCartLoadData, ThrowOnError>,
@@ -212,7 +173,7 @@ export const getWxShopCartLoad = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 删除购物车商品
+ * （废弃）删除购物车商品
  */
 export const getWxShopCartDelete = <ThrowOnError extends boolean = false>(
   options?: Options<GetWxShopCartDeleteData, ThrowOnError>,
@@ -229,7 +190,7 @@ export const getWxShopCartDelete = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 生成订单
+ * （废弃）生成订单
  */
 export const postWxShopOrderCreate = <ThrowOnError extends boolean = false>(
   options?: Options<PostWxShopOrderCreateData, ThrowOnError>,
@@ -250,7 +211,7 @@ export const postWxShopOrderCreate = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 支付订单（未完成）
+ * 立即购买
  */
 export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
   options?: Options<PostWxShopOrderPayData, ThrowOnError>,
@@ -271,7 +232,7 @@ export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 更新购物车商品的数量
+ * （废弃）更新购物车商品的数量
  */
 export const postWxShopCartUpdate = <ThrowOnError extends boolean = false>(
   options?: Options<PostWxShopCartUpdateData, ThrowOnError>,

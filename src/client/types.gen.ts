@@ -24,7 +24,6 @@ export type SubCategoryInfo = {
   status: number;
   createdAt: string;
   updatedAt: string;
-  logo: string;
 };
 
 export type OrderDetail = {
@@ -156,7 +155,7 @@ export type CreateOrderResult = {
 };
 
 export type CreateOrderBody = {
-  addressId?: number;
+  addressId: number;
   orgId: string;
   /**
    * 总金额
@@ -223,78 +222,6 @@ export type CateInfo = {
   status: number;
   subCategoryList: Array<SubCategoryInfo>;
 };
-
-export type DictItem = {
-  createBy: string;
-  createTime: string;
-  updateTime: unknown;
-  updateBy: unknown;
-  remark: unknown;
-  dictCode: number;
-  dictSort: number;
-  dictLabel: string;
-  dictValue: string;
-  dictType: string;
-  cssClass: unknown;
-  listClass: unknown;
-  isDefault: string;
-  status: string;
-  default: boolean;
-};
-
-export type GetWxRedirectByAppIdGreetData = {
-  body?: never;
-  path: {
-    appId: string;
-  };
-  query?: {
-    code?: string;
-    state?: string;
-    orgId?: string;
-  };
-  url: "/wx/redirect/{appId}/greet";
-};
-
-export type GetWxRedirectByAppIdGreetErrors = {
-  400: {
-    code: number;
-    msg: string;
-  };
-};
-
-export type GetWxRedirectByAppIdGreetError =
-  GetWxRedirectByAppIdGreetErrors[keyof GetWxRedirectByAppIdGreetErrors];
-
-export type GetWxRedirectByAppIdGreetResponses = {
-  200: {
-    code: number;
-    data: string;
-    msg: string;
-  };
-};
-
-export type GetWxRedirectByAppIdGreetResponse =
-  GetWxRedirectByAppIdGreetResponses[keyof GetWxRedirectByAppIdGreetResponses];
-
-export type GetWxRedirectQueryDictData = {
-  body?: never;
-  path?: never;
-  query?: {
-    dictType?: string;
-  };
-  url: "/wx/redirect/queryDict";
-};
-
-export type GetWxRedirectQueryDictResponses = {
-  200: {
-    msg: string;
-    code: number;
-    data: Array<DictItem>;
-  };
-};
-
-export type GetWxRedirectQueryDictResponse =
-  GetWxRedirectQueryDictResponses[keyof GetWxRedirectQueryDictResponses];
 
 export type GetWxShopCateListData = {
   body?: never;
@@ -488,7 +415,70 @@ export type PostWxShopOrderCreateResponse =
 
 export type PostWxShopOrderPayData = {
   body?: {
-    orderNo: string;
+    /**
+     * 地址id
+     * 服务型商品可以不传
+     */
+    addressId: number;
+    /**
+     * 支付方式
+     * 支付方式：1-支付宝，2-微信，3-银行卡
+     */
+    payType: number;
+    /**
+     * 订单总金额
+     */
+    totalAmount: number;
+    /**
+     * 实付金额
+     */
+    paymentAmount: number;
+    /**
+     * 运费
+     */
+    freightAmount: number;
+    /**
+     * 优惠金额
+     */
+    discountAmount: number;
+    /**
+     * 机构id
+     */
+    orgId: string;
+    /**
+     * 商品列表
+     */
+    productList: Array<{
+      /**
+       * 商品id
+       */
+      productId?: number;
+      /**
+       * 商品名称
+       */
+      productName?: string;
+      /**
+       * 规格列表
+       */
+      skuList?: Array<{
+        /**
+         * 规格id
+         */
+        skuId?: number;
+        /**
+         * 规格名称
+         */
+        skuName?: string;
+        /**
+         * 价格
+         */
+        price?: number;
+        /**
+         * 数量
+         */
+        num?: number;
+      }>;
+    }>;
   };
   path?: never;
   query?: never;
