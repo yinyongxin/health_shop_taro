@@ -46,10 +46,15 @@ export const CartWareCard = (props: CartWareCardProps) => {
   const goToDetailPage = () => {
     appRouter.navigateTo("wareDetail", {
       query: {
-        id: props.info.productId?.toString()!,
+        id: info.productId?.toString()!,
       },
     });
   };
+
+  const skuNames = Object.values(
+    safeJson.parse(info?.skuName || "", {}),
+  ) as string[];
+
   return (
     <View
       className={classNames(
@@ -66,7 +71,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <Image
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={props.info?.image || ""}
+            src={info?.image || ""}
             onClick={() => {
               goToDetailPage();
             }}
@@ -79,17 +84,17 @@ export const CartWareCard = (props: CartWareCardProps) => {
               goToDetailPage();
             }}
           >
-            {props.info.productName}
+            {info.productName}
           </View>
           <View className="flex gap-1">
-            <AppTag status="secondary">
-              {Object.values(safeJson.parse(props.info?.skuName || "", {}))}
-            </AppTag>
+            {skuNames && skuNames.length > 0 && (
+              <AppTag status="secondary">{skuNames}</AppTag>
+            )}
           </View>
           <View className="flex justify-between items-end">
             <View className="flex-1 text-[32px] text-rose-500">
               <Text className="text-[24px]">¥</Text>
-              <Text className="pl-[8px]">{props.info.price}</Text>
+              <Text className="pl-[8px]">{info.price}</Text>
             </View>
             <View className="shirnk-0 flex items-center gap-2">
               {showNumControl && (
