@@ -135,12 +135,27 @@ const WareDetail = () => {
         return;
       }
       try {
+        /**
+         * 运费
+         */
         const freightAmount = 0;
-        const totalAmount = productInfo.price;
+        /**
+         * 总价
+         * 商品现价 + 运费
+         */
+        const totalAmount = add(productInfo.price, freightAmount);
+        /**
+         * 优惠金额
+         * 商品原价 - 商品现价
+         */
         const discountAmount = subtract(
           productInfo.originalPrice,
           productInfo.price,
         );
+        /**
+         * 实际支付金额
+         * 总价 - 优惠金额
+         */
         const paymentAmount = subtract(totalAmount, discountAmount);
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
