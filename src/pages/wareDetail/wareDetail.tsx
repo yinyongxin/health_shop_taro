@@ -42,7 +42,10 @@ const WareDetail = () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    setCurrentSku(res.data?.data?.skuList[0]);
+    const { skuList = [] } = res?.data?.data || {};
+    if (skuList && skuList.length > 0) {
+      setCurrentSku(skuList[0]);
+    }
     return res.data?.data;
   });
 
@@ -137,7 +140,7 @@ const WareDetail = () => {
               <BaseInfo info={productInfo} />
             </View>
             <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
-              {isFW && <ServiceBlock />}
+              {isFW && <ServiceBlock productInfo={productInfo} />}
               <Box
                 bgProps={{
                   className: "bg-white rounded-lg",
@@ -190,7 +193,7 @@ const WareDetail = () => {
                 </View>
               }
             >
-              <ServiceBlock />
+              <ServiceBlock productInfo={productInfo} />
             </AppPopup>
           ) : (
             <AppPopup

@@ -14,13 +14,13 @@ export const InfoCardItem = (props: InfoCardItemProps) => {
   const { label, value, className, lableClassName, valueClassName } = props;
   return (
     <View className={classNames("flex text-[26px] gap-[24px]", className)}>
-      <View>
+      {label && (
         <View
           className={classNames("text-[#525252] w-[110px]", lableClassName)}
         >
           {label}
         </View>
-      </View>
+      )}
       <View className={classNames("flex-1 font-semibold", valueClassName)}>
         {value}
       </View>
