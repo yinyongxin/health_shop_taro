@@ -85,10 +85,8 @@ export type OrderInfo = {
   remark: unknown;
   applyPayNo: unknown;
   payId: unknown;
-  itemList: Array<{
-    [key: string]: unknown;
-  }>;
   serviceList: Array<ServiceInfo>;
+  itemList: Array<CartItem>;
 };
 
 export type CartItem = {
@@ -193,9 +191,7 @@ export type CreateOrderBody = {
    * 折扣
    */
   discountAmount: number;
-  itemList: Array<{
-    [key: string]: unknown;
-  }>;
+  itemList: Array<CartItem>;
   cartId: number;
 };
 
@@ -206,9 +202,7 @@ export type CartInfo = {
   sessionId: unknown;
   createdAt: string;
   updatedAt: string;
-  itemList: Array<{
-    [key: string]: unknown;
-  }>;
+  itemList: Array<CartItem>;
 };
 
 export type ProductInfo = {
@@ -763,9 +757,7 @@ export type GetWxShopOrderDetailResponses = {
     data: {
       order: OrderDetail;
       serviceList: Array<ServiceInfo>;
-      itemList: Array<{
-        [key: string]: unknown;
-      }>;
+      itemList: Array<CartItem>;
     };
   };
 };
