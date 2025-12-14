@@ -1,6 +1,5 @@
 import { View, Image } from "@tarojs/components";
 import classNames from "classnames";
-import { AppImage } from "../AppImage";
 
 export type QrCodeProps = {
   className?: string;
