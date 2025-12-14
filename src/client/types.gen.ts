@@ -79,7 +79,6 @@ export type CartItem = {
   skuName?: string;
   quantity?: number;
   price?: number;
-  isService?: number;
   serviceDate?: unknown;
   qrCodeStatus?: number;
   selected?: number;
