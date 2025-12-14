@@ -294,6 +294,7 @@ const OrderPayPage = () => {
             返回
           </AppButton> */}
           <AppButton
+            status="error"
             disabled={!orderDetailRequest.data?.order.orderNo}
             className="flex-2"
             loading={orderPayRequest.loading}
