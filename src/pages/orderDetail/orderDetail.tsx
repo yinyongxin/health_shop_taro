@@ -152,15 +152,15 @@ export default () => {
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
-            {orderDetailRequest.data?.serviceList &&
-              orderDetailRequest.data?.serviceList.length > 0 && (
+            {orderDetailRequest.data?.order?.serviceList &&
+              orderDetailRequest.data?.order.serviceList.length > 0 && (
                 <ServiceBlock
-                  serviceList={orderDetailRequest.data?.serviceList}
+                  serviceList={orderDetailRequest.data?.order.serviceList}
                 />
               )}
-            {orderDetailRequest.data?.itemList &&
-              orderDetailRequest.data.itemList.length > 0 &&
-              orderDetailRequest.data.itemList.map((item) => (
+            {orderDetailRequest.data?.order.itemList &&
+              orderDetailRequest.data.order.itemList.length > 0 &&
+              orderDetailRequest.data.order.itemList.map((item) => (
                 <CartWareCard
                   key={item.id}
                   info={item}
