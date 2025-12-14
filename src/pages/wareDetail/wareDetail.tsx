@@ -112,6 +112,59 @@ const WareDetail = () => {
     },
   );
 
+  const handleServerPay = useRequest(
+    async () => {
+      if (!productInfo) {
+        return;
+      }
+      if (!currentAddress?.id) {
+        appToast.error("请选择收货地址");
+        return;
+      }
+      try {
+        const freightAmount = 0;
+        const totalAmount = productInfo.price;
+        const discountAmount = subtract(
+          productInfo.price,
+          productInfo.originalPrice,
+        );
+        const paymentAmount = subtract(totalAmount, discountAmount);
+        const postWxShopOrderPayRes = await postWxShopOrderPay({
+          body: {
+            orgId: APP_ENV_CONFIG.ORG_ID,
+            addressId: currentAddress.id,
+            payType: 1,
+            totalAmount,
+            freightAmount,
+            paymentAmount,
+            discountAmount,
+            productList: [
+              {
+                productId: productInfo.id,
+                productName: productInfo.name,
+              },
+            ],
+          },
+        });
+        if (postWxShopOrderPayRes.data?.code !== 0) {
+          throw new Error("订单创建失败");
+        }
+        orderPayByWx(postWxShopOrderPayRes.data.data, {
+          success: () => {
+            appToast.success("支付成功");
+          },
+        });
+      } catch {
+        appToast.error("支付失败");
+      } finally {
+        control.setOpen(false);
+      }
+    },
+    {
+      manual: true,
+    },
+  );
+
   if (loading && !productInfo) {
     return <Skeleton />;
   }
@@ -186,9 +239,11 @@ const WareDetail = () => {
                   <AppButton
                     className="flex-1"
                     status="error"
-                    onClick={() => {}}
+                    onClick={() => {
+                      handleServerPay.run();
+                    }}
                   >
-                    立即购买
+                    付款
                   </AppButton>
                 </View>
               }
@@ -220,7 +275,7 @@ const WareDetail = () => {
                       handlePay.run(currentSku);
                     }}
                   >
-                    立即购买
+                    付款
                   </AppButton>
                 </View>
               }
