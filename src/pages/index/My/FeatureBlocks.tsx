@@ -9,6 +9,13 @@ export const FeatureBlocks = () => {
       <View className="mt-[16px]">
         <View className="flex justify-between py-[24px] pr-[24px]">
           <AppFeatureBlocksItem
+            title="我的服务"
+            icon={<LucideIcon name="hand-helping" size={28} />}
+            onClick={() => {
+              appRouter.navigateTo("myService");
+            }}
+          />
+          <AppFeatureBlocksItem
             title="联系客服"
             icon={<LucideIcon name="message-circle-more" size={28} />}
             onClick={() => {
@@ -22,7 +29,7 @@ export const FeatureBlocks = () => {
               showToast({ title: "尽请期待", icon: "none" });
             }}
           />
-          <View className="w-1/5"></View>
+
           <View className="w-1/5"></View>
           <View className="w-1/5"></View>
         </View>
