@@ -18,6 +18,8 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "typeRoots": ["node_modules/@types"],
+    // 添加types配置，明确指定需要包含的类型包，避免自动引入sass类型
+    "types": ["node"],
     "paths": {
       // TS5090 leading './'
       "@/*": ["./src/*"]

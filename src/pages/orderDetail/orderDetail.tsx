@@ -5,11 +5,9 @@ import { View, Text } from "@tarojs/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import {
   AddressInfo,
-  CartItem,
   getWxShopOrderCancel,
   getWxShopOrderDetail,
   OrderDetail,
-  OrderInfo,
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
