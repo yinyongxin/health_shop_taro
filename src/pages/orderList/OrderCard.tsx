@@ -1,5 +1,5 @@
 import { OrderInfo } from "@/client";
-import { AppButton } from "@/components";
+import { AppButton, ServiceBlock } from "@/components";
 import { CartWareCard } from "@/components/CartWareCard";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { appRouter } from "@/router";
@@ -70,18 +70,20 @@ export const OrderCard = (props: OrderCardProps) => {
         <View className="text-amber-500">{getStatusText()}</View>
       </View>
       <View className="bg-white rounded-lg">
-        <View className="px-[24px] text-[32px] font-semibold">
-          <View>共{info.itemList.length}件商品</View>
-        </View>
-        {info.itemList?.map((item) => (
-          <CartWareCard
-            key={item.id}
-            info={item}
-            border={false}
-            showNumControl={false}
-            shadow={false}
-          />
-        ))}
+        {info.serviceList && info.serviceList.length > 0 && (
+          <ServiceBlock serviceList={info.serviceList} />
+        )}
+        {info.itemList &&
+          info.itemList.length > 0 &&
+          info.itemList.map((item) => (
+            <CartWareCard
+              key={item.id}
+              info={item}
+              border={false}
+              showNumControl={false}
+              shadow={false}
+            />
+          ))}
         <View className="flex flex-col gap-2 px-[24px]">
           <View className="border-t-[1px] border-gray-200 pt-[24px] ">
             <InfoCardItem

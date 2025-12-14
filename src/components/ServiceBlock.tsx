@@ -1,13 +1,13 @@
-import { ProductInfo } from "@/client";
+import { ServiceInfo } from "@/client";
 import Box from "@/components/Box";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { View } from "@tarojs/components";
 
 export type ServiceBlockProps = {
-  productInfo: ProductInfo;
+  serviceList: ServiceInfo[];
 };
 export const ServiceBlock = (props: ServiceBlockProps) => {
-  const { productInfo } = props;
+  const { serviceList = [] } = props;
   return (
     <>
       <Box
@@ -23,7 +23,7 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
             <InfoCardItem
               value={
                 <View className="flex flex-col gap-[16px]">
-                  {productInfo.itemsList.map((item, index) => {
+                  {serviceList.map((item, index) => {
                     return (
                       <View className="flex gap-[24px]" key={item.id}>
                         <View className="text-amber-500">{index + 1}</View>

@@ -1,6 +1,12 @@
-import { AppButton, AppImage, AppPopup, BasePage } from "@/components";
+import {
+  AppButton,
+  AppImage,
+  AppPopup,
+  BasePage,
+  ServiceBlock,
+} from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
-import { Flex, Swiper } from "@taroify/core";
+import { Swiper } from "@taroify/core";
 import { View } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
@@ -20,7 +26,6 @@ import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
 import AddressSelect from "./AddressSelect";
-import { ServiceBlock } from "./ServiceBlock";
 import { ServiceTags } from "./ServiceTags";
 import { Skeleton } from "./Skeleton";
 
@@ -219,7 +224,7 @@ const WareDetail = () => {
               <BaseInfo info={productInfo} />
             </View>
             <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
-              {isFW && <ServiceBlock productInfo={productInfo} />}
+              {isFW && <ServiceBlock serviceList={productInfo.itemsList} />}
               <Box
                 bgProps={{
                   className: "bg-white rounded-lg",
@@ -274,7 +279,7 @@ const WareDetail = () => {
                 </View>
               }
             >
-              <ServiceBlock productInfo={productInfo} />
+              <ServiceBlock serviceList={productInfo.itemsList} />
             </AppPopup>
           ) : (
             <AppPopup
