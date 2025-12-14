@@ -15,7 +15,7 @@ import { useAppUserStore } from "@/stores";
 import { useState } from "react";
 import Box from "@/components/Box";
 import { orderPayByWx } from "@/utils/order";
-import { multiply, subtract } from "lodash-es";
+import { add, multiply, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -59,12 +59,27 @@ const WareDetail = () => {
         return;
       }
       try {
+        /**
+         * 运费金额
+         */
         const freightAmount = 0;
-        const totalAmount = multiply(quantity, sku.price);
+        /**
+         * 订单总金额
+         * 规格现价 * 数量 + 运费
+         */
+        const totalAmount = add(multiply(quantity, sku.price), freightAmount);
+        /**
+         * 优惠金额
+         * 数量 * (规格原价 - 规格现价)
+         */
         const discountAmount = multiply(
           quantity,
-          subtract(sku.price, sku.originalPrice),
+          subtract(sku.originalPrice, sku.price),
         );
+        /**
+         * 实际支付金额
+         * 订单总金额-优惠金额
+         */
         const paymentAmount = subtract(totalAmount, discountAmount);
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
@@ -79,16 +94,14 @@ const WareDetail = () => {
               {
                 productId: productInfo.id,
                 productName: productInfo.name,
-                skuList: sku
-                  ? [
-                      {
-                        skuId: sku.id,
-                        skuName: sku.specs,
-                        num: quantity,
-                        price: sku.price,
-                      },
-                    ]
-                  : [],
+                skuList: [
+                  {
+                    skuId: sku.id,
+                    skuName: sku.specs,
+                    num: quantity,
+                    price: sku.price,
+                  },
+                ],
               },
             ],
           },
@@ -125,8 +138,8 @@ const WareDetail = () => {
         const freightAmount = 0;
         const totalAmount = productInfo.price;
         const discountAmount = subtract(
-          productInfo.price,
           productInfo.originalPrice,
+          productInfo.price,
         );
         const paymentAmount = subtract(totalAmount, discountAmount);
         const postWxShopOrderPayRes = await postWxShopOrderPay({

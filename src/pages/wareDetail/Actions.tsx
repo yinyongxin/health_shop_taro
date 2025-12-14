@@ -46,7 +46,6 @@ export const Actions = (props: ActionsProps) => {
           </View> */}
         <View className="flex-3 flex gap-[16px] py-[24px]">
           <AppButton
-            status="error"
             className="flex-3"
             onClick={() => {
               handleBuy();
