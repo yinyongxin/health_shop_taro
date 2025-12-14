@@ -8,6 +8,8 @@ import {
   CartItem,
   getWxShopOrderCancel,
   getWxShopOrderDetail,
+  OrderDetail,
+  OrderInfo,
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
@@ -125,8 +127,11 @@ export default () => {
     );
   }
 
-  const getQrCode = (info: CartItem) => {
-    if (info.isService === 2 || orderDetailRequest.data?.order.status !== 2) {
+  const getQrCode = (info: OrderDetail) => {
+    if (
+      (info?.serviceList && info.serviceList.length > 0) ||
+      orderDetailRequest.data?.order.status !== 2
+    ) {
       return;
     }
     return <QrCode className="pb-[24px]" />;
@@ -164,9 +169,10 @@ export default () => {
                   border={false}
                   showNumControl={false}
                   shadow={false}
-                  bottom={getQrCode(item)}
                 />
               ))}
+            {orderDetailRequest.data?.order &&
+              getQrCode(orderDetailRequest.data?.order)}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
