@@ -37,6 +37,8 @@ export type ServiceInfo = {
   selectedItems: string;
   totalPrice: string;
   updateTime: string;
+  qty: number;
+  usedQty: number;
 };
 
 export type OrderDetail = {
