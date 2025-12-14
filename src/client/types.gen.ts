@@ -761,11 +761,11 @@ export type GetWxShopOrderDetailResponses = {
     msg: string;
     code: number;
     data: {
+      order: OrderDetail;
+      serviceList: Array<ServiceInfo>;
       itemList: Array<{
         [key: string]: unknown;
       }>;
-      order: OrderDetail;
-      serviceList: Array<ServiceInfo>;
     };
   };
 };
