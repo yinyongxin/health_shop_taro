@@ -109,15 +109,14 @@ const WareDetail = () => {
         if (postWxShopOrderPayRes.data?.code !== 0) {
           throw new Error("订单创建失败");
         }
-        orderPayByWx(postWxShopOrderPayRes.data.data, {
+        await orderPayByWx(postWxShopOrderPayRes.data.data, {
           success: () => {
             appToast.success("支付成功");
+            control.setOpen(false);
           },
         });
       } catch {
         appToast.error("支付失败");
-      } finally {
-        control.setOpen(false);
       }
     },
     {
@@ -177,15 +176,14 @@ const WareDetail = () => {
         if (postWxShopOrderPayRes.data?.code !== 0) {
           throw new Error("订单创建失败");
         }
-        orderPayByWx(postWxShopOrderPayRes.data.data, {
+        await orderPayByWx(postWxShopOrderPayRes.data.data, {
           success: () => {
             appToast.success("支付成功");
+            control.setOpen(false);
           },
         });
       } catch {
         appToast.error("支付失败");
-      } finally {
-        control.setOpen(false);
       }
     },
     {
