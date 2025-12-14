@@ -1,4 +1,4 @@
-import { AppButton, BasePage, QrCode } from "@/components";
+import { AppButton, BasePage, QrCode, ServiceBlock } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -149,19 +149,24 @@ export default () => {
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
-            <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
-              <View>共{orderDetailRequest.data?.itemList.length}件商品</View>
-            </View>
-            {orderDetailRequest.data?.itemList?.map((item) => (
-              <CartWareCard
-                key={item.id}
-                info={item}
-                border={false}
-                showNumControl={false}
-                shadow={false}
-                bottom={getQrCode(item)}
-              />
-            ))}
+            {orderDetailRequest.data?.serviceList &&
+              orderDetailRequest.data?.serviceList.length > 0 && (
+                <ServiceBlock
+                  serviceList={orderDetailRequest.data?.serviceList}
+                />
+              )}
+            {orderDetailRequest.data?.itemList &&
+              orderDetailRequest.data.itemList.length > 0 &&
+              orderDetailRequest.data.itemList.map((item) => (
+                <CartWareCard
+                  key={item.id}
+                  info={item}
+                  border={false}
+                  showNumControl={false}
+                  shadow={false}
+                  bottom={getQrCode(item)}
+                />
+              ))}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
