@@ -45,8 +45,8 @@ export const isWeapp = process.env.TARO_ENV === "weapp";
 const systemInfo = isWeapp
   ? getSystemInfoSync()
   : {
-      environment: "h5",
-    };
+    environment: "h5",
+  };
 
 /**
  * 是否是企业微信
@@ -108,8 +108,7 @@ export const getUrlCode = () => {
 export const getWinxinLoginUrl = () => {
   const { APPID } = APP_ENV_CONFIG;
   const redirect_uri = encodeURI(
-    // window.location.origin + window.location.pathname + window.location.search,
-    "https://chr.eh-med.com/hmall/",
+    isDev ? "https://chr.eh-med.com/hmall/" : window.location.origin + window.location.pathname + window.location.search,
   );
   const url = new URL(
     `https://open.weixin.qq.com/connect/oauth2/authorize#wechat_redirect`,
