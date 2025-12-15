@@ -4,7 +4,7 @@ import { AppImage, LucideIcon } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { Grid } from "@taroify/core";
-import { View, Image } from "@tarojs/components";
+import { View } from "@tarojs/components";
 
 export const GridBlock = () => {
   const { data, loading } = useRequest(async () => {

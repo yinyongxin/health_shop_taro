@@ -1,4 +1,4 @@
-import { AppTabList, AppTabListItem, BasePage } from "@/components";
+import { AppTabList, BasePage } from "@/components";
 import { useEffect, useRef, useState } from "react";
 import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopMyServiceOrder, OrderInfo } from "@/client";

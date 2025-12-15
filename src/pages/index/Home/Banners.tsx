@@ -3,7 +3,7 @@ import { APP_ENV_CONFIG } from "@/common";
 import { AppImage } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
-import { Swiper, Image } from "@taroify/core";
+import { Swiper } from "@taroify/core";
 import { View } from "@tarojs/components";
 
 export const Banners = () => {

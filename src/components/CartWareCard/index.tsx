@@ -1,6 +1,6 @@
 import { CartItem, postWxShopCartUpdate } from "@/client";
 import { appRouter } from "@/router";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { useAppUserStore } from "@/stores";
 import classNames from "classnames";
 import { safeJson } from "@/utils";

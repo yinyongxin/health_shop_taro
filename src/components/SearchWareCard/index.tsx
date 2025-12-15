@@ -1,6 +1,6 @@
 import { ProductInfo } from "@/client";
 import { appRouter } from "@/router";
-import { View, Image, Text } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { useState } from "react";
 import { LucideIcon } from "../LucideIcon";

@@ -1,7 +1,7 @@
 import { SubCategoryInfo } from "@/client";
 import { AppImage, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
-import { View, Image, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 
 export interface ClassifyItemProps {
   info: SubCategoryInfo;
