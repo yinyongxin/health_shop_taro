@@ -72,7 +72,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <AppImage
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={info?.image || ""}
+            src={info?.productImage || ""}
             onClick={() => {
               goToDetailPage();
             }}

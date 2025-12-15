@@ -5,5 +5,5 @@ export interface AppImageProps extends ImageProps {}
 export const AppImage = (props: AppImageProps) => {
   const { src, ...rest } = props;
   const srcUrl = src.startsWith("http") ? src : getImagePath(src);
-  return <Image src={srcUrl} {...rest} />;
+  return <Image src={src ?? srcUrl} {...rest} />;
 };

@@ -94,7 +94,7 @@ export type CartItem = {
   selected?: number;
   createdAt?: string;
   updatedAt?: string;
-  image?: string;
+  productImage?: string;
 };
 
 export type OrderInfo = {
