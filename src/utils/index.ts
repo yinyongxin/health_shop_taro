@@ -68,8 +68,10 @@ export const getBirthByCardNo = (
 };
 
 export const getImagePath = (path: string) => {
+  if (isDev) {
+    return APP_ENV_CONFIG.API_PREFIX + APP_ENV_CONFIG.FILE_PREFIX + path;
+  }
   return APP_ENV_CONFIG.FILE_PREFIX + path;
-  // return APP_ENV_CONFIG.BASE_URL + APP_ENV_CONFIG.FILE_PREFIX + path;
 };
 
 export const getAge = (birthday?: string) => {
