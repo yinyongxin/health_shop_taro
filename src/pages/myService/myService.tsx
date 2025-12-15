@@ -5,6 +5,7 @@ import { getWxShopMyServiceOrder, OrderInfo } from "@/client";
 import { View } from "@tarojs/components";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
+import { appLoading } from "@/utils";
 import { useDidShow } from "@tarojs/taro";
 import { OrderCard } from "./OrderCard";
 import { Skeleton } from "./Skeleton";
@@ -60,13 +61,12 @@ const MyService = () => {
   );
   const isInit = useRef(true);
 
-  const [pageLoading, setPageLoading] = useState(false);
-
   const acitveChange = async () => {
-    setPageLoading(true);
+    appLoading.show("加载中...");
     await dataRequest.run(1);
-    setPageLoading(false);
+    appLoading.hide();
   };
+
   useEffect(() => {
     if (!isInit.current) {
       acitveChange();
@@ -88,7 +88,7 @@ const MyService = () => {
           onChange={setActive}
         />
       </View>
-      {(dataRequest.loading && !dataRequest.data) || pageLoading ? (
+      {dataRequest.loading && !dataRequest.data ? (
         <Skeleton />
       ) : (
         <AppList

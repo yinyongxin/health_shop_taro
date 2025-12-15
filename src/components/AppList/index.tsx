@@ -5,6 +5,7 @@ import React from "react";
 
 export type AppListProps<I = unknown> = {
   className?: string;
+  skeleton?: React.ReactNode;
   list?: I[];
   itemRender?: (item: I, index: number) => React.ReactNode;
   children?: React.ReactNode;
@@ -28,6 +29,7 @@ export function AppList<I>(props: AppListProps<I>) {
     loading,
     bodyProps,
     onLoad,
+    skeleton,
   } = props;
   const hasNext = pagination
     ? pagination.total > pagination.pageSize * pagination.pageNum
@@ -48,6 +50,10 @@ export function AppList<I>(props: AppListProps<I>) {
         <Empty.Description>空空如也</Empty.Description>
       </Empty>
     );
+  }
+
+  if (skeleton && loading && !list) {
+    return skeleton;
   }
   return (
     <ScrollView
