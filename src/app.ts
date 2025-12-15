@@ -12,12 +12,12 @@ function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
   const appUserStore = useAppUserStore();
   const checkLogin = async () => {
-    // 获取URL中的微信登录码
-    const wxLoginCode = getUrlCode();
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
       return;
     }
+    // 获取URL中的微信登录码
+    const wxLoginCode = getUrlCode();
     if (wxLoginCode) {
       // 使用微信登录码进行登录
       const res = await getWxRedirectByAppIdGreet({
@@ -33,10 +33,10 @@ function App({ children }: PropsWithChildren<any>) {
         return;
       }
       appAuthStore.updateIsLogged(true);
-      const url = new URL(window.location.href);
-      url.searchParams.delete("code");
-      url.searchParams.delete("state");
-      window.location.href = url.toString();
+      // const url = new URL(window.location.href);
+      // url.searchParams.delete("code");
+      // url.searchParams.delete("state");
+      // window.location.href = url.toString();
     } else {
       // 如果没有登录码，则直接调用登录函数
       if (isDev) {
