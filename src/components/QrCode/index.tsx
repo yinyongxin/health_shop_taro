@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 export type QrCodeProps = {
   className?: string;
+  code?: string;
 };
 export const QrCode = (props: QrCodeProps) => {
   const { className } = props;

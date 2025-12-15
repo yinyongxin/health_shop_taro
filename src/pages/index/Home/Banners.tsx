@@ -1,5 +1,6 @@
 import { getWxShopBannerList } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
+import { AppImage } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { Swiper, Image } from "@taroify/core";
@@ -33,7 +34,7 @@ export const Banners = () => {
           }}
         >
           <View className="bg-white size-full">
-            <Image
+            <AppImage
               src={item.imagePath}
               className="w-full h-full rounded-lg"
               mode="aspectFill"

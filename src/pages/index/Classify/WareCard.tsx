@@ -1,4 +1,5 @@
 import { getGetWare } from "@/client";
+import { AppImage } from "@/components";
 import Box from "@/components/Box";
 import { useRequest } from "@/hooks";
 import { View, Text, Image } from "@tarojs/components";
@@ -15,10 +16,10 @@ export const WareCard = () => {
       }}
     >
       <View className="px-[24px] py-[24px] flex gap-2">
-        <Image
+        <AppImage
           className="size-[140px] rounded shrink-0 bg-gray-200"
           src={dataRequest.data?.mainPicture || ""}
-        ></Image>
+        />
         <View className="flex-1 flex flex-col justify-between">
           <View>
             <Text className="text-[28px] font-bold">

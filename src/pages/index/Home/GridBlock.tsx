@@ -1,6 +1,6 @@
 import { getWxShopCateList } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
-import { LucideIcon } from "@/components";
+import { AppImage, LucideIcon } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { Grid } from "@taroify/core";
@@ -50,7 +50,7 @@ export const GridBlock = () => {
           icon={
             <View>
               {item?.logo ? (
-                <Image
+                <AppImage
                   src={item.logo || ""}
                   className="size-[60px]"
                   mode="aspectFill"

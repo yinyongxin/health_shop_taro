@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { safeJson } from "@/utils";
 import { ReactNode } from "react";
 import { AppTag } from "../AppTag";
+import { AppImage } from "../AppImage";
 
 export type CartWareCardProps = {
   info: CartItem;
@@ -68,7 +69,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
         })}
       >
         <View className="p-[24px] pr-[12] rounded-lg">
-          <Image
+          <AppImage
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
             src={info?.image || ""}

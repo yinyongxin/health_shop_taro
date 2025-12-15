@@ -1,4 +1,4 @@
-import { AppButton, BasePage, QrCode, ServiceBlock } from "@/components";
+import { AppButton, BasePage, ServiceBlock } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -7,7 +7,6 @@ import {
   AddressInfo,
   getWxShopOrderCancel,
   getWxShopOrderDetail,
-  OrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";

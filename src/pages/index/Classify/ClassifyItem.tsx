@@ -1,5 +1,5 @@
 import { SubCategoryInfo } from "@/client";
-import { LucideIcon } from "@/components";
+import { AppImage, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
 import { View, Image, Text } from "@tarojs/components";
 
@@ -20,7 +20,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
       <View className="bg-white click-effect rounded-md flex flex-col items-center gap-2 p-[24px]">
         <View className="h-[140px] flex-center">
           {info?.logo ? (
-            <Image
+            <AppImage
               src={info.logo || ""}
               className="size-[120px]"
               mode="aspectFill"

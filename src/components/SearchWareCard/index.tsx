@@ -4,6 +4,7 @@ import { View, Image, Text } from "@tarojs/components";
 import classNames from "classnames";
 import { useState } from "react";
 import { LucideIcon } from "../LucideIcon";
+import { AppImage } from "../AppImage";
 
 export type SearchWareCardProps = {
   info: ProductInfo;
@@ -32,7 +33,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           },
         )}
       >
-        <Image
+        <AppImage
           className="w-full h-[320px] bg-gray-200"
           src={props.info.mainImage}
           mode="aspectFill"
