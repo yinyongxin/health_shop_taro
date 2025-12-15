@@ -171,3 +171,14 @@ export const waitTime = (time = 1000) => {
     }, time);
   });
 };
+
+export function removeUrlParameter(paramList: string[]) {
+  // 获取当前 URL
+  const url = new URL(window.location.href);
+  // 删除指定参数
+  paramList.forEach((param) => {
+    url.searchParams.delete(param);
+  });
+  // 使用 replaceState 更新 URL
+  window.history.replaceState({}, document.title, url.href);
+}

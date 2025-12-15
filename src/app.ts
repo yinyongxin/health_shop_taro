@@ -5,7 +5,13 @@ import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet } from "./client";
-import { appToast, getUrlCode, isDev, jumpWxGetCode } from "./utils";
+import {
+  appToast,
+  getUrlCode,
+  isDev,
+  jumpWxGetCode,
+  removeUrlParameter,
+} from "./utils";
 import { client } from "./client/client.gen";
 
 function App({ children }: PropsWithChildren<any>) {
@@ -33,10 +39,7 @@ function App({ children }: PropsWithChildren<any>) {
         return;
       }
       appAuthStore.updateIsLogged(true);
-      // const url = new URL(window.location.href);
-      // url.searchParams.delete("code");
-      // url.searchParams.delete("state");
-      // window.location.href = url.toString();
+      removeUrlParameter(["code"]);
     } else {
       // 如果没有登录码，则直接调用登录函数
       if (isDev) {
