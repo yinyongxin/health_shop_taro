@@ -110,8 +110,8 @@ export const getWinxinLoginUrl = () => {
   const { APPID } = APP_ENV_CONFIG;
   const redirect_uri = encodeURI(
     window.location.origin + window.location.pathname + window.location.search,
-    // isDev ? "https://chr.eh-med.com/hmall/" : window.location.origin + window.location.pathname + window.location.search,
   );
+  console.log("redirect_uri", redirect_uri);
   const url = new URL(
     `https://open.weixin.qq.com/connect/oauth2/authorize#wechat_redirect`,
   );
