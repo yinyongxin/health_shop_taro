@@ -1,7 +1,6 @@
 import { AppCell, AppDivier, BasePage, LucideIcon } from "@/components";
 import { View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
-import { showToast } from "@tarojs/taro";
 import { appRouter } from "@/router";
 import { FeatureBlocks } from "./FeatureBlocks";
 import { MyOrder } from "./MyOrder";
