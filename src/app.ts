@@ -5,13 +5,7 @@ import { useAppAuthStore, useAppUserStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet } from "./client";
-import {
-  appToast,
-  getUrlCode,
-  getWinxinLoginUrl,
-  isDev,
-  jumpWxGetCode,
-} from "./utils";
+import { appToast, getUrlCode, isDev, jumpWxGetCode } from "./utils";
 import { client } from "./client/client.gen";
 
 function App({ children }: PropsWithChildren<any>) {
@@ -20,7 +14,6 @@ function App({ children }: PropsWithChildren<any>) {
   const checkLogin = async () => {
     // 获取URL中的微信登录码
     const wxLoginCode = getUrlCode();
-    console.log("getWinxinLoginUrl", getWinxinLoginUrl());
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
       return;
