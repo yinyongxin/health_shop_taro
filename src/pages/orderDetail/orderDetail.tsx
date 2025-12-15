@@ -125,19 +125,10 @@ export default () => {
     );
   }
 
-  const getQrCode = (info: OrderDetail) => {
-    if (
-      (info?.serviceList && info.serviceList.length > 0) ||
-      orderDetailRequest.data?.order.status !== 2
-    ) {
-      return;
-    }
-    return <QrCode className="pb-[24px]" />;
-  };
-
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
+
   return (
     <>
       <BasePage className="pb-[200px]">
@@ -169,8 +160,6 @@ export default () => {
                   shadow={false}
                 />
               ))}
-            {orderDetailRequest.data?.order &&
-              getQrCode(orderDetailRequest.data?.order)}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"

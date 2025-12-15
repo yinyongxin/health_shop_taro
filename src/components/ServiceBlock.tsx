@@ -25,10 +25,15 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
                 <View className="flex flex-col gap-[16px]">
                   {serviceList.map((item, index) => {
                     return (
-                      <View className="flex gap-[24px]" key={item.id}>
-                        <View className="text-gray-500">{index + 1}</View>
+                      <View
+                        className="flex items-center gap-[24px]"
+                        key={item.id}
+                      >
+                        <View className="text-gray-500 bg-gray-200 w-[32px] h-[32px] flex items-center justify-center rounded-full">
+                          {index + 1}
+                        </View>
                         <View className="flex-1">{item.itemName}</View>
-                        <View className="text-amber-500">
+                        <View className="text-amber-500 font-semibold">
                           {item?.num || item?.qty}
                         </View>
                       </View>
