@@ -1,6 +1,5 @@
 import { useAppUserStore } from "@/stores";
 import { LucideIcon, TabBar } from "@/components";
-import { ReactNode } from "react";
 import { Home } from "./Home";
 import My from "./My";
 import { Classify } from "./Classify";
@@ -33,20 +32,32 @@ const tabs = [
   },
 ] as const;
 
-type Values = (typeof tabs)[number]["value"];
-
 export default () => {
   const appUserStore = useAppUserStore();
 
-  const content: Record<Values, ReactNode> = {
-    home: <Home />,
-    my: <My />,
-    classify: <Classify />,
-  };
-
   return (
     <>
-      {content[appUserStore.tabActive as Values]}
+      <div
+        style={{
+          display: appUserStore.tabActive === "home" ? "block" : "none",
+        }}
+      >
+        <Home />
+      </div>
+      <div
+        style={{
+          display: appUserStore.tabActive === "my" ? "block" : "none",
+        }}
+      >
+        <My />
+      </div>
+      <div
+        style={{
+          display: appUserStore.tabActive === "classify" ? "block" : "none",
+        }}
+      >
+        <Classify />
+      </div>
 
       <TabBar
         currentActive={appUserStore.tabActive}
