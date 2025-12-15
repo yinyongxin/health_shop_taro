@@ -1,7 +1,5 @@
 import { client } from "@/client/client.gen";
-import { getUrlCode, jumpWxGetCode } from "@/utils";
-import { getWxRedirectByAppIdGreet } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
+import { jumpWxGetCode } from "@/utils";
 import { createAppStore } from "./base";
 
 export interface AppAuthFieldsState {
