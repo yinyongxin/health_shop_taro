@@ -19,12 +19,12 @@ const MyService = () => {
     },
     {
       label: "服务中",
-      value: "2",
+      value: "1",
       icon: "handshake",
     },
     {
       label: "已结束",
-      value: "3",
+      value: "2",
       icon: "user-round-x",
     },
   ];
