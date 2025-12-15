@@ -55,6 +55,11 @@ import type {
   GetWxShopOrderCancelResponses,
   GetWxShopOrderPay2Data,
   GetWxShopOrderPay2Responses,
+  GetWxShopBannerListData,
+  GetWxShopBannerListResponses,
+  GetWxShopBannerListErrors,
+  GetWxShopMyServiceOrderData,
+  GetWxShopMyServiceOrderResponses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -505,6 +510,41 @@ export const getWxShopOrderPay2 = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/order/pay2",
+    ...options,
+  });
+};
+
+/**
+ * 获取机构的banner列表
+ */
+export const getWxShopBannerList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopBannerListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopBannerListResponses,
+    GetWxShopBannerListErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/banner/list",
+    ...options,
+  });
+};
+
+/**
+ * 我的服务类订单
+ * 服务类订单，返回所有订单的服务。
+ */
+export const getWxShopMyServiceOrder = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopMyServiceOrderData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopMyServiceOrderResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/my/service/order",
     ...options,
   });
 };

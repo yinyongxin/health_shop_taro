@@ -1,10 +1,8 @@
-import { AppTabList, BasePage } from "@/components";
+import { AppTabList, AppTabListItem, BasePage } from "@/components";
 import { useEffect, useRef, useState } from "react";
-import { useAppUserStore } from "@/stores";
-import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopOrderMy, OrderInfo } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
+import { getWxShopMyServiceOrder, OrderInfo } from "@/client";
+import { View } from "@tarojs/components";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
@@ -13,29 +11,30 @@ import { Skeleton } from "./Skeleton";
 
 const MyService = () => {
   const pageParams = usePageParams<"orderList">();
-  const { orderStatusList } = useAppUserStore();
   const tabs = [
     {
       label: "全部",
-      value: "all",
+      value: "3",
       icon: "grid-2x2",
     },
-    ...orderStatusList.map((item, index) => {
-      return {
-        label: item.dictLabel,
-        value: item.dictValue,
-        icon: OrderStatusIcon[index],
-      };
-    }),
+    {
+      label: "服务中",
+      value: "2",
+      icon: "handshake",
+    },
+    {
+      label: "已结束",
+      value: "3",
+      icon: "user-round-x",
+    },
   ];
-  const [active, setActive] = useState(pageParams.status || "all");
+  const [active, setActive] = useState("3");
 
   const dataRequest = useRequest(
     async (pageNum: number = 1, pageSize?: number) => {
-      const res = await getWxShopOrderMy({
+      const res = await getWxShopMyServiceOrder({
         query: {
-          orgId: APP_ENV_CONFIG.ORG_ID,
-          status: active === "all" ? undefined : active,
+          unUsed: Number(active),
           pageNum: pageNum.toString(),
           pageSize: pageSize?.toString() ?? "10",
         },
@@ -80,19 +79,15 @@ const MyService = () => {
   });
 
   return (
-    <BasePage
-      // bgProps={{ className: "page-bg" }}
-      fullScreen
-      className="flex-1 myLikeList"
-    >
-      {pageParams.status === "all" && (
+    <BasePage fullScreen className="flex-1 myLikeList">
+      <View>
         <AppTabList
           className="bg-none"
           active={active}
           tabs={tabs}
           onChange={setActive}
         />
-      )}
+      </View>
       {(dataRequest.loading && !dataRequest.data) || pageLoading ? (
         <Skeleton />
       ) : (

@@ -41,6 +41,18 @@ export type SubCategoryInfo = {
   logo?: string;
 };
 
+export type BannerItem = {
+  productId?: string;
+  imagePath: string;
+  name: string;
+  orgId: string;
+  updatedAt: string;
+  bannerOrder: number;
+  bannerType: string;
+  createdAt: string;
+  id: string;
+};
+
 export type OrderDetail = {
   id: number;
   orderNo: string;
@@ -888,6 +900,62 @@ export type GetWxShopOrderPay2Responses = {
 
 export type GetWxShopOrderPay2Response =
   GetWxShopOrderPay2Responses[keyof GetWxShopOrderPay2Responses];
+
+export type GetWxShopBannerListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/shop/banner/list";
+};
+
+export type GetWxShopBannerListErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopBannerListError =
+  GetWxShopBannerListErrors[keyof GetWxShopBannerListErrors];
+
+export type GetWxShopBannerListResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: Array<BannerItem>;
+  };
+};
+
+export type GetWxShopBannerListResponse =
+  GetWxShopBannerListResponses[keyof GetWxShopBannerListResponses];
+
+export type GetWxShopMyServiceOrderData = {
+  body?: never;
+  path?: never;
+  query?: {
+    pageSize?: string;
+    pageNum?: string;
+    /**
+     * 1:未核销完的服务，2：已经核销完的。3：全部
+     */
+    unUsed?: number;
+  };
+  url: "/wx/shop/my/service/order";
+};
+
+export type GetWxShopMyServiceOrderResponses = {
+  200: {
+    total: number;
+    rows: Array<OrderInfo>;
+    code: number;
+    msg: unknown;
+  };
+};
+
+export type GetWxShopMyServiceOrderResponse =
+  GetWxShopMyServiceOrderResponses[keyof GetWxShopMyServiceOrderResponses];
 
 export type ClientOptions = {
   baseURL: string;
