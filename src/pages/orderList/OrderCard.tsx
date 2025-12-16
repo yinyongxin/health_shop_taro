@@ -1,6 +1,5 @@
 import { OrderInfo } from "@/client";
-import { AppButton, ServiceBlock } from "@/components";
-import { CartWareCard } from "@/components/CartWareCard";
+import { AppButton, ServiceBlock, CartWareCard } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
@@ -80,7 +79,6 @@ export const OrderCard = (props: OrderCardProps) => {
               key={item.id}
               info={item}
               border={false}
-              showNumControl={false}
               shadow={false}
             />
           ))}

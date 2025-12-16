@@ -4,7 +4,6 @@ import {
   getWxShopOrderDetail,
   getWxShopOrderPay2,
   postWxShopAddrViewById,
-  postWxShopOrderPay,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import {
@@ -13,11 +12,11 @@ import {
   AppPopup,
   BasePage,
   LucideIcon,
+  AppFixedBottom,
+  CartWareCard,
 } from "@/components";
 import { AddressList } from "@/components/AddressList";
 import { AddressCard } from "@/components/AddressList/AddressCard";
-import { AppFixedBottom } from "@/components/AppFixedBottom";
-import { CartWareCard } from "@/components/CartWareCard";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
@@ -200,7 +199,6 @@ const OrderPayPage = () => {
                 key={item.id}
                 info={item}
                 border={false}
-                showNumControl={false}
                 shadow={false}
               />
             ))}

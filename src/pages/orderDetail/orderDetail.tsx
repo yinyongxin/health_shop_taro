@@ -1,8 +1,7 @@
-import { AppButton, BasePage, ServiceBlock } from "@/components";
+import { AppButton, BasePage, ServiceBlock, CartWareCard } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
-import { CartWareCard } from "@/components/CartWareCard";
 import {
   AddressInfo,
   getWxShopOrderCancel,
@@ -155,7 +154,6 @@ export default () => {
                   key={item.id}
                   info={item}
                   border={false}
-                  showNumControl={false}
                   shadow={false}
                 />
               ))}

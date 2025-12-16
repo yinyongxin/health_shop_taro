@@ -16,3 +16,5 @@ export * from "./AppButton";
 export * from "./AppPopup";
 export * from "./QrCode";
 export * from "./ServiceBlock";
+export * from "./CartWareCard";
+export * from "./AppFixedBottom";

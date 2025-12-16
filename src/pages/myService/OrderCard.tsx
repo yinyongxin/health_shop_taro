@@ -80,7 +80,6 @@ export const OrderCard = (props: OrderCardProps) => {
               key={item.id}
               info={item}
               border={false}
-              showNumControl={false}
               shadow={false}
             />
           ))}
