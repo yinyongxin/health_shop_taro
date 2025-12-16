@@ -3,6 +3,7 @@ import { AppButton, ServiceBlock, CartWareCard } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
+import { safeJson } from "@/utils";
 import { View, Text } from "@tarojs/components";
 
 type OrderCardProps = {
@@ -72,15 +73,22 @@ export const OrderCard = (props: OrderCardProps) => {
         {/* {info.serviceList && info.serviceList.length > 0 && (
           <ServiceBlock serviceList={info.serviceList} />
         )} */}
-        {info.productList.map((item) => {
-          return item.services.map((service) => {
+        {info.productList.map((product) => {
+          return product.services.map((service) => {
             return (
               <CartWareCard
+                itemName={
+                  Object.values(
+                    safeJson.parse(service?.itemName || "", {}),
+                  )[0] as string
+                }
                 key={service.itemId}
-                info={service}
+                productName={product.productName}
+                productImage={product.productImage}
+                productId={product.productId}
                 border={false}
-                showNumControl={false}
                 shadow={false}
+                price={service.price}
               />
             );
           });

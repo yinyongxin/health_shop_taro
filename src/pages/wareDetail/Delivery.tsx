@@ -1,4 +1,4 @@
-import { ProductInfo, SkuInfo } from "@/client";
+import { ProductInfo, SkuListItem } from "@/client";
 import { LucideIcon, AppTag } from "@/components";
 import Box from "@/components/Box";
 import { safeJson } from "@/utils";

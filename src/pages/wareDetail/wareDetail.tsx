@@ -13,7 +13,7 @@ import {
   AddressInfo,
   getWxShopProductDetail,
   postWxShopOrderPay,
-  SkuInfo,
+  SkuListItem,
 } from "@/client";
 import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
@@ -35,7 +35,7 @@ const WareDetail = () => {
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
   const [quantity, setQuantity] = useState(1);
-  const [currentSku, setCurrentSku] = useState<SkuInfo>();
+  const [currentSku, setCurrentSku] = useState<SkuListItem>();
 
   // 默认地址
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
@@ -55,7 +55,7 @@ const WareDetail = () => {
   });
 
   const handlePay = useRequest(
-    async (sku: SkuInfo) => {
+    async (sku: SkuListItem) => {
       if (!productInfo) {
         return;
       }

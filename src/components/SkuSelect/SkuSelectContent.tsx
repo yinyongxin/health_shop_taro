@@ -1,4 +1,4 @@
-import { ProductInfo, SkuInfo } from "@/client";
+import { ProductInfo, SkuListItem } from "@/client";
 import { View, Text } from "@tarojs/components";
 import { isIOS, safeJson } from "@/utils";
 import classNames from "classnames";
@@ -8,8 +8,8 @@ import { AppTag } from "../AppTag";
 
 type SkuSelectContentProps = {
   data: ProductInfo;
-  currentSku: SkuInfo;
-  setCurrentSku: (sku: SkuInfo) => void;
+  currentSku: SkuListItem;
+  setCurrentSku: (sku: SkuListItem) => void;
   quantity: number;
   quantityChange: (quantity: number) => void;
 };
