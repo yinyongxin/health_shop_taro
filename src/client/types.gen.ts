@@ -6,8 +6,8 @@ export type CartItem = {
   orgId?: string;
   productId?: number;
   productName?: string;
-  skuId?: number;
-  skuName?: string;
+  itemId?: number;
+  itemName?: string;
   quantity?: number;
   price?: number;
   serviceDate?: unknown;

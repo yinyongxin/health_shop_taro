@@ -24,7 +24,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
   };
 
   const skuNames = Object.values(
-    safeJson.parse(info?.skuName || "", {}),
+    safeJson.parse(info?.itemName || "", {}),
   ) as string[];
 
   return (
