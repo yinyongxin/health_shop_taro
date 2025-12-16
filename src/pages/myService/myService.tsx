@@ -1,7 +1,7 @@
 import { AppTabList, BasePage } from "@/components";
 import { useEffect, useRef, useState } from "react";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopMyServiceOrder, OrderInfo } from "@/client";
+import { getWxShopMyServiceOrder, OrderListItem } from "@/client";
 import { View } from "@tarojs/components";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
@@ -29,7 +29,7 @@ const MyService = () => {
       icon: "user-round-x",
     },
   ];
-  const [active, setActive] = useState("3");
+  const [active, setActive] = useState("1");
 
   const dataRequest = useRequest(
     async (pageNum: number = 1, pageSize?: number) => {
@@ -40,7 +40,7 @@ const MyService = () => {
           pageSize: pageSize?.toString() ?? "10",
         },
       });
-      let list: OrderInfo[] = [];
+      let list: OrderListItem[] = [];
       if (pageNum !== 1) {
         list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
       } else {
