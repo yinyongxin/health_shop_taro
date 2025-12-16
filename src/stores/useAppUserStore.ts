@@ -1,11 +1,8 @@
-import { calculateTotalPrice } from "@/utils/price";
 import {
   AddressInfo,
-  CartInfo,
   DictItem,
   getWxRedirectQueryDict,
   getWxShopAddrList,
-  getWxShopCartLoad,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { createAppStore } from "./base";
@@ -18,11 +15,6 @@ export type CartListItem = {
 interface AppUserState {
   tabActive: string;
   updateTabActive: (value: string) => void;
-  cartInfo: CartInfo;
-  updateCartInfo: () => Promise<{
-    cartInfo: CartInfo;
-    totalPrice: number;
-  }>;
   addressList: AddressInfo[];
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;
@@ -37,35 +29,7 @@ export const useAppUserStore = createAppStore<AppUserState>(
     updateTabActive: (tabActive) => {
       set({ tabActive });
     },
-    cartInfo: {
-      id: 0,
-      userId: "",
-      orgId: "",
-      sessionId: undefined,
-      createdAt: "",
-      updatedAt: "",
-      itemList: [],
-    },
     totalPrice: 0,
-    updateCartInfo: async () => {
-      const res = await getWxShopCartLoad({
-        query: {
-          orgId: APP_ENV_CONFIG.ORG_ID,
-        },
-      });
-      if (res.data?.code !== 0) {
-        return {
-          cartInfo: get().cartInfo,
-          totalPrice: get().totalPrice,
-        };
-      }
-      const data = {
-        cartInfo: res.data.data,
-        totalPrice: calculateTotalPrice(res.data.data.itemList),
-      };
-      set(data);
-      return data;
-    },
     addressList: [],
     updateAddressList: async () => {
       const res = await getWxShopAddrList({
