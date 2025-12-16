@@ -1,5 +1,4 @@
 import { getWxShopProductSearch, ProductInfo } from "@/client";
-import { View } from "@tarojs/components";
 import { useRequest } from "@/hooks";
 import { APP_ENV_CONFIG } from "@/common";
 import { SearchWareCard, SearchWareCardProps } from ".";

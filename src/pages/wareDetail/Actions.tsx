@@ -1,6 +1,5 @@
 import { ProductInfo } from "@/client";
-import { AppButton, AppPopup } from "@/components";
-import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
+import { AppButton } from "@/components";
 import { usePopupControl } from "@/hooks";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
@@ -55,9 +54,6 @@ export const Actions = (props: ActionsProps) => {
           </AppButton>
         </View>
       </View>
-      <AppPopup title="购物车" {...popupControl}>
-        <CartWareCardList />
-      </AppPopup>
     </>
   );
 };
