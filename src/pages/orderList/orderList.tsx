@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopOrderMy, OrderInfo } from "@/client";
+import { getWxShopOrderMy, OrderListItem } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
@@ -41,7 +41,7 @@ const OrderList = () => {
           pageSize: pageSize?.toString() ?? "10",
         },
       });
-      let list: OrderInfo[] = [];
+      let list: OrderListItem[] = [];
       if (pageNum !== 1) {
         list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
       } else {
