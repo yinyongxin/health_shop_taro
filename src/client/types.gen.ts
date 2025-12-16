@@ -97,30 +97,16 @@ export type OrderDetail = {
   itemList: Array<CartItem>;
 };
 
-export type OrderInfo = {
-  id: number;
+export type OrderListItem = {
   orderNo: string;
-  orgId: string;
-  userId: string;
-  addressId: number;
-  totalAmount: number;
-  paymentAmount: number;
-  freightAmount: number;
-  discountAmount: number;
-  paymentType: unknown;
-  paymentTime: unknown;
   status: number;
-  deliveryCompany: unknown;
-  deliveryNo: unknown;
-  deliveryTime: unknown;
-  receiveTime: unknown;
-  createdAt: string;
-  updatedAt: string;
-  remark: unknown;
-  applyPayNo: unknown;
-  payId: unknown;
-  serviceList: Array<ServiceInfo>;
-  itemList: Array<CartItem>;
+  productList: Array<{
+    productId: string;
+    productImage: string;
+    productName: string;
+    services: Array<string>;
+  }>;
+  paymentAmount: number;
 };
 
 export type AddressInfo = {
@@ -570,7 +556,7 @@ export type GetWxShopOrderMyData = {
 export type GetWxShopOrderMyResponses = {
   200: {
     total: number;
-    rows: Array<OrderInfo>;
+    rows: Array<OrderListItem>;
     code: number;
     msg: unknown;
   };
@@ -772,7 +758,7 @@ export type GetWxShopMyServiceOrderData = {
 export type GetWxShopMyServiceOrderResponses = {
   200: {
     total: number;
-    rows: Array<OrderInfo>;
+    rows: Array<OrderListItem>;
     code: number;
     msg: unknown;
   };

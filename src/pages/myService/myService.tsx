@@ -15,17 +15,17 @@ const MyService = () => {
   const tabs = [
     {
       label: "全部",
-      value: "3",
+      value: "1",
       icon: "grid-2x2",
     },
     {
       label: "服务中",
-      value: "1",
+      value: "2",
       icon: "handshake",
     },
     {
       label: "已结束",
-      value: "2",
+      value: "3",
       icon: "user-round-x",
     },
   ];
@@ -35,7 +35,7 @@ const MyService = () => {
     async (pageNum: number = 1, pageSize?: number) => {
       const res = await getWxShopMyServiceOrder({
         query: {
-          unUsed: Number(active),
+          status: Number(active),
           pageNum: pageNum.toString(),
           pageSize: pageSize?.toString() ?? "10",
         },
