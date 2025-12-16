@@ -21,7 +21,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast } from "@/utils";
+import { appLoading, appToast, safeJson } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
@@ -49,16 +49,18 @@ const OrderPayPage = () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
+  const { data } = orderDetailRequest;
+
   /** 是否取消订单 */
-  const isCancel = orderDetailRequest.data?.order.status === 4;
+  const isCancel = data?.order.status === 4;
 
   const initAddress = async () => {
-    if (!orderDetailRequest.data?.order.addressId) {
+    if (!data?.order.addressId) {
       return;
     }
     const getAddressRes = await postWxShopAddrViewById({
-      path: { id: orderDetailRequest.data?.order.addressId.toString() },
-      query: { orgId: orderDetailRequest.data?.order.addressId.toString() },
+      path: { id: data?.order.addressId.toString() },
+      query: { orgId: data?.order.addressId.toString() },
     });
     if (getAddressRes.data?.code === 0) {
       setCurrentAddress(getAddressRes.data?.data);
@@ -68,10 +70,10 @@ const OrderPayPage = () => {
   };
 
   useEffect(() => {
-    if (orderDetailRequest.data) {
+    if (data) {
       initAddress();
     }
-  }, [orderDetailRequest.data?.order]);
+  }, [data?.order]);
 
   const updataOrderAddress = async () => {
     try {
@@ -99,12 +101,12 @@ const OrderPayPage = () => {
         appRouter.navigateTo("addAddress");
         return;
       }
-      if (!orderDetailRequest.data?.order.orderNo) {
+      if (!data?.order.orderNo) {
         return;
       }
       const payRes = await getWxShopOrderPay2({
         query: {
-          orderNo: orderDetailRequest.data.order.orderNo,
+          orderNo: data.order.orderNo,
         },
       });
       if (payRes.data?.code !== 0 || !payRes?.data?.data) {
@@ -141,7 +143,7 @@ const OrderPayPage = () => {
     );
   }
 
-  if (orderDetailRequest.loading && !orderDetailRequest.data) {
+  if (orderDetailRequest.loading && !data) {
     return <Skeleton />;
   }
   return (
@@ -151,7 +153,7 @@ const OrderPayPage = () => {
           <View className="text-[32px] font-semibold text-rose-500 flex justify-center items-center gap-2 mt-[24px]">
             支付倒计时
             <Countdown
-              value={dayjs(orderDetailRequest.data?.order.createdAt)
+              value={dayjs(data?.order.createdAt)
                 .add(30, "minute")
                 .diff(dayjs(), "ms")}
               format="mm:ss"
@@ -192,14 +194,22 @@ const OrderPayPage = () => {
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
             <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
-              <View>共{orderDetailRequest.data?.itemList.length}件商品</View>
+              <View>共{data?.order.itemList.length}件商品</View>
             </View>
-            {orderDetailRequest.data?.itemList?.map((item) => (
+            {data?.order.itemList?.map((item) => (
               <CartWareCard
-                key={item.id}
-                info={item}
+                itemName={
+                  Object.values(
+                    safeJson.parse(item.itemName || "", {}),
+                  )[0] as string
+                }
+                key={item.itemId}
+                productName={data.productName}
+                productImage={data.productImage}
+                productId={data.productId}
                 border={false}
                 shadow={false}
+                price={item.price}
               />
             ))}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
@@ -209,7 +219,7 @@ const OrderPayPage = () => {
                 value={
                   <View className="text-[32px]">
                     <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.totalAmount}</Text>
+                    <Text>{data?.order.totalAmount}</Text>
                   </View>
                 }
               />
@@ -219,7 +229,7 @@ const OrderPayPage = () => {
                 value={
                   <View className="text-[32px]">
                     <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.freightAmount}</Text>
+                    <Text>{data?.order.freightAmount}</Text>
                   </View>
                 }
               />
@@ -230,7 +240,7 @@ const OrderPayPage = () => {
                   <View className="text-[32px] text-rose-500">
                     <Text>-</Text>
                     <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.discountAmount}</Text>
+                    <Text>{data?.order.discountAmount}</Text>
                   </View>
                 }
               />
@@ -242,9 +252,7 @@ const OrderPayPage = () => {
                   value={
                     <View className="text-[32px] font-semibold">
                       <Text>￥</Text>
-                      <Text>
-                        {orderDetailRequest.data?.order.paymentAmount}
-                      </Text>
+                      <Text>{data?.order.paymentAmount}</Text>
                     </View>
                   }
                 />
@@ -252,14 +260,8 @@ const OrderPayPage = () => {
             </View>
           </View>
           <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
-            <InfoCardItem
-              label="订单编号"
-              value={orderDetailRequest.data?.order.orderNo}
-            />
-            <InfoCardItem
-              label="下单时间"
-              value={orderDetailRequest.data?.order.createdAt}
-            />
+            <InfoCardItem label="订单编号" value={data?.order.orderNo} />
+            <InfoCardItem label="下单时间" value={data?.order.createdAt} />
           </View>
           <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
             <AppCell
@@ -280,7 +282,7 @@ const OrderPayPage = () => {
         <AppFixedBottom className="flex gap-2">
           {/* <AppButton
             round
-            disabled={!orderDetailRequest.data?.order.orderNo}
+            disabled={!data?.order.orderNo}
             className="flex-1"
             loading={orderPayRequest.loading}
             status="primary"
@@ -293,7 +295,7 @@ const OrderPayPage = () => {
           </AppButton> */}
           <AppButton
             status="error"
-            disabled={!orderDetailRequest.data?.order.orderNo}
+            disabled={!data?.order.orderNo}
             className="flex-2"
             loading={orderPayRequest.loading}
             onClick={() => {
