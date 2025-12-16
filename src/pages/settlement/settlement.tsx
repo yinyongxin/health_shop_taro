@@ -1,6 +1,5 @@
 import { AppButton, AppCell, BasePage, LucideIcon } from "@/components";
 import { AddressCard } from "@/components/AddressList/AddressCard";
-import { CartWareCardList } from "@/components/CartWareCard/SearchWareCardList";
 import { usePageParams } from "@/hooks";
 import { appRouter } from "@/router";
 import { calculateTotalPrice } from "@/utils/price";
@@ -20,14 +19,6 @@ export default () => {
 
         <View className="px-[24px] pt-[24px]">
           <View className="bg-white rounded-lg pb-[12px]">
-            <CartWareCardList
-              data={pageParams.list}
-              className="gap-0!"
-              cartWareCardProps={{
-                showNumControl: false,
-                shadow: false,
-              }}
-            />
             <View className="flex justify-between px-[24px] py-[12px]">
               <View className="text-gray-500">配送</View>
               <View className="font-semibold">预计2026-01-01送达</View>
