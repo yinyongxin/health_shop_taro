@@ -79,7 +79,7 @@ export const OrderCard = (props: OrderCardProps) => {
               <CartWareCard
                 itemName={
                   Object.values(
-                    safeJson.parse(service?.itemName || "", {}),
+                    safeJson.parse(service.itemName || "", {}),
                   )[0] as string
                 }
                 key={service.itemId}

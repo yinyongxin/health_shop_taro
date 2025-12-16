@@ -101,8 +101,8 @@ const WareDetail = () => {
                 productName: productInfo.name,
                 skuList: [
                   {
-                    skuId: sku.id,
-                    skuName: sku.specs,
+                    itemId: sku.id,
+                    itemName: sku.specs,
                     num: quantity,
                     price: sku.price,
                   },
