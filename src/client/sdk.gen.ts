@@ -19,19 +19,8 @@ import type {
   GetWxShopProductSearchErrors,
   GetWxShopProductDetailData,
   GetWxShopProductDetailResponses,
-  PostWxShopCartAddData,
-  PostWxShopCartAddResponses,
-  GetWxShopCartLoadData,
-  GetWxShopCartLoadResponses,
-  GetWxShopCartDeleteData,
-  GetWxShopCartDeleteResponses,
-  PostWxShopOrderCreateData,
-  PostWxShopOrderCreateResponses,
   PostWxShopOrderPayData,
   PostWxShopOrderPayResponses,
-  PostWxShopCartUpdateData,
-  PostWxShopCartUpdateResponses,
-  PostWxShopCartUpdateErrors,
   GetWxShopAddrListData,
   GetWxShopAddrListResponses,
   PostWxShopAddrAddData,
@@ -201,82 +190,6 @@ export const getWxShopProductDetail = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * （废弃）加入购物车
- */
-export const postWxShopCartAdd = <ThrowOnError extends boolean = false>(
-  options?: Options<PostWxShopCartAddData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    PostWxShopCartAddResponses,
-    unknown,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/shop/cart/add",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-  });
-};
-
-/**
- * （废弃）获取购物车信息
- */
-export const getWxShopCartLoad = <ThrowOnError extends boolean = false>(
-  options?: Options<GetWxShopCartLoadData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    GetWxShopCartLoadResponses,
-    unknown,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/shop/cart/load",
-    ...options,
-  });
-};
-
-/**
- * （废弃）删除购物车商品
- */
-export const getWxShopCartDelete = <ThrowOnError extends boolean = false>(
-  options?: Options<GetWxShopCartDeleteData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).get<
-    GetWxShopCartDeleteResponses,
-    unknown,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/shop/cart/delete",
-    ...options,
-  });
-};
-
-/**
- * （废弃）生成订单
- */
-export const postWxShopOrderCreate = <ThrowOnError extends boolean = false>(
-  options?: Options<PostWxShopOrderCreateData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    PostWxShopOrderCreateResponses,
-    unknown,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/shop/order/create",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-  });
-};
-
-/**
  * 立即购买
  */
 export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
@@ -289,27 +202,6 @@ export const postWxShopOrderPay = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/order/pay",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-  });
-};
-
-/**
- * （废弃）更新购物车商品的数量
- */
-export const postWxShopCartUpdate = <ThrowOnError extends boolean = false>(
-  options?: Options<PostWxShopCartUpdateData, ThrowOnError>,
-) => {
-  return (options?.client ?? _heyApiClient).post<
-    PostWxShopCartUpdateResponses,
-    PostWxShopCartUpdateErrors,
-    ThrowOnError
-  >({
-    responseType: "json",
-    url: "/wx/shop/cart/update",
     ...options,
     headers: {
       "Content-Type": "application/json",
