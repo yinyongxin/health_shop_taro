@@ -28,11 +28,7 @@ export const ServiceList = (props: ServiceListProps) => {
         serviceList.map((service) => {
           return (
             <CartWareCard
-              itemName={
-                Object.values(
-                  safeJson.parse(service.itemName || "", {}),
-                )[0] as string
-              }
+              itemName={service.itemName}
               key={service.itemId}
               product={product}
               border={false}
