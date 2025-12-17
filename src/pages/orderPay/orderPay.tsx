@@ -182,7 +182,12 @@ const OrderPayPage = () => {
         />
       ));
     }
-    return <ServiceBlock serviceList={serviceList} />;
+    return (
+      <ServiceBlock
+        productName={orderDetail.itemList[0].productName!}
+        serviceList={serviceList}
+      />
+    );
   };
   return (
     <>
