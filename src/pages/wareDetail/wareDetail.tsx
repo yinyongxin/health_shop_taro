@@ -22,7 +22,7 @@ import { useAppUserStore } from "@/stores";
 import { useState } from "react";
 import Box from "@/components/Box";
 import { orderPayByWx } from "@/utils/order";
-import { add, multiply, subtract } from "lodash-es";
+import { add, multiply, round, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -61,23 +61,26 @@ const WareDetail = () => {
      * 订单总金额
      * 规格现价 * 数量 + 运费
      */
-    const totalAmount = add(
-      multiply(quantity, currentSku?.price || 0),
-      freightAmount,
+    const totalAmount = round(
+      add(multiply(quantity, currentSku?.price || 0), freightAmount),
+      2,
     );
     /**
      * 优惠金额
      * 数量 * (规格原价 - 规格现价)
      */
-    const discountAmount = multiply(
-      quantity,
-      subtract(currentSku?.originalPrice || 0, currentSku?.price || 0),
+    const discountAmount = round(
+      multiply(
+        quantity,
+        subtract(currentSku?.originalPrice || 0, currentSku?.price || 0),
+      ),
+      2,
     );
     /**
      * 实际支付金额
      * 订单总金额-优惠金额
      */
-    const paymentAmount = subtract(totalAmount, discountAmount);
+    const paymentAmount = round(subtract(totalAmount, discountAmount), 2);
     return {
       freightAmount,
       totalAmount,
@@ -145,20 +148,20 @@ const WareDetail = () => {
      * 总价
      * 商品现价 + 运费
      */
-    const totalAmount = add(productInfo?.price || 0, freightAmount);
+    const totalAmount = round(add(productInfo?.price || 0, freightAmount), 2);
     /**
      * 优惠金额
      * 商品原价 - 商品现价
      */
-    const discountAmount = subtract(
-      productInfo?.originalPrice || 0,
-      productInfo?.price || 0,
+    const discountAmount = round(
+      subtract(productInfo?.originalPrice || 0, productInfo?.price || 0),
+      2,
     );
     /**
      * 实际支付金额
      * 总价 - 优惠金额
      */
-    const paymentAmount = subtract(totalAmount, discountAmount);
+    const paymentAmount = round(subtract(totalAmount, discountAmount), 2);
     return {
       freightAmount,
       totalAmount,
