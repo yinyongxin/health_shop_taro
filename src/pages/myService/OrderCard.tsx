@@ -15,19 +15,19 @@ export const OrderCard = (props: OrderCardProps) => {
   const appUserStore = useAppUserStore();
 
   const getActions = () => {
-    if (info.status === 0) {
+    if (info.status === 2) {
       return (
         <AppButton
           actived={false}
           size="sm"
-          status="error"
+          status="success"
           onClick={() => {
             appRouter.navigateTo("orderPay", {
               query: { orderNo: info.orderNo },
             });
           }}
         >
-          去支付
+          去使用
         </AppButton>
       );
     }
