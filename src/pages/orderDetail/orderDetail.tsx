@@ -10,7 +10,7 @@ import {
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast, getServiceStatusText } from "@/utils";
+import { appLoading, appToast } from "@/utils";
 import { Dialog, Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";

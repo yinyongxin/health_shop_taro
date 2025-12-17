@@ -48,9 +48,9 @@ const WareDetail = () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    const { itemsList = [] } = res?.data?.data || {};
-    if (itemsList && itemsList.length > 0) {
-      setCurrentSku(itemsList[0]);
+    const { skuList = [] } = res?.data?.data || {};
+    if (skuList && skuList.length > 0) {
+      setCurrentSku(skuList[0]);
     }
     return res.data?.data;
   });
@@ -207,13 +207,21 @@ const WareDetail = () => {
 
   const isFW = productInfo?.type === "FW";
 
-  const serviceList: OrderListItem["productList"][number]["services"] =
-    productInfo.itemsList.map((item) => ({
-      ...item,
-      num: item.qty,
-      qrCode: "",
-      serviceDate: "",
-    }));
+  const getServiceBlock = () => {
+    if (!isFW) {
+      return;
+    }
+    const serviceList: OrderListItem["productList"][number]["services"] =
+      productInfo.itemsList
+        ? productInfo.itemsList?.map((item) => ({
+            ...item,
+            num: item.qty,
+            qrCode: "",
+            serviceDate: "",
+          }))
+        : [];
+    return <ServiceBlock serviceList={serviceList} />;
+  };
   return (
     <BasePage>
       <>
@@ -236,7 +244,7 @@ const WareDetail = () => {
             <BaseInfo info={productInfo} />
           </View>
           <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
-            {isFW && <ServiceBlock serviceList={serviceList} />}
+            {getServiceBlock()}
             <Box
               bgProps={{
                 className: "bg-white rounded-lg",
@@ -290,7 +298,7 @@ const WareDetail = () => {
               </View>
             }
           >
-            <ServiceBlock serviceList={serviceList} />
+            {getServiceBlock()}
           </AppPopup>
         ) : (
           <AppPopup

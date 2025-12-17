@@ -20,6 +20,19 @@ export type CartItem = {
   usedQty: number;
 };
 
+export type SkuListItem = {
+  id: number;
+  image: string;
+  orgId: string;
+  originalPrice: number;
+  price: number;
+  productId: number;
+  skuCode: string;
+  specs: string;
+  status: number;
+  stock: number;
+};
+
 export type ServiceInfo = {
   id: number;
   itemId: number;
@@ -158,7 +171,8 @@ export type ProductInfo = {
   sortOrder: number;
   createdAt: string;
   updatedAt: string;
-  itemsList: Array<ServiceInfo>;
+  itemsList?: Array<ServiceInfo>;
+  skuList?: Array<SkuListItem>;
 };
 
 export type CateInfo = {
