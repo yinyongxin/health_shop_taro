@@ -18,7 +18,12 @@ export const ServiceList = (props: ServiceListProps) => {
   const isFW = isService === 1;
   return (
     <>
-      {isFW && <ServiceBlock serviceList={serviceList} />}
+      {isFW && (
+        <ServiceBlock
+          productName={product.productName}
+          serviceList={serviceList}
+        />
+      )}
       {!isFW &&
         serviceList.map((service) => {
           return (
