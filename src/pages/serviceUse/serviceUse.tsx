@@ -57,49 +57,6 @@ export default () => {
     initAddress();
   }, [orderDetailRequest.data?.order.addressId]);
 
-  const cancelOrder = async () => {
-    appLoading.show("取消订单中...");
-    const res = await getWxShopOrderCancel({
-      query: {
-        orderNo: orderDetailRequest.data?.order.orderNo,
-        orgId: APP_ENV_CONFIG.ORG_ID,
-      },
-    });
-    if (res.data?.code !== 0) {
-      appToast.error("取消订单失败");
-      return;
-    }
-    appToast.success("取消订单成功");
-    orderDetailRequest.run();
-  };
-
-  const renderBottomBtns = () => {
-    if (!orderDetailRequest.data?.order) {
-      return;
-    }
-    if ([1].includes(orderDetailRequest.data?.order.status)) {
-      return (
-        <AppFixedBottom>
-          <AppButton
-            status="error"
-            onClick={() => {
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "取消后不能恢复，确定取消订单吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
-            }}
-          >
-            取消订单并退款
-          </AppButton>
-        </AppFixedBottom>
-      );
-    }
-  };
-
   if (orderDetailRequest.error) {
     return (
       <Empty>
@@ -235,8 +192,6 @@ export default () => {
           )}
         </View>
       </BasePage>
-      {renderBottomBtns()}
-      {/* <AppFixedBottom></AppFixedBottom> */}
     </>
   );
 };

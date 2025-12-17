@@ -1,3 +1,4 @@
+import { DictItem } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   getSystemInfoSync,
@@ -184,3 +185,15 @@ export function removeUrlParameter(paramList: string[]) {
   // 使用 replaceState 更新 URL
   window.history.replaceState({}, document.title, url.href);
 }
+
+export const getServiceStatusText = (
+  status: number,
+  orderStatusList: DictItem[],
+) => {
+  if (status === 2) {
+    return "待使用";
+  }
+  return orderStatusList.find((item) => {
+    return item.dictValue === status.toString();
+  })?.dictLabel;
+};

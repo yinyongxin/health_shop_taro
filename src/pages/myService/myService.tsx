@@ -14,22 +14,17 @@ const MyService = () => {
   const pageParams = usePageParams<"orderList">();
   const tabs = [
     {
-      label: "全部",
-      value: "",
-      icon: "grid-2x2",
-    },
-    {
       label: "服务中",
       value: "2",
       icon: "handshake",
     },
     {
-      label: "已结束",
+      label: "已完成",
       value: "3",
       icon: "user-round-x",
     },
   ];
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("2");
 
   const dataRequest = useRequest(
     async (pageNum: number = 1, pageSize?: number) => {

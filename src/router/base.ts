@@ -24,6 +24,9 @@ export interface AllPagesQueryType
   orderDetail: {
     orderNo: string;
   };
+  serviceUse: {
+    orderNo: string;
+  };
   orderPay: {
     orderNo: string;
   };
