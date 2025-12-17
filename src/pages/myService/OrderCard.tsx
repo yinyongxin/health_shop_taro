@@ -44,17 +44,6 @@ export const OrderCard = (props: OrderCardProps) => {
         查看详情
       </AppButton>
     );
-    // }
-    return (
-      <>
-        <AppButton status="secondary" actived={false} size="sm">
-          查看物流
-        </AppButton>
-        <AppButton size="sm" actived={false}>
-          确认收货
-        </AppButton>
-      </>
-    );
   };
 
   const getStatusText = () => {
