@@ -191,7 +191,7 @@ export const getServiceStatusText = (
   orderStatusList: DictItem[],
 ) => {
   if (status === 2) {
-    return "待使用";
+    return "服务中";
   }
   return orderStatusList.find((item) => {
     return item.dictValue === status.toString();
