@@ -197,7 +197,7 @@ const OrderPayPage = () => {
             支付倒计时
             <Countdown
               value={dayjs(orderDetail.createdAt)
-                .add(30, "minute")
+                .add(29, "minute")
                 .diff(dayjs(), "ms")}
               format="mm:ss"
             />
