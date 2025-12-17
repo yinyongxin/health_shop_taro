@@ -23,7 +23,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast, safeJson } from "@/utils";
+import { appLoading, appToast } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
@@ -32,7 +32,6 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPayByWx } from "@/utils/order";
 import { Skeleton } from "./Skeleton";
-import { ServiceList } from "@/components/ServiceList";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
