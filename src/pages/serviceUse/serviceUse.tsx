@@ -85,6 +85,41 @@ export default () => {
             )}
           </View>
         </View>
+        <View className="mt-[24px] px-[24px] flex flex-col gap-[24px]">
+          {orderDetail.itemList.map((item) => {
+            let btn = (
+              <AppButton size="sm">
+                剩余{item.qty - item.usedQty}次，点击核销
+              </AppButton>
+            );
+
+            const surplus = item.qty - item.usedQty;
+            if (surplus === 0) {
+              btn = <AppButton size="sm">剩余{surplus}次，不可使用</AppButton>;
+            }
+            return (
+              <View key={item.id} className="bg-white rounded-lg">
+                <View className="p-[24px] flex flex-col gap-2">
+                  <View className="flex justify-between items-center">
+                    <View className="text-[32px] font-semibold">
+                      {item.itemName}
+                    </View>
+                    <View className="flex gap-[8px]">
+                      <View className="text-blue-500">共{item.qty}次</View>
+                      <View className="text-red-500">
+                        已使用{item.usedQty}次
+                      </View>
+                    </View>
+                  </View>
+                  <View className="flex justify-between items-end">
+                    <View>{item.qrCodeExpireTime}过期</View>
+                    <View>{btn}</View>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </View>
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
