@@ -7,7 +7,7 @@ import {
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
-import { View } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
@@ -312,7 +312,9 @@ const WareDetail = () => {
                     handleServerPay.run();
                   }}
                 >
-                  付款
+                  <Text className="text-[24px]">￥</Text>
+                  <Text>{getServiceAmount().paymentAmount}</Text>
+                  <Text>付款</Text>
                 </AppButton>
               </View>
             }
@@ -345,7 +347,9 @@ const WareDetail = () => {
                     handlePay.run();
                   }}
                 >
-                  付款
+                  <Text className="text-[24px]">￥</Text>
+                  <Text>{getAmount().paymentAmount}</Text>
+                  <Text>付款</Text>
                 </AppButton>
               </View>
             }
