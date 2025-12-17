@@ -15,7 +15,7 @@ const MyService = () => {
   const tabs = [
     {
       label: "全部",
-      value: "1",
+      value: "",
       icon: "grid-2x2",
     },
     {
@@ -29,13 +29,13 @@ const MyService = () => {
       icon: "user-round-x",
     },
   ];
-  const [active, setActive] = useState("1");
+  const [active, setActive] = useState("");
 
   const dataRequest = useRequest(
     async (pageNum: number = 1, pageSize?: number) => {
       const res = await getWxShopMyServiceOrder({
         query: {
-          status: Number(active),
+          status: active ? Number(active) : undefined,
           pageNum: pageNum.toString(),
           pageSize: pageSize?.toString() ?? "10",
         },
