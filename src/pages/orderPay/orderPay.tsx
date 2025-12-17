@@ -3,6 +3,7 @@ import {
   getWxShopOrderAddrChange,
   getWxShopOrderDetail,
   getWxShopOrderPay2,
+  OrderListItem,
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
@@ -14,6 +15,7 @@ import {
   LucideIcon,
   AppFixedBottom,
   CartWareCard,
+  ServiceBlock,
 } from "@/components";
 import { AddressList } from "@/components/AddressList";
 import { AddressCard } from "@/components/AddressList/AddressCard";
@@ -30,6 +32,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPayByWx } from "@/utils/order";
 import { Skeleton } from "./Skeleton";
+import { ServiceList } from "@/components/ServiceList";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
@@ -39,6 +42,7 @@ const OrderPayPage = () => {
     appUserStore.defaultAddress,
   );
   const [selectAddress, setSelectAddress] = useState<AddressInfo>();
+
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -49,18 +53,50 @@ const OrderPayPage = () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
-  const { data } = orderDetailRequest;
+  const { order: orderDetail } = orderDetailRequest.data || {};
 
-  /** 是否取消订单 */
-  const isCancel = data?.order.status === 4;
+  const orderPayRequest = useRequest(
+    async () => {
+      if (!orderDetail) {
+        return;
+      }
+      appLoading.show("正在支付...");
+      // 创建订单时没有地址
+      if (appUserStore.addressList.length === 0) {
+        appRouter.navigateTo("addAddress");
+        return;
+      }
+      if (!orderDetail.orderNo) {
+        return;
+      }
+      const payRes = await getWxShopOrderPay2({
+        query: {
+          orderNo: orderDetail.orderNo,
+        },
+      });
+      if (payRes.data?.code !== 0 || !payRes?.data?.data) {
+        appToast.error("支付失败");
+        return;
+      }
+      await orderPayByWx(payRes.data.data, {
+        success: () => {
+          appToast.success("支付成功");
+        },
+      });
+      appLoading.hide();
+    },
+    {
+      manual: true,
+    },
+  );
 
   const initAddress = async () => {
-    if (!data?.order.addressId) {
+    if (!orderDetail) {
       return;
     }
     const getAddressRes = await postWxShopAddrViewById({
-      path: { id: data?.order.addressId.toString() },
-      query: { orgId: data?.order.addressId.toString() },
+      path: { id: orderDetail.addressId.toString() },
+      query: { orgId: orderDetail.addressId.toString() },
     });
     if (getAddressRes.data?.code === 0) {
       setCurrentAddress(getAddressRes.data?.data);
@@ -70,10 +106,15 @@ const OrderPayPage = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      initAddress();
-    }
-  }, [data?.order]);
+    initAddress();
+  }, [orderDetail]);
+
+  if (!orderDetail) {
+    return;
+  }
+
+  /** 是否取消订单 */
+  const isCancel = orderDetail.status === 4;
 
   const updataOrderAddress = async () => {
     try {
@@ -93,38 +134,6 @@ const OrderPayPage = () => {
     }
   };
 
-  const orderPayRequest = useRequest(
-    async () => {
-      appLoading.show("正在支付...");
-      // 创建订单时没有地址
-      if (appUserStore.addressList.length === 0) {
-        appRouter.navigateTo("addAddress");
-        return;
-      }
-      if (!data?.order.orderNo) {
-        return;
-      }
-      const payRes = await getWxShopOrderPay2({
-        query: {
-          orderNo: data.order.orderNo,
-        },
-      });
-      if (payRes.data?.code !== 0 || !payRes?.data?.data) {
-        appToast.error("支付失败");
-        return;
-      }
-      await orderPayByWx(payRes.data.data, {
-        success: () => {
-          appToast.success("支付成功");
-        },
-      });
-      appLoading.hide();
-    },
-    {
-      manual: true,
-    },
-  );
-
   if (orderDetailRequest.error) {
     return (
       <Empty>
@@ -143,9 +152,39 @@ const OrderPayPage = () => {
     );
   }
 
-  if (orderDetailRequest.loading && !data) {
+  if (orderDetailRequest.loading && !orderDetail) {
     return <Skeleton />;
   }
+
+  const isFW = orderDetail.isService === 1;
+
+  const itemListRender = () => {
+    const serviceList: OrderListItem["productList"][number]["services"] =
+      orderDetail.itemList
+        ? orderDetail.itemList?.map((item) => ({
+            ...item,
+            qrCode: "",
+            serviceDate: "",
+          }))
+        : [];
+    if (!isFW) {
+      return orderDetail.itemList?.map((item) => (
+        <CartWareCard
+          itemName={item.itemName}
+          price={item.price}
+          key={item.itemId}
+          product={{
+            productName: item.productName,
+            productImage: item.productImage,
+            productId: item.productId,
+          }}
+          border={false}
+          shadow={false}
+        />
+      ));
+    }
+    return <ServiceBlock serviceList={serviceList} />;
+  };
   return (
     <>
       <BasePage className="pb-[200px]">
@@ -153,7 +192,7 @@ const OrderPayPage = () => {
           <View className="text-[32px] font-semibold text-rose-500 flex justify-center items-center gap-2 mt-[24px]">
             支付倒计时
             <Countdown
-              value={dayjs(data?.order.createdAt)
+              value={dayjs(orderDetail.createdAt)
                 .add(30, "minute")
                 .diff(dayjs(), "ms")}
               format="mm:ss"
@@ -193,25 +232,7 @@ const OrderPayPage = () => {
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
-            <View className="px-[24px] pt-[24px] text-[32px] font-semibold">
-              <View>共{data?.order.itemList.length}件商品</View>
-            </View>
-            {data?.order.itemList?.map((item) => (
-              <CartWareCard
-                itemName={
-                  Object.values(
-                    safeJson.parse(item.itemName || "", {}),
-                  )[0] as string
-                }
-                key={item.itemId}
-                productName={data.productName}
-                productImage={data.productImage}
-                productId={data.productId}
-                border={false}
-                shadow={false}
-                price={item.price}
-              />
-            ))}
+            {itemListRender()}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
@@ -219,7 +240,7 @@ const OrderPayPage = () => {
                 value={
                   <View className="text-[32px]">
                     <Text>￥</Text>
-                    <Text>{data?.order.totalAmount}</Text>
+                    <Text>{orderDetail.totalAmount}</Text>
                   </View>
                 }
               />
@@ -229,7 +250,7 @@ const OrderPayPage = () => {
                 value={
                   <View className="text-[32px]">
                     <Text>￥</Text>
-                    <Text>{data?.order.freightAmount}</Text>
+                    <Text>{orderDetail.freightAmount}</Text>
                   </View>
                 }
               />
@@ -240,7 +261,7 @@ const OrderPayPage = () => {
                   <View className="text-[32px] text-rose-500">
                     <Text>-</Text>
                     <Text>￥</Text>
-                    <Text>{data?.order.discountAmount}</Text>
+                    <Text>{orderDetail.discountAmount}</Text>
                   </View>
                 }
               />
@@ -252,7 +273,7 @@ const OrderPayPage = () => {
                   value={
                     <View className="text-[32px] font-semibold">
                       <Text>￥</Text>
-                      <Text>{data?.order.paymentAmount}</Text>
+                      <Text>{orderDetail.paymentAmount}</Text>
                     </View>
                   }
                 />
@@ -260,8 +281,8 @@ const OrderPayPage = () => {
             </View>
           </View>
           <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
-            <InfoCardItem label="订单编号" value={data?.order.orderNo} />
-            <InfoCardItem label="下单时间" value={data?.order.createdAt} />
+            <InfoCardItem label="订单编号" value={orderDetail.orderNo} />
+            <InfoCardItem label="下单时间" value={orderDetail.createdAt} />
           </View>
           <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
             <AppCell
@@ -295,7 +316,7 @@ const OrderPayPage = () => {
           </AppButton> */}
           <AppButton
             status="error"
-            disabled={!data?.order.orderNo}
+            disabled={!orderDetail.orderNo}
             className="flex-2"
             loading={orderPayRequest.loading}
             onClick={() => {
