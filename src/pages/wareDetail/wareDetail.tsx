@@ -12,6 +12,7 @@ import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
   getWxShopProductDetail,
+  OrderListItem,
   postWxShopOrderPay,
   SkuListItem,
 } from "@/client";
@@ -47,9 +48,9 @@ const WareDetail = () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    const { skuList = [] } = res?.data?.data || {};
-    if (skuList && skuList.length > 0) {
-      setCurrentSku(skuList[0]);
+    const { itemsList = [] } = res?.data?.data || {};
+    if (itemsList && itemsList.length > 0) {
+      setCurrentSku(itemsList[0]);
     }
     return res.data?.data;
   });
@@ -200,130 +201,139 @@ const WareDetail = () => {
     return <Skeleton />;
   }
 
+  if (!productInfo) {
+    return;
+  }
+
   const isFW = productInfo?.type === "FW";
+
+  const serviceList: OrderListItem["productList"][number]["services"] =
+    productInfo.itemsList.map((item) => ({
+      ...item,
+      num: item.qty,
+      qrCode: "",
+      serviceDate: "",
+    }));
   return (
     <BasePage>
-      {productInfo && (
-        <>
-          <View className="pb-[200px]">
-            <Swiper className="h-[600px]" autoplay={4000}>
-              <Swiper.Indicator />
-              {safeJson
-                .parse(productInfo?.detailImages, [])
-                ?.map((item, index) => (
-                  <Swiper.Item key={index}>
-                    <AppImage
-                      src={item}
-                      className="w-full h-full bg-gray-200"
-                      mode="aspectFill"
-                    />
-                  </Swiper.Item>
-                ))}
-            </Swiper>
-            <View className="px-[24px] pt-[32px]">
-              <BaseInfo info={productInfo} />
-            </View>
-            <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
-              {isFW && <ServiceBlock serviceList={productInfo.itemsList} />}
-              <Box
-                bgProps={{
-                  className: "bg-white rounded-lg",
-                }}
-              >
-                <View className="px-[24px] py-[12px] flex flex-col">
-                  <AddressSelect
-                    address={currentAddress}
-                    handleSelectAddress={(val) => {
-                      setCurrentAddress(val);
-                    }}
+      <>
+        <View className="pb-[200px]">
+          <Swiper className="h-[600px]" autoplay={4000}>
+            <Swiper.Indicator />
+            {safeJson
+              .parse(productInfo?.detailImages, [])
+              ?.map((item, index) => (
+                <Swiper.Item key={index}>
+                  <AppImage
+                    src={item}
+                    className="w-full h-full bg-gray-200"
+                    mode="aspectFill"
                   />
-                </View>
-              </Box>
-
-              {/* <Evaluate /> */}
-              <ServiceTags productInfo={productInfo} />
-            </View>
-            <DetailInfo info={productInfo} />
+                </Swiper.Item>
+              ))}
+          </Swiper>
+          <View className="px-[24px] pt-[32px]">
+            <BaseInfo info={productInfo} />
           </View>
-
-          <Actions
-            info={productInfo}
-            handleBuy={() => {
-              control.setOpen(true);
-            }}
-          />
-
-          {isFW ? (
-            <AppPopup
-              showClose
-              {...control}
-              title={productInfo.name}
-              footer={
-                <View>
-                  <AddressSelect
-                    className="py-[24px]"
-                    address={currentAddress}
-                    handleSelectAddress={(val) => {
-                      setCurrentAddress(val);
-                    }}
-                  />
-                  <AppButton
-                    className="flex-1"
-                    status="error"
-                    onClick={() => {
-                      handleServerPay.run();
-                    }}
-                  >
-                    付款
-                  </AppButton>
-                </View>
-              }
+          <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
+            {isFW && <ServiceBlock serviceList={serviceList} />}
+            <Box
+              bgProps={{
+                className: "bg-white rounded-lg",
+              }}
             >
-              <ServiceBlock serviceList={productInfo.itemsList} />
-            </AppPopup>
-          ) : (
-            <AppPopup
-              showClose
-              {...control}
-              title={productInfo.name}
-              footer={
-                <View>
-                  <AddressSelect
-                    className="py-[24px]"
-                    address={currentAddress}
-                    handleSelectAddress={(val) => {
-                      setCurrentAddress(val);
-                    }}
-                  />
-                  <AppButton
-                    className="flex-1"
-                    status="error"
-                    onClick={() => {
-                      if (!currentSku) {
-                        appToast.error("请选择商品规格");
-                        return;
-                      }
-                      handlePay.run(currentSku);
-                    }}
-                  >
-                    付款
-                  </AppButton>
-                </View>
-              }
-            >
-              {currentSku && (
-                <SkuSelectContent
-                  quantity={quantity}
-                  quantityChange={setQuantity}
-                  currentSku={currentSku}
-                  setCurrentSku={setCurrentSku}
-                  data={productInfo}
+              <View className="px-[24px] py-[12px] flex flex-col">
+                <AddressSelect
+                  address={currentAddress}
+                  handleSelectAddress={(val) => {
+                    setCurrentAddress(val);
+                  }}
                 />
-              )}
-            </AppPopup>
-          )}
-        </>
-      )}
+              </View>
+            </Box>
+            {/* <Evaluate /> */}
+            <ServiceTags productInfo={productInfo} />
+          </View>
+          <DetailInfo info={productInfo} />
+        </View>
+
+        <Actions
+          info={productInfo}
+          handleBuy={() => {
+            control.setOpen(true);
+          }}
+        />
+
+        {isFW ? (
+          <AppPopup
+            showClose
+            {...control}
+            title={productInfo.name}
+            footer={
+              <View>
+                <AddressSelect
+                  className="py-[24px]"
+                  address={currentAddress}
+                  handleSelectAddress={(val) => {
+                    setCurrentAddress(val);
+                  }}
+                />
+                <AppButton
+                  className="flex-1"
+                  status="error"
+                  onClick={() => {
+                    handleServerPay.run();
+                  }}
+                >
+                  付款
+                </AppButton>
+              </View>
+            }
+          >
+            <ServiceBlock serviceList={serviceList} />
+          </AppPopup>
+        ) : (
+          <AppPopup
+            showClose
+            {...control}
+            title={productInfo.name}
+            footer={
+              <View>
+                <AddressSelect
+                  className="py-[24px]"
+                  address={currentAddress}
+                  handleSelectAddress={(val) => {
+                    setCurrentAddress(val);
+                  }}
+                />
+                <AppButton
+                  className="flex-1"
+                  status="error"
+                  onClick={() => {
+                    if (!currentSku) {
+                      appToast.error("请选择商品规格");
+                      return;
+                    }
+                    handlePay.run(currentSku);
+                  }}
+                >
+                  付款
+                </AppButton>
+              </View>
+            }
+          >
+            {currentSku && (
+              <SkuSelectContent
+                quantity={quantity}
+                quantityChange={setQuantity}
+                currentSku={currentSku}
+                setCurrentSku={setCurrentSku}
+                data={productInfo}
+              />
+            )}
+          </AppPopup>
+        )}
+      </>
     </BasePage>
   );
 };

@@ -21,30 +21,17 @@ export type CartItem = {
 };
 
 export type ServiceInfo = {
-  id: string;
-  itemId: string;
+  id: number;
+  itemId: number;
   itemName: string;
-  num: string;
-  price: string;
-  productId: string;
+  num: number;
+  price: number;
+  productId: number;
   selectedItems: string;
-  totalPrice: string;
+  totalPrice: number;
   updateTime: string;
   qty: number;
   usedQty: number;
-};
-
-export type SkuListItem = {
-  id: number;
-  image: string;
-  orgId: string;
-  originalPrice: number;
-  price: number;
-  productId: number;
-  skuCode: string;
-  specs: string;
-  status: number;
-  stock: number;
 };
 
 export type SubCategoryInfo = {
@@ -171,7 +158,6 @@ export type ProductInfo = {
   sortOrder: number;
   createdAt: string;
   updatedAt: string;
-  skuList: Array<SkuListItem>;
   itemsList: Array<ServiceInfo>;
 };
 
