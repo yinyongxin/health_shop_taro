@@ -227,7 +227,7 @@ const WareDetail = () => {
       productInfo.itemsList
         ? productInfo.itemsList?.map((item) => ({
             ...item,
-            num: item.qty,
+            qty: item.num,
             qrCode: "",
             serviceDate: "",
           }))
