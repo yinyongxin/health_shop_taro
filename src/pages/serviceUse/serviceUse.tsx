@@ -20,6 +20,8 @@ export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
   const [address, setAddress] = useState<AddressInfo>();
+  const [qrCodeData, setQrCodeData] = useState("");
+
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -76,7 +78,6 @@ export default () => {
 
   const { order: orderDetail } = orderDetailRequest.data;
 
-  const [qrCodeData, setQrCodeData] = useState("");
   const handleUse = (info: CartItem) => {
     const opts: QRCodeToDataURLOptions = {
       errorCorrectionLevel: "H",
@@ -84,13 +85,17 @@ export default () => {
       margin: 1,
     } as const;
 
-    QRCode.toDataURL(info.itemId.toString(), opts, function (err, url) {
-      if (err) {
-        appToast.error("生成二维码失败");
-        return;
-      }
-      setQrCodeData(url);
-    });
+    QRCode.toDataURL(
+      `${info.itemId.toString()},${info.itemId}`,
+      opts,
+      function (err, url) {
+        if (err) {
+          appToast.error("生成二维码失败");
+          return;
+        }
+        setQrCodeData(url);
+      },
+    );
   };
 
   return (
