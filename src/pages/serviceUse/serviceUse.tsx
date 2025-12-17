@@ -86,7 +86,10 @@ export default () => {
     } as const;
 
     QRCode.toDataURL(
-      `${info.orderNo},${info.itemId}`,
+      JSON.stringify({
+        orderNo: info.orderNo,
+        itemId: info.itemId,
+      }),
       opts,
       function (err, url) {
         if (err) {
