@@ -49,7 +49,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
       <View className="flex-1 px-[24px] ">
         <Title>规格</Title>
         <View className="flex gap-[24px] flex-wrap mt-[24px]">
-          {data.skuList.map((sku) => {
+          {data?.skuList?.map((sku) => {
             const skuName = safeJson.parse(sku.specs, { 规格: "默认" });
             return (
               <AppTag
