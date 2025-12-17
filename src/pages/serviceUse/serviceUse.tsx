@@ -1,4 +1,4 @@
-import { AppButton, BasePage } from "@/components";
+import { AppButton, BasePage, AddressCard } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -13,7 +13,6 @@ import { appToast, getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
-import { AddressCard } from "@/components/AddressList/AddressCard";
 
 export default () => {
   const appUserStore = useAppUserStore();
