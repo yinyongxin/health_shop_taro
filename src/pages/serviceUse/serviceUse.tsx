@@ -4,6 +4,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import {
   AddressInfo,
+  CartItem,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
@@ -13,6 +14,7 @@ import { appToast, getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
+import QRCode from "qrcode";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -74,6 +76,12 @@ export default () => {
 
   const { order: orderDetail } = orderDetailRequest.data;
 
+  const handleUse = (info: CartItem) => {
+    QRCode.toDataURL("I am a pony!", function (err, url) {
+      console.log(url);
+    });
+  };
+
   return (
     <>
       <BasePage className="pb-[200px]">
@@ -88,7 +96,12 @@ export default () => {
         <View className="mt-[24px] px-[24px] flex flex-col gap-[24px]">
           {orderDetail.itemList.map((item) => {
             let btn = (
-              <AppButton size="sm">
+              <AppButton
+                size="sm"
+                onClick={() => {
+                  handleUse(item);
+                }}
+              >
                 剩余{item.qty - item.usedQty}次，点击核销
               </AppButton>
             );
