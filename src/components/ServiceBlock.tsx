@@ -1,10 +1,10 @@
-import { ServiceInfo } from "@/client";
+import { OrderListItem } from "@/client";
 import Box from "@/components/Box";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { View } from "@tarojs/components";
 
 export type ServiceBlockProps = {
-  serviceList: ServiceInfo[];
+  serviceList: OrderListItem["productList"][number]["services"];
 };
 export const ServiceBlock = (props: ServiceBlockProps) => {
   const { serviceList = [] } = props;
@@ -27,14 +27,14 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
                     return (
                       <View
                         className="flex items-center gap-[24px]"
-                        key={item.id}
+                        key={item.itemId}
                       >
                         <View className="text-gray-500 bg-gray-200 w-[32px] h-[32px] flex items-center justify-center rounded-full">
                           {index + 1}
                         </View>
                         <View className="flex-1">{item.itemName}</View>
                         <View className="text-amber-500 font-semibold">
-                          {item?.num || item?.qty}
+                          {item?.qty}
                         </View>
                       </View>
                     );

@@ -6,9 +6,11 @@ import { AppTag } from "../AppTag";
 import { AppImage } from "../AppImage";
 
 export type CartWareCardProps = {
-  productId: number;
-  productName: string;
-  productImage: string;
+  product: {
+    productName: string;
+    productImage: string;
+    productId: number;
+  };
   price: number;
   itemName: string;
   border?: boolean;
@@ -16,20 +18,11 @@ export type CartWareCardProps = {
   bottom?: ReactNode;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
-  const {
-    border,
-    shadow = true,
-    price,
-    itemName,
-    bottom,
-    productName,
-    productImage,
-    productId,
-  } = props;
+  const { border, shadow = true, price, itemName, bottom, product } = props;
   const goToDetailPage = () => {
     appRouter.navigateTo("wareDetail", {
       query: {
-        id: productId.toString()!,
+        id: product.productId.toString()!,
       },
     });
   };
@@ -49,7 +42,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <AppImage
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={productImage || ""}
+            src={product.productImage || ""}
             onClick={() => {
               goToDetailPage();
             }}
@@ -62,7 +55,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
               goToDetailPage();
             }}
           >
-            {productName}
+            {product.productName}
           </View>
           <View className="flex gap-1">
             <AppTag status="secondary">{itemName}</AppTag>

@@ -1,13 +1,13 @@
-import { OrderInfo } from "@/client";
-import { AppButton, ServiceBlock } from "@/components";
-import { CartWareCard } from "@/components/CartWareCard";
+import { OrderListItem } from "@/client";
+import { AppButton } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
+import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
 
 type OrderCardProps = {
-  info: OrderInfo;
+  info: OrderListItem;
 };
 export const OrderCard = (props: OrderCardProps) => {
   const { info } = props;
@@ -66,23 +66,24 @@ export const OrderCard = (props: OrderCardProps) => {
   return (
     <View className="rounded-lg bg-white app-shadow">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
-        <View className="text-[28px] font-semibold">{info.createdAt}</View>
+        <View className="text-[28px] font-semibold">{info.createAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
       </View>
       <View className="bg-white rounded-lg">
-        {info.serviceList && info.serviceList.length > 0 && (
-          <ServiceBlock serviceList={info.serviceList} />
-        )}
-        {info.itemList &&
-          info.itemList.length > 0 &&
-          info.itemList.map((item) => (
-            <CartWareCard
-              key={item.id}
-              info={item}
-              border={false}
-              shadow={false}
+        {info.productList.map((product) => {
+          return (
+            <ServiceList
+              key={product.productId}
+              product={{
+                productId: product.productId,
+                productName: product.productName,
+                productImage: product.productImage,
+              }}
+              serviceList={product.services}
+              isService={info.isService}
             />
-          ))}
+          );
+        })}
         <View className="flex flex-col gap-2 px-[24px]">
           <View className="border-t-[1px] border-gray-200 pt-[24px] ">
             <InfoCardItem

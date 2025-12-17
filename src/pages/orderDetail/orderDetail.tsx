@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
+import { ServiceList } from "@/components/ServiceList";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -141,22 +142,16 @@ export default () => {
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
-            {orderDetailRequest.data?.order?.serviceList &&
-              orderDetailRequest.data?.order.serviceList.length > 0 && (
-                <ServiceBlock
-                  serviceList={orderDetailRequest.data?.order.serviceList}
-                />
-              )}
-            {orderDetailRequest.data?.order.itemList &&
-              orderDetailRequest.data.order.itemList.length > 0 &&
-              orderDetailRequest.data.order.itemList.map((item) => (
-                <CartWareCard
-                  key={item.id}
-                  info={item}
-                  border={false}
-                  shadow={false}
-                />
-              ))}
+            <ServiceList
+              product={{
+                productId: orderDetailRequest.data?.order.productId,
+                productName: orderDetailRequest.data?.order.productName,
+                productImage: orderDetailRequest.data?.order.productImage,
+              }}
+              serviceList={orderDetailRequest.data?.order.services}
+              isService={orderDetailRequest.data?.order.isService}
+            
+            />
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"

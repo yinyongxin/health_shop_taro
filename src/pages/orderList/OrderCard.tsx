@@ -1,9 +1,9 @@
 import { OrderListItem } from "@/client";
-import { AppButton, ServiceBlock, CartWareCard } from "@/components";
+import { AppButton } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
+import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
-import { safeJson } from "@/utils";
 import { View, Text } from "@tarojs/components";
 
 type OrderCardProps = {
@@ -62,36 +62,26 @@ export const OrderCard = (props: OrderCardProps) => {
       return item.dictValue === info.status.toString();
     })?.dictLabel;
   };
-
   return (
     <View className="rounded-lg bg-white app-shadow">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
-        <View className="text-[28px] font-semibold">{info?.createdAt}</View>
+        <View className="text-[28px] font-semibold">{info?.createAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
       </View>
       <View className="bg-white rounded-lg">
-        {/* {info.serviceList && info.serviceList.length > 0 && (
-          <ServiceBlock serviceList={info.serviceList} />
-        )} */}
         {info.productList.map((product) => {
-          return product.services.map((service) => {
-            return (
-              <CartWareCard
-                itemName={
-                  Object.values(
-                    safeJson.parse(service.itemName || "", {}),
-                  )[0] as string
-                }
-                key={service.itemId}
-                productName={product.productName}
-                productImage={product.productImage}
-                productId={product.productId}
-                border={false}
-                shadow={false}
-                price={service.price}
-              />
-            );
-          });
+          return (
+            <ServiceList
+              key={product.productId}
+              product={{
+                productId: product.productId,
+                productName: product.productName,
+                productImage: product.productImage,
+              }}
+              serviceList={product.services}
+              isService={info.isService}
+            />
+          );
         })}
         <View className="flex flex-col gap-2 px-[24px]">
           <View className="border-t-[1px] border-gray-200 pt-[24px] ">
