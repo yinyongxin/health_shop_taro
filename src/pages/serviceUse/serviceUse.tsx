@@ -18,9 +18,7 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
-  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
-    appUserStore.defaultAddress,
-  );
+  const [address, setAddress] = useState<AddressInfo>();
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
@@ -31,11 +29,6 @@ export default () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
-  const isPayed =
-    orderDetailRequest.data?.order.status &&
-    orderDetailRequest.data?.order.status !== 0;
-
-  console.log(orderDetailRequest.data?.order.status, isPayed);
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -45,7 +38,7 @@ export default () => {
       query: { orgId: orderDetailRequest.data?.order.addressId.toString() },
     });
     if (getAddressRes.data?.code === 0) {
-      setCurrentAddress(getAddressRes.data?.data);
+      setAddress(getAddressRes.data?.data);
     } else {
       appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
     }
@@ -80,11 +73,7 @@ export default () => {
     return;
   }
 
-  const product = {
-    productId: orderDetailRequest.data.order.itemList[0].productId!,
-    productName: orderDetailRequest.data.order.itemList[0].productName!,
-    productImage: orderDetailRequest.data.order.itemList[0].productImage!,
-  };
+  const { order: orderDetail } = orderDetailRequest.data;
 
   return (
     <>
@@ -92,7 +81,7 @@ export default () => {
         <View className="px-[24px] pt-[24px]">
           <View className="text-[32px] font-semibold">
             {getServiceStatusText(
-              orderDetailRequest.data.order.status,
+              orderDetail.status,
               appUserStore.orderStatusList,
             )}
           </View>
@@ -162,10 +151,10 @@ export default () => {
         </View>
 
         <View className="px-[24px] mt-[24px]">
-          {currentAddress && (
+          {address && (
             <AddressCard
               className="shadow-none!"
-              info={currentAddress}
+              info={address}
               showActions={false}
             />
           )}
