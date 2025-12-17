@@ -4,19 +4,16 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import {
   AddressInfo,
-  getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast, getServiceStatusText } from "@/utils";
-import { Dialog, Empty, Skeleton } from "@taroify/core";
+import { appToast, getServiceStatusText } from "@/utils";
+import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
-import { AppFixedBottom } from "@/components/AppFixedBottom";
-import { ServiceList } from "@/components/ServiceList";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -103,25 +100,7 @@ export default () => {
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
-            <ServiceList
-              product={product}
-              isService={orderDetailRequest.data?.order.isService}
-              serviceList={
-                orderDetailRequest.data?.order.itemList.map((item) => {
-                  return {
-                    itemId: item.itemId,
-                    itemName: item.itemName,
-                    price: item.price,
-                    qrCode: item.qrCode,
-                    qty: item.qty,
-                    serviceDate: item.serviceDate,
-                    totalPrice: item.totalPrice,
-                    usedQty: item.usedQty,
-                  };
-                }) || []
-              }
-            />
-            <View className="px-[24px] pb-[24px] flex flex-col gap-2">
+            <View className="p-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
                 valueClassName="text-end"
