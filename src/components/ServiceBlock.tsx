@@ -5,9 +5,10 @@ import { View } from "@tarojs/components";
 
 export type ServiceBlockProps = {
   serviceList: OrderListItem["productList"][number]["services"];
+  productName?: string;
 };
 export const ServiceBlock = (props: ServiceBlockProps) => {
-  const { serviceList = [] } = props;
+  const { serviceList = [], productName = "服务内容" } = props;
   return (
     <>
       <Box
@@ -17,7 +18,7 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
       >
         <View className="p-[24px] flex flex-col">
           <View className="rounded-md p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-[16px]">
-            服务内容
+            {productName}
           </View>
           <View className="mt-[24px] flex flex-col gap-[24px]">
             <InfoCardItem
