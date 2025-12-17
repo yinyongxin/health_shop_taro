@@ -52,9 +52,43 @@ const WareDetail = () => {
     return res.data?.data;
   });
 
+  const getAmount = () => {
+    /**
+     * 运费金额
+     */
+    const freightAmount = 0;
+    /**
+     * 订单总金额
+     * 规格现价 * 数量 + 运费
+     */
+    const totalAmount = add(
+      multiply(quantity, currentSku?.price || 0),
+      freightAmount,
+    );
+    /**
+     * 优惠金额
+     * 数量 * (规格原价 - 规格现价)
+     */
+    const discountAmount = multiply(
+      quantity,
+      subtract(currentSku?.originalPrice || 0, currentSku?.price || 0),
+    );
+    /**
+     * 实际支付金额
+     * 订单总金额-优惠金额
+     */
+    const paymentAmount = subtract(totalAmount, discountAmount);
+    return {
+      freightAmount,
+      totalAmount,
+      paymentAmount,
+      discountAmount,
+    };
+  };
+
   const handlePay = useRequest(
-    async (sku: SkuListItem) => {
-      if (!productInfo) {
+    async () => {
+      if (!productInfo || !currentSku) {
         return;
       }
       if (!currentAddress?.id) {
@@ -62,47 +96,22 @@ const WareDetail = () => {
         return;
       }
       try {
-        /**
-         * 运费金额
-         */
-        const freightAmount = 0;
-        /**
-         * 订单总金额
-         * 规格现价 * 数量 + 运费
-         */
-        const totalAmount = add(multiply(quantity, sku.price), freightAmount);
-        /**
-         * 优惠金额
-         * 数量 * (规格原价 - 规格现价)
-         */
-        const discountAmount = multiply(
-          quantity,
-          subtract(sku.originalPrice, sku.price),
-        );
-        /**
-         * 实际支付金额
-         * 订单总金额-优惠金额
-         */
-        const paymentAmount = subtract(totalAmount, discountAmount);
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
             orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
-            totalAmount,
-            freightAmount,
-            paymentAmount,
-            discountAmount,
+            ...getAmount(),
             productList: [
               {
                 productId: productInfo.id,
                 productName: productInfo.name,
                 skuList: [
                   {
-                    itemId: sku.id,
-                    itemName: sku.specs,
+                    itemId: currentSku.id,
+                    itemName: currentSku.specs,
                     num: quantity,
-                    price: sku.price,
+                    price: currentSku.price,
                   },
                 ],
               },
@@ -127,6 +136,37 @@ const WareDetail = () => {
     },
   );
 
+  const getServiceAmount = () => {
+    /**
+     * 运费
+     */
+    const freightAmount = 0;
+    /**
+     * 总价
+     * 商品现价 + 运费
+     */
+    const totalAmount = add(productInfo?.price || 0, freightAmount);
+    /**
+     * 优惠金额
+     * 商品原价 - 商品现价
+     */
+    const discountAmount = subtract(
+      productInfo?.originalPrice || 0,
+      productInfo?.price || 0,
+    );
+    /**
+     * 实际支付金额
+     * 总价 - 优惠金额
+     */
+    const paymentAmount = subtract(totalAmount, discountAmount);
+    return {
+      freightAmount,
+      totalAmount,
+      paymentAmount,
+      discountAmount,
+    };
+  };
+
   const handleServerPay = useRequest(
     async () => {
       if (!productInfo) {
@@ -137,37 +177,12 @@ const WareDetail = () => {
         return;
       }
       try {
-        /**
-         * 运费
-         */
-        const freightAmount = 0;
-        /**
-         * 总价
-         * 商品现价 + 运费
-         */
-        const totalAmount = add(productInfo.price, freightAmount);
-        /**
-         * 优惠金额
-         * 商品原价 - 商品现价
-         */
-        const discountAmount = subtract(
-          productInfo.originalPrice,
-          productInfo.price,
-        );
-        /**
-         * 实际支付金额
-         * 总价 - 优惠金额
-         */
-        const paymentAmount = subtract(totalAmount, discountAmount);
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
             orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
-            totalAmount,
-            freightAmount,
-            paymentAmount,
-            discountAmount,
+            ...getServiceAmount()!,
             productList: [
               {
                 productId: productInfo.id,
@@ -325,7 +340,7 @@ const WareDetail = () => {
                       appToast.error("请选择商品规格");
                       return;
                     }
-                    handlePay.run(currentSku);
+                    handlePay.run();
                   }}
                 >
                   付款
