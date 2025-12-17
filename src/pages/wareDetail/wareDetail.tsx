@@ -48,10 +48,7 @@ const WareDetail = () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    const { skuList = [] } = res?.data?.data || {};
-    if (skuList && skuList.length > 0) {
-      setCurrentSku(skuList[0]);
-    }
+
     return res.data?.data;
   });
 
@@ -268,6 +265,12 @@ const WareDetail = () => {
         <Actions
           info={productInfo}
           handleBuy={() => {
+            if (!isFW) {
+              const { skuList = [] } = productInfo;
+              if (skuList && skuList.length > 0) {
+                setCurrentSku(skuList[0]);
+              }
+            }
             control.setOpen(true);
           }}
         />
