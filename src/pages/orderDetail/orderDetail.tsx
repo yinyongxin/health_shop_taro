@@ -1,4 +1,4 @@
-import { AppButton, BasePage, ServiceBlock, CartWareCard } from "@/components";
+import { AppButton, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -128,6 +128,16 @@ export default () => {
     return <Skeleton />;
   }
 
+  if (!orderDetailRequest.data) {
+    return;
+  }
+
+  const product = {
+    productId: orderDetailRequest.data.order.itemList[0].productId!,
+    productName: orderDetailRequest.data.order.itemList[0].productName!,
+    productImage: orderDetailRequest.data.order.itemList[0].productImage!,
+  };
+
   return (
     <>
       <BasePage className="pb-[200px]">
@@ -143,14 +153,22 @@ export default () => {
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
             <ServiceList
-              product={{
-                productId: orderDetailRequest.data?.order.productId,
-                productName: orderDetailRequest.data?.order.productName,
-                productImage: orderDetailRequest.data?.order.productImage,
-              }}
-              serviceList={orderDetailRequest.data?.order.services}
+              product={product}
               isService={orderDetailRequest.data?.order.isService}
-            
+              serviceList={
+                orderDetailRequest.data?.order.itemList.map((item) => {
+                  return {
+                    itemId: item.itemId,
+                    itemName: item.itemName,
+                    price: item.price,
+                    qrCode: item.qrCode,
+                    qty: item.qty,
+                    serviceDate: item.serviceDate,
+                    totalPrice: item.totalPrice,
+                    usedQty: item.usedQty,
+                  };
+                }) || []
+              }
             />
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
