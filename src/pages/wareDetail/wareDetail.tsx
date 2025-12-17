@@ -234,6 +234,87 @@ const WareDetail = () => {
         : [];
     return <ServiceBlock serviceList={serviceList} />;
   };
+
+  const getPopup = () => {
+    if (isFW) {
+      return (
+        <AppPopup
+          showClose
+          {...control}
+          title={productInfo.name}
+          footer={
+            <View>
+              <AddressSelect
+                className="py-[24px]"
+                address={currentAddress}
+                handleSelectAddress={(val) => {
+                  setCurrentAddress(val);
+                }}
+              />
+              <AppButton
+                loading={handleServerPay.loading}
+                className="flex-1"
+                status="error"
+                onClick={() => {
+                  handleServerPay.run();
+                }}
+              >
+                <Text className="text-[24px]">￥</Text>
+                <Text>{getServiceAmount().paymentAmount}</Text>
+                <Text>付款</Text>
+              </AppButton>
+            </View>
+          }
+        >
+          {getServiceBlock()}
+        </AppPopup>
+      );
+    }
+    return (
+      <AppPopup
+        showClose
+        {...control}
+        title={productInfo.name}
+        footer={
+          <View>
+            <AddressSelect
+              className="py-[24px]"
+              address={currentAddress}
+              handleSelectAddress={(val) => {
+                setCurrentAddress(val);
+              }}
+            />
+            <AppButton
+              className="flex-1"
+              status="error"
+              loading={handlePay.loading}
+              onClick={() => {
+                if (!currentSku) {
+                  appToast.error("请选择商品规格");
+                  return;
+                }
+                handlePay.run();
+              }}
+            >
+              <Text className="text-[24px]">￥</Text>
+              <Text>{getAmount().paymentAmount}</Text>
+              <Text>付款</Text>
+            </AppButton>
+          </View>
+        }
+      >
+        {currentSku && (
+          <SkuSelectContent
+            quantity={quantity}
+            quantityChange={setQuantity}
+            currentSku={currentSku}
+            setCurrentSku={setCurrentSku}
+            data={productInfo}
+          />
+        )}
+      </AppPopup>
+    );
+  };
   return (
     <BasePage>
       <>
@@ -290,81 +371,7 @@ const WareDetail = () => {
           }}
         />
 
-        {isFW ? (
-          <AppPopup
-            showClose
-            {...control}
-            title={productInfo.name}
-            footer={
-              <View>
-                <AddressSelect
-                  className="py-[24px]"
-                  address={currentAddress}
-                  handleSelectAddress={(val) => {
-                    setCurrentAddress(val);
-                  }}
-                />
-                <AppButton
-                  loading={handleServerPay.loading}
-                  className="flex-1"
-                  status="error"
-                  onClick={() => {
-                    handleServerPay.run();
-                  }}
-                >
-                  <Text className="text-[24px]">￥</Text>
-                  <Text>{getServiceAmount().paymentAmount}</Text>
-                  <Text>付款</Text>
-                </AppButton>
-              </View>
-            }
-          >
-            {getServiceBlock()}
-          </AppPopup>
-        ) : (
-          <AppPopup
-            showClose
-            {...control}
-            title={productInfo.name}
-            footer={
-              <View>
-                <AddressSelect
-                  className="py-[24px]"
-                  address={currentAddress}
-                  handleSelectAddress={(val) => {
-                    setCurrentAddress(val);
-                  }}
-                />
-                <AppButton
-                  className="flex-1"
-                  status="error"
-                  loading={handlePay.loading}
-                  onClick={() => {
-                    if (!currentSku) {
-                      appToast.error("请选择商品规格");
-                      return;
-                    }
-                    handlePay.run();
-                  }}
-                >
-                  <Text className="text-[24px]">￥</Text>
-                  <Text>{getAmount().paymentAmount}</Text>
-                  <Text>付款</Text>
-                </AppButton>
-              </View>
-            }
-          >
-            {currentSku && (
-              <SkuSelectContent
-                quantity={quantity}
-                quantityChange={setQuantity}
-                currentSku={currentSku}
-                setCurrentSku={setCurrentSku}
-                data={productInfo}
-              />
-            )}
-          </AppPopup>
-        )}
+        {getPopup()}
       </>
     </BasePage>
   );
