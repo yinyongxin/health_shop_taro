@@ -1,7 +1,7 @@
-import { AppButton, BasePage, AddressCard } from "@/components";
+import { AppButton, BasePage, AddressCard, AppPopup } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
-import { View, Text } from "@tarojs/components";
+import { View, Text, Image } from "@tarojs/components";
 import {
   AddressInfo,
   CartItem,
@@ -14,7 +14,7 @@ import { appToast, getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
-import QRCode from "qrcode";
+import QRCode, { QRCodeToDataURLOptions } from "qrcode";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -76,9 +76,20 @@ export default () => {
 
   const { order: orderDetail } = orderDetailRequest.data;
 
+  const [qrCodeData, setQrCodeData] = useState("");
   const handleUse = (info: CartItem) => {
-    QRCode.toDataURL("I am a pony!", function (err, url) {
-      console.log(url);
+    const opts: QRCodeToDataURLOptions = {
+      errorCorrectionLevel: "H",
+      type: "image/jpeg",
+      margin: 1,
+    } as const;
+
+    QRCode.toDataURL(info.itemId.toString(), opts, function (err, url) {
+      if (err) {
+        appToast.error("生成二维码失败");
+        return;
+      }
+      setQrCodeData(url);
     });
   };
 
@@ -207,6 +218,19 @@ export default () => {
           )}
         </View>
       </BasePage>
+      <AppPopup
+        title="服务核销"
+        open={!!qrCodeData}
+        onClose={() => setQrCodeData("")}
+        showClose
+      >
+        <View className="flex-center">
+          <Image className="size-[600px]" src={qrCodeData} />
+        </View>
+        <View className="text-center text-orange-500 text-[32px] mt-[24px]">
+          请将二维码出示给服务人员
+        </View>
+      </AppPopup>
     </>
   );
 };
