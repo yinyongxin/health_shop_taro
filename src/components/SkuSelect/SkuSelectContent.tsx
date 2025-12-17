@@ -50,7 +50,6 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
         <Title>规格</Title>
         <View className="flex gap-[24px] flex-wrap mt-[24px]">
           {data?.skuList?.map((sku) => {
-            const skuName = safeJson.parse(sku.specs, { 规格: "默认" });
             return (
               <AppTag
                 key={sku.id}
@@ -58,7 +57,7 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
                 actived={currentSku?.id === sku.id}
                 onClick={() => setCurrentSku(sku)}
               >
-                {skuName["规格"]}
+                {sku.specs}
               </AppTag>
             );
           })}

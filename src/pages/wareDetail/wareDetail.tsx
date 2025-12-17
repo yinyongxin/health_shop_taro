@@ -305,6 +305,7 @@ const WareDetail = () => {
                   }}
                 />
                 <AppButton
+                  loading={handleServerPay.loading}
                   className="flex-1"
                   status="error"
                   onClick={() => {
@@ -335,6 +336,7 @@ const WareDetail = () => {
                 <AppButton
                   className="flex-1"
                   status="error"
+                  loading={handlePay.loading}
                   onClick={() => {
                     if (!currentSku) {
                       appToast.error("请选择商品规格");
