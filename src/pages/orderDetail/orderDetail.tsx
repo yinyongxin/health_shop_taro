@@ -17,6 +17,7 @@ import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
+import { appRouter } from "@/router";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -73,32 +74,7 @@ export default () => {
     orderDetailRequest.run();
   };
 
-  const renderBottomBtns = () => {
-    if (!orderDetailRequest.data?.order) {
-      return;
-    }
-    if ([1].includes(orderDetailRequest.data?.order.status)) {
-      return (
-        <AppFixedBottom>
-          <AppButton
-            status="error"
-            onClick={() => {
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "取消后不能恢复，确定取消订单吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
-            }}
-          >
-            取消订单并退款
-          </AppButton>
-        </AppFixedBottom>
-      );
-    }
-  };
+  const { order: orderDetail } = orderDetailRequest.data || {};
 
   if (orderDetailRequest.error) {
     return (
@@ -122,35 +98,80 @@ export default () => {
     return <Skeleton />;
   }
 
-  if (!orderDetailRequest.data) {
+  if (!orderDetail) {
     return;
   }
 
+  const renderBottomBtns = () => {
+    if ([1].includes(orderDetail.status)) {
+      return (
+        <AppFixedBottom>
+          <AppButton
+            status="error"
+            onClick={() => {
+              Dialog.confirm({
+                theme: "rounded",
+                title: "提示",
+                message: "取消后不能恢复，确定取消订单吗？",
+                onConfirm: () => {
+                  cancelOrder();
+                },
+              });
+            }}
+          >
+            取消订单并退款
+          </AppButton>
+        </AppFixedBottom>
+      );
+    } else if (
+      [2].includes(orderDetail.status) &&
+      orderDetail.isService === 1
+    ) {
+      return (
+        <AppFixedBottom>
+          <AppButton
+            status="success"
+            onClick={() => {
+              appRouter.navigateTo("serviceUse", {
+                query: {
+                  orderNo: orderDetail.orderNo,
+                },
+              });
+            }}
+          >
+            去使用
+          </AppButton>
+        </AppFixedBottom>
+      );
+    }
+  };
+
   const product = {
-    productId: orderDetailRequest.data.order.itemList[0].productId!,
-    productName: orderDetailRequest.data.order.itemList[0].productName!,
-    productImage: orderDetailRequest.data.order.itemList[0].productImage!,
+    productId: orderDetail.itemList[0].productId!,
+    productName: orderDetail.itemList[0].productName!,
+    productImage: orderDetail.itemList[0].productImage!,
+  };
+
+  const getStatusText = () => {
+    return appUserStore.orderStatusList.find((item) => {
+      return item.dictValue === orderDetail.status.toString();
+    })?.dictLabel;
   };
 
   return (
     <>
       <BasePage className="pb-[200px]">
         <View className="px-[24px] pt-[24px]">
-          <View className="text-[32px] font-semibold">
-            {getServiceStatusText(
-              orderDetailRequest.data.order.status,
-              appUserStore.orderStatusList,
-            )}
-          </View>
+          <View className="text-[32px] font-semibold">{getStatusText()}</View>
         </View>
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
             <ServiceList
               product={product}
-              isService={orderDetailRequest.data?.order.isService}
+              isService={orderDetail.isService}
               serviceList={
-                orderDetailRequest.data?.order.itemList.map((item) => {
+                orderDetail.itemList.map((item) => {
                   return {
                     itemId: item.itemId,
                     itemName: item.itemName,
