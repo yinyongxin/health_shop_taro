@@ -7,6 +7,7 @@ import { NAME_REGEXP_STR, PHONE_REGEXP_STR } from "@/common";
 import { AddressInfo, postWxShopAddrAdd, postWxShopAddrEdit } from "@/client";
 import { useAppUserStore } from "@/stores";
 import { appLoading, appToast, getAreaChinese, getAreaCode } from "@/utils";
+import { pick } from "lodash-es";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
 
 type EditAddressContentProps = {
@@ -49,7 +50,16 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
 
   const update = async (values: Required<AddressInfo>) => {
     const res = await postWxShopAddrEdit({
-      body: { ...values },
+      body: pick(values, [
+        "receiverName",
+        "tag",
+        "receiverPhone",
+        "province",
+        "city",
+        "district",
+        "detailAddress",
+        "postalCode",
+      ]),
     });
     if (res.data?.code === 0) {
       appToast.success("修改成功");
