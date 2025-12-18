@@ -39,9 +39,11 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
           <View className=" font-bold text-rose-500">
             <Text className="text-[28px]">￥</Text>
             <Text className="text-[40px] text-rose-500">{data?.price}</Text>
-            <Text className="text-[32px] text-gray-500 line-through ml-2">
-              {data.originalPrice}
-            </Text>
+            {data.originalPrice !== data?.price && (
+              <Text className="text-[32px] text-gray-500 line-through ml-2">
+                {data.originalPrice}
+              </Text>
+            )}
           </View>
           <View>库存：{currentSku?.stock}</View>
         </View>
