@@ -20,10 +20,12 @@ export const BaseInfo = (props: BaseInfoProps) => {
         <View className="flex justify-between items-center">
           <View className=" font-bold text-rose-500">
             <Text className="text-[28px]">￥</Text>
-            <Text className="text-[40px] text-rose-500">{info?.price}</Text>
-            <Text className="text-[32px] text-gray-500 line-through ml-2">
-              {info.originalPrice}
-            </Text>
+            <Text className="text-[40px] text-rose-500">{info.price}</Text>
+            {info.originalPrice !== info.price && (
+              <Text className="text-[32px] text-gray-500 line-through ml-2">
+                {info.originalPrice}
+              </Text>
+            )}
           </View>
           <View className="text-gray-500">{/* 已售：{info?.sales} */}</View>
         </View>
