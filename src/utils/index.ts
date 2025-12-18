@@ -197,3 +197,16 @@ export const getServiceStatusText = (
     return item.dictValue === status.toString();
   })?.dictLabel;
 };
+
+/**
+ * 将手机号中间四位替换为****
+ * @param phone 手机号
+ * @returns 处理后的手机号
+ */
+export function maskPhone(phone?: string): string {
+  if (!phone || phone.length !== 11) {
+    return phone || "";
+  }
+
+  return phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
+}

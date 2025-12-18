@@ -2,7 +2,7 @@ import { AddressInfo, getWxShopAddrDel, postWxShopAddrEdit } from "@/client";
 import { Checkbox, Dialog } from "@taroify/core";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
-import { appToast } from "@/utils";
+import { appToast, maskPhone } from "@/utils";
 import { appRouter } from "@/router";
 import { useAppUserStore } from "@/stores";
 import { AppTag } from "../AppTag";
@@ -14,6 +14,7 @@ export type AddressCardProps = {
   checked?: boolean;
   handleClick?: (info: AddressInfo) => void;
   rightAction?: React.ReactNode;
+  isMaskPhone?: boolean;
 };
 
 export const AddressCard = (props: AddressCardProps) => {
@@ -24,6 +25,7 @@ export const AddressCard = (props: AddressCardProps) => {
     checked,
     handleClick,
     rightAction,
+    isMaskPhone,
   } = props;
   const appUserStore = useAppUserStore();
   const handleDelete = async () => {
@@ -75,7 +77,11 @@ export const AddressCard = (props: AddressCardProps) => {
               <View className="text-[28px] font-semibold">
                 {info.receiverName}
               </View>
-              <View>{info.receiverPhone}</View>
+              <View>
+                {isMaskPhone
+                  ? maskPhone(info.receiverPhone)
+                  : info.receiverPhone}
+              </View>
             </View>
             <View>
               {checked !== undefined && checked && (
