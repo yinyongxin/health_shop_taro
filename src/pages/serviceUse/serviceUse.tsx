@@ -221,6 +221,7 @@ export default () => {
             <AddressCard
               className="shadow-none!"
               info={address}
+              isMaskPhone
               showActions={false}
             />
           )}

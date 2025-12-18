@@ -1,5 +1,4 @@
 import { AppButton, AppCell, BasePage, LucideIcon } from "@/components";
-import { AddressCard } from "@/components/AddressList/AddressCard";
 import { usePageParams } from "@/hooks";
 import { appRouter } from "@/router";
 import { calculateTotalPrice } from "@/utils/price";
@@ -13,10 +12,6 @@ export default () => {
   return (
     <BasePage>
       <View className="pb-[160px]">
-        <View className="px-[24px] pt-[24px]">
-          <AddressCard showActions={false} />
-        </View>
-
         <View className="px-[24px] pt-[24px]">
           <View className="bg-white rounded-lg pb-[12px]">
             <View className="flex justify-between px-[24px] py-[12px]">

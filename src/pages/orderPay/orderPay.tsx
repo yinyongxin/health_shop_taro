@@ -220,6 +220,7 @@ const OrderPayPage = () => {
               }}
               info={currentAddress}
               showActions={false}
+              isMaskPhone
               rightAction={
                 <View className="flex flex-col justify-center">
                   <LucideIcon
