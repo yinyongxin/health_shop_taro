@@ -51,6 +51,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   const update = async (values: Required<AddressInfo>) => {
     const res = await postWxShopAddrEdit({
       body: pick(values, [
+        "id",
         "receiverName",
         "tag",
         "receiverPhone",
