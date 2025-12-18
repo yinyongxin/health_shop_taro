@@ -29,10 +29,17 @@ const OrderList = () => {
       };
     }),
   ];
-  const [active, setActive] = useState(pageParams.status || "all");
+  const [active, setActive] = useState<string | undefined>();
+
+  useEffect(() => {
+    setActive(pageParams.status || "all");
+  }, [pageParams.status]);
 
   const dataRequest = useRequest(
     async (pageNum: number = 1, pageSize?: number) => {
+      if (!active) {
+        return;
+      }
       const res = await getWxShopOrderMy({
         query: {
           orgId: APP_ENV_CONFIG.ORG_ID,
@@ -85,14 +92,12 @@ const OrderList = () => {
       fullScreen
       className="flex-1 myLikeList"
     >
-      {pageParams.status === "all" && (
-        <AppTabList
-          className="bg-none"
-          active={active}
-          tabs={tabs}
-          onChange={setActive}
-        />
-      )}
+      <AppTabList
+        className="bg-none"
+        active={active}
+        tabs={tabs}
+        onChange={setActive}
+      />
       <AppList
         skeleton={<Skeleton />}
         className="flex-1"

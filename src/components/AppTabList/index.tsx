@@ -32,6 +32,7 @@ export const AppTabList = (props: AppTabListProps) => {
       setActive(propsActive);
     }
   }, [propsActive]);
+
   const content = useMemo(() => {
     return tabs.find((tab) => tab.value === active)?.children;
   }, [active]);
@@ -40,6 +41,8 @@ export const AppTabList = (props: AppTabListProps) => {
     <>
       <ScrollView
         scrollX
+        scrollIntoView={`tab${active}`}
+        scrollIntoViewAlignment="center"
         className={classNames(
           "rounded-t-xl",
           "bg-linear-to-b from-[#F3F7FE] to-white",
@@ -52,8 +55,13 @@ export const AppTabList = (props: AppTabListProps) => {
         {tabs.map((tab) => {
           const actived = active === tab.value;
           return (
-            <View key={tab.value} className="inline-block mr-[16px]">
+            <View
+              id={`tab${tab.value}`}
+              key={tab.value}
+              className="inline-block mr-[16px]"
+            >
               <AppTag
+                className={`tag-${tab.value}`}
                 size="xl"
                 actived={actived}
                 prefix={tab?.icon ? <LucideIcon name={tab.icon} /> : null}
