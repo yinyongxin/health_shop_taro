@@ -87,11 +87,7 @@ const OrderList = () => {
   });
 
   return (
-    <BasePage
-      // bgProps={{ className: "page-bg" }}
-      fullScreen
-      className="flex-1 myLikeList"
-    >
+    <BasePage fullScreen className="flex-1 myLikeList">
       <AppTabList
         className="bg-none"
         active={active}
@@ -115,7 +111,7 @@ const OrderList = () => {
           dataRequest.run(pageNum);
         }}
         {...dataRequest.data}
-      ></AppList>
+      />
     </BasePage>
   );
 };

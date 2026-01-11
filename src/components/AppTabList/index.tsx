@@ -44,7 +44,6 @@ export const AppTabList = (props: AppTabListProps) => {
         scrollIntoView={`tab${active}`}
         scrollIntoViewAlignment="center"
         className={classNames(
-          "rounded-t-xl",
           "bg-linear-to-b from-[#F3F7FE] to-white",
           "w-full overflow-auto text-nowrap",
           "px-[24px] py-[24px]",
