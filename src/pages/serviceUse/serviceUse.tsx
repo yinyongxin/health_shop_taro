@@ -87,6 +87,8 @@ export default () => {
 
     QRCode.toDataURL(
       JSON.stringify({
+        qrcodeType: "fromShop",
+        phone: address?.receiverPhone,
         orderNo: info.orderNo,
         itemId: info.itemId,
       }),
