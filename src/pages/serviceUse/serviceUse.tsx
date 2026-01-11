@@ -236,7 +236,10 @@ export default () => {
       <AppPopup
         title="服务核销"
         open={!!qrCodeData}
-        onClose={() => setQrCodeData("")}
+        onClose={() => {
+          setQrCodeData("");
+          orderDetailRequest.run();
+        }}
         showClose
       >
         <View className="flex-center">
