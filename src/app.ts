@@ -55,6 +55,7 @@ function App({ children }: PropsWithChildren<any>) {
     if (showVConsole) {
       new VConsole();
     }
+    appUserStore.updateTabActive("home");
     appUserStore.updateOrderStatus();
     await checkLogin();
     client.instance.interceptors.response.use((response) => {
