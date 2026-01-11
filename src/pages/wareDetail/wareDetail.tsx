@@ -336,10 +336,8 @@ const WareDetail = () => {
                 </Swiper.Item>
               ))}
           </Swiper>
-          <View className="px-[24px] pt-[32px]">
+          <View className="px-[24px] pt-[32px] flex flex-col gap-[24Fpx]">
             <BaseInfo info={productInfo} />
-          </View>
-          <View className="px-[24px] pt-[32px] flex flex-col gap-[16px]">
             {getServiceBlock()}
             <Box
               bgProps={{
