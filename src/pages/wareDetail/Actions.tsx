@@ -1,6 +1,5 @@
 import { ProductInfo } from "@/client";
 import { AppButton } from "@/components";
-import { usePopupControl } from "@/hooks";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
@@ -12,7 +11,6 @@ type ActionsProps = {
 
 export const Actions = (props: ActionsProps) => {
   const { handleBuy } = props;
-  const popupControl = usePopupControl();
   return (
     <>
       <View

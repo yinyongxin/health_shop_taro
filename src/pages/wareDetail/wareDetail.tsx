@@ -49,7 +49,12 @@ const WareDetail = () => {
     const res = await getWxShopProductDetail({
       query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
     });
-
+    if (!(res.data?.data?.type === "FW")) {
+      const { skuList = [] } = res.data?.data || {};
+      if (skuList && skuList.length > 0) {
+        setCurrentSku(skuList[0]);
+      }
+    }
     return res.data?.data;
   });
 
@@ -339,12 +344,14 @@ const WareDetail = () => {
           </Swiper>
           <View className="px-[24px] pt-[32px] flex flex-col gap-[24px]">
             <BaseInfo info={productInfo} />
-            <Delivery
-              sku={currentSku}
-              handleClick={() => {
-                control.setOpen(true);
-              }}
-            />
+            {!isFW && (
+              <Delivery
+                sku={currentSku}
+                handleClick={() => {
+                  control.setOpen(true);
+                }}
+              />
+            )}
             {getServiceBlock()}
             <Box
               bgProps={{
@@ -369,12 +376,6 @@ const WareDetail = () => {
         <Actions
           info={productInfo}
           handleBuy={() => {
-            if (!isFW) {
-              const { skuList = [] } = productInfo;
-              if (skuList && skuList.length > 0) {
-                setCurrentSku(skuList[0]);
-              }
-            }
             control.setOpen(true);
           }}
         />
