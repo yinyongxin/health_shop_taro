@@ -90,7 +90,7 @@ export default () => {
         qrcodeType: "fromShop",
         phone: address?.receiverPhone,
         orderNo: info.orderNo,
-        itemId: info.itemId,
+        serviceId: info.itemId,
       }),
       opts,
       function (err, url) {
