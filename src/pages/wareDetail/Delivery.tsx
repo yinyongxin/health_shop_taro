@@ -1,28 +1,30 @@
-import { ProductInfo, SkuListItem } from "@/client";
-import { LucideIcon, AppTag } from "@/components";
+import { SkuListItem } from "@/client";
+import { LucideIcon } from "@/components";
 import Box from "@/components/Box";
-import { safeJson } from "@/utils";
-import { ScrollView, View } from "@tarojs/components";
+import { View } from "@tarojs/components";
 
 type DeliveryProps = {
-  info: ProductInfo;
+  handleClick?: () => void;
+  sku?: SkuListItem;
 };
 
 /**
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
-  const { info } = props;
+  const { sku, handleClick } = props;
   return (
     <>
       <Box
         bgProps={{
           className: "bg-white rounded-lg",
         }}
+        onClick={() => handleClick?.()}
       >
         <View className="px-[24px] py-[12px] flex flex-col">
           <View className="flex justify-between items-center gap-2 py-[12px]">
             <View className="text-gray-400">规格</View>
+            <View className="flex-1">{sku ? sku?.specs : "请选择"}</View>
             <View className="text-gray-400">
               <LucideIcon name="chevron-right" size={20} />
             </View>

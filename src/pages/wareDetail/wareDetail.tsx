@@ -29,6 +29,7 @@ import { BaseInfo } from "./BaseInfo";
 import AddressSelect from "./AddressSelect";
 import { ServiceTags } from "./ServiceTags";
 import { Skeleton } from "./Skeleton";
+import { Delivery } from "./Delivery";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
@@ -336,8 +337,14 @@ const WareDetail = () => {
                 </Swiper.Item>
               ))}
           </Swiper>
-          <View className="px-[24px] pt-[32px] flex flex-col gap-[24Fpx]">
+          <View className="px-[24px] pt-[32px] flex flex-col gap-[24px]">
             <BaseInfo info={productInfo} />
+            <Delivery
+              sku={currentSku}
+              handleClick={() => {
+                control.setOpen(true);
+              }}
+            />
             {getServiceBlock()}
             <Box
               bgProps={{
