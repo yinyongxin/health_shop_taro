@@ -129,7 +129,11 @@ export default () => {
 
             const surplus = item.qty - item.usedQty;
             if (surplus === 0) {
-              btn = <AppButton size="sm">剩余{surplus}次，不可使用</AppButton>;
+              btn = (
+                <AppButton size="sm" status="error" disabled>
+                  剩余0次，不可使用
+                </AppButton>
+              );
             }
             return (
               <View key={item.id} className="bg-white rounded-lg">
