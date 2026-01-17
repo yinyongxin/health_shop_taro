@@ -30,7 +30,6 @@ export const orderPay = async (
   wx.miniProgram.getEnv((getEnvRes) => {
     if (getEnvRes.miniprogram) {
       orderPayByMiniApp(payData);
-      appToast.info("支付成功后到我的订单查看");
     } else {
       try {
         WeixinJSBridge.invoke(
