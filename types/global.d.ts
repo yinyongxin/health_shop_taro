@@ -20,6 +20,7 @@ declare var window: Window &
 
 declare var WeixinJSBridge: any;
 
+declare var wx: any;
 
 declare namespace NodeJS {
   interface ProcessEnv {
