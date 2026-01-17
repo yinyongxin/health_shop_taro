@@ -49,25 +49,6 @@ const UserMy = () => {
             >
               设置
             </AppCell> */}
-            <AppCell
-              icon={<LucideIcon name="settings" size={20} />}
-              onClick={() => {
-                orderPay({
-                  nonce_str: "",
-                  package: "",
-                  time_stamp: "",
-                  pay_option: "",
-                  mch_order_id: "",
-                  pay_id: "",
-                  app_id: "",
-                  sign_type: "",
-                  pay_sign: "",
-                  status: "",
-                });
-              }}
-            >
-              发送消息
-            </AppCell>
           </View>
         </View>
       </View>
