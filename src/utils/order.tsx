@@ -28,6 +28,7 @@ export const orderPayByWx = async (
           success?.();
           return;
         }
+        console.error("支付失败", res);
         appToast.error("支付失败");
         fail?.();
       },
