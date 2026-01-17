@@ -207,23 +207,11 @@ const WareDetail = () => {
         ) {
           throw new Error("订单创建失败");
         }
-
-        wx.miniProgram.getEnv(async (getEnvRes) => {
-          if (getEnvRes.miniprogram) {
-            appRouter.navigateTo("orderList", {
-              query: {
-                status: "1",
-              },
-            });
-            return;
-          } else {
-            await orderPay(postWxShopOrderPayRes.data.data, {
-              success: () => {
-                appToast.success("支付成功");
-                control.setOpen(false);
-              },
-            });
-          }
+        await orderPay(postWxShopOrderPayRes.data.data, {
+          success: () => {
+            appToast.success("支付成功");
+            control.setOpen(false);
+          },
         });
       } catch {
         appToast.error("支付失败");
