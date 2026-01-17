@@ -43,7 +43,9 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     });
     if (res.data?.code === 0) {
       appToast.success("添加成功");
+      appUserStore.updateAddressList();
       success?.();
+      return;
     }
     appToast.error(res.data?.msg ?? "添加失败");
   };
@@ -65,7 +67,9 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     });
     if (res.data?.code === 0) {
       appToast.success("修改成功");
+      appUserStore.updateAddressList();
       success?.();
+      return;
     }
     appToast.error(res.data?.msg ?? "修改失败");
   };
