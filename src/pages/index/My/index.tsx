@@ -58,15 +58,14 @@ const UserMy = () => {
                     },
                   },
                 });
+                const seachParams = new URLSearchParams({
+                  urlData: JSON.stringify({
+                    dadf: "sdfasdf",
+                  }),
+                });
+                const queryStr = seachParams.toString();
                 wx.miniProgram.navigateTo({
-                  url: "/pages/payPage/payPage",
-                  query: {
-                    urlData: encodeURIComponent(
-                      JSON.stringify({
-                        dadf: "sdfasdf",
-                      }),
-                    ),
-                  },
+                  url: `/pages/payPage/payPage?${queryStr}`,
                 });
               }}
             >
