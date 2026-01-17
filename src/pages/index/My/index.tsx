@@ -54,7 +54,7 @@ const UserMy = () => {
                 wx.miniProgram.postMessage({ data: { foo: "bar" } });
               }}
             >
-              设置
+              发送消息
             </AppCell>
           </View>
         </View>
