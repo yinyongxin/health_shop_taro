@@ -21,7 +21,7 @@ import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppUserStore } from "@/stores";
 import { useState } from "react";
 import Box from "@/components/Box";
-import { orderPayByWx } from "@/utils/order";
+import { orderPay } from "@/utils/order";
 import { add, multiply, round, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
@@ -130,7 +130,7 @@ const WareDetail = () => {
         if (postWxShopOrderPayRes.data?.code !== 0) {
           throw new Error("订单创建失败");
         }
-        await orderPayByWx(postWxShopOrderPayRes.data.data, {
+        await orderPay(postWxShopOrderPayRes.data.data, {
           success: () => {
             appToast.success("支付成功");
             control.setOpen(false);
@@ -203,7 +203,7 @@ const WareDetail = () => {
         if (postWxShopOrderPayRes.data?.code !== 0) {
           throw new Error("订单创建失败");
         }
-        await orderPayByWx(postWxShopOrderPayRes.data.data, {
+        await orderPay(postWxShopOrderPayRes.data.data, {
           success: () => {
             appToast.success("支付成功");
             control.setOpen(false);

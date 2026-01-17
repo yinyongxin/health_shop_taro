@@ -30,7 +30,7 @@ import { navigateBack } from "@tarojs/taro";
 import Box from "@/components/Box";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { orderPayByWx } from "@/utils/order";
+import { orderPay } from "@/utils/order";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
@@ -77,7 +77,7 @@ const OrderPayPage = () => {
         appToast.error("支付失败");
         return;
       }
-      await orderPayByWx(payRes.data.data, {
+      await orderPay(payRes.data.data, {
         success: () => {
           appToast.success("支付成功");
         },

@@ -2,6 +2,7 @@ import { AppCell, AppDivier, BasePage, LucideIcon } from "@/components";
 import { View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
 import { appRouter } from "@/router";
+import { orderPay } from "@/utils/order";
 import { FeatureBlocks } from "./FeatureBlocks";
 import { MyOrder } from "./MyOrder";
 
@@ -51,21 +52,17 @@ const UserMy = () => {
             <AppCell
               icon={<LucideIcon name="settings" size={20} />}
               onClick={() => {
-                wx.miniProgram.postMessage({
-                  data: {
-                    urlData: {
-                      dadf: "sdfasdf",
-                    },
-                  },
-                });
-                const seachParams = new URLSearchParams({
-                  urlData: JSON.stringify({
-                    dadf: "sdfasdf",
-                  }),
-                });
-                const queryStr = seachParams.toString();
-                wx.miniProgram.navigateTo({
-                  url: `/pages/payPage/payPage?${queryStr}`,
+                orderPay({
+                  nonce_str: "",
+                  package: "",
+                  time_stamp: "",
+                  pay_option: "",
+                  mch_order_id: "",
+                  pay_id: "",
+                  app_id: "",
+                  sign_type: "",
+                  pay_sign: "",
+                  status: "",
                 });
               }}
             >

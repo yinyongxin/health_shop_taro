@@ -1,7 +1,17 @@
 import { PayResult } from "@/client";
 import { appToast } from ".";
 
-export const orderPayByWx = async (
+export const orderPayByMiniApp = (payData: PayResult) => {
+  const seachParams = new URLSearchParams({
+    urlData: JSON.stringify(payData),
+  });
+  const queryStr = seachParams.toString();
+  wx.miniProgram.navigateTo({
+    url: `/pages/payPage/payPage?${queryStr}`,
+  });
+};
+
+export const orderPay = async (
   payData: PayResult,
   options?: {
     success?: () => void;
@@ -17,24 +27,32 @@ export const orderPayByWx = async (
     signType: payData.sign_type, //微信签名方式：
     paySign: payData.pay_sign, //微信签名
   };
-
-  try {
-    WeixinJSBridge.invoke(
-      "getBrandWCPayRequest",
-      params,
-      // @ts-ignore
-      (res: any) => {
-        if (res.err_msg == "get_brand_wcpay_request:ok") {
-          success?.();
-          return;
-        }
-        console.error("支付失败", res);
+  wx.miniProgram.getEnv((getEnvRes) => {
+    if (getEnvRes.miniprogram) {
+      orderPayByMiniApp(payData);
+      appToast.info("支付成功后到我的订单查看");
+    } else {
+      try {
+        WeixinJSBridge.invoke(
+          "getBrandWCPayRequest",
+          params,
+          // @ts-ignore
+          (getBrandWCPayRequestRes: any) => {
+            if (
+              getBrandWCPayRequestRes.err_msg == "get_brand_wcpay_request:ok"
+            ) {
+              success?.();
+              return;
+            }
+            console.error("支付失败", getBrandWCPayRequestRes);
+            appToast.error("支付失败");
+            fail?.();
+          },
+        );
+      } catch (error) {
         appToast.error("支付失败");
-        fail?.();
-      },
-    );
-  } catch (error) {
-    appToast.error("支付失败");
-    throw new Error(error.message);
-  }
+        throw new Error(error.message);
+      }
+    }
+  });
 };
