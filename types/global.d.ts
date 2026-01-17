@@ -23,6 +23,7 @@ declare var WeixinJSBridge: any;
 declare var wx: {
   miniProgram: {
     getEnv: (val: any) => void;
+    postMessage: (val: any) => void;
   };
 };
 

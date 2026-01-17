@@ -48,6 +48,14 @@ const UserMy = () => {
             >
               设置
             </AppCell> */}
+            <AppCell
+              icon={<LucideIcon name="settings" size={20} />}
+              onClick={() => {
+                wx.miniProgram.postMessage({ data: { foo: "bar" } });
+              }}
+            >
+              设置
+            </AppCell>
           </View>
         </View>
       </View>
