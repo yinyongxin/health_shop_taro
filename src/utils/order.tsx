@@ -31,7 +31,6 @@ export const orderPay = async (
   },
 ) => {
   const { success, fail } = options || {};
-  const params = getPayParams(payData);
   wx.miniProgram.getEnv((getEnvRes) => {
     if (getEnvRes.miniprogram) {
       orderPayByMiniApp(payData);
@@ -39,7 +38,7 @@ export const orderPay = async (
       try {
         WeixinJSBridge.invoke(
           "getBrandWCPayRequest",
-          params,
+          getPayParams(payData),
           // @ts-ignore
           (getBrandWCPayRequestRes: any) => {
             if (
