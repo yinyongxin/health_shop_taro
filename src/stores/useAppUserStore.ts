@@ -40,9 +40,10 @@ export const useAppUserStore = createAppStore<AppUserState>(
       if (res.data?.code !== 0) {
         return;
       }
+      const addressList = res.data?.data || [];
       set({
-        addressList: res.data.data,
-        defaultAddress: res.data.data.find((item) => item.isDefault),
+        addressList,
+        defaultAddress: addressList.find((item) => item.isDefault),
       });
     },
 

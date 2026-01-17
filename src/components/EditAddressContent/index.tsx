@@ -38,7 +38,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     const res = await postWxShopAddrAdd({
       body: {
         ...values,
-        isDefault: appUserStore.addressList.length === 0 ? 1 : 0,
+        isDefault: appUserStore.addressList?.length === 0 ? 1 : 0,
       },
     });
     if (res.data?.code === 0) {
@@ -60,6 +60,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         "district",
         "detailAddress",
         "postalCode",
+        "isDefault",
       ]),
     });
     if (res.data?.code === 0) {
