@@ -50,8 +50,8 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
-    wx.miniProgram.getEnv(function (res) {
-      console.log("121212112", res);
+    wx.miniProgram.getEnv((res) => {
+      appAuthStore.updateMiniprogram(res.miniprogram);
     });
     const url = new URL(window.location.href);
     const showVConsole = url.searchParams.get("vConsole") || isDev;

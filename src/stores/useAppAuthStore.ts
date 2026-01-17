@@ -11,10 +11,16 @@ interface AppAuthState extends AppAuthFieldsState {
   updateToken: (value: string) => void;
   updateIsLogged: (value: boolean) => void;
   logout: () => void;
+  isMiniprogram: boolean;
+  updateMiniprogram: (value: boolean) => void;
 }
 
 export const useAppAuthStore = createAppStore<AppAuthState>(
   (set) => ({
+    isMiniprogram: false,
+    updateMiniprogram: (value) => {
+      set({ isMiniprogram: value });
+    },
     token: "",
     updateToken: (value) => {
       client.instance.interceptors.request.use((config) => {
