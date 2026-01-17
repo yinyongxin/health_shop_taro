@@ -51,7 +51,21 @@ const UserMy = () => {
             <AppCell
               icon={<LucideIcon name="settings" size={20} />}
               onClick={() => {
-                wx.miniProgram.postMessage({ data: { foo: "bar" } });
+                wx.miniProgram.postMessage({
+                  data: {
+                    urlData: JSON.stringify({
+                      dadf: "sdfasdf",
+                    }),
+                  },
+                });
+                wx.miniProgram.navigateTo({
+                  url: "/pages/payPage/payPage",
+                  query: {
+                    urlData: JSON.stringify({
+                      dadf: "sdfasdf",
+                    }),
+                  },
+                });
               }}
             >
               发送消息

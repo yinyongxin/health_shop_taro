@@ -24,6 +24,7 @@ declare var wx: {
   miniProgram: {
     getEnv: (val: any) => void;
     postMessage: (val: any) => void;
+    navigateTo: (val: any) => void;
   };
 };
 
