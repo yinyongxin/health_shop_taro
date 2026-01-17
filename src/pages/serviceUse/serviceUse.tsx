@@ -243,7 +243,7 @@ export default () => {
         showClose
       >
         <View className="flex-center">
-          <Image className="size-[600px]" src={qrCodeData} />
+          <Image showMenuByLongpress className="size-[600px]" src={qrCodeData} />
         </View>
         <View className="text-center text-orange-500 text-[32px] mt-[24px]">
           请将二维码出示给服务人员
