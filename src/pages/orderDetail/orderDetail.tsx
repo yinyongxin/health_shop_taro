@@ -124,7 +124,7 @@ export default () => {
         </AppFixedBottom>
       );
     } else if (
-      [2].includes(orderDetail.status) &&
+      [2, 3].includes(orderDetail.status) &&
       orderDetail.isService === 1
     ) {
       return (
@@ -139,7 +139,8 @@ export default () => {
               });
             }}
           >
-            去使用
+            {orderDetail.status === 2 && "去使用"}
+            {orderDetail.status === 3 && "去查看"}
           </AppButton>
         </AppFixedBottom>
       );
