@@ -53,17 +53,19 @@ const UserMy = () => {
               onClick={() => {
                 wx.miniProgram.postMessage({
                   data: {
-                    urlData: JSON.stringify({
+                    urlData: {
                       dadf: "sdfasdf",
-                    }),
+                    },
                   },
                 });
                 wx.miniProgram.navigateTo({
                   url: "/pages/payPage/payPage",
                   query: {
-                    urlData: JSON.stringify({
-                      dadf: "sdfasdf",
-                    }),
+                    urlData: encodeURIComponent(
+                      JSON.stringify({
+                        dadf: "sdfasdf",
+                      }),
+                    ),
                   },
                 });
               }}
