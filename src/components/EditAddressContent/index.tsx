@@ -17,7 +17,7 @@ type EditAddressContentProps = {
   defaultValues?: AddressInfo;
 };
 export const EditAddressContent = (props: EditAddressContentProps) => {
-  const appUserStore = useAppUserStore();
+  const { addressList = [] } = useAppUserStore();
   const { className, btn, success, defaultValues } = props;
   const formRef = useRef<FormInstance>(null);
   const getDefaultValues = () => {
@@ -38,12 +38,12 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     const res = await postWxShopAddrAdd({
       body: {
         ...values,
-        isDefault: appUserStore.addressList?.length === 0 ? 1 : 0,
+        isDefault: addressList?.length === 0 ? 1 : 0,
       },
     });
     if (res.data?.code === 0) {
       appToast.success("添加成功");
-      appUserStore.updateAddressList();
+
       success?.();
       return;
     }
@@ -67,7 +67,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     });
     if (res.data?.code === 0) {
       appToast.success("修改成功");
-      appUserStore.updateAddressList();
+
       success?.();
       return;
     }
