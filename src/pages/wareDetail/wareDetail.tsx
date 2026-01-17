@@ -128,7 +128,10 @@ const WareDetail = () => {
             ],
           },
         });
-        if (postWxShopOrderPayRes.data?.code !== 0) {
+        if (
+          postWxShopOrderPayRes.data?.code !== 0 ||
+          !postWxShopOrderPayRes.data?.data
+        ) {
           throw new Error("订单创建失败");
         }
         await orderPay(postWxShopOrderPayRes.data.data, {
