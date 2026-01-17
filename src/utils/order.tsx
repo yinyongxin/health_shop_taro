@@ -13,9 +13,13 @@ const getPayParams = (payData: PayResult) => {
   return params;
 };
 
-export const orderPayByMiniApp = (payData: PayResult) => {
+export const orderPayByMiniApp = (params: { orderNo: string }) => {
   const seachParams = new URLSearchParams({
-    urlData: JSON.stringify(getPayParams(payData)),
+    urlData: JSON.stringify({
+      orderInfo: {
+        orderNo: params.orderNo,
+      },
+    }),
   });
   const queryStr = seachParams.toString();
   wx.miniProgram.navigateTo({
@@ -31,31 +35,24 @@ export const orderPay = async (
   },
 ) => {
   const { success, fail } = options || {};
-  wx.miniProgram.getEnv((getEnvRes) => {
-    if (getEnvRes.miniprogram) {
-      orderPayByMiniApp(payData);
-    } else {
-      try {
-        WeixinJSBridge.invoke(
-          "getBrandWCPayRequest",
-          getPayParams(payData),
-          // @ts-ignore
-          (getBrandWCPayRequestRes: any) => {
-            if (
-              getBrandWCPayRequestRes.err_msg == "get_brand_wcpay_request:ok"
-            ) {
-              success?.();
-              return;
-            }
-            console.error("支付失败", getBrandWCPayRequestRes);
-            appToast.error("支付失败");
-            fail?.();
-          },
-        );
-      } catch (error) {
+
+  try {
+    WeixinJSBridge.invoke(
+      "getBrandWCPayRequest",
+      getPayParams(payData),
+      // @ts-ignore
+      (getBrandWCPayRequestRes: any) => {
+        if (getBrandWCPayRequestRes.err_msg == "get_brand_wcpay_request:ok") {
+          success?.();
+          return;
+        }
+        console.error("支付失败", getBrandWCPayRequestRes);
         appToast.error("支付失败");
-        throw new Error(error.message);
-      }
-    }
-  });
+        fail?.();
+      },
+    );
+  } catch (error) {
+    appToast.error("支付失败");
+    throw new Error(error.message);
+  }
 };

@@ -23,6 +23,7 @@ import { useState } from "react";
 import Box from "@/components/Box";
 import { orderPay } from "@/utils/order";
 import { add, multiply, round, subtract } from "lodash-es";
+import { appRouter } from "@/router";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -200,14 +201,29 @@ const WareDetail = () => {
             ],
           },
         });
-        if (postWxShopOrderPayRes.data?.code !== 0) {
+        if (
+          postWxShopOrderPayRes.data?.code !== 0 ||
+          !postWxShopOrderPayRes.data?.data
+        ) {
           throw new Error("订单创建失败");
         }
-        await orderPay(postWxShopOrderPayRes.data.data, {
-          success: () => {
-            appToast.success("支付成功");
-            control.setOpen(false);
-          },
+
+        wx.miniProgram.getEnv(async (getEnvRes) => {
+          if (getEnvRes.miniprogram) {
+            appRouter.navigateTo("orderList", {
+              query: {
+                status: "1",
+              },
+            });
+            return;
+          } else {
+            await orderPay(postWxShopOrderPayRes.data.data, {
+              success: () => {
+                appToast.success("支付成功");
+                control.setOpen(false);
+              },
+            });
+          }
         });
       } catch {
         appToast.error("支付失败");
