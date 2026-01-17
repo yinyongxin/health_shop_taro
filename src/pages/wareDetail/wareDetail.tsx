@@ -18,12 +18,11 @@ import {
 } from "@/client";
 import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
-import { useAppUserStore } from "@/stores";
+import { useAppAuthStore, useAppUserStore } from "@/stores";
 import { useState } from "react";
 import Box from "@/components/Box";
 import { orderPay } from "@/utils/order";
 import { add, multiply, round, subtract } from "lodash-es";
-import { appRouter } from "@/router";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
@@ -34,6 +33,7 @@ import { Delivery } from "./Delivery";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
+  const useAuthStore = useAppAuthStore();
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
@@ -98,6 +98,10 @@ const WareDetail = () => {
 
   const handlePay = useRequest(
     async () => {
+      if (useAuthStore.isMiniprogram) {
+        appToast.info("暂不支持小程序购买");
+        return;
+      }
       if (!productInfo || !currentSku) {
         return;
       }
@@ -182,6 +186,10 @@ const WareDetail = () => {
 
   const handleServerPay = useRequest(
     async () => {
+      if (useAuthStore.isMiniprogram) {
+        appToast.info("暂不支持小程序购买");
+        return;
+      }
       if (!productInfo) {
         return;
       }

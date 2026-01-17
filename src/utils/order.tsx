@@ -35,11 +35,6 @@ export const orderPay = async (
   },
 ) => {
   const { success, fail } = options || {};
-  wx.miniProgram.getEnv((getEnvRes) => {
-    if (getEnvRes.miniprogram) {
-      appToast.error("暂不支持小程序支付");
-    }
-  });
   try {
     WeixinJSBridge.invoke(
       "getBrandWCPayRequest",

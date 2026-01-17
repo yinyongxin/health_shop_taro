@@ -22,7 +22,7 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
+import { useAppAuthStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
@@ -35,6 +35,7 @@ import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
   const appUserStore = useAppUserStore();
+  const useAuthStore = useAppAuthStore();
   const pageParams = usePageParams<"orderPay">();
   const selectAddressControl = usePopupControl();
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
@@ -56,6 +57,10 @@ const OrderPayPage = () => {
 
   const orderPayRequest = useRequest(
     async () => {
+      if (useAuthStore.isMiniprogram) {
+        appToast.info("暂不支持小程序购买");
+        return;
+      }
       if (!orderDetail) {
         return;
       }
