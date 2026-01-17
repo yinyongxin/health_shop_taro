@@ -40,7 +40,7 @@ const UserMy = () => {
             >
               地址管理
             </AppCell>
-            <AppDivier className="px-[32px]" />
+            {/* <AppDivier className="px-[32px]" /> */}
             {/* <AppCell
               icon={<LucideIcon name="settings" size={20} />}
               onClick={() => {
