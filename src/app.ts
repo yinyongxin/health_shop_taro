@@ -54,7 +54,7 @@ function App({ children }: PropsWithChildren<any>) {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
     const url = new URL(window.location.href);
-    const showVConsole = url.searchParams.get("vConsole");
+    const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
       new VConsole();
     }
