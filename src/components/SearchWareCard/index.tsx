@@ -2,8 +2,8 @@ import { ProductInfo } from "@/client";
 import { appRouter } from "@/router";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { useState } from "react";
-import { LucideIcon } from "../LucideIcon";
+// import { useState } from "react";
+// import { LucideIcon } from "../LucideIcon";
 import { AppImage } from "../AppImage";
 
 export type SearchWareCardProps = {
@@ -12,7 +12,7 @@ export type SearchWareCardProps = {
 };
 export const SearchWareCard = (props: SearchWareCardProps) => {
   const { border, info } = props;
-  const [liked, setLiked] = useState(false);
+  // const [liked, setLiked] = useState(false);
   return (
     <View
       className={classNames("pt-[24px] pl-[24px] w-1/2", "relative")}
@@ -63,7 +63,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           </View>
         </View>
       </View>
-      <View
+      {/* <View
         className="absolute top-[48px] right-[24px] "
         onClick={(e) => {
           e.stopPropagation();
@@ -80,7 +80,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
         >
           <LucideIcon name="star" />
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
