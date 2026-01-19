@@ -11,6 +11,7 @@ import { useDidShow } from "@tarojs/taro";
 import { appLoading } from "@/utils";
 import { OrderCard } from "./OrderCard";
 import { Skeleton } from "./Skeleton";
+import { View } from "@tarojs/components";
 
 const OrderList = () => {
   const pageParams = usePageParams<"orderList">();
@@ -88,12 +89,14 @@ const OrderList = () => {
 
   return (
     <BasePage fullScreen className="flex-1 myLikeList">
-      <AppTabList
-        className="bg-none"
-        active={active}
-        tabs={tabs}
-        onChange={setActive}
-      />
+      <View className="w-full overflow-hidden">
+        <AppTabList
+          className="bg-none"
+          active={active}
+          tabs={tabs}
+          onChange={setActive}
+        />
+      </View>
       <AppList
         skeleton={<Skeleton />}
         className="flex-1"
