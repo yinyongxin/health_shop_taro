@@ -40,6 +40,7 @@ function App({ children }: PropsWithChildren<any>) {
       }
       appAuthStore.updateIsLogged(true);
       removeUrlParameter(["code"]);
+      removeUrlParameter(["state"]);
     } else {
       // 如果没有登录码，则直接调用登录函数
       if (isDev) {
