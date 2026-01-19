@@ -51,8 +51,11 @@ export const BasePage = (props: BasePageProps) => {
       <View
         className={classNames(
           "relative flex-1 flex flex-col",
-          "overflow-auto",
+          // "overflow-y-auto",
           wapperClassName,
+          {
+            "overflow-y-auto": fullScreen,
+          },
         )}
         {...wapperRest}
       >

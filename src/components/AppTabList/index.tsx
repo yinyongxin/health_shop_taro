@@ -27,6 +27,7 @@ export const AppTabList = (props: AppTabListProps) => {
     onChange,
   } = props;
   const [active, setActive] = useState(defaultActive || propsActive);
+
   useEffect(() => {
     if (propsActive) {
       setActive(propsActive);
@@ -45,7 +46,7 @@ export const AppTabList = (props: AppTabListProps) => {
         scrollIntoViewAlignment="center"
         className={classNames(
           "bg-linear-to-b from-[#F3F7FE] to-white",
-          "w-full overflow-auto text-nowrap",
+          "w-full flex flex-nowrap",
           "px-[24px] py-[24px]",
           "text-[28px]",
           className,
@@ -57,7 +58,7 @@ export const AppTabList = (props: AppTabListProps) => {
             <View
               id={`tab${tab.value}`}
               key={tab.value}
-              className="inline-block mr-[16px]"
+              className="inline-block mr-[16px] shrink-0"
             >
               <AppTag
                 className={`tag-${tab.value}`}

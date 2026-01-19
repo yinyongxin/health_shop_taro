@@ -8,10 +8,10 @@ import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
+import { View } from "@tarojs/components";
 import { appLoading } from "@/utils";
 import { OrderCard } from "./OrderCard";
 import { Skeleton } from "./Skeleton";
-import { View } from "@tarojs/components";
 
 const OrderList = () => {
   const pageParams = usePageParams<"orderList">();
@@ -88,15 +88,13 @@ const OrderList = () => {
   });
 
   return (
-    <BasePage fullScreen className="flex-1 myLikeList">
-      <View className="w-full overflow-hidden">
-        <AppTabList
-          className="bg-none"
-          active={active}
-          tabs={tabs}
-          onChange={setActive}
-        />
-      </View>
+    <BasePage fullScreen>
+      <AppTabList
+        className="bg-none"
+        active={active}
+        tabs={tabs}
+        onChange={setActive}
+      />
       <AppList
         skeleton={<Skeleton />}
         className="flex-1"
