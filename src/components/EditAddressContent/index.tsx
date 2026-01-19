@@ -151,6 +151,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
           >
             {(fieldController: FormController<string[]>) => {
               const value = fieldController?.value || [];
+              console.log("area value:", fieldController);
               return (
                 <AppAreaPickerPopup
                   areaPickerProps={{
@@ -159,7 +160,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
                         area: val,
                       });
                     },
-                    defaultValue: value,
+                    defaultValue: ["110000", "110100", "110101"],
                   }}
                 >
                   {({ handleOpen }) => {

@@ -1,5 +1,5 @@
 import { AreaPicker, Popup } from "@taroify/core";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { areaList } from "@vant/area-data";
 import { AreaPickerProps } from "@taroify/core/area-picker/area-picker";
 
@@ -27,6 +27,7 @@ const AppAreaPickerPopup = (props: AppAreaPickerPopupProps) => {
             setOpen(false);
           }}
           onConfirm={(val, option) => {
+            console.log("AreaPicker onConfirm:", val, option);
             onConfirm?.(val, option);
             setOpen(false);
           }}
