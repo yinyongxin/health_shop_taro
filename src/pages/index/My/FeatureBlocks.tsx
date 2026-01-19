@@ -15,7 +15,7 @@ export const FeatureBlocks = () => {
               appRouter.navigateTo("myService");
             }}
           />
-          <AppFeatureBlocksItem
+          {/* <AppFeatureBlocksItem
             title="联系客服"
             icon={<LucideIcon name="message-circle-more" size={28} />}
             onClick={() => {
@@ -28,7 +28,7 @@ export const FeatureBlocks = () => {
             onClick={() => {
               showToast({ title: "尽请期待", icon: "none" });
             }}
-          />
+          /> */}
 
           <View className="w-1/5"></View>
           <View className="w-1/5"></View>
