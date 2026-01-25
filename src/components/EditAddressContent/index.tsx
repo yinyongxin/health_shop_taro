@@ -131,7 +131,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         >
           <View className="flex flex-col gap-[24rpx]">
             <View className="flex flex-col gap-[16rpx]">
-              <View className="text-gray-500">标签（ 用于区分地址类型 ）</View>
+              <View className="text-gray-500">标签（ 用于区分地址 ）</View>
               <Field required name="tag" className="rounded-lg">
                 <Input maxlength={10} placeholder="请输入内容" />
               </Field>
