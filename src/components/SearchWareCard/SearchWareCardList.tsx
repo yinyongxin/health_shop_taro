@@ -11,6 +11,7 @@ export type SearchWareCardListProps = {
   searchWareCardProps?: Partial<SearchWareCardProps>;
   searchKey?: string;
   refreshNumber?: number;
+  order?: "new" | "sell";
 };
 
 export const SearchWareCardList = (props: SearchWareCardListProps) => {
@@ -19,6 +20,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     className,
     searchWareCardProps,
     refreshNumber,
+    order,
   } = props;
   const dataRequest = useRequest(
     async (pageNum: number = 1) => {
@@ -28,6 +30,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           searchKey: searchKey,
           pageNum: pageNum.toString(),
           pageSize: "20",
+          orderBy: order || undefined,
         },
       });
       let list: ProductInfo[] = [];
@@ -46,7 +49,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
       };
     },
     {
-      refreshDeps: [searchKey, refreshNumber],
+      refreshDeps: [searchKey, refreshNumber, order],
     },
   );
 

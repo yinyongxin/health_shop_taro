@@ -335,6 +335,7 @@ export type GetWxShopProductSearchData = {
   query?: {
     orgId?: string;
     searchKey?: string;
+    orderBy?: "new" | "sell";
     pageNum?: string;
     pageSize?: string;
   };

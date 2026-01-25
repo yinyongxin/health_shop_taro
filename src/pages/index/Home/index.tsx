@@ -37,7 +37,7 @@ export const Home = () => {
               },
             }}
           >
-            推荐商品
+            全部商品
           </Title>
         </View>
         <SearchWareCardList />

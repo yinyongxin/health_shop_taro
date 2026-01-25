@@ -2,12 +2,15 @@ import { AppTopSearch, BasePage } from "@/components";
 import { View } from "@tarojs/components";
 import { useState } from "react";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
-import { DownMenu } from "./DowmMenu";
+import { DropdownMenu } from "@taroify/core";
+import classNames from "classnames";
 import "./wareList.css";
 
 const WareList = () => {
-  const [value, setValue] = useState("");
+  const [search, setSearch] = useState("");
   const [refreshNumber, setRefreshNumber] = useState(0);
+  const [value, setValue] = useState(0);
+  const [order, setOrder] = useState<"new" | "sell">();
   return (
     <BasePage
       bgProps={{ className: "page-bg" }}
@@ -17,17 +20,45 @@ const WareList = () => {
       <View className="p-[24px]">
         <AppTopSearch
           onSearch={(val) => {
-            setValue(val);
+            setSearch(val);
             setRefreshNumber(refreshNumber + 1);
           }}
         />
       </View>
       <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden bg-gray-100">
-        <DownMenu />
+        <DropdownMenu className={classNames("bg-transparent")}>
+          <DropdownMenu.Item
+            options={[
+              { title: "全部商品", value: 0 },
+              // { title: "新款商品", value: 1 },
+              // { title: "活动商品", value: 2 },
+            ]}
+            value={value}
+            onChange={(val) => {
+              setValue(val);
+            }}
+          />
+          <DropdownMenu.Item
+            options={[
+              { title: "默认排序", value: "default" },
+              { title: "新款商品", value: "new" },
+              { title: "活动商品", value: "sell" },
+            ]}
+            value={order}
+            onChange={(val) => {
+              if (val === "default") {
+                setOrder(undefined);
+                return;
+              }
+              setOrder(val);
+            }}
+          />
+        </DropdownMenu>
         <SearchWareCardList
           searchWareCardProps={{ border: true }}
-          searchKey={value}
+          searchKey={search}
           refreshNumber={refreshNumber}
+          order={order}
         />
       </View>
     </BasePage>
