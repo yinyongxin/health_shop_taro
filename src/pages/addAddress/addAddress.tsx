@@ -16,7 +16,6 @@ const AddAddress = () => {
       >
         <View className="px-[24px] ">
           <EditAddressContent
-            className="rounded-lg overflow-hiddenn bg-white"
             success={() => {
               appUserStore.updateAddressList();
               navigateBack({

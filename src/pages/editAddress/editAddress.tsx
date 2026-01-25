@@ -18,7 +18,6 @@ const EditeAddress = () => {
       >
         <View className="px-[24px] ">
           <EditAddressContent
-            className="rounded-lg overflow-hiddenn bg-white"
             defaultValues={detail}
             success={() => {
               appUserStore.updateAddressList();

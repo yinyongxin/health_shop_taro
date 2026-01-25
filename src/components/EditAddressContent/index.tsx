@@ -9,6 +9,7 @@ import { useAppUserStore } from "@/stores";
 import { appLoading, appToast, getAreaChinese, getAreaCode } from "@/utils";
 import { pick } from "lodash-es";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
+import { AppTag } from "../AppTag";
 
 type EditAddressContentProps = {
   className?: string;
@@ -73,6 +74,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     }
     appToast.error(res.data?.msg ?? "修改失败");
   };
+
   const onSubmit = async (values: AddressInfo & { area: string[] }) => {
     try {
       appLoading.show();
@@ -96,125 +98,178 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
       appLoading.hide();
     }
   };
+
   return (
     <>
-      <View className={classNames(className)}>
+      <View className="text-orange-500 text-[24rpx] mt-[16rpx]">
+        温馨提示：为了确保您能顺利收到商品，请务必填写真实有效的收货地址信息。
+      </View>
+      <View className={classNames("mt-[32rpx]", className)}>
         <Form
           ref={formRef}
           onSubmit={(e) => {
             onSubmit(e.detail.value as any);
           }}
         >
-          <Field required label="标签" name="tag">
-            <Input maxlength={10} placeholder="标签" />
-          </Field>
-          <Field
-            required
-            label="姓名"
-            name="receiverName"
-            rules={[
-              {
-                pattern: new RegExp(NAME_REGEXP_STR),
-                message: "请输入正确姓名",
-              },
-            ]}
-          >
-            <Input placeholder="姓名" />
-          </Field>
-          <Field
-            required
-            label="手机号"
-            name="receiverPhone"
-            rules={[
-              {
-                pattern: new RegExp(PHONE_REGEXP_STR),
-                message: "请输入正确手机号",
-              },
-            ]}
-          >
-            <Input type="digit" maxlength={11} placeholder="手机号" />
-          </Field>
-
-          <Field
-            required
-            label="地区"
-            name="area"
-            isLink
-            rules={[
-              {
-                validator: (value) => {
-                  return value.length === 3;
-                },
-                message: "请选择地区",
-              },
-            ]}
-          >
-            {(fieldController: FormController<string[]>) => {
-              const value = fieldController?.value || [];
-              console.log("area value:", fieldController);
-              return (
-                <AppAreaPickerPopup
-                  areaPickerProps={{
-                    onConfirm: (val) => {
-                      formRef.current?.setFieldsValue({
-                        area: val,
-                      });
-                    },
-                    defaultValue: ["110000", "110100", "110101"],
+          <View className="flex flex-col gap-[24rpx]">
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">标签（ 用于区分地址类型 ）</View>
+              <Field required name="tag" className="rounded-lg">
+                <Input maxlength={10} placeholder="请输入内容" />
+              </Field>
+              <View className="w-full flex gap-[24rpx] ">
+                <AppTag
+                  onClick={() => {
+                    formRef.current?.setFieldsValue({ tag: "家" });
                   }}
                 >
-                  {({ handleOpen }) => {
-                    return (
-                      <Input
-                        value={getAreaChinese(value).join("-")}
-                        readonly
-                        placeholder="请选择所在地区"
-                        onClick={() => handleOpen()}
-                      />
-                    );
+                  家
+                </AppTag>
+                <AppTag
+                  onClick={() => {
+                    formRef.current?.setFieldsValue({ tag: "公司" });
                   }}
-                </AppAreaPickerPopup>
-              );
-            }}
-          </Field>
+                >
+                  公司
+                </AppTag>
+                <AppTag
+                  onClick={() => {
+                    formRef.current?.setFieldsValue({ tag: "家人" });
+                  }}
+                >
+                  家人
+                </AppTag>
+              </View>
+            </View>
 
-          <Field
-            required
-            label="街道"
-            name="street"
-            rules={[
-              {
-                pattern: new RegExp(NAME_REGEXP_STR),
-                message: "请输入正确街道",
-              },
-            ]}
-          >
-            <Input placeholder="街道" />
-          </Field>
-          <Field
-            required
-            name="detailAddress"
-            align="start"
-            label="详细地址"
-            rules={[
-              {
-                validator: (value) => {
-                  return value.length > 0;
-                },
-                message: "请输入详细地址",
-              },
-            ]}
-          >
-            <Textarea
-              limit={100}
-              maxlength={100}
-              placeholder="详细地址"
-              className="w-full"
-            />
-          </Field>
-          <Field label="邮政编码" name="postalCode">
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">姓名</View>
+              <Field
+                className="rounded-lg"
+                required
+                name="receiverName"
+                rules={[
+                  {
+                    pattern: new RegExp(NAME_REGEXP_STR),
+                    message: "请输入内容",
+                  },
+                ]}
+              >
+                <Input placeholder="请输入内容" />
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">手机号</View>
+              <Field
+                className="rounded-lg"
+                required
+                label="手机号"
+                name="receiverPhone"
+                rules={[
+                  {
+                    pattern: new RegExp(PHONE_REGEXP_STR),
+                    message: "请输入正确手机号",
+                  },
+                ]}
+              >
+                <Input type="digit" maxlength={11} placeholder="请输入内容" />
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">地区</View>
+              <Field
+                className="rounded-lg"
+                required
+                name="area"
+                isLink
+                rules={[
+                  {
+                    validator: (value) => {
+                      return value.length === 3;
+                    },
+                    message: "请选择地区",
+                  },
+                ]}
+              >
+                {(fieldController: FormController<string[]>) => {
+                  const value = fieldController?.value || [];
+                  console.log("area value:", fieldController);
+                  return (
+                    <AppAreaPickerPopup
+                      areaPickerProps={{
+                        onConfirm: (val) => {
+                          formRef.current?.setFieldsValue({
+                            area: val,
+                          });
+                        },
+                        defaultValue: ["110000", "110100", "110101"],
+                      }}
+                    >
+                      {({ handleOpen }) => {
+                        return (
+                          <Input
+                            value={getAreaChinese(value).join("-")}
+                            readonly
+                            placeholder="请选择所在地区"
+                            onClick={() => handleOpen()}
+                          />
+                        );
+                      }}
+                    </AppAreaPickerPopup>
+                  );
+                }}
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">街道</View>
+              <Field
+                className="rounded-lg"
+                required
+                name="street"
+                rules={[
+                  {
+                    pattern: new RegExp(NAME_REGEXP_STR),
+                    message: "请输入正确街道",
+                  },
+                ]}
+              >
+                <Input placeholder="请输入内容" />
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-[16rpx]">
+              <View className="text-gray-500">详细地址</View>
+              <Field
+                className="rounded-lg"
+                required
+                name="detailAddress"
+                align="start"
+                label="详细地址"
+                rules={[
+                  {
+                    validator: (value) => {
+                      return value.length > 0;
+                    },
+                    message: "请输入详细地址",
+                  },
+                ]}
+              >
+                <Textarea
+                  limit={100}
+                  maxlength={100}
+                  placeholder="请输入内容"
+                  className="w-full"
+                />
+              </Field>
+            </View>
+
+            {/* <Field label="邮政编码" name="postalCode">
             <Input maxlength={10} placeholder="邮政编码" />
-          </Field>
+          </Field> */}
+          </View>
         </Form>
       </View>
       <View onClick={() => formRef.current?.submit()}>{btn}</View>
