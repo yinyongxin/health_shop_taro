@@ -46,11 +46,9 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             {props.info.description}
           </View>
           <View className=" px-[16px] flex justify-between items-end">
-            <View className="flex gap-[4px] items-end">
+            <View className="flex gap-[4px] items-end text-rose-500">
               <Text className="text-[24px]">¥</Text>
-              <Text className="text-[32px] text-rose-500">
-                {props.info.price}
-              </Text>
+              <Text className="text-[32px] ">{props.info.price}</Text>
               {info.originalPrice !== info.price && (
                 <Text className="text-gary-500 line-through">
                   {props.info.originalPrice}

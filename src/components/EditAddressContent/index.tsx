@@ -99,6 +99,24 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     }
   };
 
+  const tagsRender = () => {
+    const list = ["家", "公司", "学校", "父母", "朋友"];
+    return (
+      <View className="w-full flex gap-[24rpx] ">
+        {list.map((tag) => (
+          <AppTag
+            key={tag}
+            onClick={() => {
+              formRef.current?.setFieldsValue({ tag });
+            }}
+          >
+            {tag}
+          </AppTag>
+        ))}
+      </View>
+    );
+  };
+
   return (
     <>
       <View className="text-orange-500 text-[24rpx] mt-[16rpx]">
@@ -117,29 +135,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               <Field required name="tag" className="rounded-lg">
                 <Input maxlength={10} placeholder="请输入内容" />
               </Field>
-              <View className="w-full flex gap-[24rpx] ">
-                <AppTag
-                  onClick={() => {
-                    formRef.current?.setFieldsValue({ tag: "家" });
-                  }}
-                >
-                  家
-                </AppTag>
-                <AppTag
-                  onClick={() => {
-                    formRef.current?.setFieldsValue({ tag: "公司" });
-                  }}
-                >
-                  公司
-                </AppTag>
-                <AppTag
-                  onClick={() => {
-                    formRef.current?.setFieldsValue({ tag: "家人" });
-                  }}
-                >
-                  家人
-                </AppTag>
-              </View>
+              {tagsRender()}
             </View>
 
             <View className="flex flex-col gap-[16rpx]">

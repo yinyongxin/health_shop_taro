@@ -10,7 +10,7 @@ const WareList = () => {
   const [search, setSearch] = useState("");
   const [refreshNumber, setRefreshNumber] = useState(0);
   const [value, setValue] = useState(0);
-  const [order, setOrder] = useState<"new" | "sell">();
+  const [order, setOrder] = useState<"default" | "new" | "sell">();
   return (
     <BasePage
       bgProps={{ className: "page-bg" }}
@@ -46,10 +46,6 @@ const WareList = () => {
             ]}
             value={order}
             onChange={(val) => {
-              if (val === "default") {
-                setOrder(undefined);
-                return;
-              }
               setOrder(val);
             }}
           />
@@ -58,7 +54,7 @@ const WareList = () => {
           searchWareCardProps={{ border: true }}
           searchKey={search}
           refreshNumber={refreshNumber}
-          order={order}
+          order={order === "default" ? undefined : order}
         />
       </View>
     </BasePage>

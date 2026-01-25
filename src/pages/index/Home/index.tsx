@@ -29,7 +29,7 @@ export const Home = () => {
         </View>
         <View className="px-[24px] pt-[24px]">
           <Title
-            className="py-[24px]"
+            className="pt-[24px]"
             action={{
               text: "查看更多",
               onClick: () => {
