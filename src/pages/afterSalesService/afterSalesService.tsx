@@ -3,12 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { useAppUserStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopOrderMy, OrderListItem } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
+import { getWxShopAfterSaleList, OrderListItem } from "@/client";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
-import { View } from "@tarojs/components";
 import { appLoading } from "@/utils";
 import { OrderCard } from "./OrderCard";
 import { Skeleton } from "./Skeleton";
@@ -41,12 +39,11 @@ const OrderList = () => {
       if (!active) {
         return;
       }
-      const res = await getWxShopOrderMy({
+      const res = await getWxShopAfterSaleList({
         query: {
-          orgId: APP_ENV_CONFIG.ORG_ID,
           status: active === "all" ? undefined : active,
-          pageNum: pageNum.toString(),
-          pageSize: pageSize?.toString() ?? "10",
+          pageNum: pageNum,
+          pageSize: pageSize ?? 10,
         },
       });
       let list: OrderListItem[] = [];

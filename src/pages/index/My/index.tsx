@@ -27,11 +27,29 @@ const UserMy = () => {
         <View className="px-[24px] mt-[32px]">
           <MyOrder />
         </View>
-        <View className="px-[24px] mt-[32px]">
+        {/* <View className="px-[24px] mt-[32px]">
           <FeatureBlocks />
-        </View>
+        </View> */}
         <View className="mt-[32px] px-[24px]">
           <View className="rounded-[24px] overflow-hidden bg-white">
+            <AppCell
+              icon={<LucideIcon name="hand-coins" size={20} />}
+              onClick={() => {
+                appRouter.navigateTo("afterSalesService");
+              }}
+            >
+              退款售后
+            </AppCell>
+            <AppDivier className="px-[32px]" />
+            <AppCell
+              icon={<LucideIcon name="hand-platter" size={20} />}
+              onClick={() => {
+                appRouter.navigateTo("myService");
+              }}
+            >
+              我的服务
+            </AppCell>
+            <AppDivier className="px-[32px]" />
             <AppCell
               icon={<LucideIcon name="map-pin-house" size={20} />}
               onClick={() => {
@@ -40,7 +58,7 @@ const UserMy = () => {
             >
               地址管理
             </AppCell>
-            {/* <AppDivier className="px-[32px]" /> */}
+
             {/* <AppCell
               icon={<LucideIcon name="settings" size={20} />}
               onClick={() => {

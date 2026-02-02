@@ -7,7 +7,7 @@ export const FeatureBlocks = () => {
   return (
     <View className="bg-white rounded-[24px]">
       <View className="mt-[16px]">
-        <View className="flex justify-between py-[24px] pr-[24px]">
+        <View className="flex py-[24px] pr-[24px]">
           <AppFeatureBlocksItem
             title="我的服务"
             icon={<LucideIcon name="hand-helping" size={28} />}

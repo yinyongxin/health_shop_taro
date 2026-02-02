@@ -9,6 +9,8 @@ import type {
   GetWxRedirectQueryDictResponses,
   GetWxRedirectQueryConfigData,
   GetWxRedirectQueryConfigResponses,
+  GetWxOrgInfoByOrgIdData,
+  GetWxOrgInfoByOrgIdResponses,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -49,6 +51,11 @@ import type {
   GetWxShopBannerListErrors,
   GetWxShopMyServiceOrderData,
   GetWxShopMyServiceOrderResponses,
+  PostWxShopAfterSaleApplyData,
+  PostWxShopAfterSaleApplyResponses,
+  PostWxShopAfterSaleApplyErrors,
+  GetWxShopAfterSaleListData,
+  GetWxShopAfterSaleListResponses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -117,6 +124,23 @@ export const getWxRedirectQueryConfig = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/redirect/queryConfig",
+    ...options,
+  });
+};
+
+/**
+ * 获取机构信息
+ */
+export const getWxOrgInfoByOrgId = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxOrgInfoByOrgIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxOrgInfoByOrgIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orgInfo/{orgId}",
     ...options,
   });
 };
@@ -437,6 +461,71 @@ export const getWxShopMyServiceOrder = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/my/service/order",
+    ...options,
+  });
+};
+
+/**
+ * 申请售后
+ */
+export const postWxShopAfterSaleApply = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxShopAfterSaleApplyData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxShopAfterSaleApplyResponses,
+    PostWxShopAfterSaleApplyErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/after/sale/apply",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 查询我的售后订单列表
+ * PENDING_AUDIT=待审核
+ * AUDIT_PASS=审核通过
+ * AUDIT_REJECT=审核拒绝
+ * REFUNDING=退款中
+ * REFUND_SUCCESS=退款成功
+ * REFUND_FAILED=退款失败
+ *
+ * 字段名称
+ * `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+ * `order_id` varchar(64) NOT NULL COMMENT '关联订单编号（外键关联订单表）',
+ * `after_sale_type` varchar(16) DEFAULT 'refund' COMMENT '售后类型：refund退费/change换货',
+ * `refund_no` varchar(64) NOT NULL COMMENT '退款单号（自定义唯一编号）',
+ * `user_id` varchar(64) NOT NULL COMMENT '申请退款的用户ID',
+ * `user_name` varchar(64)  COMMENT '申请退款的用户ID',
+ * `apply_amount` decimal(10,2) NOT NULL COMMENT '申请退款金额（元）',
+ * `actual_refund_amount` decimal(10,2) DEFAULT '0.00' COMMENT '实际退款金额（元，可能部分退款）',
+ * `refund_reason` varchar(500) COMMENT '退款原因（用户填写）',
+ * `refund_status` varchar(32) NOT NULL DEFAULT 'PENDING_AUDIT'
+ * COMMENT '待审核PENDING_AUDIT/审核通过AUDIT_PASS/审核拒绝AUDIT_REJECT/退款中REFUNDING/退款成功REFUND_SUCCESS/退款失败REFUND_FAILED',
+ * `apply_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '退款申请时间',
+ * `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
+ * `audit_user` bigint DEFAULT NULL COMMENT '审核人ID（后台管理员）',
+ * `audit_user_name` varchar(32) DEFAULT NULL COMMENT '审核人（后台管理员）',
+ * `refund_time` datetime DEFAULT NULL COMMENT '退款完成时间',
+ * `refund_channel` varchar(32) DEFAULT NULL COMMENT '退款渠道：WECHAT/ALIPAY/BANK_CARD等',
+ * `refund_transaction_id` varchar(128) DEFAULT NULL COMMENT '第三方退款交易号（如微信/支付宝退款单号）',
+ * `remark` varchar(1000) DEFAULT NULL COMMENT '备注（审核/退款备注）',
+ */
+export const getWxShopAfterSaleList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopAfterSaleListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopAfterSaleListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/after/sale/list",
     ...options,
   });
 };

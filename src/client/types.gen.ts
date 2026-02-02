@@ -276,6 +276,24 @@ export type GetWxRedirectQueryConfigResponses = {
 export type GetWxRedirectQueryConfigResponse =
   GetWxRedirectQueryConfigResponses[keyof GetWxRedirectQueryConfigResponses];
 
+export type GetWxOrgInfoByOrgIdData = {
+  body?: never;
+  path: {
+    orgId: string;
+  };
+  query?: never;
+  url: "/wx/orgInfo/{orgId}";
+};
+
+export type GetWxOrgInfoByOrgIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrgInfoByOrgIdResponse =
+  GetWxOrgInfoByOrgIdResponses[keyof GetWxOrgInfoByOrgIdResponses];
+
 export type GetWxShopCateListData = {
   body?: never;
   path?: never;
@@ -303,6 +321,7 @@ export type GetWxShopCateProductData = {
     subCategoryId?: string;
     pageSize?: string;
     pageNum?: string;
+    orderBy?: string;
   };
   url: "/wx/shop/cate/product";
 };
@@ -335,7 +354,6 @@ export type GetWxShopProductSearchData = {
   query?: {
     orgId?: string;
     searchKey?: string;
-    orderBy?: "new" | "sell";
     pageNum?: string;
     pageSize?: string;
   };
@@ -762,7 +780,7 @@ export type GetWxShopMyServiceOrderData = {
     pageSize?: string;
     pageNum?: string;
     /**
-     * 1：全部,  2:未核销完的服务，3：已经核销完的。
+     * 不传：全部,  2:未核销完的服务，3：已经核销完的。
      */
     status?: number;
   };
@@ -780,6 +798,69 @@ export type GetWxShopMyServiceOrderResponses = {
 
 export type GetWxShopMyServiceOrderResponse =
   GetWxShopMyServiceOrderResponses[keyof GetWxShopMyServiceOrderResponses];
+
+export type PostWxShopAfterSaleApplyData = {
+  body?: {
+    /**
+     * 订单id
+     */
+    orderNo: string;
+    /**
+     * 申请退款金额
+     */
+    applyAmount: number;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/shop/after/sale/apply";
+};
+
+export type PostWxShopAfterSaleApplyErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostWxShopAfterSaleApplyError =
+  PostWxShopAfterSaleApplyErrors[keyof PostWxShopAfterSaleApplyErrors];
+
+export type PostWxShopAfterSaleApplyResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: string;
+  };
+};
+
+export type PostWxShopAfterSaleApplyResponse =
+  PostWxShopAfterSaleApplyResponses[keyof PostWxShopAfterSaleApplyResponses];
+
+export type GetWxShopAfterSaleListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * 按接口说明传状态。不传查全部
+     */
+    status?: string;
+    pageSize?: number;
+    pageNum?: number;
+  };
+  url: "/wx/shop/after/sale/list";
+};
+
+export type GetWxShopAfterSaleListResponses = {
+  200: {
+    total: number;
+    rows: Array<string>;
+    code: number;
+    msg: unknown;
+  };
+};
+
+export type GetWxShopAfterSaleListResponse =
+  GetWxShopAfterSaleListResponses[keyof GetWxShopAfterSaleListResponses];
 
 export type ClientOptions = {
   baseURL: string;
