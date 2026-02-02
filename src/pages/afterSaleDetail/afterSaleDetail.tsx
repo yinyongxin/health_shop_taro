@@ -58,25 +58,6 @@ export default () => {
     initAddress();
   }, [orderDetailRequest.data?.order.addressId]);
 
-  const cancelOrder = async () => {
-    if (!orderDetailRequest.data) {
-      return;
-    }
-    appLoading.show("取消订单中...");
-    const res = await postWxShopAfterSaleApply({
-      body: {
-        orderNo: orderDetailRequest.data?.order.orderNo,
-        applyAmount: orderDetailRequest.data?.order.paymentAmount,
-      },
-    });
-    if (res.data?.code !== 0) {
-      appToast.error("取消订单失败");
-      return;
-    }
-    appToast.success("取消订单成功");
-    orderDetailRequest.run();
-  };
-
   const { order: orderDetail } = orderDetailRequest.data || {};
 
   if (orderDetailRequest.error) {
@@ -106,30 +87,7 @@ export default () => {
   }
 
   const renderBottomBtns = () => {
-    if ([1, 2].includes(orderDetail.status)) {
-      return (
-        <AppFixedBottom>
-          <AppButton
-            status="error"
-            onClick={() => {
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "取消后不能恢复，确定取消订单吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
-            }}
-          >
-            退款
-          </AppButton>
-        </AppFixedBottom>
-      );
-    } else if (
-      [2, 3].includes(orderDetail.status) &&
-      orderDetail.isService === 1
-    ) {
+    if ([2, 3].includes(orderDetail.status) && orderDetail.isService === 1) {
       return (
         <AppFixedBottom>
           <AppButton

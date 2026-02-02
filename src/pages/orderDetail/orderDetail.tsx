@@ -4,7 +4,6 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import {
   AddressInfo,
-  getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
   postWxShopAfterSaleApply,
@@ -63,18 +62,19 @@ export default () => {
     if (!orderDetailRequest.data) {
       return;
     }
-    appLoading.show("取消订单中...");
+    appLoading.show("申请中...");
     const res = await postWxShopAfterSaleApply({
       body: {
         orderNo: orderDetailRequest.data?.order.orderNo,
         applyAmount: orderDetailRequest.data?.order.paymentAmount,
+        refundReason: "",
       },
     });
     if (res.data?.code !== 0) {
-      appToast.error("取消订单失败");
+      appToast.error("申请失败");
       return;
     }
-    appToast.success("取消订单成功");
+    appToast.success("申请成功");
     orderDetailRequest.run();
   };
 
@@ -116,7 +116,7 @@ export default () => {
               Dialog.confirm({
                 theme: "rounded",
                 title: "提示",
-                message: "取消后不能恢复，确定取消订单吗？",
+                message: "确定申请退款吗？",
                 onConfirm: () => {
                   cancelOrder();
                 },
