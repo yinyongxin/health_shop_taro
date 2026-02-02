@@ -1,5 +1,6 @@
 import { CartListItem } from "@/stores";
 import { AddressInfo } from "@/client";
+import { type SaleStatusEnum } from "@/enums";
 import { pages } from "./pages";
 
 export const AllPages = [
@@ -41,5 +42,8 @@ export interface AllPagesQueryType
   };
   orderList: {
     status?: string;
+  };
+  afterSalesService: {
+    status?: SaleStatusEnum;
   };
 }

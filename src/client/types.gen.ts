@@ -61,6 +61,31 @@ export type SubCategoryInfo = {
   logo?: string;
 };
 
+export type SafeInfo = {
+  id: string;
+  orderNo: string;
+  afterSaleType: string;
+  refundNo: string;
+  userId: string;
+  userName: unknown;
+  applyAmount: number;
+  actualRefundAmount: number;
+  refundReason: unknown;
+  refundStatus: string;
+  applyTime: string;
+  auditTime: unknown;
+  auditUser: unknown;
+  auditUserName: unknown;
+  refundTime: unknown;
+  refundChannel: unknown;
+  refundTransactionId: unknown;
+  createBy: string;
+  createTime: string;
+  updateTime: string;
+  updateBy: unknown;
+  remark: unknown;
+};
+
 export type BannerItem = {
   productId?: string;
   imagePath: string;
@@ -853,7 +878,7 @@ export type GetWxShopAfterSaleListData = {
 export type GetWxShopAfterSaleListResponses = {
   200: {
     total: number;
-    rows: Array<string>;
+    rows: Array<SafeInfo>;
     code: number;
     msg: unknown;
   };

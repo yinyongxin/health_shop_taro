@@ -7,6 +7,7 @@ import {
   getWxShopOrderCancel,
   getWxShopOrderDetail,
   postWxShopAddrViewById,
+  postWxShopAfterSaleApply,
 } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
@@ -59,11 +60,14 @@ export default () => {
   }, [orderDetailRequest.data?.order.addressId]);
 
   const cancelOrder = async () => {
+    if (!orderDetailRequest.data) {
+      return;
+    }
     appLoading.show("取消订单中...");
-    const res = await getWxShopOrderCancel({
-      query: {
+    const res = await postWxShopAfterSaleApply({
+      body: {
         orderNo: orderDetailRequest.data?.order.orderNo,
-        orgId: APP_ENV_CONFIG.ORG_ID,
+        applyAmount: orderDetailRequest.data?.order.paymentAmount,
       },
     });
     if (res.data?.code !== 0) {
@@ -103,7 +107,7 @@ export default () => {
   }
 
   const renderBottomBtns = () => {
-    if ([1].includes(orderDetail.status)) {
+    if ([1, 2].includes(orderDetail.status)) {
       return (
         <AppFixedBottom>
           <AppButton
@@ -119,7 +123,7 @@ export default () => {
               });
             }}
           >
-            取消订单并退款
+            退款
           </AppButton>
         </AppFixedBottom>
       );
@@ -139,8 +143,8 @@ export default () => {
               });
             }}
           >
-            {orderDetail.status === 2 && "去使用"}
-            {orderDetail.status === 3 && "去查看"}
+            {orderDetail.status === 2 && "使用"}
+            {orderDetail.status === 3 && "查看"}
           </AppButton>
         </AppFixedBottom>
       );

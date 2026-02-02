@@ -1,30 +1,27 @@
 import { AppTabList, BasePage } from "@/components";
 import { useEffect, useRef, useState } from "react";
-import { useAppUserStore } from "@/stores";
-import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopAfterSaleList, OrderListItem } from "@/client";
+import { getWxShopAfterSaleList } from "@/client";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
 import { appLoading } from "@/utils";
-import { OrderCard } from "./OrderCard";
+import { View } from "@tarojs/components";
+import { SaleStatusEnum } from "@/enums";
 import { Skeleton } from "./Skeleton";
 
 const OrderList = () => {
-  const pageParams = usePageParams<"orderList">();
-  const { orderStatusList } = useAppUserStore();
+  const pageParams = usePageParams<"afterSalesService">();
   const tabs = [
     {
       label: "全部",
       value: "all",
-      icon: "grid-2x2",
     },
-    ...orderStatusList.map((item, index) => {
+    ...Object.keys(SaleStatusEnum).map((item) => {
+      const { value, label } = SaleStatusEnum[item];
       return {
-        label: item.dictLabel,
-        value: item.dictValue,
-        icon: OrderStatusIcon[index],
+        label,
+        value,
       };
     }),
   ];
@@ -46,7 +43,7 @@ const OrderList = () => {
           pageSize: pageSize ?? 10,
         },
       });
-      let list: OrderListItem[] = [];
+      let list: any[] = [];
       if (pageNum !== 1) {
         list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
       } else {
@@ -98,13 +95,10 @@ const OrderList = () => {
         loading={dataRequest.loading}
         bodyProps={{
           className: classNames(
-            "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px]",
-            {
-              "pt-[24px]": pageParams.status !== "all",
-            },
+            "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px] pt-[24px]",
           ),
         }}
-        itemRender={(item) => <OrderCard info={item} />}
+        itemRender={(item) => <View>{item.id}</View>}
         onLoad={(pageNum) => {
           dataRequest.run(pageNum);
         }}
