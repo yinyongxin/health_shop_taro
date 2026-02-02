@@ -15,6 +15,13 @@ export const FeatureBlocks = () => {
               appRouter.navigateTo("myService");
             }}
           />
+          <AppFeatureBlocksItem
+            title="退款/售后"
+            icon={<LucideIcon name="hand-helping" size={28} />}
+            onClick={() => {
+              appRouter.navigateTo("afterSalesService");
+            }}
+          />
           {/* <AppFeatureBlocksItem
             title="联系客服"
             icon={<LucideIcon name="message-circle-more" size={28} />}
