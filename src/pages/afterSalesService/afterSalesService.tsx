@@ -6,9 +6,9 @@ import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
 import { appLoading } from "@/utils";
-import { View } from "@tarojs/components";
 import { SaleStatusEnum } from "@/enums";
 import { Skeleton } from "./Skeleton";
+import { AfterSaleCard } from "./AfterSaleCard";
 
 const OrderList = () => {
   const pageParams = usePageParams<"afterSalesService">();
@@ -98,7 +98,7 @@ const OrderList = () => {
             "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px] pt-[24px]",
           ),
         }}
-        itemRender={(item) => <View>{item.id}</View>}
+        itemRender={(item) => <AfterSaleCard info={item} />}
         onLoad={(pageNum) => {
           dataRequest.run(pageNum);
         }}
