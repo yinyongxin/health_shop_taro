@@ -1,7 +1,7 @@
-import { AppButton, BasePage } from "@/components";
+import { AppButton, AppPopup, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
-import { View, Text } from "@tarojs/components";
+import { View, Text, Radio, RadioGroup } from "@tarojs/components";
 import {
   AddressInfo,
   getWxShopOrderDetail,
@@ -18,10 +18,13 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
+import { RefundReasonMap } from "./common";
 
 export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
+  const [refundReasonOpen, setRefundReasonOpen] = useState(false);
+  const [refundReason, setRefundReason] = useState("");
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
@@ -54,6 +57,7 @@ export default () => {
       appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
     }
   };
+
   useEffect(() => {
     initAddress();
   }, [orderDetailRequest.data?.order.addressId]);
@@ -67,7 +71,7 @@ export default () => {
       body: {
         orderNo: orderDetailRequest.data?.order.orderNo,
         applyAmount: orderDetailRequest.data?.order.paymentAmount,
-        refundReason: "",
+        refundReason,
       },
     });
     if (res.data?.code !== 0) {
@@ -113,17 +117,10 @@ export default () => {
           <AppButton
             status="error"
             onClick={() => {
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "确定申请退款吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
+              setRefundReasonOpen(true);
             }}
           >
-            退款
+            申请退款
           </AppButton>
         </AppFixedBottom>
       );
@@ -264,6 +261,56 @@ export default () => {
       </BasePage>
       {renderBottomBtns()}
       {/* <AppFixedBottom></AppFixedBottom> */}
+      <AppPopup
+        title="申请原因"
+        open={refundReasonOpen}
+        showClose
+        onClose={() => {
+          setRefundReasonOpen(false);
+        }}
+        footer={
+          <AppButton
+            disabled={!refundReason}
+            status="error"
+            onClick={() => {
+              Dialog.confirm({
+                theme: "rounded",
+                title: "提示",
+                message: "确定申请退款吗？",
+                onConfirm: () => {
+                  cancelOrder();
+                },
+              });
+            }}
+          >
+            确定
+          </AppButton>
+        }
+      >
+        <RadioGroup
+          className="px-[32rpx]"
+          onChange={(e) => {
+            setRefundReason(e.detail.value);
+          }}
+        >
+          {RefundReasonMap.map((item) => {
+            return (
+              <View
+                className="py-[24rpx] flex justify-between"
+                key={item.reason}
+                onClick={() => {}}
+              >
+                <View className="text-[28rpx] font-bold">{item.reason}</View>
+                <Radio
+                  name={item.reason}
+                  value={item.reason}
+                  checked={item.reason === refundReason}
+                />
+              </View>
+            );
+          })}
+        </RadioGroup>
+      </AppPopup>
     </>
   );
 };
