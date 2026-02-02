@@ -834,6 +834,10 @@ export type PostWxShopAfterSaleApplyData = {
      * 申请退款金额
      */
     applyAmount: number;
+    /**
+     * 退款理由
+     */
+    refundReason: string;
   };
   path?: never;
   query?: never;
