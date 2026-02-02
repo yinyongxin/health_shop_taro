@@ -12,17 +12,31 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
   const { info } = props;
   const getActions = () => {
     return (
-      <AppButton
-        actived={false}
-        size="sm"
-        onClick={() => {
-          appRouter.navigateTo("orderDetail", {
-            query: { orderNo: info.orderNo },
-          });
-        }}
-      >
-        查看详情
-      </AppButton>
+      <View className="flex gap-[24rpx]">
+        <AppButton
+          actived={false}
+          size="sm"
+          onClick={() => {
+            appRouter.navigateTo("orderDetail", {
+              query: { orderNo: info.orderNo },
+            });
+          }}
+        >
+          查看订单
+        </AppButton>
+
+        <AppButton
+          actived
+          size="sm"
+          onClick={() => {
+            appRouter.navigateTo("orderDetail", {
+              query: { orderNo: info.orderNo },
+            });
+          }}
+        >
+          查看详情
+        </AppButton>
+      </View>
     );
   };
 
@@ -36,7 +50,25 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
       </View>
       <View className="bg-white rounded-lg">
         <View className="flex flex-col gap-2 px-[24px]">
-          <View className="border-t-[1px] border-gray-200 pt-[24px] ">
+          <View className="border-t-[1px] border-gray-200 pt-[24px] flex flex-col gap-[24rpx]">
+            <InfoCardItem
+              label="订单编号"
+              valueClassName="text-end"
+              value={
+                <View className="text-[32px] font-semibold">
+                  {info.orderNo}
+                </View>
+              }
+            />
+            <InfoCardItem
+              label="支付时间"
+              valueClassName="text-end"
+              value={
+                <View className="text-[32px] font-semibold">
+                  {info.applyTime}
+                </View>
+              }
+            />
             <InfoCardItem
               label="退款金额"
               lableClassName="text-[32px] font-semibold w-auto"
