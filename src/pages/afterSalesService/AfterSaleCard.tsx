@@ -29,7 +29,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
           actived
           size="sm"
           onClick={() => {
-            appRouter.navigateTo("orderDetail", {
+            appRouter.navigateTo("afterSaleDetail", {
               query: { orderNo: info.orderNo },
             });
           }}

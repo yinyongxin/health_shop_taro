@@ -2,19 +2,11 @@ import { AppButton, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
-import {
-  AddressInfo,
-  getWxShopOrderDetail,
-  postWxShopAddrViewById,
-  postWxShopAfterSaleApply,
-} from "@/client";
+import { getWxShopOrderDetail } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
-import { appLoading, appToast } from "@/utils";
-import { Dialog, Empty, Skeleton } from "@taroify/core";
-import { useState, useEffect } from "react";
+import { Empty, Skeleton } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
-import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
@@ -22,10 +14,8 @@ import { appRouter } from "@/router";
 export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
-  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
-    appUserStore.defaultAddress,
-  );
-  const orderDetailRequest = useRequest(async () => {
+
+  const detailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
       query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
     });
@@ -35,38 +25,13 @@ export default () => {
     throw new Error(res.data?.msg ?? "获取详情失败");
   });
 
-  const isPayed =
-    orderDetailRequest.data?.order.status &&
-    orderDetailRequest.data?.order.status !== 0;
+  const { order: orderDetail } = detailRequest.data || {};
 
-  console.log(orderDetailRequest.data?.order.status, isPayed);
-  const initAddress = async () => {
-    if (!orderDetailRequest.data?.order.addressId) {
-      return;
-    }
-    const getAddressRes = await postWxShopAddrViewById({
-      path: { id: orderDetailRequest.data?.order.addressId.toString() },
-      query: { orgId: orderDetailRequest.data?.order.addressId.toString() },
-    });
-    if (getAddressRes.data?.code === 0) {
-      setCurrentAddress(getAddressRes.data?.data);
-    } else {
-      appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
-    }
-  };
-  useEffect(() => {
-    initAddress();
-  }, [orderDetailRequest.data?.order.addressId]);
-
-  const { order: orderDetail } = orderDetailRequest.data || {};
-
-  if (orderDetailRequest.error) {
+  if (detailRequest.error) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
-        <Empty.Description>
-          {orderDetailRequest.error.message}
-        </Empty.Description>
+        <Empty.Description>{detailRequest.error.message}</Empty.Description>
         <AppButton
           actived={false}
           className="mt-[48px] w-[300px]"
@@ -78,35 +43,13 @@ export default () => {
     );
   }
 
-  if (orderDetailRequest.loading && !orderDetailRequest.data) {
+  if (detailRequest.loading && !detailRequest.data) {
     return <Skeleton />;
   }
 
   if (!orderDetail) {
     return;
   }
-
-  const renderBottomBtns = () => {
-    if ([2, 3].includes(orderDetail.status) && orderDetail.isService === 1) {
-      return (
-        <AppFixedBottom>
-          <AppButton
-            status="success"
-            onClick={() => {
-              appRouter.navigateTo("serviceUse", {
-                query: {
-                  orderNo: orderDetail.orderNo,
-                },
-              });
-            }}
-          >
-            {orderDetail.status === 2 && "使用"}
-            {orderDetail.status === 3 && "查看"}
-          </AppButton>
-        </AppFixedBottom>
-      );
-    }
-  };
 
   const product = {
     productId: orderDetail.itemList[0].productId!,
@@ -148,37 +91,6 @@ export default () => {
               }
             />
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
-              <InfoCardItem
-                label="总金额"
-                valueClassName="text-end"
-                value={
-                  <View className="text-[32px]">
-                    <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.totalAmount}</Text>
-                  </View>
-                }
-              />
-              <InfoCardItem
-                label="快递费"
-                valueClassName="text-end"
-                value={
-                  <View className="text-[32px]">
-                    <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.freightAmount}</Text>
-                  </View>
-                }
-              />
-              <InfoCardItem
-                label="折扣"
-                valueClassName="text-end"
-                value={
-                  <View className="text-[32px] text-rose-500">
-                    <Text>-</Text>
-                    <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.discountAmount}</Text>
-                  </View>
-                }
-              />
               <View className="border-t-[1px] border-gray-200 pt-[24px]">
                 <InfoCardItem
                   label="付款金额"
@@ -187,9 +99,7 @@ export default () => {
                   value={
                     <View className="text-[32px] font-semibold">
                       <Text>￥</Text>
-                      <Text>
-                        {orderDetailRequest.data?.order.paymentAmount}
-                      </Text>
+                      <Text>{detailRequest.data?.order.paymentAmount}</Text>
                     </View>
                   }
                 />
@@ -199,28 +109,28 @@ export default () => {
           <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem
               label="订单编号"
-              value={orderDetailRequest.data?.order.orderNo}
+              value={detailRequest.data?.order.orderNo}
             />
             <InfoCardItem
               label="下单时间"
-              value={orderDetailRequest.data?.order.createdAt}
+              value={detailRequest.data?.order.createdAt}
             />
           </View>
         </View>
-
-        <View className="px-[24px] mt-[24px]">
-          {currentAddress && (
-            <AddressCard
-              className="shadow-none!"
-              info={currentAddress}
-              isMaskPhone
-              showActions={false}
-            />
-          )}
-        </View>
       </BasePage>
-      {renderBottomBtns()}
-      {/* <AppFixedBottom></AppFixedBottom> */}
+      <AppFixedBottom>
+        <AppButton
+          onClick={() => {
+            appRouter.navigateTo("orderDetail", {
+              query: {
+                orderNo: pageParams.orderNo,
+              },
+            });
+          }}
+        >
+          查看订单
+        </AppButton>
+      </AppFixedBottom>
     </>
   );
 };

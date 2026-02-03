@@ -63,4 +63,8 @@ export const pages = [
     name: "afterSalesService",
     path: "pages/afterSalesService/afterSalesService",
   },
+  {
+    name: "afterSaleDetail",
+    path: "pages/afterSaleDetail/afterSaleDetail",
+  },
 ] as const;
