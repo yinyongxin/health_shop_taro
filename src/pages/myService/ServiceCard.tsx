@@ -6,10 +6,10 @@ import { useAppUserStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { View, Text } from "@tarojs/components";
 
-type OrderCardProps = {
+type ServiceCardProps = {
   info: OrderListItem;
 };
-export const OrderCard = (props: OrderCardProps) => {
+export const ServiceCard = (props: ServiceCardProps) => {
   const { info } = props;
 
   const appUserStore = useAppUserStore();
@@ -36,7 +36,7 @@ export const OrderCard = (props: OrderCardProps) => {
         actived={false}
         size="sm"
         onClick={() => {
-          appRouter.navigateTo("orderDetail", {
+          appRouter.navigateTo("serviceUse", {
             query: { orderNo: info.orderNo },
           });
         }}
@@ -47,7 +47,7 @@ export const OrderCard = (props: OrderCardProps) => {
   };
 
   return (
-    <View className="rounded-xl bg-white app-shadow">
+    <View className="rounded-xl bg-white">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info.createAt}</View>
         <View className="text-amber-500">

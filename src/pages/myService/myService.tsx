@@ -7,7 +7,7 @@ import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { appLoading } from "@/utils";
 import { useDidShow } from "@tarojs/taro";
-import { OrderCard } from "./OrderCard";
+import { ServiceCard } from "./ServiceCard";
 import { Skeleton } from "./Skeleton";
 
 const MyService = () => {
@@ -98,7 +98,7 @@ const MyService = () => {
               },
             ),
           }}
-          itemRender={(item) => <OrderCard info={item} />}
+          itemRender={(item) => <ServiceCard info={item} />}
           onLoad={(pageNum) => {
             dataRequest.run(pageNum);
           }}
