@@ -1,4 +1,4 @@
-import { AfterSaleStep, AppButton, BasePage } from "@/components";
+import { AfterSaleStep, AppButton, BasePage, Title } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
@@ -87,22 +87,12 @@ export default () => {
     productImage: orderDetail.itemList[0].productImage!,
   };
 
-  const getStatusText = () => {
-    if (!detailRequest.data) {
-      return;
-    }
-    return SaleStatusEnum[detailRequest.data.refundStatus].label;
-  };
-
   return (
     <>
       <BasePage className="pb-[200px]">
-        <View className="px-[24px] pt-[24px]">
-          <View className="text-[32px] font-semibold">{getStatusText()}</View>
-        </View>
-
-        <View className="mt-[32px] px-[24px]">
-          <View className="bg-white rounded-lg">
+        <View className="mt-[32rpx] px-[24px]">
+          <Title>商品信息</Title>
+          <View className="bg-white rounded-lg mt-[24rpx]">
             <ServiceList
               product={product}
               isService={orderDetail.isService}
@@ -121,14 +111,25 @@ export default () => {
                 }) || []
               }
             />
+          </View>
+          <Title className="mt-[32rpx]">订单信息</Title>
+          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+            <InfoCardItem
+              label="订单编号"
+              value={orderDetailRequest.data?.order.orderNo}
+            />
+            <InfoCardItem
+              label="下单时间"
+              value={orderDetailRequest.data?.order.createdAt}
+            />
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <View className="border-t-[1px] border-gray-200 pt-[24px]">
                 <InfoCardItem
                   label="退款金额"
-                  lableClassName="text-[32px] font-semibold w-auto"
+                  lableClassName="text-[32rpx] font-semibold w-auto"
                   valueClassName="text-end"
                   value={
-                    <View className="text-[32px] font-semibold text-red-500">
+                    <View className="text-[32rpx] font-semibold text-red-500">
                       <Text>￥</Text>
                       <Text>
                         {orderDetailRequest.data?.order.paymentAmount}
@@ -139,22 +140,17 @@ export default () => {
               </View>
             </View>
           </View>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[32px]">
-            <InfoCardItem
-              label="订单编号"
-              value={orderDetailRequest.data?.order.orderNo}
-            />
-            <InfoCardItem
-              label="下单时间"
-              value={orderDetailRequest.data?.order.createdAt}
-            />
-          </View>
         </View>
 
         {detailRequest.data && (
-          <View className="px-[24rpx]  mt-[32rpx] rounded-lg">
-            <AfterSaleStep info={detailRequest.data} />
-          </View>
+          <>
+            <View className="mt-[32rpx] px-[24rpx]">
+              <Title>进度</Title>
+            </View>
+            <View className="px-[24rpx]  mt-[24rpx] rounded-lg">
+              <AfterSaleStep info={detailRequest.data} />
+            </View>
+          </>
         )}
       </BasePage>
       <AppFixedBottom>

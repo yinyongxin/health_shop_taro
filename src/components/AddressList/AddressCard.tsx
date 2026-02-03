@@ -63,10 +63,7 @@ export const AddressCard = (props: AddressCardProps) => {
 
   return (
     <View
-      className={classNames(
-        "bg-white rounded-lg app-shadow py-[24px] ",
-        className,
-      )}
+      className={classNames("bg-white rounded-lg py-[24px] ", className)}
       onClick={() => handleClick?.(info)}
     >
       <View className="flex">
