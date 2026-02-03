@@ -241,7 +241,7 @@ const OrderPayPage = () => {
         </View>
 
         <View className="mt-[24px] px-[24px]">
-          <View className="bg-white rounded-lg">
+          <View className="bg-white rounded-xl">
             {itemListRender()}
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem
@@ -290,11 +290,11 @@ const OrderPayPage = () => {
               </View>
             </View>
           </View>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+          <View className="bg-white rounded-xl p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem label="订单编号" value={orderDetail.orderNo} />
             <InfoCardItem label="下单时间" value={orderDetail.createdAt} />
           </View>
-          <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
+          <View className="bg-white rounded-xl flex flex-col gap-[12px] mt-[24px]">
             <AppCell
               right={
                 <LucideIcon

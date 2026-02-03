@@ -9,7 +9,7 @@ export const Evaluate = () => {
   return (
     <Box
       bgProps={{
-        className: "bg-white rounded-lg",
+        className: "bg-white rounded-xl",
       }}
     >
       <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">
@@ -28,16 +28,16 @@ export const Evaluate = () => {
         </View>
         <View className="pt-[12px]">
           <View className="flex gap-[16px]">
-            <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
+            <View className="flex-1 h-[150px] rounded-lg flex-center bg-gray-100">
               <LucideIcon name="image" size={16} />
             </View>
-            <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
+            <View className="flex-1 h-[150px] rounded-lg flex-center bg-gray-100">
               <LucideIcon name="image" size={16} />
             </View>
-            <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
+            <View className="flex-1 h-[150px] rounded-lg flex-center bg-gray-100">
               <LucideIcon name="image" size={16} />
             </View>
-            <View className="flex-1 h-[150px] rounded-md flex-center bg-gray-100">
+            <View className="flex-1 h-[150px] rounded-lg flex-center bg-gray-100">
               <LucideIcon name="image" size={16} />
             </View>
           </View>

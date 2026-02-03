@@ -29,13 +29,13 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
   };
 
   return (
-    <View className="rounded-lg bg-white">
+    <View className="rounded-xl bg-white">
       <View className="py-[24px] px-[24px] flex justify-end">
         <View className="text-amber-500">
           {SaleStatusEnum[info.refundStatus].label}
         </View>
       </View>
-      <View className="bg-white rounded-lg">
+      <View className="bg-white rounded-xl">
         <View className="flex flex-col gap-2 px-[24px]">
           <View className="border-y-[1px] border-gray-200 py-[24px] flex flex-col gap-[24rpx]">
             <InfoCardItem

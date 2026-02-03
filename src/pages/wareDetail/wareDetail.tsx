@@ -370,7 +370,7 @@ const WareDetail = () => {
             {getServiceBlock()}
             <Box
               bgProps={{
-                className: "bg-white rounded-lg",
+                className: "bg-white rounded-xl",
               }}
             >
               <View className="px-[24px] py-[16px] flex flex-col">

@@ -17,7 +17,7 @@ export const Delivery = (props: DeliveryProps) => {
     <>
       <Box
         bgProps={{
-          className: "bg-white rounded-lg",
+          className: "bg-white rounded-xl",
         }}
         onClick={() => handleClick?.()}
       >

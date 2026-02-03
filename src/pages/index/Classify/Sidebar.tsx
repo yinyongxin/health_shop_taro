@@ -27,7 +27,7 @@ export const Sidebar = (props: SidebarProps) => {
             }}
           >
             <View
-              className={classNames("h-[80px] flex-center rounded-lg", {
+              className={classNames("h-[80px] flex-center rounded-xl", {
                 "bg-primary text-white font-semibold": isActived,
               })}
             >

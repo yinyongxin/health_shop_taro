@@ -13,11 +13,11 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
     <>
       <Box
         bgProps={{
-          className: "bg-white rounded-lg",
+          className: "bg-white rounded-xl",
         }}
       >
         <View className="p-[24px] flex flex-col">
-          <View className="rounded-md p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-[16px]">
+          <View className="rounded-lg p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-[16px]">
             {productName}
           </View>
           <View className="mt-[24px] flex flex-col gap-[24px]">

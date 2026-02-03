@@ -13,7 +13,7 @@ export const BaseInfo = (props: BaseInfoProps) => {
   return (
     <Box
       bgProps={{
-        className: "bg-white rounded-lg",
+        className: "bg-white rounded-xl",
       }}
     >
       <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">

@@ -136,7 +136,7 @@ export default () => {
               );
             }
             return (
-              <View key={item.id} className="bg-white rounded-lg">
+              <View key={item.id} className="bg-white rounded-xl">
                 <View className="p-[24px] flex flex-col gap-2">
                   <View className="flex justify-between items-center">
                     <View className="text-[32px] font-semibold">
@@ -160,7 +160,7 @@ export default () => {
         </View>
 
         <View className="mt-[24px] px-[24px]">
-          <View className="bg-white rounded-lg">
+          <View className="bg-white rounded-xl">
             <View className="p-[24px] flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
@@ -210,7 +210,7 @@ export default () => {
               </View>
             </View>
           </View>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+          <View className="bg-white rounded-xl p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem
               label="订单编号"
               value={orderDetailRequest.data?.order.orderNo}

@@ -20,7 +20,7 @@ export const AppFeatureBlocksItem = (props: AppFeatureBlocksItemProps) => {
         )}
         onClick={onClick}
       >
-        <View className="bg-gray-50 active:bg-gray-100 rounded-lg w-full py-[24px] flex justify-center items-center">
+        <View className="bg-gray-50 active:bg-gray-100 rounded-xl w-full py-[24px] flex justify-center items-center">
           {icon}
         </View>
         <View className="text-gray-500">{title}</View>

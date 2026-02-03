@@ -16,7 +16,7 @@ export const ServiceTags = (props: ServiceTagsProps) => {
     <>
       <Box
         bgProps={{
-          className: "bg-white rounded-lg",
+          className: "bg-white rounded-xl",
         }}
       >
         <View className="px-[24px] py-[12px]">

@@ -63,12 +63,12 @@ export const OrderCard = (props: OrderCardProps) => {
     })?.dictLabel;
   };
   return (
-    <View className="rounded-lg bg-white">
+    <View className="rounded-xl bg-white">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info?.createAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
       </View>
-      <View className="bg-white rounded-lg">
+      <View className="bg-white rounded-xl">
         {info.productList.map((product) => {
           return (
             <ServiceList

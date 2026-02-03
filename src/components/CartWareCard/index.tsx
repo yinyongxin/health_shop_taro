@@ -29,7 +29,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
   return (
     <View
       className={classNames(
-        "rounded-lg  bg-white overflow-hidden flex flex-col gap-[12px]",
+        "rounded-xl  bg-white overflow-hidden flex flex-col gap-[12px]",
       )}
     >
       <View
@@ -38,9 +38,9 @@ export const CartWareCard = (props: CartWareCardProps) => {
           "border-2 border-gray-100": border,
         })}
       >
-        <View className="p-[24px] pr-[12] rounded-lg">
+        <View className="p-[24px] pr-[12] rounded-xl">
           <AppImage
-            className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
+            className="size-[180px] bg-gray-300 shrink-0 rounded-xl"
             mode="aspectFill"
             src={product.productImage || ""}
             onClick={() => {

@@ -36,7 +36,7 @@ export const Banners = () => {
           <View className="bg-white size-full">
             <AppImage
               src={item.imagePath}
-              className="w-full h-full rounded-lg"
+              className="w-full h-full rounded-xl"
               mode="aspectFill"
             />
           </View>

@@ -13,7 +13,7 @@ export default () => {
     <BasePage>
       <View className="pb-[160px]">
         <View className="px-[24px] pt-[24px]">
-          <View className="bg-white rounded-lg pb-[12px]">
+          <View className="bg-white rounded-xl pb-[12px]">
             <View className="flex justify-between px-[24px] py-[12px]">
               <View className="text-gray-500">配送</View>
               <View className="font-semibold">预计2026-01-01送达</View>
@@ -26,7 +26,7 @@ export default () => {
         </View>
 
         <View className="px-[24px] pt-[24px]">
-          <View className="bg-white rounded-lg py-[12px]">
+          <View className="bg-white rounded-xl py-[12px]">
             <View className="flex justify-between px-[24px] py-[12px]">
               <View className="flex items-center gap-1">
                 <View>商品总价</View>
@@ -61,7 +61,7 @@ export default () => {
         </View>
 
         <View className="px-[24px] pt-[24px]">
-          <View className="bg-white rounded-lg pb-[12px] flex flex-col gap-[12px]">
+          <View className="bg-white rounded-xl pb-[12px] flex flex-col gap-[12px]">
             <AppCell right={<LucideIcon name="check" size={20} />}>
               支付宝支付
             </AppCell>
