@@ -6,7 +6,7 @@ import { appRouter } from "@/router";
 import { Grid } from "@taroify/core";
 import { View } from "@tarojs/components";
 
-export const GridBlock = () => {
+export const ClassifyBlock = () => {
   const { data, loading } = useRequest(async () => {
     const res = await getWxShopCateList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
