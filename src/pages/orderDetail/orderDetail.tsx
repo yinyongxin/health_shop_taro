@@ -260,13 +260,13 @@ export default () => {
         </View>
       </BasePage>
       {renderBottomBtns()}
-      {/* <AppFixedBottom></AppFixedBottom> */}
       <AppPopup
         title="申请原因"
         open={refundReasonOpen}
         showClose
         onClose={() => {
           setRefundReasonOpen(false);
+          setRefundReason("");
         }}
         footer={
           <AppButton
