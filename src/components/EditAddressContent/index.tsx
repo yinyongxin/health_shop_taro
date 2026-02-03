@@ -102,7 +102,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   const tagsRender = () => {
     const list = ["家", "公司", "学校", "父母", "朋友"];
     return (
-      <View className="w-full flex gap-[24rpx] ">
+      <View className="w-full flex gap-[24px] ">
         {list.map((tag) => (
           <AppTag
             key={tag}
@@ -119,18 +119,18 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
 
   return (
     <>
-      <View className="text-orange-500 text-[24rpx] mt-[16rpx]">
+      <View className="text-orange-500 text-[24px] mt-[16px]">
         温馨提示：为了确保您能顺利收到商品，请务必填写真实有效的收货地址信息。
       </View>
-      <View className={classNames("mt-[32rpx]", className)}>
+      <View className={classNames("mt-[32px]", className)}>
         <Form
           ref={formRef}
           onSubmit={(e) => {
             onSubmit(e.detail.value as any);
           }}
         >
-          <View className="flex flex-col gap-[24rpx]">
-            <View className="flex flex-col gap-[16rpx]">
+          <View className="flex flex-col gap-[24px]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">标签（ 用于区分地址 ）</View>
               <Field required name="tag" className="rounded-xl">
                 <Input maxlength={10} placeholder="请输入内容" />
@@ -138,7 +138,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               {tagsRender()}
             </View>
 
-            <View className="flex flex-col gap-[16rpx]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">姓名</View>
               <Field
                 className="rounded-xl"
@@ -155,7 +155,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               </Field>
             </View>
 
-            <View className="flex flex-col gap-[16rpx]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">手机号</View>
               <Field
                 className="rounded-xl"
@@ -173,7 +173,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               </Field>
             </View>
 
-            <View className="flex flex-col gap-[16rpx]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">地区</View>
               <Field
                 className="rounded-xl"
@@ -219,7 +219,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               </Field>
             </View>
 
-            <View className="flex flex-col gap-[16rpx]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">街道</View>
               <Field
                 className="rounded-xl"
@@ -236,7 +236,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               </Field>
             </View>
 
-            <View className="flex flex-col gap-[16rpx]">
+            <View className="flex flex-col gap-[16px]">
               <View className="text-gray-500">详细地址</View>
               <Field
                 className="rounded-xl"

@@ -292,15 +292,15 @@ export default () => {
             setRefundReason(e.detail.value);
           }}
         >
-          <View className="px-[32rpx]">
+          <View className="px-[32px]">
             {RefundReasonMap.map((item) => {
               return (
                 <View
-                  className="py-[24rpx] flex justify-between"
+                  className="py-[24px] flex justify-between"
                   key={item.reason}
                   onClick={() => {}}
                 >
-                  <View className="text-[28rpx] font-bold">{item.reason}</View>
+                  <View className="text-[28px] font-bold">{item.reason}</View>
                   <Radio
                     name={item.reason}
                     value={item.reason}

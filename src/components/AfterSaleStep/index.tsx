@@ -11,7 +11,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
   const { info } = props;
   if (info.refundStatus === SaleStatusEnum.PENDING_AUDIT.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={1} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={1} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>
@@ -25,7 +25,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
     );
   } else if (info.refundStatus === SaleStatusEnum.AUDIT_PASS.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={2} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={2} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>
@@ -42,7 +42,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
     );
   } else if (info.refundStatus === SaleStatusEnum.REFUNDING.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={3} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={3} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>
@@ -62,7 +62,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
     );
   } else if (info.refundStatus === SaleStatusEnum.REFUND_FAILED.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={4} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={4} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>
@@ -82,7 +82,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
     );
   } else if (info.refundStatus === SaleStatusEnum.REFUND_SUCCESS.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={5} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={5} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>
@@ -102,7 +102,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
     );
   } else if (info.refundStatus === SaleStatusEnum.AUDIT_REJECT.value) {
     return (
-      <Steps className="py-[24rpx] rounded-xl" value={3} direction="vertical">
+      <Steps className="py-[24px] rounded-xl" value={3} direction="vertical">
         <Steps.Step>
           <View>提交申请</View>
         </Steps.Step>

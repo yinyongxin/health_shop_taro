@@ -23,7 +23,7 @@ export const TabBar = (props: TabBarProps) => {
         "pb-[32px]": isIOS(),
       })}
     >
-      <View className="absolute inset-0 bg-white/90 backdrop-blur-md shadow-[0_0_16px_0_rgba(0,0,0,0.2)]"></View>
+      <View className="absolute inset-0 bg-white/90 backdrop-blur-md shadow-[0_0_12px_0_rgba(0,0,0,0.1)]"></View>
       <View className="relative h-[120px] flex">
         {tabs.map((tab) => {
           const isActived = tab.value === currentActive;

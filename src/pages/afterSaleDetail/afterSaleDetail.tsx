@@ -90,9 +90,9 @@ export default () => {
   return (
     <>
       <BasePage className="pb-[200px]">
-        <View className="mt-[32rpx] px-[24px]">
+        <View className="mt-[32px] px-[24px]">
           <Title>商品信息</Title>
-          <View className="bg-white rounded-xl mt-[24rpx]">
+          <View className="bg-white rounded-xl mt-[24px]">
             <ServiceList
               product={product}
               isService={orderDetail.isService}
@@ -112,7 +112,7 @@ export default () => {
               }
             />
           </View>
-          <Title className="mt-[32rpx]">订单信息</Title>
+          <Title className="mt-[32px]">订单信息</Title>
           <View className="bg-white rounded-xl p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem
               label="订单编号"
@@ -126,10 +126,10 @@ export default () => {
               <View className="border-t-[1px] border-gray-200 pt-[24px]">
                 <InfoCardItem
                   label="退款金额"
-                  lableClassName="text-[32rpx] font-semibold w-auto"
+                  lableClassName="text-[32px] font-semibold w-auto"
                   valueClassName="text-end"
                   value={
-                    <View className="text-[32rpx] font-semibold text-red-500">
+                    <View className="text-[32px] font-semibold text-red-500">
                       <Text>￥</Text>
                       <Text>
                         {orderDetailRequest.data?.order.paymentAmount}
@@ -144,10 +144,10 @@ export default () => {
 
         {detailRequest.data && (
           <>
-            <View className="mt-[32rpx] px-[24rpx]">
+            <View className="mt-[32px] px-[24px]">
               <Title>进度</Title>
             </View>
-            <View className="px-[24rpx]  mt-[24rpx] rounded-xl">
+            <View className="px-[24px]  mt-[24px] rounded-xl">
               <AfterSaleStep info={detailRequest.data} />
             </View>
           </>

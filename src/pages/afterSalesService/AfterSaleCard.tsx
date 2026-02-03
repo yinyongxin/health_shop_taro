@@ -12,7 +12,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
   const { info } = props;
   const getActions = () => {
     return (
-      <View className="flex gap-[24rpx]">
+      <View className="flex gap-[24px]">
         <AppButton
           actived
           size="sm"
@@ -37,7 +37,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
       </View>
       <View className="bg-white rounded-xl">
         <View className="flex flex-col gap-2 px-[24px]">
-          <View className="border-y-[1px] border-gray-200 py-[24px] flex flex-col gap-[24rpx]">
+          <View className="border-y-[1px] border-gray-200 py-[24px] flex flex-col gap-[24px]">
             <InfoCardItem
               label="订单编号"
               valueClassName="text-end"
