@@ -75,7 +75,7 @@ export default () => {
       },
     });
     if (res.data?.code !== 0) {
-      appToast.error("申请失败");
+      appToast.error(res.data?.msg || "申请失败");
       return;
     }
     appToast.success("申请成功");
@@ -288,27 +288,28 @@ export default () => {
         }
       >
         <RadioGroup
-          className="px-[32rpx]"
           onChange={(e) => {
             setRefundReason(e.detail.value);
           }}
         >
-          {RefundReasonMap.map((item) => {
-            return (
-              <View
-                className="py-[24rpx] flex justify-between"
-                key={item.reason}
-                onClick={() => {}}
-              >
-                <View className="text-[28rpx] font-bold">{item.reason}</View>
-                <Radio
-                  name={item.reason}
-                  value={item.reason}
-                  checked={item.reason === refundReason}
-                />
-              </View>
-            );
-          })}
+          <View className="px-[32rpx]">
+            {RefundReasonMap.map((item) => {
+              return (
+                <View
+                  className="py-[24rpx] flex justify-between"
+                  key={item.reason}
+                  onClick={() => {}}
+                >
+                  <View className="text-[28rpx] font-bold">{item.reason}</View>
+                  <Radio
+                    name={item.reason}
+                    value={item.reason}
+                    checked={item.reason === refundReason}
+                  />
+                </View>
+              );
+            })}
+          </View>
         </RadioGroup>
       </AppPopup>
     </>
