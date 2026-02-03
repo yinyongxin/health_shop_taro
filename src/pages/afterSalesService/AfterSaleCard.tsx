@@ -14,18 +14,6 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
     return (
       <View className="flex gap-[24rpx]">
         <AppButton
-          actived={false}
-          size="sm"
-          onClick={() => {
-            appRouter.navigateTo("orderDetail", {
-              query: { orderNo: info.orderNo },
-            });
-          }}
-        >
-          查看订单
-        </AppButton>
-
-        <AppButton
           actived
           size="sm"
           onClick={() => {
@@ -42,15 +30,14 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
 
   return (
     <View className="rounded-lg bg-white">
-      <View className="py-[24px] px-[24px] flex items-center justify-between">
-        <View className="text-[28px] font-semibold">{info?.createTime}</View>
+      <View className="py-[24px] px-[24px] flex justify-end">
         <View className="text-amber-500">
           {SaleStatusEnum[info.refundStatus].label}
         </View>
       </View>
       <View className="bg-white rounded-lg">
         <View className="flex flex-col gap-2 px-[24px]">
-          <View className="border-t-[1px] border-gray-200 pt-[24px] flex flex-col gap-[24rpx]">
+          <View className="border-y-[1px] border-gray-200 py-[24px] flex flex-col gap-[24rpx]">
             <InfoCardItem
               label="订单编号"
               valueClassName="text-end"
@@ -74,7 +61,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
               lableClassName="text-[32px] font-semibold w-auto"
               valueClassName="text-end"
               value={
-                <View className="text-[32px] font-semibold">
+                <View className="text-[32px] font-semibold text-red-500">
                   <Text>￥</Text>
                   <Text>{info.applyAmount}</Text>
                 </View>
@@ -85,11 +72,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
       </View>
 
       <View className="flex items-center px-[24px] pb-[24px] pt-[24px]">
-        <View className="flex-1">
-          <View className="text-gray-500 text-[28px]">
-            {/* {info.orderNo} */}
-          </View>
-        </View>
+        <View className="flex-1">{info?.createTime}</View>
         <View className=" flex gap-2">{getActions()}</View>
       </View>
     </View>

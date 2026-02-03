@@ -9,7 +9,6 @@ export type AfterSaleStepProps = {
 
 export const AfterSaleStep = (props: AfterSaleStepProps) => {
   const { info } = props;
-  info.refundStatus = SaleStatusEnum.AUDIT_PASS.value;
   if (info.refundStatus === SaleStatusEnum.PENDING_AUDIT.value) {
     return (
       <Steps className="py-[24rpx] rounded-lg" value={1} direction="vertical">

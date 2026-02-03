@@ -4,15 +4,14 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { getWxShopAfterSaleDetail, getWxShopOrderDetail } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
-import { useAppUserStore } from "@/stores";
 import { Empty, Skeleton } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
+import { SaleStatusEnum } from "@/enums";
 
 export default () => {
-  const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"afterSaleDetail">();
 
   const detailRequest = useRequest(
@@ -89,9 +88,10 @@ export default () => {
   };
 
   const getStatusText = () => {
-    return appUserStore.orderStatusList.find((item) => {
-      return item.dictValue === orderDetail.status.toString();
-    })?.dictLabel;
+    if (!detailRequest.data) {
+      return;
+    }
+    return SaleStatusEnum[detailRequest.data.refundStatus].label;
   };
 
   return (
@@ -124,11 +124,11 @@ export default () => {
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <View className="border-t-[1px] border-gray-200 pt-[24px]">
                 <InfoCardItem
-                  label="付款金额"
+                  label="退款金额"
                   lableClassName="text-[32px] font-semibold w-auto"
                   valueClassName="text-end"
                   value={
-                    <View className="text-[32px] font-semibold">
+                    <View className="text-[32px] font-semibold text-red-500">
                       <Text>￥</Text>
                       <Text>
                         {orderDetailRequest.data?.order.paymentAmount}

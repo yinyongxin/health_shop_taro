@@ -63,7 +63,7 @@ export const OrderCard = (props: OrderCardProps) => {
     })?.dictLabel;
   };
   return (
-    <View className="rounded-lg bg-white app-shadow">
+    <View className="rounded-lg bg-white">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info?.createAt}</View>
         <View className="text-amber-500">{getStatusText()}</View>
