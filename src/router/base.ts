@@ -26,7 +26,7 @@ export interface AllPagesQueryType
     orderNo: string;
   };
   afterSaleDetail: {
-    orderNo: string;
+    id: string;
   };
   serviceUse: {
     orderNo: string;

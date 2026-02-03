@@ -229,6 +229,963 @@ export type DictItem = {
   default: boolean;
 };
 
+export type PostWxHisSyncPackageChangeData = {
+  body?: {
+    orgId: string;
+    orgName: string;
+    specificType: string;
+    package: Array<string>;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/packageChange";
+};
+
+export type PostWxHisSyncPackageChangeResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncPackageChangeResponse =
+  PostWxHisSyncPackageChangeResponses[keyof PostWxHisSyncPackageChangeResponses];
+
+export type PostWxHisSyncRefundData = {
+  body?: {
+    userId: string;
+    orderId: string;
+    orgId: string;
+    packageId: string;
+    refundNo: string;
+    refundFee: string;
+    refundType: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/refund";
+};
+
+export type PostWxHisSyncRefundResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncRefundResponse =
+  PostWxHisSyncRefundResponses[keyof PostWxHisSyncRefundResponses];
+
+export type PostWxHisSyncReportData = {
+  body?: {
+    userId: string;
+    orderId: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/report";
+};
+
+export type PostWxHisSyncReportResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncReportResponse =
+  PostWxHisSyncReportResponses[keyof PostWxHisSyncReportResponses];
+
+export type PostWxHisSyncMedicalTimeChangeData = {
+  body?: {
+    userId: string;
+    orderId: string;
+    medicalTime: string;
+    time: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/medicalTimeChange";
+};
+
+export type PostWxHisSyncMedicalTimeChangeResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncMedicalTimeChangeResponse =
+  PostWxHisSyncMedicalTimeChangeResponses[keyof PostWxHisSyncMedicalTimeChangeResponses];
+
+export type PostWxHisSyncNotifyOrderStatusData = {
+  body?: {
+    userId: string;
+    orderId: string;
+    currentStatus: number;
+    targetStatus: number;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/notifyOrderStatus";
+};
+
+export type PostWxHisSyncNotifyOrderStatusResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncNotifyOrderStatusResponse =
+  PostWxHisSyncNotifyOrderStatusResponses[keyof PostWxHisSyncNotifyOrderStatusResponses];
+
+export type PostWxHisSyncGetPkgStatusListData = {
+  body?: {
+    orgIdList: Array<string>;
+    pkgIdList: Array<string>;
+    status: number;
+    page: number;
+    pageSize: number;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/his/sync/getPkgStatusList";
+};
+
+export type PostWxHisSyncGetPkgStatusListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxHisSyncGetPkgStatusListResponse =
+  PostWxHisSyncGetPkgStatusListResponses[keyof PostWxHisSyncGetPkgStatusListResponses];
+
+export type GetWxExamineeListData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/wx/examinee/list";
+};
+
+export type GetWxExamineeListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxExamineeListResponse =
+  GetWxExamineeListResponses[keyof GetWxExamineeListResponses];
+
+export type PostWxExamineeAddData = {
+  body?: {
+    name: string;
+    cardType: string;
+    cardTypeName: string;
+    cardId: string;
+    age: string;
+    marriageStatus: string;
+    marriageStatusName: string;
+    relationship: string;
+    sex: string;
+    sexName: string;
+    birthday: string;
+    phone: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/examinee/add";
+};
+
+export type PostWxExamineeAddResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxExamineeAddResponse =
+  PostWxExamineeAddResponses[keyof PostWxExamineeAddResponses];
+
+export type PostWxExamineeEditData = {
+  body?: {
+    name: string;
+    cardType: string;
+    cardTypeName: string;
+    cardId: string;
+    age: string;
+    marriageStatus: string;
+    marriageStatusName: string;
+    relationship: string;
+    sex: string;
+    sexName: string;
+    birthday: string;
+    phone: string;
+    /**
+     * ID 编号
+     */
+    id: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/examinee/edit";
+};
+
+export type PostWxExamineeEditResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxExamineeEditResponse =
+  PostWxExamineeEditResponses[keyof PostWxExamineeEditResponses];
+
+export type PostWxExamineeRemoveData = {
+  body?: never;
+  path?: never;
+  query?: {
+    id?: string;
+  };
+  url: "/wx/examinee/remove";
+};
+
+export type PostWxExamineeRemoveResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxExamineeRemoveResponse =
+  PostWxExamineeRemoveResponses[keyof PostWxExamineeRemoveResponses];
+
+export type GetWxExamineeSendSmsData = {
+  body?: never;
+  path?: never;
+  query?: {
+    phone?: string;
+  };
+  url: "/wx/examinee/sendSms";
+};
+
+export type GetWxExamineeSendSmsErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxExamineeSendSmsError =
+  GetWxExamineeSendSmsErrors[keyof GetWxExamineeSendSmsErrors];
+
+export type GetWxExamineeSendSmsResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxExamineeSendSmsResponse =
+  GetWxExamineeSendSmsResponses[keyof GetWxExamineeSendSmsResponses];
+
+export type GetWxGoodsListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    sortType?: string;
+    tag?: string;
+    pageSize?: string;
+    pageNum?: string;
+    orgId?: string;
+  };
+  url: "/wx/goods/list";
+};
+
+export type GetWxGoodsListErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxGoodsListError =
+  GetWxGoodsListErrors[keyof GetWxGoodsListErrors];
+
+export type GetWxGoodsListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsListResponse =
+  GetWxGoodsListResponses[keyof GetWxGoodsListResponses];
+
+export type GetWxGoodsDetailByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/goods/detail/{id}";
+};
+
+export type GetWxGoodsDetailByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsDetailByIdResponse =
+  GetWxGoodsDetailByIdResponses[keyof GetWxGoodsDetailByIdResponses];
+
+export type PostWxGoodsFavoriteByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/goods/favorite/{id}";
+};
+
+export type PostWxGoodsFavoriteByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxGoodsFavoriteByIdResponse =
+  PostWxGoodsFavoriteByIdResponses[keyof PostWxGoodsFavoriteByIdResponses];
+
+export type PostWxGoodsUnFavoriteByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/goods/unFavorite/{id}";
+};
+
+export type PostWxGoodsUnFavoriteByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxGoodsUnFavoriteByIdResponse =
+  PostWxGoodsUnFavoriteByIdResponses[keyof PostWxGoodsUnFavoriteByIdResponses];
+
+export type GetWxGoodsFavoriteListData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/wx/goods/favorite/List";
+};
+
+export type GetWxGoodsFavoriteListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsFavoriteListResponse =
+  GetWxGoodsFavoriteListResponses[keyof GetWxGoodsFavoriteListResponses];
+
+export type GetWxGoodsSlotData = {
+  body?: never;
+  path?: never;
+  query?: {
+    id?: string;
+  };
+  url: "/wx/goods/slot";
+};
+
+export type GetWxGoodsSlotResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsSlotResponse =
+  GetWxGoodsSlotResponses[keyof GetWxGoodsSlotResponses];
+
+export type GetWxGoodsGroupSearchData = {
+  body?: never;
+  path?: never;
+  query?: {
+    idType?: string;
+    idNo?: string;
+    name?: string;
+    phone?: string;
+    orgId?: string;
+    pageSize?: string;
+    pageNum?: string;
+  };
+  url: "/wx/goods/group/search";
+};
+
+export type GetWxGoodsGroupSearchResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsGroupSearchResponse =
+  GetWxGoodsGroupSearchResponses[keyof GetWxGoodsGroupSearchResponses];
+
+export type GetWxGoodsPreBookListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    examineeId?: string;
+    orgId?: string;
+    pageSize?: string;
+    pageNum?: string;
+  };
+  url: "/wx/goods/pre/book/list";
+};
+
+export type GetWxGoodsPreBookListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsPreBookListResponse =
+  GetWxGoodsPreBookListResponses[keyof GetWxGoodsPreBookListResponses];
+
+export type GetWxGoodsPackageNoticeData = {
+  body?: never;
+  path?: never;
+  query?: {
+    packageId?: string;
+    orgId?: string;
+  };
+  url: "/wx/goods/package/notice";
+};
+
+export type GetWxGoodsPackageNoticeResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsPackageNoticeResponse =
+  GetWxGoodsPackageNoticeResponses[keyof GetWxGoodsPackageNoticeResponses];
+
+export type GetWxGoodsTagsListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/goods/tags/list";
+};
+
+export type GetWxGoodsTagsListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsTagsListResponse =
+  GetWxGoodsTagsListResponses[keyof GetWxGoodsTagsListResponses];
+
+export type GetWxGoodsItemMutexData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/goods/itemMutex";
+};
+
+export type GetWxGoodsItemMutexResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxGoodsItemMutexResponse =
+  GetWxGoodsItemMutexResponses[keyof GetWxGoodsItemMutexResponses];
+
+export type PostSystemNoticeListData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/system/notice/list";
+};
+
+export type PostSystemNoticeListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostSystemNoticeListResponse =
+  PostSystemNoticeListResponses[keyof PostSystemNoticeListResponses];
+
+export type GetWxOrdersListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    status?: string;
+    pageNum?: string;
+    pageSize?: string;
+  };
+  url: "/wx/orders/list";
+};
+
+export type GetWxOrdersListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersListResponse =
+  GetWxOrdersListResponses[keyof GetWxOrdersListResponses];
+
+export type GetWxOrdersDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderId?: string;
+  };
+  url: "/wx/orders/detail";
+};
+
+export type GetWxOrdersDetailResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersDetailResponse =
+  GetWxOrdersDetailResponses[keyof GetWxOrdersDetailResponses];
+
+export type GetWxOrdersQueryOrderData = {
+  body?: never;
+  path?: never;
+  query?: {
+    payId?: string;
+  };
+  url: "/wx/orders/queryOrder";
+};
+
+export type GetWxOrdersQueryOrderResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersQueryOrderResponse =
+  GetWxOrdersQueryOrderResponses[keyof GetWxOrdersQueryOrderResponses];
+
+export type GetWxOrdersQueryMyGroupCheckData = {
+  body?: never;
+  path?: never;
+  query?: {
+    examineeId?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/queryMyGroupCheck";
+};
+
+export type GetWxOrdersQueryMyGroupCheckResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersQueryMyGroupCheckResponse =
+  GetWxOrdersQueryMyGroupCheckResponses[keyof GetWxOrdersQueryMyGroupCheckResponses];
+
+export type GetWxOrdersCancelData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderId?: string;
+  };
+  url: "/wx/orders/cancel";
+};
+
+export type GetWxOrdersCancelResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersCancelResponse =
+  GetWxOrdersCancelResponses[keyof GetWxOrdersCancelResponses];
+
+export type PostWxOrdersAddData = {
+  body?: {
+    bookingName: string;
+    bookingPhone: string;
+    packageId: string;
+    medicalTime: string;
+    reportType: number;
+    reportReceiver: string;
+    reportAddress: string;
+    time: string;
+    profitsharing: number;
+    usedCoupon: number;
+    couponFee: number;
+    couponInfo: Array<{
+      id?: string;
+      type?: string;
+      fee?: number;
+    }>;
+    goHomeAddress: string;
+    addtionalItemCodes: Array<string>;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/orders/add";
+};
+
+export type PostWxOrdersAddResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxOrdersAddResponse =
+  PostWxOrdersAddResponses[keyof PostWxOrdersAddResponses];
+
+export type PostWxOrdersPayCallbackData = {
+  body?: {
+    sign: string;
+    status: string;
+    sign_type: string;
+    event_type: number;
+    org_code: string;
+    mch_appid: string;
+    pay_id: string;
+    mch_order_id: string;
+    out_trade_no: string;
+    order_amt: number;
+    pay_time: string;
+    notify_message: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/orders/pay/callback";
+};
+
+export type PostWxOrdersPayCallbackResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxOrdersPayCallbackResponse =
+  PostWxOrdersPayCallbackResponses[keyof PostWxOrdersPayCallbackResponses];
+
+export type PostWxOrdersEditData = {
+  body?: {
+    /**
+     * 订单号
+     * 传id（整型），不是orderId
+     */
+    id: number;
+    /**
+     * 体检日期
+     */
+    medicalTime: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/orders/edit";
+};
+
+export type PostWxOrdersEditErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostWxOrdersEditError =
+  PostWxOrdersEditErrors[keyof PostWxOrdersEditErrors];
+
+export type PostWxOrdersEditResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostWxOrdersEditResponse =
+  PostWxOrdersEditResponses[keyof PostWxOrdersEditResponses];
+
+export type PostWxOrdersCheckEditAbleData = {
+  body?: {
+    orderId: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/orders/check/edit/able";
+};
+
+export type PostWxOrdersCheckEditAbleResponses = {
+  200: {
+    msg: string;
+    code: number;
+    /**
+     * 剩余修改次数
+     */
+    data: number;
+  };
+};
+
+export type PostWxOrdersCheckEditAbleResponse =
+  PostWxOrdersCheckEditAbleResponses[keyof PostWxOrdersCheckEditAbleResponses];
+
+export type GetWxOrdersStatusCountData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/wx/orders/status/count";
+};
+
+export type GetWxOrdersStatusCountResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersStatusCountResponse =
+  GetWxOrdersStatusCountResponses[keyof GetWxOrdersStatusCountResponses];
+
+export type GetWxOrdersSignData = {
+  body?: never;
+  path?: never;
+  query?: {
+    patientId?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/sign";
+};
+
+export type GetWxOrdersSignResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersSignResponse =
+  GetWxOrdersSignResponses[keyof GetWxOrdersSignResponses];
+
+export type GetWxOrdersLoadAddItemData = {
+  body?: never;
+  path?: never;
+  query?: {
+    packageId?: string;
+    patientId?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/load/add/item";
+};
+
+export type GetWxOrdersLoadAddItemResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersLoadAddItemResponse =
+  GetWxOrdersLoadAddItemResponses[keyof GetWxOrdersLoadAddItemResponses];
+
+export type GetWxOrdersLoadSelectedItemData = {
+  body?: never;
+  path?: never;
+  query?: {
+    packageId?: string;
+    patientId?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/load/selected/item";
+};
+
+export type GetWxOrdersLoadSelectedItemResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersLoadSelectedItemResponse =
+  GetWxOrdersLoadSelectedItemResponses[keyof GetWxOrdersLoadSelectedItemResponses];
+
+export type GetWxArticlesIndexBySectionData = {
+  body?: never;
+  path: {
+    section: string;
+  };
+  query?: {
+    pageSize?: string;
+    pageNum?: string;
+  };
+  url: "/wx/articles/index/{section}";
+};
+
+export type GetWxArticlesIndexBySectionResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxArticlesIndexBySectionResponse =
+  GetWxArticlesIndexBySectionResponses[keyof GetWxArticlesIndexBySectionResponses];
+
+export type GetWxArticlesViewByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/articles/view/{id}";
+};
+
+export type GetWxArticlesViewByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxArticlesViewByIdResponse =
+  GetWxArticlesViewByIdResponses[keyof GetWxArticlesViewByIdResponses];
+
+export type GetWxArticlesArtBySectionData = {
+  body?: never;
+  path: {
+    section: string;
+  };
+  query?: never;
+  url: "/wx/articles/art/{section}";
+};
+
+export type GetWxArticlesArtBySectionResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxArticlesArtBySectionResponse =
+  GetWxArticlesArtBySectionResponses[keyof GetWxArticlesArtBySectionResponses];
+
+export type GetWxArticlesZanByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/articles/zan/{id}";
+};
+
+export type GetWxArticlesZanByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxArticlesZanByIdResponse =
+  GetWxArticlesZanByIdResponses[keyof GetWxArticlesZanByIdResponses];
+
+export type GetWxArticlesZanCancelByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/wx/articles/zan/cancel/{id}";
+};
+
+export type GetWxArticlesZanCancelByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxArticlesZanCancelByIdResponse =
+  GetWxArticlesZanCancelByIdResponses[keyof GetWxArticlesZanCancelByIdResponses];
+
+export type GetWxOrdersReportFileData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderId?: string;
+  };
+  url: "/wx/orders/report/file";
+};
+
+export type GetWxOrdersReportFileResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersReportFileResponse =
+  GetWxOrdersReportFileResponses[keyof GetWxOrdersReportFileResponses];
+
+export type GetWxOrdersReportData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderId?: string;
+  };
+  url: "/wx/orders/report";
+};
+
+export type GetWxOrdersReportResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersReportResponse =
+  GetWxOrdersReportResponses[keyof GetWxOrdersReportResponses];
+
+export type GetWxOrdersReportListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * 体检人id
+     */
+    examineeId?: number;
+    startDate?: string;
+    endDate?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/reportList";
+};
+
+export type GetWxOrdersReportListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersReportListResponse =
+  GetWxOrdersReportListResponses[keyof GetWxOrdersReportListResponses];
+
+export type GetWxOrdersReportDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * 体检人id
+     */
+    examineeId?: number;
+    orderId?: string;
+    orgId?: string;
+  };
+  url: "/wx/orders/reportDetail";
+};
+
+export type GetWxOrdersReportDetailResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersReportDetailResponse =
+  GetWxOrdersReportDetailResponses[keyof GetWxOrdersReportDetailResponses];
+
 export type GetWxRedirectByAppIdGreetData = {
   body?: never;
   path: {
@@ -318,6 +1275,242 @@ export type GetWxOrgInfoByOrgIdResponses = {
 
 export type GetWxOrgInfoByOrgIdResponse =
   GetWxOrgInfoByOrgIdResponses[keyof GetWxOrgInfoByOrgIdResponses];
+
+export type GetBusinessNumberSourceGeneratedData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/business/NumberSource/generated";
+};
+
+export type GetBusinessNumberSourceGeneratedErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetBusinessNumberSourceGeneratedError =
+  GetBusinessNumberSourceGeneratedErrors[keyof GetBusinessNumberSourceGeneratedErrors];
+
+export type GetBusinessNumberSourceGeneratedResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: string;
+  };
+};
+
+export type GetBusinessNumberSourceGeneratedResponse =
+  GetBusinessNumberSourceGeneratedResponses[keyof GetBusinessNumberSourceGeneratedResponses];
+
+export type PostTxApiOrgListData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/tx/api/org/list";
+};
+
+export type PostTxApiOrgListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiOrgListResponse =
+  PostTxApiOrgListResponses[keyof PostTxApiOrgListResponses];
+
+export type PostTxApiPackageListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/tx/api/package/list";
+};
+
+export type PostTxApiPackageListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiPackageListResponse =
+  PostTxApiPackageListResponses[keyof PostTxApiPackageListResponses];
+
+export type PostTxApiPackageDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    packageId?: string;
+  };
+  url: "/tx/api/package/detail";
+};
+
+export type PostTxApiPackageDetailResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiPackageDetailResponse =
+  PostTxApiPackageDetailResponses[keyof PostTxApiPackageDetailResponses];
+
+export type PostTxApiPackageScheduleData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    packageId?: string;
+  };
+  url: "/tx/api/package/schedule";
+};
+
+export type PostTxApiPackageScheduleResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiPackageScheduleResponse =
+  PostTxApiPackageScheduleResponses[keyof PostTxApiPackageScheduleResponses];
+
+export type PostTxApiOrgAddtionalItemData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+  };
+  url: "/tx/api/org/addtionalItem";
+};
+
+export type PostTxApiOrgAddtionalItemResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiOrgAddtionalItemResponse =
+  PostTxApiOrgAddtionalItemResponses[keyof PostTxApiOrgAddtionalItemResponses];
+
+export type PostTxApiPatientInfoData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    patientId?: string;
+    bizId?: string;
+  };
+  url: "/tx/api/patient/info";
+};
+
+export type PostTxApiPatientInfoResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiPatientInfoResponse =
+  PostTxApiPatientInfoResponses[keyof PostTxApiPatientInfoResponses];
+
+export type PostTxApiOrderListData = {
+  body?: {
+    patientId: string;
+    limit: number;
+    offset: number;
+  };
+  path?: never;
+  query?: never;
+  url: "/tx/api/order/list";
+};
+
+export type PostTxApiOrderListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiOrderListResponse =
+  PostTxApiOrderListResponses[keyof PostTxApiOrderListResponses];
+
+export type PostTxApiOrderDetailData = {
+  body?: {
+    patientId: string;
+    orderId: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/tx/api/order/detail";
+};
+
+export type PostTxApiOrderDetailResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiOrderDetailResponse =
+  PostTxApiOrderDetailResponses[keyof PostTxApiOrderDetailResponses];
+
+export type PostTxApiReportGetPhysicalExamReportByIdData = {
+  body?: {
+    orgId: string;
+    patientId: string;
+    reportId: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/tx/api/report/getPhysicalExamReportById";
+};
+
+export type PostTxApiReportGetPhysicalExamReportByIdResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiReportGetPhysicalExamReportByIdResponse =
+  PostTxApiReportGetPhysicalExamReportByIdResponses[keyof PostTxApiReportGetPhysicalExamReportByIdResponses];
+
+export type PostTxApiPatientGetPhysicalExamReportFileData = {
+  body?: {
+    orgId: string;
+    patientId: string;
+    reportId: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/tx/api/patient/getPhysicalExamReportFile";
+};
+
+export type PostTxApiPatientGetPhysicalExamReportFileResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type PostTxApiPatientGetPhysicalExamReportFileResponse =
+  PostTxApiPatientGetPhysicalExamReportFileResponses[keyof PostTxApiPatientGetPhysicalExamReportFileResponses];
+
+export type GetMockPackageListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    specificType?: string;
+  };
+  url: "/mock/package/list";
+};
+
+export type GetMockPackageListResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetMockPackageListResponse =
+  GetMockPackageListResponses[keyof GetMockPackageListResponses];
 
 export type GetWxShopCateListData = {
   body?: never;
@@ -890,6 +2083,316 @@ export type GetWxShopAfterSaleListResponses = {
 
 export type GetWxShopAfterSaleListResponse =
   GetWxShopAfterSaleListResponses[keyof GetWxShopAfterSaleListResponses];
+
+export type GetWxShopAfterSaleDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * 订单id
+     */
+    id?: number;
+  };
+  url: "/wx/shop/after/sale/detail";
+};
+
+export type GetWxShopAfterSaleDetailErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopAfterSaleDetailError =
+  GetWxShopAfterSaleDetailErrors[keyof GetWxShopAfterSaleDetailErrors];
+
+export type GetWxShopAfterSaleDetailResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: SafeInfo;
+  };
+};
+
+export type GetWxShopAfterSaleDetailResponse =
+  GetWxShopAfterSaleDetailResponses[keyof GetWxShopAfterSaleDetailResponses];
+
+export type PostWxRrQqData = {
+  body?: {
+    orgId: string;
+    /**
+     * get/post
+     */
+    method: string;
+    /**
+     * 请求的路径
+     * 参考文档提供的路径 例如：/package/list
+     */
+    url: string;
+    /**
+     * 具体的请求体
+     */
+    param: {
+      [key: string]: unknown;
+    };
+  };
+  path?: never;
+  query?: never;
+  url: "/wx/rr/qq";
+};
+
+export type PostWxRrQqErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostWxRrQqError = PostWxRrQqErrors[keyof PostWxRrQqErrors];
+
+export type PostWxRrQqResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: string;
+  };
+};
+
+export type PostWxRrQqResponse = PostWxRrQqResponses[keyof PostWxRrQqResponses];
+
+export type PostPatApiQueryOrderByMobileData = {
+  body?: {
+    /**
+     * 手机号码
+     */
+    mobile: string;
+    /**
+     * 订单状态
+     * 跟订单状态一样，不传查全部
+     */
+    status: string;
+  };
+  path?: never;
+  query?: {
+    pageSize?: number;
+    pageNum?: number;
+  };
+  url: "/pat/api/queryOrderByMobile";
+};
+
+export type PostPatApiQueryOrderByMobileResponses = {
+  200: {
+    total: number;
+    rows: Array<{
+      orderInfo?: {
+        orderNo: string;
+        paymentAmount: number;
+        status: number;
+        isService: number;
+        createAt: string;
+      };
+      productInfo?: {
+        productId: number;
+        productName: string;
+        productImage: string;
+      };
+      services?: Array<{
+        itemId: number;
+        itemName: string;
+        price: number;
+        qty: number;
+        usedQty: number;
+        totalPrice: number;
+        serviceDate: string;
+        qrCode: string;
+      }>;
+    }>;
+    code: number;
+    msg: unknown;
+  };
+};
+
+export type PostPatApiQueryOrderByMobileResponse =
+  PostPatApiQueryOrderByMobileResponses[keyof PostPatApiQueryOrderByMobileResponses];
+
+export type PostPatApiCheckInServiceData = {
+  body?: {
+    /**
+     * 订单号
+     */
+    orderNo: string;
+    /**
+     * 产品id
+     */
+    productId: string;
+    /**
+     * 服务id
+     */
+    itemId: string;
+    /**
+     * 需要核销的次数
+     */
+    qty: number;
+    /**
+     * 核销人
+     */
+    checkName: string;
+    /**
+     * 核销的二维码字符串
+     */
+    qrCode: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/pat/api/checkInService";
+};
+
+export type PostPatApiCheckInServiceErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type PostPatApiCheckInServiceError =
+  PostPatApiCheckInServiceErrors[keyof PostPatApiCheckInServiceErrors];
+
+export type PostPatApiCheckInServiceResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?: string;
+  };
+};
+
+export type PostPatApiCheckInServiceResponse =
+  PostPatApiCheckInServiceResponses[keyof PostPatApiCheckInServiceResponses];
+
+export type PostPatApiQueryOrderDetailData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderNo?: string;
+  };
+  url: "/pat/api/queryOrderDetail";
+};
+
+export type PostPatApiQueryOrderDetailResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: {
+      id: number;
+      orderNo: string;
+      orgId: string;
+      userId: string;
+      addressId: number;
+      totalAmount: number;
+      paymentAmount: number;
+      freightAmount: number;
+      discountAmount: number;
+      paymentType: number;
+      itemList: Array<{
+        id: number;
+        orgId: string;
+        orderNo: string;
+        productId: number;
+        productName: string;
+        productImage: string;
+        itemId: number;
+        itemName: string;
+        price: number;
+        qty: number;
+        totalPrice: number;
+        isService: number;
+        serviceDate: string;
+        qrCode: string;
+        qrCodeExpireTime: string;
+        createdAt: string;
+        usedQty: number;
+      }>;
+      status: number;
+      deliveryCompany: unknown;
+      deliveryNo: unknown;
+      paymentTime: string;
+      deliveryTime: unknown;
+      receiveTime: unknown;
+      createdAt: string;
+      remark: unknown;
+      applyPayNo: string;
+      payId: string;
+      updatedAt: string;
+      isService: number;
+    };
+  };
+};
+
+export type PostPatApiQueryOrderDetailResponse =
+  PostPatApiQueryOrderDetailResponses[keyof PostPatApiQueryOrderDetailResponses];
+
+export type PostPatApiSyncItemsData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    pageSize?: string;
+    pageNum?: string;
+  };
+  url: "/pat/api/syncItems";
+};
+
+export type PostPatApiSyncItemsResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: {
+      id: number;
+      orderNo: string;
+      orgId: string;
+      userId: string;
+      addressId: number;
+      totalAmount: number;
+      paymentAmount: number;
+      freightAmount: number;
+      discountAmount: number;
+      paymentType: number;
+      itemList: Array<{
+        id: number;
+        orgId: string;
+        orderNo: string;
+        productId: number;
+        productName: string;
+        productImage: string;
+        itemId: number;
+        itemName: string;
+        price: number;
+        qty: number;
+        totalPrice: number;
+        isService: number;
+        serviceDate: string;
+        qrCode: string;
+        qrCodeExpireTime: string;
+        createdAt: string;
+        usedQty: number;
+      }>;
+      status: number;
+      deliveryCompany: unknown;
+      deliveryNo: unknown;
+      paymentTime: string;
+      deliveryTime: unknown;
+      receiveTime: unknown;
+      createdAt: string;
+      remark: unknown;
+      applyPayNo: string;
+      payId: string;
+      updatedAt: string;
+      isService: number;
+    };
+  };
+};
+
+export type PostPatApiSyncItemsResponse =
+  PostPatApiSyncItemsResponses[keyof PostPatApiSyncItemsResponses];
 
 export type ClientOptions = {
   baseURL: string;

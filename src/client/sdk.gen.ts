@@ -2,6 +2,99 @@
 
 import type { Options as ClientOptions, TDataShape, Client } from "./client";
 import type {
+  PostWxHisSyncPackageChangeData,
+  PostWxHisSyncPackageChangeResponses,
+  PostWxHisSyncRefundData,
+  PostWxHisSyncRefundResponses,
+  PostWxHisSyncReportData,
+  PostWxHisSyncReportResponses,
+  PostWxHisSyncMedicalTimeChangeData,
+  PostWxHisSyncMedicalTimeChangeResponses,
+  PostWxHisSyncNotifyOrderStatusData,
+  PostWxHisSyncNotifyOrderStatusResponses,
+  PostWxHisSyncGetPkgStatusListData,
+  PostWxHisSyncGetPkgStatusListResponses,
+  GetWxExamineeListData,
+  GetWxExamineeListResponses,
+  PostWxExamineeAddData,
+  PostWxExamineeAddResponses,
+  PostWxExamineeEditData,
+  PostWxExamineeEditResponses,
+  PostWxExamineeRemoveData,
+  PostWxExamineeRemoveResponses,
+  GetWxExamineeSendSmsData,
+  GetWxExamineeSendSmsResponses,
+  GetWxExamineeSendSmsErrors,
+  GetWxGoodsListData,
+  GetWxGoodsListResponses,
+  GetWxGoodsListErrors,
+  GetWxGoodsDetailByIdData,
+  GetWxGoodsDetailByIdResponses,
+  PostWxGoodsFavoriteByIdData,
+  PostWxGoodsFavoriteByIdResponses,
+  PostWxGoodsUnFavoriteByIdData,
+  PostWxGoodsUnFavoriteByIdResponses,
+  GetWxGoodsFavoriteListData,
+  GetWxGoodsFavoriteListResponses,
+  GetWxGoodsSlotData,
+  GetWxGoodsSlotResponses,
+  GetWxGoodsGroupSearchData,
+  GetWxGoodsGroupSearchResponses,
+  GetWxGoodsPreBookListData,
+  GetWxGoodsPreBookListResponses,
+  GetWxGoodsPackageNoticeData,
+  GetWxGoodsPackageNoticeResponses,
+  GetWxGoodsTagsListData,
+  GetWxGoodsTagsListResponses,
+  GetWxGoodsItemMutexData,
+  GetWxGoodsItemMutexResponses,
+  PostSystemNoticeListData,
+  PostSystemNoticeListResponses,
+  GetWxOrdersListData,
+  GetWxOrdersListResponses,
+  GetWxOrdersDetailData,
+  GetWxOrdersDetailResponses,
+  GetWxOrdersQueryOrderData,
+  GetWxOrdersQueryOrderResponses,
+  GetWxOrdersQueryMyGroupCheckData,
+  GetWxOrdersQueryMyGroupCheckResponses,
+  GetWxOrdersCancelData,
+  GetWxOrdersCancelResponses,
+  PostWxOrdersAddData,
+  PostWxOrdersAddResponses,
+  PostWxOrdersPayCallbackData,
+  PostWxOrdersPayCallbackResponses,
+  PostWxOrdersEditData,
+  PostWxOrdersEditResponses,
+  PostWxOrdersEditErrors,
+  PostWxOrdersCheckEditAbleData,
+  PostWxOrdersCheckEditAbleResponses,
+  GetWxOrdersStatusCountData,
+  GetWxOrdersStatusCountResponses,
+  GetWxOrdersSignData,
+  GetWxOrdersSignResponses,
+  GetWxOrdersLoadAddItemData,
+  GetWxOrdersLoadAddItemResponses,
+  GetWxOrdersLoadSelectedItemData,
+  GetWxOrdersLoadSelectedItemResponses,
+  GetWxArticlesIndexBySectionData,
+  GetWxArticlesIndexBySectionResponses,
+  GetWxArticlesViewByIdData,
+  GetWxArticlesViewByIdResponses,
+  GetWxArticlesArtBySectionData,
+  GetWxArticlesArtBySectionResponses,
+  GetWxArticlesZanByIdData,
+  GetWxArticlesZanByIdResponses,
+  GetWxArticlesZanCancelByIdData,
+  GetWxArticlesZanCancelByIdResponses,
+  GetWxOrdersReportFileData,
+  GetWxOrdersReportFileResponses,
+  GetWxOrdersReportData,
+  GetWxOrdersReportResponses,
+  GetWxOrdersReportListData,
+  GetWxOrdersReportListResponses,
+  GetWxOrdersReportDetailData,
+  GetWxOrdersReportDetailResponses,
   GetWxRedirectByAppIdGreetData,
   GetWxRedirectByAppIdGreetResponses,
   GetWxRedirectByAppIdGreetErrors,
@@ -11,6 +104,31 @@ import type {
   GetWxRedirectQueryConfigResponses,
   GetWxOrgInfoByOrgIdData,
   GetWxOrgInfoByOrgIdResponses,
+  GetBusinessNumberSourceGeneratedData,
+  GetBusinessNumberSourceGeneratedResponses,
+  GetBusinessNumberSourceGeneratedErrors,
+  PostTxApiOrgListData,
+  PostTxApiOrgListResponses,
+  PostTxApiPackageListData,
+  PostTxApiPackageListResponses,
+  PostTxApiPackageDetailData,
+  PostTxApiPackageDetailResponses,
+  PostTxApiPackageScheduleData,
+  PostTxApiPackageScheduleResponses,
+  PostTxApiOrgAddtionalItemData,
+  PostTxApiOrgAddtionalItemResponses,
+  PostTxApiPatientInfoData,
+  PostTxApiPatientInfoResponses,
+  PostTxApiOrderListData,
+  PostTxApiOrderListResponses,
+  PostTxApiOrderDetailData,
+  PostTxApiOrderDetailResponses,
+  PostTxApiReportGetPhysicalExamReportByIdData,
+  PostTxApiReportGetPhysicalExamReportByIdResponses,
+  PostTxApiPatientGetPhysicalExamReportFileData,
+  PostTxApiPatientGetPhysicalExamReportFileResponses,
+  GetMockPackageListData,
+  GetMockPackageListResponses,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -56,6 +174,21 @@ import type {
   PostWxShopAfterSaleApplyErrors,
   GetWxShopAfterSaleListData,
   GetWxShopAfterSaleListResponses,
+  GetWxShopAfterSaleDetailData,
+  GetWxShopAfterSaleDetailResponses,
+  GetWxShopAfterSaleDetailErrors,
+  PostWxRrQqData,
+  PostWxRrQqResponses,
+  PostWxRrQqErrors,
+  PostPatApiQueryOrderByMobileData,
+  PostPatApiQueryOrderByMobileResponses,
+  PostPatApiCheckInServiceData,
+  PostPatApiCheckInServiceResponses,
+  PostPatApiCheckInServiceErrors,
+  PostPatApiQueryOrderDetailData,
+  PostPatApiQueryOrderDetailResponses,
+  PostPatApiSyncItemsData,
+  PostPatApiSyncItemsResponses,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -74,6 +207,872 @@ export type Options<
    * used to access values that aren't defined as part of the SDK function.
    */
   meta?: Record<string, unknown>;
+};
+
+/**
+ * 套餐变更通知
+ */
+export const postWxHisSyncPackageChange = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostWxHisSyncPackageChangeData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncPackageChangeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/packageChange",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 退款接口
+ */
+export const postWxHisSyncRefund = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxHisSyncRefundData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncRefundResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/refund",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 报告通知
+ */
+export const postWxHisSyncReport = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxHisSyncReportData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncReportResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/report",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 修改用户体检预约时间
+ */
+export const postWxHisSyncMedicalTimeChange = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostWxHisSyncMedicalTimeChangeData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncMedicalTimeChangeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/medicalTimeChange",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 订单状态同步
+ */
+export const postWxHisSyncNotifyOrderStatus = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostWxHisSyncNotifyOrderStatusData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncNotifyOrderStatusResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/notifyOrderStatus",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取内部套餐状态接口
+ */
+export const postWxHisSyncGetPkgStatusList = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostWxHisSyncGetPkgStatusListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxHisSyncGetPkgStatusListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/his/sync/getPkgStatusList",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 当前用户所有的体检人列表
+ */
+export const getWxExamineeList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxExamineeListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxExamineeListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/examinee/list",
+    ...options,
+  });
+};
+
+/**
+ * 新增保存体检人
+ */
+export const postWxExamineeAdd = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxExamineeAddData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxExamineeAddResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/examinee/add",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 修改保存体检人
+ */
+export const postWxExamineeEdit = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxExamineeEditData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxExamineeEditResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/examinee/edit",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 删除体检人
+ */
+export const postWxExamineeRemove = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxExamineeRemoveData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxExamineeRemoveResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/examinee/remove",
+    ...options,
+  });
+};
+
+/**
+ * 发送验证码短信
+ */
+export const getWxExamineeSendSms = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxExamineeSendSmsData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxExamineeSendSmsResponses,
+    GetWxExamineeSendSmsErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/examinee/sendSms",
+    ...options,
+  });
+};
+
+/**
+ * 分页查询体检套餐列表
+ * 分页查询体检套餐列表(按tag),查询所有分类tag传入空或者不传
+ * sortType 排序类型：1=默认排序，2=价格倒序，3=价格正序
+ * timeType 可预约日期筛选。（ all，3days，7days，weekend ）
+ */
+export const getWxGoodsList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsListResponses,
+    GetWxGoodsListErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/list",
+    ...options,
+  });
+};
+
+/**
+ * 根据id获取套餐详情
+ */
+export const getWxGoodsDetailById = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxGoodsDetailByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxGoodsDetailByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/detail/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 收藏套餐
+ */
+export const postWxGoodsFavoriteById = <ThrowOnError extends boolean = false>(
+  options: Options<PostWxGoodsFavoriteByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    PostWxGoodsFavoriteByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/favorite/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 取消收藏
+ */
+export const postWxGoodsUnFavoriteById = <ThrowOnError extends boolean = false>(
+  options: Options<PostWxGoodsUnFavoriteByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    PostWxGoodsUnFavoriteByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/unFavorite/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 我的收藏列表
+ */
+export const getWxGoodsFavoriteList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsFavoriteListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsFavoriteListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/favorite/List",
+    ...options,
+  });
+};
+
+/**
+ * 根据id获取套餐的可预约的时间段
+ */
+export const getWxGoodsSlot = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsSlotData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsSlotResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/slot",
+    ...options,
+  });
+};
+
+/**
+ * 查询我的团检套餐
+ * 根据证件类型、证件号码、姓名、手机号码，查找是否有已购买的团检套餐。返回体检套餐列表
+ */
+export const getWxGoodsGroupSearch = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsGroupSearchData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsGroupSearchResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/group/search",
+    ...options,
+  });
+};
+
+/**
+ * 待预约列表
+ * 待预约列表， 传入体检人的id，得到这个体检人的待预约套餐（团检订购的套餐）
+ */
+export const getWxGoodsPreBookList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsPreBookListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsPreBookListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/pre/book/list",
+    ...options,
+  });
+};
+
+/**
+ * 获取体检须知
+ * 获取体检须知
+ */
+export const getWxGoodsPackageNotice = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsPackageNoticeData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsPackageNoticeResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/package/notice",
+    ...options,
+  });
+};
+
+/**
+ * 有效的标签列表
+ */
+export const getWxGoodsTagsList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsTagsListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsTagsListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/tags/list",
+    ...options,
+  });
+};
+
+/**
+ * 获取互斥关系组
+ */
+export const getWxGoodsItemMutex = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxGoodsItemMutexData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxGoodsItemMutexResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/goods/itemMutex",
+    ...options,
+  });
+};
+
+/**
+ * 体检须知
+ */
+export const postSystemNoticeList = <ThrowOnError extends boolean = false>(
+  options?: Options<PostSystemNoticeListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostSystemNoticeListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/system/notice/list",
+    ...options,
+  });
+};
+
+/**
+ * 查询订单列表
+ * 字典表：	order_status_code
+ * 10	订单取消	未支付的订单取消成功，对应状态为10
+ * 12	体检爽约	（非必须）过了体检日期用户未到检，对应状态为12
+ * 13	补检失败	（非必须）用户更改体检日期后，也未如期到检，对应状态为13
+ * 14	支付超时	（非必须）暂未用到
+ * 18	申请退款	已支付的订单取消成功（这里指订单取消申请受理成功），对应状态为18
+ * 19	已退款	调refund接口退款成功后，对应状态为19
+ * 2	待支付	创建订单成功后，对应状态为2
+ * 31	已支付，待体检	用户支付成功后，调用结算接口成功后，对应状态为31
+ * 32	待取报告	（非必须）用户已到检，报告出来之前的过渡状态
+ * 33	待评价	（非必须）已出报告，未评价前的过渡状态
+ * 41	已完成	用户体检完成，已出报告，对应状态为41
+ *
+ */
+export const getWxOrdersList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/list",
+    ...options,
+  });
+};
+
+/**
+ * 根据订单id查询订单的详情
+ */
+export const getWxOrdersDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/detail",
+    ...options,
+  });
+};
+
+/**
+ * 根据支付id查询订单的详情
+ */
+export const getWxOrdersQueryOrder = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersQueryOrderData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersQueryOrderResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/queryOrder",
+    ...options,
+  });
+};
+
+/**
+ * 查询我的团检
+ */
+export const getWxOrdersQueryMyGroupCheck = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetWxOrdersQueryMyGroupCheckData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersQueryMyGroupCheckResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/queryMyGroupCheck",
+    ...options,
+  });
+};
+
+/**
+ * 取消订单
+ */
+export const getWxOrdersCancel = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersCancelData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersCancelResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/cancel",
+    ...options,
+  });
+};
+
+/**
+ * 新增保存订单
+ * 新增保存订单,返回支付请求信息。
+ */
+export const postWxOrdersAdd = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxOrdersAddData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxOrdersAddResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/add",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 付款,回调接口（支付平台调用）
+ * 新增保存订单,返回支付请求信息。
+ */
+export const postWxOrdersPayCallback = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxOrdersPayCallbackData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxOrdersPayCallbackResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/pay/callback",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 修改保存订单
+ */
+export const postWxOrdersEdit = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxOrdersEditData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxOrdersEditResponses,
+    PostWxOrdersEditErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/edit",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 查询订单是否可以修改
+ */
+export const postWxOrdersCheckEditAble = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxOrdersCheckEditAbleData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxOrdersCheckEditAbleResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/check/edit/able",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 查询各个状态的订单数量
+ * 字典表：	order_status_code
+ * 10	订单取消	未支付的订单取消成功，对应状态为10
+ * 12	体检爽约	（非必须）过了体检日期用户未到检，对应状态为12
+ * 13	补检失败	（非必须）用户更改体检日期后，也未如期到检，对应状态为13
+ * 14	支付超时	（非必须）暂未用到
+ * 18	申请退款	已支付的订单取消成功（这里指订单取消申请受理成功），对应状态为18
+ * 19	已退款	调refund接口退款成功后，对应状态为19
+ * 2	待支付	创建订单成功后，对应状态为2
+ * 31	已支付，待体检	用户支付成功后，调用结算接口成功后，对应状态为31
+ * 32	待取报告	（非必须）用户已到检，报告出来之前的过渡状态
+ * 33	待评价	（非必须）已出报告，未评价前的过渡状态
+ * 41	已完成	用户体检完成，已出报告，对应状态为41
+ *
+ */
+export const getWxOrdersStatusCount = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersStatusCountData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersStatusCountResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/status/count",
+    ...options,
+  });
+};
+
+/**
+ * 获取签名
+ */
+export const getWxOrdersSign = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersSignData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersSignResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/sign",
+    ...options,
+  });
+};
+
+/**
+ * 获取无感推荐加项
+ */
+export const getWxOrdersLoadAddItem = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersLoadAddItemData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersLoadAddItemResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/load/add/item",
+    ...options,
+  });
+};
+
+/**
+ * 获取患者选中的套餐加项
+ */
+export const getWxOrdersLoadSelectedItem = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetWxOrdersLoadSelectedItemData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersLoadSelectedItemResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/load/selected/item",
+    ...options,
+  });
+};
+
+/**
+ * 首页文章
+ */
+export const getWxArticlesIndexBySection = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetWxArticlesIndexBySectionData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxArticlesIndexBySectionResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/articles/index/{section}",
+    ...options,
+  });
+};
+
+/**
+ * 点击文章，加浏览量
+ * 查看单个文章，增加一个浏览量
+ */
+export const getWxArticlesViewById = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxArticlesViewByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxArticlesViewByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/articles/view/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 文章列表（带用户点赞信息）
+ * 返回文章列表，包含了当前用户是否点赞的信息。
+ */
+export const getWxArticlesArtBySection = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxArticlesArtBySectionData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxArticlesArtBySectionResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/articles/art/{section}",
+    ...options,
+  });
+};
+
+/**
+ * 文章点赞
+ */
+export const getWxArticlesZanById = <ThrowOnError extends boolean = false>(
+  options: Options<GetWxArticlesZanByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxArticlesZanByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/articles/zan/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 取消点赞
+ * 取消点赞
+ */
+export const getWxArticlesZanCancelById = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetWxArticlesZanCancelByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxArticlesZanCancelByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/articles/zan/cancel/{id}",
+    ...options,
+  });
+};
+
+/**
+ * 根据orderId查询报告文件
+ */
+export const getWxOrdersReportFile = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersReportFileData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersReportFileResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/report/file",
+    ...options,
+  });
+};
+
+/**
+ * （废弃）根据订单id查询报告数据
+ */
+export const getWxOrdersReport = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersReportData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersReportResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/report",
+    ...options,
+  });
+};
+
+/**
+ * 查询报告列表
+ */
+export const getWxOrdersReportList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersReportListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersReportListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/reportList",
+    ...options,
+  });
+};
+
+/**
+ * 查询报告详情
+ */
+export const getWxOrdersReportDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersReportDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersReportDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/reportDetail",
+    ...options,
+  });
 };
 
 /**
@@ -141,6 +1140,235 @@ export const getWxOrgInfoByOrgId = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/orgInfo/{orgId}",
+    ...options,
+  });
+};
+
+/**
+ * 生成号源
+ */
+export const getBusinessNumberSourceGenerated = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<GetBusinessNumberSourceGeneratedData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetBusinessNumberSourceGeneratedResponses,
+    GetBusinessNumberSourceGeneratedErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/business/NumberSource/generated",
+    ...options,
+  });
+};
+
+/**
+ * 查询机构列表
+ */
+export const postTxApiOrgList = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiOrgListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiOrgListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/org/list",
+    ...options,
+  });
+};
+
+/**
+ * 查询套餐列表
+ */
+export const postTxApiPackageList = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiPackageListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiPackageListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/package/list",
+    ...options,
+  });
+};
+
+/**
+ * 查询套餐详情
+ */
+export const postTxApiPackageDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiPackageDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiPackageDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/package/detail",
+    ...options,
+  });
+};
+
+/**
+ * 查询套餐排期
+ */
+export const postTxApiPackageSchedule = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiPackageScheduleData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiPackageScheduleResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/package/schedule",
+    ...options,
+  });
+};
+
+/**
+ * 查询机构加项列表
+ */
+export const postTxApiOrgAddtionalItem = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiOrgAddtionalItemData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiOrgAddtionalItemResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/org/addtionalItem",
+    ...options,
+  });
+};
+
+/**
+ * 获取患者信息
+ */
+export const postTxApiPatientInfo = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiPatientInfoData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiPatientInfoResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/patient/info",
+    ...options,
+  });
+};
+
+/**
+ * 查询订单列表
+ */
+export const postTxApiOrderList = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiOrderListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiOrderListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/order/list",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 查询订单详情
+ */
+export const postTxApiOrderDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<PostTxApiOrderDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiOrderDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/order/detail",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取体检报告数据信息
+ */
+export const postTxApiReportGetPhysicalExamReportById = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostTxApiReportGetPhysicalExamReportByIdData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiReportGetPhysicalExamReportByIdResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/report/getPhysicalExamReportById",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取体检报告文件
+ */
+export const postTxApiPatientGetPhysicalExamReportFile = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    PostTxApiPatientGetPhysicalExamReportFileData,
+    ThrowOnError
+  >,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostTxApiPatientGetPhysicalExamReportFileResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/tx/api/patient/getPhysicalExamReportFile",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 套餐列表
+ */
+export const getMockPackageList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetMockPackageListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetMockPackageListResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/mock/package/list",
     ...options,
   });
 };
@@ -526,6 +1754,124 @@ export const getWxShopAfterSaleList = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/shop/after/sale/list",
+    ...options,
+  });
+};
+
+/**
+ *  售后订单详情
+ */
+export const getWxShopAfterSaleDetail = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopAfterSaleDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopAfterSaleDetailResponses,
+    GetWxShopAfterSaleDetailErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/after/sale/detail",
+    ...options,
+  });
+};
+
+/**
+ * 转发接口
+ */
+export const postWxRrQq = <ThrowOnError extends boolean = false>(
+  options?: Options<PostWxRrQqData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostWxRrQqResponses,
+    PostWxRrQqErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/rr/qq",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 根据电话号码查询关联的订单
+ */
+export const postPatApiQueryOrderByMobile = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostPatApiQueryOrderByMobileData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostPatApiQueryOrderByMobileResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/pat/api/queryOrderByMobile",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 核销订单的服务次数
+ */
+export const postPatApiCheckInService = <ThrowOnError extends boolean = false>(
+  options?: Options<PostPatApiCheckInServiceData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostPatApiCheckInServiceResponses,
+    PostPatApiCheckInServiceErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/pat/api/checkInService",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取单个订单的详情
+ */
+export const postPatApiQueryOrderDetail = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<PostPatApiQueryOrderDetailData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostPatApiQueryOrderDetailResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/pat/api/queryOrderDetail",
+    ...options,
+  });
+};
+
+/**
+ * 获取机构的所有服务类项目
+ */
+export const postPatApiSyncItems = <ThrowOnError extends boolean = false>(
+  options?: Options<PostPatApiSyncItemsData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).post<
+    PostPatApiSyncItemsResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/pat/api/syncItems",
     ...options,
   });
 };

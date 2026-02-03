@@ -30,7 +30,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
           size="sm"
           onClick={() => {
             appRouter.navigateTo("afterSaleDetail", {
-              query: { orderNo: info.orderNo },
+              query: { id: info.id },
             });
           }}
         >
@@ -41,7 +41,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
   };
 
   return (
-    <View className="rounded-lg bg-white app-shadow">
+    <View className="rounded-lg bg-white">
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info?.createTime}</View>
         <View className="text-amber-500">

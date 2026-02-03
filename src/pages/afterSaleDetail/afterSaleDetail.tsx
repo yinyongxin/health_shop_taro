@@ -1,8 +1,8 @@
-import { AppButton, BasePage } from "@/components";
+import { AfterSaleStep, AppButton, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
-import { getWxShopOrderDetail } from "@/client";
+import { getWxShopAfterSaleDetail, getWxShopOrderDetail } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
 import { Empty, Skeleton } from "@taroify/core";
@@ -13,25 +13,56 @@ import { appRouter } from "@/router";
 
 export default () => {
   const appUserStore = useAppUserStore();
-  const pageParams = usePageParams<"orderPay">();
+  const pageParams = usePageParams<"afterSaleDetail">();
 
-  const detailRequest = useRequest(async () => {
-    const res = await getWxShopOrderDetail({
-      query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
-    });
-    if (res.data?.code === 0) {
-      return res?.data?.data;
-    }
-    throw new Error(res.data?.msg ?? "获取详情失败");
-  });
+  const detailRequest = useRequest(
+    async () => {
+      console.log("pageParams", pageParams);
+      if (!pageParams?.id) {
+        return;
+      }
+      const res = await getWxShopAfterSaleDetail({
+        query: {
+          id: Number(pageParams.id),
+        },
+      });
+      return res.data?.data;
+    },
+    {
+      refreshDeps: [pageParams?.id],
+    },
+  );
 
-  const { order: orderDetail } = detailRequest.data || {};
+  const orderDetailRequest = useRequest(
+    async () => {
+      if (!detailRequest.data) {
+        return;
+      }
+      const res = await getWxShopOrderDetail({
+        query: {
+          orderNo: detailRequest.data.orderNo,
+          orgId: APP_ENV_CONFIG.ORG_ID,
+        },
+      });
+      if (res.data?.code === 0) {
+        return res?.data?.data;
+      }
+      throw new Error(res.data?.msg ?? "获取详情失败");
+    },
+    {
+      refreshDeps: [detailRequest.data],
+    },
+  );
 
-  if (detailRequest.error) {
+  const { order: orderDetail } = orderDetailRequest.data || {};
+
+  if (orderDetailRequest.error) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
-        <Empty.Description>{detailRequest.error.message}</Empty.Description>
+        <Empty.Description>
+          {orderDetailRequest.error.message}
+        </Empty.Description>
         <AppButton
           actived={false}
           className="mt-[48px] w-[300px]"
@@ -43,7 +74,7 @@ export default () => {
     );
   }
 
-  if (detailRequest.loading && !detailRequest.data) {
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
 
@@ -70,7 +101,7 @@ export default () => {
           <View className="text-[32px] font-semibold">{getStatusText()}</View>
         </View>
 
-        <View className="mt-[24px] px-[24px]">
+        <View className="mt-[32px] px-[24px]">
           <View className="bg-white rounded-lg">
             <ServiceList
               product={product}
@@ -99,31 +130,42 @@ export default () => {
                   value={
                     <View className="text-[32px] font-semibold">
                       <Text>￥</Text>
-                      <Text>{detailRequest.data?.order.paymentAmount}</Text>
+                      <Text>
+                        {orderDetailRequest.data?.order.paymentAmount}
+                      </Text>
                     </View>
                   }
                 />
               </View>
             </View>
           </View>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[32px]">
             <InfoCardItem
               label="订单编号"
-              value={detailRequest.data?.order.orderNo}
+              value={orderDetailRequest.data?.order.orderNo}
             />
             <InfoCardItem
               label="下单时间"
-              value={detailRequest.data?.order.createdAt}
+              value={orderDetailRequest.data?.order.createdAt}
             />
           </View>
         </View>
+
+        {detailRequest.data && (
+          <View className="px-[24rpx]  mt-[32rpx] rounded-lg">
+            <AfterSaleStep info={detailRequest.data} />
+          </View>
+        )}
       </BasePage>
       <AppFixedBottom>
         <AppButton
           onClick={() => {
+            if (!detailRequest.data) {
+              return;
+            }
             appRouter.navigateTo("orderDetail", {
               query: {
-                orderNo: pageParams.orderNo,
+                orderNo: detailRequest.data.orderNo,
               },
             });
           }}
