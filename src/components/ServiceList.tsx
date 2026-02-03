@@ -33,6 +33,7 @@ export const ServiceList = (props: ServiceListProps) => {
               border={false}
               shadow={false}
               price={service.price}
+              qty={service.qty}
             />
           );
         })}

@@ -16,9 +16,18 @@ export type CartWareCardProps = {
   border?: boolean;
   shadow?: boolean;
   bottom?: ReactNode;
+  qty?: number;
 };
 export const CartWareCard = (props: CartWareCardProps) => {
-  const { border, shadow = true, price, itemName, bottom, product } = props;
+  const {
+    border,
+    shadow = true,
+    price,
+    itemName,
+    bottom,
+    product,
+    qty,
+  } = props;
   const goToDetailPage = () => {
     appRouter.navigateTo("wareDetail", {
       query: {
@@ -65,6 +74,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
               <Text className="text-[24px]">¥</Text>
               <Text className="pl-[8px]">{price}</Text>
             </View>
+            {qty && <View className="text-[32px]">×{qty}</View>}
           </View>
         </View>
       </View>

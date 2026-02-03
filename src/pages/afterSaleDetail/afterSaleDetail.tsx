@@ -117,27 +117,25 @@ export default () => {
             <InfoCardItem
               label="订单编号"
               value={orderDetailRequest.data?.order.orderNo}
+              valueClassName="text-end"
             />
             <InfoCardItem
               label="下单时间"
               value={orderDetailRequest.data?.order.createdAt}
+              valueClassName="text-end"
             />
-            <View className="px-[24px] pb-[24px] flex flex-col gap-2">
-              <View className="border-t-[1px] border-gray-200 pt-[24px]">
-                <InfoCardItem
-                  label="退款金额"
-                  lableClassName="text-[32px] font-semibold w-auto"
-                  valueClassName="text-end"
-                  value={
-                    <View className="text-[32px] font-semibold text-red-500">
-                      <Text>￥</Text>
-                      <Text>
-                        {orderDetailRequest.data?.order.paymentAmount}
-                      </Text>
-                    </View>
-                  }
-                />
-              </View>
+            <View className="border-t-[1px] border-gray-200 pt-[24px]">
+              <InfoCardItem
+                label="退款金额"
+                lableClassName="text-[32px] font-semibold w-auto"
+                valueClassName="text-end"
+                value={
+                  <View className="text-[32px] font-semibold text-red-500">
+                    <Text>￥</Text>
+                    <Text>{orderDetailRequest.data?.order.paymentAmount}</Text>
+                  </View>
+                }
+              />
             </View>
           </View>
         </View>
