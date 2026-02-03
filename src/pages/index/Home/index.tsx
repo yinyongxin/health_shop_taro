@@ -9,6 +9,7 @@ import { useRequest } from "@/hooks";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 import { GridBlock } from "./GridBlock";
+import { ClassifyBlock } from "./ClassifyBlock";
 
 export const Home = () => {
   return (
@@ -24,9 +25,7 @@ export const Home = () => {
         <View className="pt-[32px]">
           <Banners />
         </View>
-        <View className="px-[24px] pt-[32px]">
-          <GridBlock />
-        </View>
+        <GridBlock />
         <View className="px-[24px] pt-[24px]">
           <Title
             className="pt-[24px]"

@@ -7,7 +7,6 @@ export * from "./Title";
 export * from "./LucideIcon";
 export * from "./AppTag";
 export * from "./AppTabList";
-export * from "./TabBar";
 export * from "./AppFeatureBlocksItem";
 export * from "./AppTopSearch";
 export * from "./AppCell";

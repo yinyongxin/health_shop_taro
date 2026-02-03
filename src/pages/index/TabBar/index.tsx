@@ -1,3 +1,4 @@
+import { AppTabs } from "@/common";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
@@ -5,7 +6,7 @@ import { ReactNode } from "react";
 
 export type TabBarItem = {
   label: string;
-  value: string;
+  value: (typeof AppTabs)[number]["value"];
   icon: (actived: boolean) => ReactNode;
 };
 

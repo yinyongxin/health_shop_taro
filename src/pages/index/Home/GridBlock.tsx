@@ -1,12 +1,15 @@
 import { getWxShopCateList } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
-import { AppImage, LucideIcon } from "@/components";
+import { AppImage, LucideIcon, Title } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
+import { useAppUserStore } from "@/stores";
 import { Grid } from "@taroify/core";
 import { View } from "@tarojs/components";
 
 export const GridBlock = () => {
+  const appUserStore = useAppUserStore();
+
   const { data, loading } = useRequest(async () => {
     const res = await getWxShopCateList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
@@ -39,35 +42,53 @@ export const GridBlock = () => {
     return null;
   }
   return (
-    <Grid columns={4} className="rounded-xl overflow-hidden">
-      {data?.map((item) => (
-        <Grid.Item
-          onClick={() => {
-            appRouter.navigateTo("subCategoryProductList", {
-              query: {
-                subCategoryId: item.id.toString(),
-              },
-            });
-          }}
-          key={item.id}
-          icon={
-            <View>
-              {item?.logo ? (
-                <AppImage
-                  src={item.logo || ""}
-                  className="size-[60px]"
-                  mode="aspectFill"
-                />
-              ) : (
-                <LucideIcon className="text-gray-200" name="image" size={60} />
-              )}
-            </View>
-          }
-          text={
-            <View className="truncate w-[130px] text-center">{item.name}</View>
-          }
-        />
-      ))}
-    </Grid>
+    <View className="px-[24px] pt-[32px]">
+      <Title
+        action={{
+          text: "查看更多",
+          onClick: () => {
+            appUserStore.updateTabActive("classify");
+          },
+        }}
+      >
+        商品分类
+      </Title>
+      <Grid columns={4} className="rounded-xl overflow-hidden mt-[24px]">
+        {data?.map((item) => (
+          <Grid.Item
+            onClick={() => {
+              appRouter.navigateTo("subCategoryProductList", {
+                query: {
+                  subCategoryId: item.id.toString(),
+                },
+              });
+            }}
+            key={item.id}
+            icon={
+              <View>
+                {item?.logo ? (
+                  <AppImage
+                    src={item.logo || ""}
+                    className="size-[60px]"
+                    mode="aspectFill"
+                  />
+                ) : (
+                  <LucideIcon
+                    className="text-gray-200"
+                    name="image"
+                    size={60}
+                  />
+                )}
+              </View>
+            }
+            text={
+              <View className="truncate w-[130px] text-center">
+                {item.name}
+              </View>
+            }
+          />
+        ))}
+      </Grid>
+    </View>
   );
 };

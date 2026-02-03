@@ -4,7 +4,7 @@ import {
   getWxRedirectQueryDict,
   getWxShopAddrList,
 } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
+import { APP_ENV_CONFIG, AppTabs } from "@/common";
 import { createAppStore } from "./base";
 
 export type CartListItem = {
@@ -13,8 +13,8 @@ export type CartListItem = {
 };
 
 interface AppUserState {
-  tabActive: string;
-  updateTabActive: (value: string) => void;
+  tabActive: (typeof AppTabs)[number]["value"];
+  updateTabActive: (value: (typeof AppTabs)[number]["value"]) => void;
   addressList: AddressInfo[];
   updateAddressList: () => void;
   defaultAddress?: AddressInfo;

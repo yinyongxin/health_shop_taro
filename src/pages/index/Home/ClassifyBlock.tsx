@@ -11,10 +11,7 @@ export const ClassifyBlock = () => {
     const res = await getWxShopCateList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
     });
-    return res.data?.data
-      .map((item) => item.subCategoryList)
-      .flat()
-      .slice(0, 8);
+    return res.data?.data.slice(0, 4);
   });
 
   if (loading && !data) {
@@ -52,9 +49,9 @@ export const ClassifyBlock = () => {
           key={item.id}
           icon={
             <View>
-              {item?.logo ? (
+              {item.subCategoryList[0]?.logo ? (
                 <AppImage
-                  src={item.logo || ""}
+                  src={item.subCategoryList[0].logo || ""}
                   className="size-[60px]"
                   mode="aspectFill"
                 />
