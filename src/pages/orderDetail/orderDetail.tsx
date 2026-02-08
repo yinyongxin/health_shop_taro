@@ -18,6 +18,7 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
+import { reduce } from "lodash-es";
 import { RefundReasonMap } from "./common";
 
 export default () => {
@@ -38,11 +39,6 @@ export default () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
-  const isPayed =
-    orderDetailRequest.data?.order.status &&
-    orderDetailRequest.data?.order.status !== 0;
-
-  console.log(orderDetailRequest.data?.order.status, isPayed);
   const initAddress = async () => {
     if (!orderDetailRequest.data?.order.addressId) {
       return;
@@ -111,37 +107,76 @@ export default () => {
   }
 
   const renderBottomBtns = () => {
-    if ([1, 2].includes(orderDetail.status)) {
+    if (orderDetail.isService === 1) {
+      if ([2].includes(orderDetail.status)) {
+        const allQty = reduce(
+          orderDetail.itemList.map((item) => item.qty),
+          (a, b) => a + b,
+          0,
+        );
+        const allUsedQty = reduce(
+          orderDetail.itemList.map((item) => item.usedQty),
+          (a, b) => a + b,
+          0,
+        );
+        const notUse = allQty === allUsedQty;
+        return (
+          <AppFixedBottom className="flex flex-col gap-[24px]">
+            <AppButton
+              status="success"
+              onClick={() => {
+                appRouter.navigateTo("serviceUse", {
+                  query: {
+                    orderNo: orderDetail.orderNo,
+                  },
+                });
+              }}
+            >
+              使用
+            </AppButton>
+            {notUse && (
+              <AppButton
+                status="error"
+                onClick={() => {
+                  setRefundReason("");
+                  setRefundReasonOpen(true);
+                }}
+              >
+                申请退款
+              </AppButton>
+            )}
+          </AppFixedBottom>
+        );
+      } else if ([3].includes(orderDetail.status)) {
+        return (
+          <AppFixedBottom className="flex flex-col gap-[24px]">
+            <AppButton
+              status="success"
+              onClick={() => {
+                appRouter.navigateTo("serviceUse", {
+                  query: {
+                    orderNo: orderDetail.orderNo,
+                  },
+                });
+              }}
+            >
+              查看
+            </AppButton>
+          </AppFixedBottom>
+        );
+      }
+    }
+    if ([1].includes(orderDetail.status)) {
       return (
         <AppFixedBottom>
           <AppButton
             status="error"
             onClick={() => {
+              setRefundReason("");
               setRefundReasonOpen(true);
             }}
           >
             申请退款
-          </AppButton>
-        </AppFixedBottom>
-      );
-    } else if (
-      [2, 3].includes(orderDetail.status) &&
-      orderDetail.isService === 1
-    ) {
-      return (
-        <AppFixedBottom>
-          <AppButton
-            status="success"
-            onClick={() => {
-              appRouter.navigateTo("serviceUse", {
-                query: {
-                  orderNo: orderDetail.orderNo,
-                },
-              });
-            }}
-          >
-            {orderDetail.status === 2 && "使用"}
-            {orderDetail.status === 3 && "查看"}
           </AppButton>
         </AppFixedBottom>
       );
@@ -162,7 +197,7 @@ export default () => {
 
   return (
     <>
-      <BasePage className="pb-[200px]">
+      <BasePage className="pb-[400px]">
         <View className="px-[24px] pt-[24px]">
           <View className="text-[32px] font-semibold">{getStatusText()}</View>
         </View>
@@ -266,13 +301,13 @@ export default () => {
         showClose
         onClose={() => {
           setRefundReasonOpen(false);
-          setRefundReason("");
         }}
         footer={
           <AppButton
             disabled={!refundReason}
             status="error"
             onClick={() => {
+              setRefundReasonOpen(false);
               Dialog.confirm({
                 theme: "rounded",
                 title: "提示",
