@@ -123,7 +123,6 @@ export default () => {
         return (
           <AppFixedBottom className="flex flex-col gap-[24px]">
             <AppButton
-              status="success"
               onClick={() => {
                 appRouter.navigateTo("serviceUse", {
                   query: {
@@ -151,7 +150,6 @@ export default () => {
         return (
           <AppFixedBottom className="flex flex-col gap-[24px]">
             <AppButton
-              status="success"
               onClick={() => {
                 appRouter.navigateTo("serviceUse", {
                   query: {
