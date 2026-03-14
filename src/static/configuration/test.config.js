@@ -1,4 +1,4 @@
-window.prodConfig = {
+window.testConfig = {
   ENV: "prod",
   APP_NAME: "医疗商城",
   ORG_ID: "800001001",
