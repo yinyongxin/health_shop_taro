@@ -190,6 +190,9 @@ export type ProductInfo = {
   description: string;
   type: string;
   price: number;
+  /**
+   * 原价
+   */
   originalPrice: number;
   mainImage: string;
   productTags: string;
