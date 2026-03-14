@@ -6,6 +6,9 @@ type DetailInfoProps = {
 };
 export const DetailInfo = (props: DetailInfoProps) => {
   const { info } = props;
+  if (!info.detailContent) {
+    return null;
+  }
   return (
     <View className="pt-[32px] px-[24px]">
       <RichText

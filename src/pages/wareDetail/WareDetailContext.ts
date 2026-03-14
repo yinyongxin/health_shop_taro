@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const WareDetailContext = createContext({
+export const WareDetailContext = createContext({
     
 }); 

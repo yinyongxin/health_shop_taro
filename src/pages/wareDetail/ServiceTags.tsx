@@ -38,9 +38,7 @@ export const ServiceTags = (props: ServiceTagsProps) => {
                 </AppTag>
               ))}
             </ScrollView>
-            <View className="text-gray-400">
-              {/* <LucideIcon name="chevron-right" size={20} /> */}
-            </View>
+            <View className="text-gray-400" />
           </View>
         </View>
       </Box>

@@ -33,7 +33,7 @@ import { Delivery } from "./Delivery";
 
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
-  const useAuthStore = useAppAuthStore();
+  const authStore = useAppAuthStore();
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
@@ -98,7 +98,7 @@ const WareDetail = () => {
 
   const handlePay = useRequest(
     async () => {
-      if (useAuthStore.isMiniprogram) {
+      if (authStore.isMiniprogram) {
         appToast.info("暂不支持小程序购买");
         return;
       }
@@ -175,7 +175,8 @@ const WareDetail = () => {
      * 实际支付金额
      * 总价 - 优惠金额
      */
-    const paymentAmount = round(subtract(totalAmount, discountAmount), 2);
+    const paymentAmount = totalAmount;
+
     return {
       freightAmount,
       totalAmount,
@@ -186,7 +187,7 @@ const WareDetail = () => {
 
   const handleServerPay = useRequest(
     async () => {
-      if (useAuthStore.isMiniprogram) {
+      if (authStore.isMiniprogram) {
         appToast.info("暂不支持小程序购买");
         return;
       }
@@ -203,7 +204,7 @@ const WareDetail = () => {
             orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
-            ...getServiceAmount()!,
+            ...amountInfo,
             productList: [
               {
                 productId: productInfo.id,
@@ -241,7 +242,9 @@ const WareDetail = () => {
     return;
   }
 
-  const isFW = productInfo?.type === "FW";
+  const isFW = productInfo.type === "FW";
+
+  const amountInfo = isFW ? getServiceAmount() : getAmount();
 
   const getServiceBlock = () => {
     if (!isFW) {
@@ -284,7 +287,7 @@ const WareDetail = () => {
                 }}
               >
                 <Text className="text-[24px]">￥</Text>
-                <Text>{getServiceAmount().paymentAmount}</Text>
+                <Text>{amountInfo.paymentAmount}</Text>
                 <Text>付款</Text>
               </AppButton>
             </View>
@@ -321,7 +324,7 @@ const WareDetail = () => {
               }}
             >
               <Text className="text-[24px]">￥</Text>
-              <Text>{getAmount().paymentAmount}</Text>
+              <Text>{amountInfo.paymentAmount}</Text>
               <Text>付款</Text>
             </AppButton>
           </View>
