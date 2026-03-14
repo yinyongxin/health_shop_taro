@@ -1,6 +1,5 @@
-window.devConfig1 = {
+window.devConfig = {
   ENV: "dev",
-  APP_NAME: "医疗商城",
   ORG_ID: "800001001",
   APPID: "wxfaaff87825f44139",
   BASE_URL: "",
