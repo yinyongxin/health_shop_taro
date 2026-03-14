@@ -2,7 +2,6 @@ import { getWxShopBannerList } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
 import { AppImage } from "@/components";
 import { useRequest } from "@/hooks";
-import { appRouter } from "@/router";
 import { Swiper } from "@taroify/core";
 import { View } from "@tarojs/components";
 
@@ -24,13 +23,9 @@ export const Banners = () => {
           key={index}
           className="px-[24px]"
           onClick={() => {
-            const { productId } = item;
-            if (productId) {
-              appRouter.navigateTo("wareDetail", {
-                query: {
-                  id: productId.toString(),
-                },
-              });
+            const { jumpUrl } = item;
+            if (jumpUrl) {
+              window.open(jumpUrl, "_blank");
             }
           }}
         >

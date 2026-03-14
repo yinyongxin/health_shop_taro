@@ -93,6 +93,7 @@ export type SafeInfo = {
 export type BannerItem = {
   productId?: string;
   imagePath: string;
+  jumpUrl?: string;
   name: string;
   orgId: string;
   updatedAt: string;
