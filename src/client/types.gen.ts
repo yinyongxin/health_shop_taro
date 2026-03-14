@@ -109,6 +109,9 @@ export type OrderDetail = {
   userId: string;
   addressId: number;
   totalAmount: number;
+  /**
+   * 实付金额
+   */
   paymentAmount: number;
   freightAmount: number;
   discountAmount: number;
@@ -146,6 +149,9 @@ export type OrderListItem = {
       usedQty: number;
     }>;
   }>;
+  /**
+   * 实付金额
+   */
   paymentAmount: number;
   createAt: string;
   isService: number;
@@ -1647,6 +1653,9 @@ export type PostWxShopOrderPayData = {
     /**
      * 实付金额
      */
+    /**
+     * 实付金额
+     */
     paymentAmount: number;
     /**
      * 运费
@@ -2193,6 +2202,9 @@ export type PostPatApiQueryOrderByMobileResponses = {
     rows: Array<{
       orderInfo?: {
         orderNo: string;
+        /**
+         * 实付金额
+         */
         paymentAmount: number;
         status: number;
         isService: number;
@@ -2295,6 +2307,9 @@ export type PostPatApiQueryOrderDetailResponses = {
       userId: string;
       addressId: number;
       totalAmount: number;
+      /**
+       * 实付金额
+       */
       paymentAmount: number;
       freightAmount: number;
       discountAmount: number;
@@ -2359,6 +2374,9 @@ export type PostPatApiSyncItemsResponses = {
       userId: string;
       addressId: number;
       totalAmount: number;
+      /**
+       * 实付金额
+       */
       paymentAmount: number;
       freightAmount: number;
       discountAmount: number;

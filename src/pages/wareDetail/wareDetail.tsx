@@ -342,6 +342,7 @@ const WareDetail = () => {
       </AppPopup>
     );
   };
+  
   return (
     <BasePage>
       <>
