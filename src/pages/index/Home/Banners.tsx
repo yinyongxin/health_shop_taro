@@ -11,6 +11,7 @@ export const Banners = () => {
     const cateListRes = await getWxShopBannerList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
     });
+    console.log("轮播图数据", cateListRes.data?.data);
     return cateListRes.data?.data;
   });
   const content = dataRequest.loading ? (

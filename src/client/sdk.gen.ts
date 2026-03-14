@@ -1665,7 +1665,7 @@ export const getWxShopBannerList = <ThrowOnError extends boolean = false>(
   options?: Options<GetWxShopBannerListData, ThrowOnError>,
 ) => {
   return (options?.client ?? _heyApiClient).get<
-    GetWxShopBannerListResponses,
+    GetWxShopBannerListResponses, 
     GetWxShopBannerListErrors,
     ThrowOnError
   >({
