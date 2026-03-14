@@ -69,7 +69,7 @@ export const GridBlock = () => {
                 {item?.logo ? (
                   <AppImage
                     src={item.logo || ""}
-                    className="size-[60px]"
+                    className="size-[100px]"
                     mode="aspectFill"
                   />
                 ) : (

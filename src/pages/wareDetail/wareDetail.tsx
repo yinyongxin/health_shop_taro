@@ -87,7 +87,7 @@ const WareDetail = () => {
      * 实际支付金额
      * 订单总金额-优惠金额
      */
-    const paymentAmount = round(subtract(totalAmount, discountAmount), 2);
+    const paymentAmount = totalAmount;
     return {
       freightAmount,
       totalAmount,

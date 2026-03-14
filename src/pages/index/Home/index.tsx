@@ -1,11 +1,7 @@
-import { BasePage, LucideIcon, Title } from "@/components";
-import { View, Image } from "@tarojs/components";
-import { Grid } from "@taroify/core";
+import { BasePage, Title } from "@/components";
+import { View } from "@tarojs/components";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
-import { getWxShopCateList } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
-import { useRequest } from "@/hooks";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 import { GridBlock } from "./GridBlock";

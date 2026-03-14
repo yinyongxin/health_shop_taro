@@ -24,7 +24,11 @@ export type SkuListItem = {
   id: number;
   image: string;
   orgId: string;
+  /**
+   * 原价
+   */
   originalPrice: number;
+  /** 现价 */
   price: number;
   productId: number;
   skuCode: string;

@@ -11,3 +11,7 @@ page {
   @apply bg-gray-100;
   color: rgba(0, 0, 0, 0.75);
 }
+
+.taroify-grid-item__icon {
+  flex: 1;
+}
