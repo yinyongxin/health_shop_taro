@@ -1,5 +1,5 @@
 import { ProductInfo } from "@/client";
-import { LucideIcon, AppTag } from "@/components";
+import { AppTag } from "@/components";
 import Box from "@/components/Box";
 import { safeJson } from "@/utils";
 import { View, ScrollView } from "@tarojs/components";
@@ -32,7 +32,6 @@ export const ServiceTags = (props: ServiceTagsProps) => {
                   size="default"
                   status="secondary"
                   className="shrink-0"
-                  prefix={<LucideIcon name="truck" />}
                 >
                   {tag}
                 </AppTag>
