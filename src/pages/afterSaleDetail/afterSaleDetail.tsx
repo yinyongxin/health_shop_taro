@@ -9,7 +9,6 @@ import { navigateBack } from "@tarojs/taro";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
-import { SaleStatusEnum } from "@/enums";
 
 export default () => {
   const pageParams = usePageParams<"afterSaleDetail">();
