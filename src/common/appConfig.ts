@@ -9,7 +9,7 @@ type AppEnvConfig = {
 
 export const APP_ENV_CONFIG = {
   //@ts-ignore
-  development: window.devConfig as AppEnvConfig,
+  development: window.devConfig1 as AppEnvConfig,
   //@ts-ignore
-  production: window.prodConfig as AppEnvConfig,
+  production: window.prodConfig1 as AppEnvConfig,
 }[process.env.NODE_ENV];

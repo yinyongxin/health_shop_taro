@@ -1,4 +1,4 @@
-window.devConfig = {
+window.devConfig1 = {
   ENV: "dev",
   APP_NAME: "医疗商城",
   ORG_ID: "800001001",
