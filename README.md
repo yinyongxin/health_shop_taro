@@ -8,6 +8,10 @@ pnpm 10+
 [线上](https://chr.eh-med.com/hmall/#)
 [本地启动](http://localhost:10086/index#/pages/index/index)
 
+## CI/CD
+
+<http://47.106.105.252:9991/jenkins/job/aiPlatform/job/health_shop/>
+
 ## TPPD
 
 [eh医疗商城智能预约平台TAPD](https://www.tapd.cn/tapd_fe/63673026/story/list?categoryId=1163673026001000206&useScene=storyList&groupType=&conf_id=1163673026001004237)
@@ -16,19 +20,17 @@ pnpm 10+
 
 ### 测试环境
 
-https://testpay.eh-med.com/zhfy
+<https://testpay.eh-med.com/zhfy>
 jysy 123456
 
-https://testpay.eh-med.com/hmall/?openVConsole=true
+<https://testpay.eh-med.com/hmall/?openVConsole=true>
 
 ### 正式环境
 
-https://chr.eh-med.com/zhfy/index
+<https://chr.eh-med.com/zhfy/index>
 jysy 123456
 
-https://chr.eh-med.com/hmall/?openVConsole=true
-
-
+<https://chr.eh-med.com/hmall/?openVConsole=true>
 
 ## 微信公众平台
 
