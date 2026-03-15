@@ -74,7 +74,7 @@ const MyService = () => {
   });
 
   return (
-    <BasePage fullScreen className="flex-1 myLikeList">
+    <BasePage fullScreen className="flex-1">
       <View>
         <AppTabList
           className="bg-none"

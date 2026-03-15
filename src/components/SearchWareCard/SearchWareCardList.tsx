@@ -1,4 +1,4 @@
-import { getWxShopProductSearch, ProductInfo } from "@/client";
+import { getWxShopProductSearch, type ProductInfo } from "@/client";
 import { useRequest } from "@/hooks";
 import { APP_ENV_CONFIG } from "@/common";
 import { SearchWareCard, SearchWareCardProps } from ".";
@@ -6,7 +6,6 @@ import { AppList } from "../AppList";
 import { Skeleton } from "./Skeleton";
 
 export type SearchWareCardListProps = {
-  data?: ProductInfo[];
   className?: string;
   searchWareCardProps?: Partial<SearchWareCardProps>;
   searchKey?: string;
