@@ -5,7 +5,6 @@ import { appRouter } from "@/router";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 import { GridBlock } from "./GridBlock";
-import { ClassifyBlock } from "./ClassifyBlock";
 
 export const Home = () => {
   return (
@@ -32,7 +31,7 @@ export const Home = () => {
               },
             }}
           >
-            全部商品
+            推荐商品
           </Title>
         </View>
         <SearchWareCardList />

@@ -1588,6 +1588,7 @@ export type GetWxShopProductSearchData = {
     searchKey?: string;
     pageNum?: string;
     pageSize?: string;
+    orderBy?: string;
   };
   url: "/wx/shop/product/search";
 };
