@@ -39,7 +39,7 @@ export const Classify = (props: ClassifyPropsType) => {
   return (
     <BasePage fullScreen>
       <View className="flex h-full w-full overflow-hidden">
-        <View className="flex-1">
+        <View className="flex-1 bg-white">
           <Sidebar
             cateList={data?.data || []}
             mainActive={mainActive}
@@ -47,7 +47,7 @@ export const Classify = (props: ClassifyPropsType) => {
           />
         </View>
         <ScrollView scrollY className="flex-3">
-          <View className="flex flex-col pr-2 pb-[180px]">
+          <View className="flex flex-col px-2 pb-[180px]">
             {[...subCategoryList].map((item) => (
               <ClassifyItem key={item.id} info={item} />
             ))}
