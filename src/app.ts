@@ -1,7 +1,12 @@
 import { PropsWithChildren } from "react";
 import { useLaunch } from "@tarojs/taro";
 import VConsole from "vconsole";
-import { useAppAuthStore, useAppUserStore, useAppNavBarStore } from "./stores";
+import {
+  useAppAuthStore,
+  useAppUserStore,
+  useAppNavBarStore,
+  useAppEnvStore,
+} from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet } from "./client";
@@ -18,9 +23,21 @@ function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
   const appUserStore = useAppUserStore();
   const appNavBarStore = useAppNavBarStore();
+  const appEnvStore = useAppEnvStore();
+
   const checkLogin = async () => {
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
+      client.instance.interceptors.response.use((response) => {
+        if (appAuthStore.isLogged && response.data.code === 506) {
+          if (isDev) {
+            appToast.error("登录已过期，请重新登录");
+          } else {
+            appAuthStore.logout();
+          }
+        }
+        return response;
+      });
       return;
     }
     // 获取URL中的微信登录码
@@ -31,7 +48,6 @@ function App({ children }: PropsWithChildren<any>) {
         path: { appId: APP_ENV_CONFIG.APPID },
         query: {
           code: wxLoginCode,
-          orgId: APP_ENV_CONFIG.ORG_ID,
           state: "1",
         },
       });
@@ -51,28 +67,31 @@ function App({ children }: PropsWithChildren<any>) {
     }
   };
 
-  useLaunch(async () => {
-    wx.miniProgram.getEnv((res) => {
-      appAuthStore.updateMiniprogram(res.miniprogram);
-    });
+  const urlCheck = () => {
     const url = new URL(window.location.href);
+    const orgId = url.searchParams.get("orgId");
+    const isPublicPlatform = url.searchParams.get("isPublicPlatform");
+    if (orgId && isPublicPlatform === "false") {
+      appEnvStore.updateOrgId(orgId);
+    } else if (isPublicPlatform === "true") {
+      appEnvStore.updateOrgId(undefined);
+    }
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
       new VConsole();
     }
+    removeUrlParameter(["orgId", "isPublicPlatform"]);
+  };
+
+  useLaunch(async () => {
     appNavBarStore.updateTabActive("home");
     appUserStore.updateOrderStatus();
-    await checkLogin();
-    client.instance.interceptors.response.use((response) => {
-      if (appAuthStore.isLogged && response.data.code === 506) {
-        if (isDev) {
-          appToast.error("登录已过期，请重新登录");
-        } else {
-          appAuthStore.logout();
-        }
-      }
-      return response;
+    wx.miniProgram.getEnv((res) => {
+      appAuthStore.updateMiniprogram(res.miniprogram);
     });
+    urlCheck();
+    await checkLogin();
+
     appUserStore.updateAddressList();
   });
 

@@ -2,7 +2,7 @@ import { createAppStore } from "./base";
 
 interface useAppEnvState {
   orgId: string;
-  updateOrgId: (orgId: string) => void;
+  updateOrgId: (orgId?: string) => void;
   getOrgId: () => string;
 }
 
@@ -12,5 +12,5 @@ export const useAppEnvStore = createAppStore<useAppEnvState>(
     updateOrgId: (orgId) => set({ orgId }),
     getOrgId: () => get().orgId,
   }),
-  "appShopEnv",
+  "appEnv",
 );

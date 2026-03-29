@@ -1,15 +1,22 @@
 import { getWxShopBannerList } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { AppImage } from "@/components";
 import { useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
 import Taro from "@tarojs/taro";
 import { View } from "@tarojs/components";
+import classNames from "classnames";
 
-export const Banners = () => {
+export type BannersPropsType = {
+  orgId?: string;
+  className?: string;
+};
+
+export const Banners = (props: BannersPropsType) => {
+  const { orgId, className } = props;
+
   const { data, loading } = useRequest(async () => {
     const res = await getWxShopBannerList({
-      query: { orgId: APP_ENV_CONFIG.ORG_ID },
+      query: { orgId },
     });
     return res.data?.data;
   });
@@ -19,12 +26,16 @@ export const Banners = () => {
     Taro.navigateTo({ url: jumpUrl });
   };
 
+  if (!orgId) {
+    return null;
+  }
+
   if (loading || !data?.length) {
     return <View className="h-[350px] flex-center bg-gray-100" />;
   }
 
   return (
-    <View className="overflow-hidden">
+    <View className={classNames("overflow-hidden", className)}>
       <Swiper className="h-[400px]" autoplay={4000}>
         <Swiper.Indicator />
         {data.map((item) => (

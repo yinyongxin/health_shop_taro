@@ -4,7 +4,6 @@ type AppEnvConfig = {
   BASE_URL: string;
   API_PREFIX: string;
   FILE_PREFIX: string;
-  ORG_ID: string;
 };
 
 // export const APP_ENV_CONFIG = {
@@ -16,7 +15,6 @@ type AppEnvConfig = {
 
 export const APP_ENV_CONFIG: AppEnvConfig = {
   ENV: "prod",
-  ORG_ID: "800001001",
   APPID: "wxfaaff87825f44139",
   BASE_URL: "",
   API_PREFIX: "/zhfy",

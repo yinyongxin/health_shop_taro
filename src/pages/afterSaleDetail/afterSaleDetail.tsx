@@ -3,19 +3,20 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { getWxShopAfterSaleDetail, getWxShopOrderDetail } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { Empty, Skeleton } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
 
+/**
+ * 售后详情页
+ */
 export default () => {
   const pageParams = usePageParams<"afterSaleDetail">();
 
   const detailRequest = useRequest(
     async () => {
-      console.log("pageParams", pageParams);
       if (!pageParams?.id) {
         return;
       }
@@ -39,7 +40,6 @@ export default () => {
       const res = await getWxShopOrderDetail({
         query: {
           orderNo: detailRequest.data.orderNo,
-          orgId: APP_ENV_CONFIG.ORG_ID,
         },
       });
       if (res.data?.code === 0) {

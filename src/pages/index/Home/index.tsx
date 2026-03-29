@@ -5,7 +5,6 @@ import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardLi
 import { appRouter } from "@/router";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
-// import { GridBlock } from "./GridBlock";
 
 export const Home = () => {
   const { orgId } = useAppEnvStore();
@@ -19,9 +18,7 @@ export const Home = () => {
             }}
           />
         </View>
-        <View className="pt-[32px]">
-          <Banners />
-        </View>
+        <Banners className="pt-[32px]" />
         {/* <GridBlock /> */}
         <View className="px-2 pt-[24px]">
           <Title
