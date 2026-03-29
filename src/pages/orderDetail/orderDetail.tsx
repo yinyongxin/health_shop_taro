@@ -201,9 +201,10 @@ export default () => {
         </View>
 
         <View className="mt-[24px] px-[24px]">
-          <View className="bg-white rounded-xl">
+          <View className="bg-white rounded-xl pt-2">
             <ServiceList
               product={product}
+              showServiceDetail
               isService={orderDetail.isService}
               serviceList={
                 orderDetail.itemList.map((item) => {
