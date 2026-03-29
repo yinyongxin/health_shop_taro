@@ -192,15 +192,10 @@ const WareDetail = () => {
       if (!productInfo) {
         return;
       }
-      if (!currentAddress?.id) {
-        appToast.error("请选择收货地址");
-        return;
-      }
 
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
-            addressId: currentAddress.id,
             payType: 1,
             ...getServiceAmount(),
             productList: [
@@ -374,14 +369,16 @@ const WareDetail = () => {
               ))}
           </Swiper>
           <BaseInfo info={productInfo} />
-          <View className="px-[24px] py-2 flex flex-col bg-white border-t border-gray-100">
-            <AddressSelect
-              address={currentAddress}
-              handleSelectAddress={(val) => {
-                setCurrentAddress(val);
-              }}
-            />
-          </View>
+          {!isFW && (
+            <View className="px-[24px] py-2 bg-white border-t border-gray-100">
+              <AddressSelect
+                address={currentAddress}
+                handleSelectAddress={(val) => {
+                  setCurrentAddress(val);
+                }}
+              />
+            </View>
+          )}
           {serviceTagsRender()}
 
           {!isFW && (
