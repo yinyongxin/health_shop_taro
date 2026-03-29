@@ -39,7 +39,7 @@ export const Classify = (props: ClassifyPropsType) => {
   return (
     <BasePage fullScreen>
       <View className="flex h-full w-full overflow-hidden">
-        <View className="flex-1 bg-white">
+        <View className="flex-1">
           <Sidebar
             cateList={data?.data || []}
             mainActive={mainActive}
