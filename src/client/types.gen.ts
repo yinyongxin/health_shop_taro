@@ -52,6 +52,37 @@ export type ProductInfo = {
   skuList?: Array<SkuListItem>;
 };
 
+export type GetProductDetailReturnData = {
+  id: number;
+  orgId: string;
+  orgName: string;
+  categoryId: number;
+  categoryName: string;
+  subCategoryId: number;
+  subCategoryName: string;
+  productCode: string;
+  name: string;
+  description: string;
+  type: string;
+  price: number;
+  originalPrice: number;
+  mainImage: string;
+  productTags: string;
+  serviceTags: string;
+  detailImages: string;
+  detailContent: string;
+  status: number;
+  usageInstructions: string;
+  validityPeriod: number;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+  skuList: Array<SkuListItem>;
+  itemsList: Array<ProductDetailServiceItem>;
+  orderBy: unknown;
+  sellCount: unknown;
+};
+
 export type PayResult = {
   nonce_str: string;
   package: string;
@@ -208,6 +239,20 @@ export type SkuListItem = {
   specs: string;
   status: number;
   stock: number;
+};
+
+export type ProductDetailServiceItem = {
+  id: number;
+  productId: number;
+  itemId: number;
+  itemName: string;
+  price: number;
+  totalPrice: number;
+  num: number;
+  selectedItems: unknown;
+  itemDesc: string;
+  createTime: unknown;
+  updateTime: unknown;
 };
 
 export type CartItem = {
@@ -1257,6 +1302,7 @@ export type GetWxShopProductSearchData = {
     searchKey?: string;
     pageNum?: string;
     pageSize?: string;
+    orderBy?: string;
   };
   url: "/wx/shop/product/search";
 };
@@ -1287,17 +1333,26 @@ export type GetWxShopProductDetailData = {
   body?: never;
   path?: never;
   query?: {
-    orgId?: string;
     productId?: string;
   };
   url: "/wx/shop/product/detail";
 };
 
+export type GetWxShopProductDetailErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopProductDetailError =
+  GetWxShopProductDetailErrors[keyof GetWxShopProductDetailErrors];
+
 export type GetWxShopProductDetailResponses = {
   200: {
     msg: string;
     code: number;
-    data: ProductInfo;
+    data: GetProductDetailReturnData;
   };
 };
 

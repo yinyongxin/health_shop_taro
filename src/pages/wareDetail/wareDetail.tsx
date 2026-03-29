@@ -235,16 +235,7 @@ const WareDetail = () => {
     if (!isFW) {
       return;
     }
-    return (
-      <NewServiceBlock
-        serviceList={(productInfo?.itemsList || [])?.map((item) => ({
-          ...item,
-          qty: item.num,
-          qrCode: "",
-          serviceDate: "",
-        }))}
-      />
-    );
+    return <NewServiceBlock serviceList={productInfo?.itemsList} />;
   };
 
   const getPopup = () => {

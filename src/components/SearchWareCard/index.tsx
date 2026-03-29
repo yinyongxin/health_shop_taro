@@ -26,7 +26,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
     >
       <View
         className={classNames(
-          "rounded-md bg-white overflow-hidden",
+          "rounded-lg bg-white overflow-hidden",
           "relative",
           {
             "border-2 border-gray-100": border,

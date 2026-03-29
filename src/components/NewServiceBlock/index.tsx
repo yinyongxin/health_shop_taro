@@ -1,10 +1,10 @@
-import { OrderListItem } from "@/client";
+import { ProductDetailServiceItem } from "@/client";
 import Box from "@/components/Box";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 
 export type NewServiceBlockProps = {
-  serviceList: OrderListItem["productList"][number]["services"];
+  serviceList: ProductDetailServiceItem[];
   className?: string;
 };
 export const NewServiceBlock = (props: NewServiceBlockProps) => {
@@ -28,7 +28,7 @@ export const NewServiceBlock = (props: NewServiceBlockProps) => {
               </View>
               <View className="flex-1 px-2 font-bold">{item.itemName}</View>
               <View className="px-2 w-14 text-amber-500 font-semibold flex justify-end">
-                {item?.qty} / 次
+                {item?.num} / 次
               </View>
             </View>
           );
