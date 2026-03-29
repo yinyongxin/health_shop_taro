@@ -20,7 +20,6 @@ import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppAuthStore, useAppUserStore } from "@/stores";
 import { useState } from "react";
-import Box from "@/components/Box";
 import { orderPay } from "@/utils/order";
 import { add, multiply, round, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
@@ -362,6 +361,14 @@ const WareDetail = () => {
               ))}
           </Swiper>
           <BaseInfo info={productInfo} />
+          <View className="px-[24px] py-2 flex flex-col bg-white border-t border-gray-100">
+            <AddressSelect
+              address={currentAddress}
+              handleSelectAddress={(val) => {
+                setCurrentAddress(val);
+              }}
+            />
+          </View>
           <View className="px-[24px] pt-[32px] flex flex-col gap-[24px]">
             {!isFW && (
               <Delivery
@@ -372,20 +379,6 @@ const WareDetail = () => {
               />
             )}
             {getServiceBlock()}
-            <Box
-              bgProps={{
-                className: "bg-white rounded-xl",
-              }}
-            >
-              <View className="px-[24px] py-2 flex flex-col">
-                <AddressSelect
-                  address={currentAddress}
-                  handleSelectAddress={(val) => {
-                    setCurrentAddress(val);
-                  }}
-                />
-              </View>
-            </Box>
             {/* <Evaluate /> */}
             <ServiceTags productInfo={productInfo} />
           </View>

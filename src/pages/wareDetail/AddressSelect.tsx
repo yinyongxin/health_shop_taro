@@ -17,39 +17,36 @@ const AddressSelect = (props: AddressSelectProps) => {
   const selectAddressControl = usePopupControl();
   return (
     <>
-      <View className={classNames(className, "flex flex-col gap-[8px]")}>
-        <View className="flex justify-between items-center gap-2">
-          <View
-            className="flex-1 text-black"
-            onClick={() => {
-              selectAddressControl.setOpen(true);
-            }}
-          >
-            {address ? (
-              <View className="flex-1 text-black flex items-center gap-2">
-                <AppTag>{address.tag}</AppTag>
-                <View>{address.province}</View>
-                <View>{address.city}</View>
-                <View>{address.district}</View>
-              </View>
-            ) : (
-              <View className="flex-1 text-black flex">去添加</View>
-            )}
-          </View>
-          <View className="text-gray-400">
-            <LucideIcon name="chevron-right" size={20} />
-          </View>
-        </View>
-        {address && (
-          <>
-            <View className="flex gap-[8px]">
-              <View>{address.detailAddress}</View>
-            </View>
+      <View
+        className={classNames(className, "flex flex-col gap-[8px]")}
+        onClick={() => {
+          selectAddressControl.setOpen(true);
+        }}
+      >
+        {address ? (
+          <View>
             <View className="flex gap-[8px]">
               <View>{address.receiverName}</View>
               <View>{maskPhone(address.receiverPhone)}</View>
             </View>
-          </>
+            <View className="flex justify-between items-center gap-2">
+              <View className="flex-1 text-black">
+                <View className="flex-1 text-black flex items-center gap-2">
+                  <View>{address.province}</View>
+                  <View>{address.city}</View>
+                  <View>{address.district}</View>
+                </View>
+              </View>
+              <View className="text-gray-400">
+                <LucideIcon name="chevron-right" size={20} />
+              </View>
+            </View>
+            <View className="flex gap-[8px]">
+              <View>{address.detailAddress}</View>
+            </View>
+          </View>
+        ) : (
+          <View className="flex-1 text-black flex">去添加</View>
         )}
       </View>
 
