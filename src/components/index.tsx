@@ -22,3 +22,4 @@ export * from "./AddressList";
 export * from "./AddressList/AddressCard";
 export * from "./AfterSaleStep";
 export * from "./Classify";
+export * from "./HospitalList";
