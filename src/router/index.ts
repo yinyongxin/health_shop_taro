@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
-import { AllPages, AllPageKey, AllPagesQueryType } from "./base";
+import { AllPagesQueryType, PageName, PAGES } from "./base";
 
-const navigateTo = async <P extends AllPageKey>(
+const navigateTo = async <P extends PageName>(
   page: P,
   option?: {
     query?: AllPagesQueryType[P];
@@ -9,9 +9,9 @@ const navigateTo = async <P extends AllPageKey>(
   navigateToOpiton?: Omit<Taro.navigateTo.Option, "url">,
 ) => {
   const { query = {} } = option || {};
-  const url = AllPages.find((item) => item.name === page)?.path;
+  const url = PAGES.find((item) => item.page === page)?.url;
   const seachParams = new URLSearchParams({
-    data: JSON.stringify(query)
+    data: JSON.stringify(query),
   });
   const seachParamsStr = seachParams.toString();
   return Taro.navigateTo({
@@ -20,7 +20,7 @@ const navigateTo = async <P extends AllPageKey>(
   });
 };
 
-const reLaunch = async <P extends AllPageKey>(
+const reLaunch = async <P extends PageName>(
   page: P,
   option?: {
     query?: AllPagesQueryType[P];
@@ -28,9 +28,9 @@ const reLaunch = async <P extends AllPageKey>(
   navigateToOpiton?: Omit<Taro.reLaunch.Option, "url">,
 ) => {
   const { query = {} } = option || {};
-  const url = AllPages.find((item) => item.name === page)?.path;
+  const url = PAGES.find((item) => item.page === page)?.url;
   const seachParams = new URLSearchParams({
-    data: JSON.stringify(query)
+    data: JSON.stringify(query),
   });
   const seachParamsStr = seachParams.toString();
   return Taro.reLaunch({

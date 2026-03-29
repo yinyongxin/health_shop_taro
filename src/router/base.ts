@@ -1,21 +1,39 @@
 import { AddressInfo } from "@/client";
 import { type SaleStatusEnum } from "@/enums";
 import { CartListItem } from "@/types";
-import { pages } from "./pages";
 
-export const AllPages = [
-  ...pages.map((page) => {
-    return {
-      name: page.name,
-      path: `/${page.path}` as const,
-    };
-  }),
-];
+export const PAGE_NAMES = [
+  "index",
+  "wareList",
+  "wareDetail",
+  "orderList",
+  "addressManage",
+  "addAddress",
+  "editAddress",
+  "orderDetail",
+  "orderPay",
+  "settlement",
+  "payResult",
+  "subCategoryProductList",
+  "myService",
+  "serviceUse",
+  "afterSalesService",
+  "afterSaleDetail",
+  "hospitalList",
+  "serverQrcode",
+] as const;
 
-export type AllPageKey = (typeof AllPages)[number]["name"];
+export type PageName = (typeof PAGE_NAMES)[number];
+
+export const PAGES = PAGE_NAMES.map((page) => {
+  return {
+    page,
+    url: `/pages/${page}/${page}`,
+  };
+});
 
 export interface AllPagesQueryType
-  extends Record<AllPageKey, Record<string, unknown>> {
+  extends Record<PageName, Record<string, unknown>> {
   index: {
     tabActive?: string;
   };
@@ -51,5 +69,9 @@ export interface AllPagesQueryType
   };
   afterSalesService: {
     status?: SaleStatusEnum;
+  };
+  serverQrcode: {
+    orderNo: string;
+    serverId: string;
   };
 }
