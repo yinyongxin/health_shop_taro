@@ -1,6 +1,5 @@
 import { getWxShopProductSearch, type ProductInfo } from "@/client";
 import { useRequest } from "@/hooks";
-import { APP_ENV_CONFIG } from "@/common";
 import { SearchWareCard, SearchWareCardProps } from ".";
 import { AppList } from "../AppList";
 import { Skeleton } from "./Skeleton";
@@ -21,12 +20,13 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     searchWareCardProps,
     refreshNumber,
     order,
+    orgId,
   } = props;
   const dataRequest = useRequest(
     async (pageNum: number = 1) => {
       const res = await getWxShopProductSearch({
         query: {
-          // orgId: APP_ENV_CONFIG.ORG_ID,
+          orgId,
           searchKey: searchKey,
           pageNum: pageNum.toString(),
           pageSize: "20",
