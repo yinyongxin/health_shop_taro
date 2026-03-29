@@ -30,7 +30,9 @@ export default () => {
     <>
       {contentRender(<Home />, [tabActive === "home"])}
       {contentRender(<Classify orgId={orgId} />, [tabActive === "classify"])}
-      {contentRender(<HospitalList className="" />, [tabActive === "hospital"])}
+      {contentRender(<HospitalList className="pb-17" />, [
+        tabActive === "hospital",
+      ])}
       {contentRender(<My />, [tabActive === "my"])}
       <TabBar
         currentActive={tabActive}

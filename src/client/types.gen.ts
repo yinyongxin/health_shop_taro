@@ -200,6 +200,11 @@ export type SafeInfo = {
   remark: unknown;
 };
 
+export type OrgData = {
+  orgName: string;
+  orgId: string;
+};
+
 export type SubCategoryInfo = {
   id: number;
   categoryId: number;
@@ -1924,18 +1929,9 @@ export type GetWxShopOrgListError =
 
 export type GetWxShopOrgListResponses = {
   200: {
-    code: number;
     msg: string;
-    data?:
-      | string
-      | number
-      | boolean
-      | Array<unknown>
-      | {
-          [key: string]: unknown;
-        }
-      | number
-      | null;
+    code: number;
+    data: Array<OrgData>;
   };
 };
 
