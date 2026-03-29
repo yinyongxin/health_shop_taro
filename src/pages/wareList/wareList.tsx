@@ -13,7 +13,6 @@ const WareList = () => {
   const [order, setOrder] = useState<"default" | "new" | "sell">();
   return (
     <BasePage
-      bgProps={{ className: "page-bg" }}
       fullScreen
       className="flex-1 wareListPage"
     >
@@ -25,7 +24,7 @@ const WareList = () => {
           }}
         />
       </View>
-      <View className="flex-1 rounded-t-xl border-2 border-white flex flex-col overflow-hidden bg-gray-100">
+      <View className="flex-1 flex flex-col overflow-hidden">
         <DropdownMenu className={classNames("bg-transparent")}>
           <DropdownMenu.Item
             options={[

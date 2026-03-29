@@ -15,7 +15,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
   // const [liked, setLiked] = useState(false);
   return (
     <View
-      className={classNames("pt-[24px] pl-[24px] w-1/2", "relative")}
+      className={classNames("pt-[16px] pl-[16px] w-1/2", "relative")}
       onClick={() => {
         appRouter.navigateTo("wareDetail", {
           query: {
@@ -26,7 +26,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
     >
       <View
         className={classNames(
-          "rounded-xl bg-white overflow-hidden",
+          "rounded-md bg-white overflow-hidden",
           "relative",
           {
             "border-2 border-gray-100": border,
@@ -43,14 +43,14 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             {props.info.name}
           </View>
           <View className="text-[24px] px-[16px] text-gray-500 line-clamp-2 h-[60px] overflow-hidden">
-            {props.info.description}
+            {props.info.description || "暂无描述"}
           </View>
           <View className=" px-[16px] flex justify-between items-end">
-            <View className="flex gap-[4px] items-end text-rose-500">
-              <Text className="text-[24px]">¥</Text>
-              <Text className="text-[32px] ">{props.info.price}</Text>
+            <View className="flex gap-[8px] items-end text-rose-500 font-semibold">
+              <Text className="text-[28px]">¥</Text>
+              <Text className="text-[32px]">{props.info.price}</Text>
               {info.originalPrice !== info.price && (
-                <Text className="text-gary-500 line-through">
+                <Text className="text-gray-500 line-through">
                   {props.info.originalPrice}
                 </Text>
               )}
