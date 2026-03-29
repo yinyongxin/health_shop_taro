@@ -4,6 +4,7 @@ import {
   AppPopup,
   BasePage,
   NewServiceBlock,
+  Title,
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
@@ -312,18 +313,18 @@ const WareDetail = () => {
     );
   };
 
-  const serviceTagsRender = () => {
-    const serviceTags = safeJson.parse(productInfo.serviceTags, []);
-    if (serviceTags.length === 0) {
-      return null;
-    }
-    return (
-      <ServiceTags
-        className="border-t border-gray-100"
-        serviceTags={serviceTags}
-      />
-    );
-  };
+  // const serviceTagsRender = () => {
+  //   const serviceTags = safeJson.parse(productInfo.serviceTags, []);
+  //   if (serviceTags.length === 0) {
+  //     return null;
+  //   }
+  //   return (
+  //     <ServiceTags
+  //       className="border-t border-gray-100"
+  //       serviceTags={serviceTags}
+  //     />
+  //   );
+  // };
 
   return (
     <BasePage>
@@ -353,7 +354,7 @@ const WareDetail = () => {
               }}
             />
           )}
-          {serviceTagsRender()}
+          {/* {serviceTagsRender()} */}
 
           {!isFW && (
             <Delivery
@@ -364,9 +365,19 @@ const WareDetail = () => {
               }}
             />
           )}
-          <View className="bg-white p-2 border-t border-gray-100">
-            {getServiceBlock()}
+
+          <Title className="px-[24px] mt-[24px]">医院</Title>
+          <View className="p-2 pb-0">
+            <View className="p-2 bg-white rounded-md ">
+              <View className="text-[28px] font-bold">
+                {productInfo.orgName}
+              </View>
+              <View className="color-gray-500 mt-2">{productInfo.orgId}</View>
+            </View>
           </View>
+
+          <Title className="px-[24px] mt-[24px]">服务内容</Title>
+          <View className="p-2">{getServiceBlock()}</View>
 
           <DetailInfo info={productInfo} />
         </View>

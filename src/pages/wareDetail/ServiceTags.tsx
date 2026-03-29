@@ -20,25 +20,21 @@ export const ServiceTags = (props: ServiceTagsProps) => {
         }}
       >
         <View className="px-[24px] py-[12px]">
-          <View className="flex justify-between items-center gap-2 py-[12px]">
-            <View className="text-gray-400">服务</View>
-            <ScrollView
-              scrollX
-              className="flex-1 text-black flex gap-2 flex-nowrap"
-            >
-              {serviceTags.map((tag) => (
-                <AppTag
-                  key={tag}
-                  size="default"
-                  status="secondary"
-                  className="shrink-0"
-                >
-                  {tag}
-                </AppTag>
-              ))}
-            </ScrollView>
-            <View className="text-gray-400" />
-          </View>
+          <ScrollView
+            scrollX
+            className="flex-1 text-black flex gap-2 flex-nowrap"
+          >
+            {serviceTags.map((tag) => (
+              <AppTag
+                key={tag}
+                size="default"
+                status="secondary"
+                className="shrink-0"
+              >
+                {tag}
+              </AppTag>
+            ))}
+          </ScrollView>
         </View>
       </Box>
     </>
