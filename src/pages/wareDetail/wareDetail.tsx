@@ -97,10 +97,6 @@ const WareDetail = () => {
 
   const handlePay = useRequest(
     async () => {
-      if (authStore.isMiniprogram) {
-        appToast.info("暂不支持小程序购买");
-        return;
-      }
       if (!productInfo || !currentSku) {
         return;
       }
@@ -185,10 +181,6 @@ const WareDetail = () => {
 
   const handleServerPay = useRequest(
     async () => {
-      if (authStore.isMiniprogram) {
-        appToast.info("暂不支持小程序购买");
-        return;
-      }
       if (!productInfo) {
         return;
       }
@@ -391,6 +383,10 @@ const WareDetail = () => {
         <Actions
           info={productInfo}
           handleBuy={() => {
+            if (authStore.isMiniprogram) {
+              appToast.info("暂不支持小程序购买");
+              return;
+            }
             control.setOpen(true);
           }}
         />

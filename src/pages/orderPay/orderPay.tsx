@@ -6,7 +6,6 @@ import {
   OrderListItem,
   postWxShopAddrViewById,
 } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import {
   AppButton,
   AppCell,
@@ -34,10 +33,12 @@ import { orderPay } from "@/utils/order";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
+  const pageParams = usePageParams<"orderPay">();
   const appUserStore = useAppUserStore();
   const useAuthStore = useAppAuthStore();
-  const pageParams = usePageParams<"orderPay">();
+
   const selectAddressControl = usePopupControl();
+
   const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
     appUserStore.defaultAddress,
   );
@@ -100,7 +101,6 @@ const OrderPayPage = () => {
     }
     const getAddressRes = await postWxShopAddrViewById({
       path: { id: orderDetail.addressId.toString() },
-      query: { orgId: orderDetail.addressId.toString() },
     });
     if (getAddressRes.data?.code === 0) {
       setCurrentAddress(getAddressRes.data?.data);

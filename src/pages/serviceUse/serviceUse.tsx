@@ -37,7 +37,6 @@ export default () => {
     }
     const getAddressRes = await postWxShopAddrViewById({
       path: { id: orderDetailRequest.data?.order.addressId.toString() },
-      query: { orgId: orderDetailRequest.data?.order.addressId.toString() },
     });
     if (getAddressRes.data?.code === 0) {
       setAddress(getAddressRes.data?.data);

@@ -141,6 +141,7 @@ export type BannerItem = {
   bannerType: string;
   createdAt: string;
   id: string;
+  jumpUrl?: string;
 };
 
 export type SafeInfo = {
