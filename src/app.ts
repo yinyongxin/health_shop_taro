@@ -19,6 +19,18 @@ import {
 } from "./utils";
 import { client } from "./client/client.gen";
 
+client.instance.interceptors.response.use((response) => {
+  const appAuthStore = useAppAuthStore.getState();
+  if (appAuthStore.isLogged && response.data?.code === 506) {
+    if (isDev) {
+      appToast.error("登录已过期，请重新登录");
+    } else {
+      appAuthStore.logout();
+    }
+  }
+  return response;
+});
+
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
   const appUserStore = useAppUserStore();
@@ -26,18 +38,7 @@ function App({ children }: PropsWithChildren<any>) {
   const appEnvStore = useAppEnvStore();
 
   const checkLogin = async () => {
-    // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
-      client.instance.interceptors.response.use((response) => {
-        if (appAuthStore.isLogged && response.data.code === 506) {
-          if (isDev) {
-            appToast.error("登录已过期，请重新登录");
-          } else {
-            appAuthStore.logout();
-          }
-        }
-        return response;
-      });
       return;
     }
     // 获取URL中的微信登录码

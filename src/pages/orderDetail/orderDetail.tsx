@@ -181,11 +181,18 @@ export default () => {
     }
   };
 
-  const product = {
-    productId: orderDetail.itemList[0].productId!,
-    productName: orderDetail.itemList[0].productName!,
-    productImage: orderDetail.itemList[0].productImage!,
-  };
+  const firstItem = orderDetail.itemList[0];
+  const product = firstItem
+    ? {
+        productId: firstItem.productId,
+        productName: firstItem.productName,
+        productImage: firstItem.productImage,
+      }
+    : {
+        productId: 0,
+        productName: "",
+        productImage: "",
+      };
 
   const getStatusText = () => {
     return appUserStore.orderStatusList.find((item) => {

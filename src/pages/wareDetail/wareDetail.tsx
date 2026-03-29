@@ -12,7 +12,6 @@ import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
   getWxShopProductDetail,
-  OrderListItem,
   postWxShopOrderPay,
   SkuListItem,
 } from "@/client";
@@ -199,13 +198,14 @@ const WareDetail = () => {
         appToast.error("请选择收货地址");
         return;
       }
+      const serviceAmountInfo = getServiceAmount();
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
             orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
-            ...amountInfo,
+            ...serviceAmountInfo,
             productList: [
               {
                 productId: productInfo.id,

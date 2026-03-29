@@ -15,18 +15,28 @@ interface AppAuthState extends AppAuthFieldsState {
   updateMiniprogram: (value: boolean) => void;
 }
 
+let requestInterceptorId: number | null = null;
+
 export const useAppAuthStore = createAppStore<AppAuthState>(
-  (set) => ({
+  (set, get) => ({
     isMiniprogram: false,
     updateMiniprogram: (value) => {
       set({ isMiniprogram: value });
     },
     token: "",
     updateToken: (value) => {
-      client.instance.interceptors.request.use((config) => {
-        config.headers.set("Authorization", `Bearer ${value}`);
-        return config;
-      });
+      if (requestInterceptorId !== null) {
+        client.instance.interceptors.request.eject(requestInterceptorId);
+      }
+      requestInterceptorId = client.instance.interceptors.request.use(
+        (config) => {
+          const token = get().token;
+          if (token) {
+            config.headers.set("Authorization", `Bearer ${token}`);
+          }
+          return config;
+        },
+      );
       set({ token: value, isLogged: true });
     },
     isLogged: false,
@@ -34,6 +44,10 @@ export const useAppAuthStore = createAppStore<AppAuthState>(
       set({ isLogged: value });
     },
     logout: () => {
+      if (requestInterceptorId !== null) {
+        client.instance.interceptors.request.eject(requestInterceptorId);
+        requestInterceptorId = null;
+      }
       set({ token: "", isLogged: false });
       jumpWxGetCode();
     },

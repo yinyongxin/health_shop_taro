@@ -35,23 +35,26 @@ export const orderPay = async (
   },
 ) => {
   const { success, fail } = options || {};
+  const invokeCallback = (getBrandWCPayRequestRes: { err_msg: string }) => {
+    if (getBrandWCPayRequestRes.err_msg === "get_brand_wcpay_request:ok") {
+      success?.();
+      return;
+    }
+    console.error("支付失败", getBrandWCPayRequestRes);
+    appToast.error("支付失败");
+    fail?.();
+  };
   try {
     WeixinJSBridge.invoke(
       "getBrandWCPayRequest",
       getPayParams(payData),
-      // @ts-ignore
-      (getBrandWCPayRequestRes: any) => {
-        if (getBrandWCPayRequestRes.err_msg == "get_brand_wcpay_request:ok") {
-          success?.();
-          return;
-        }
-        console.error("支付失败", getBrandWCPayRequestRes);
-        appToast.error("支付失败");
-        fail?.();
-      },
+      invokeCallback,
     );
   } catch (error) {
     appToast.error("支付失败");
-    throw new Error(error.message);
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("支付失败");
   }
 };

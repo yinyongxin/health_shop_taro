@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 export const getAreaChinese = (areaValue: string[]) => {
   const values = Object.values(areaList);
   return areaValue.map((val, index) => {
-    return values[index][val];
+    return values[index]?.[val] ?? val;
   });
 };
 
