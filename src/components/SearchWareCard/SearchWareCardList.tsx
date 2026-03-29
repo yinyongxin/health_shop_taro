@@ -1,4 +1,4 @@
-import { getWxShopProductSearch, type ProductInfo } from "@/client";
+import { getWxShopProductSearch, type ProductDetail } from "@/client";
 import { useRequest } from "@/hooks";
 import { SearchWareCard, SearchWareCardProps } from ".";
 import { AppList } from "../AppList";
@@ -33,7 +33,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           orderBy: order || undefined,
         },
       });
-      let list: ProductInfo[] = [];
+      let list: ProductDetail[] = [];
       if (pageNum !== 1) {
         list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
       } else {

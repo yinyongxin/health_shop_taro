@@ -1,11 +1,11 @@
-import { ProductInfo } from "@/client";
+import { ProductDetail } from "@/client";
 import { AppButton } from "@/components";
 import { isIOS } from "@/utils";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 
 type ActionsProps = {
-  info: ProductInfo;
+  info: ProductDetail;
   handleBuy: () => void;
 };
 

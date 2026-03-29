@@ -29,30 +29,7 @@ export type CateInfo = {
   logo?: string;
 };
 
-export type ProductInfo = {
-  id: number;
-  orgId: string;
-  subCategoryId: number;
-  subCategoryName: string;
-  name: string;
-  description: string;
-  type: string;
-  price: number;
-  originalPrice: number;
-  mainImage: string;
-  productTags: string;
-  serviceTags: string;
-  detailImages: string;
-  detailContent: string;
-  status: number;
-  sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
-  itemsList?: Array<ServiceInfo>;
-  skuList?: Array<SkuListItem>;
-};
-
-export type GetProductDetailReturnData = {
+export type ProductDetail = {
   id: number;
   orgId: string;
   orgName: string;
@@ -217,20 +194,6 @@ export type SubCategoryInfo = {
   createdAt: string;
   updatedAt: string;
   logo?: string;
-};
-
-export type ServiceInfo = {
-  id: number;
-  itemId: number;
-  itemName: string;
-  num: number;
-  price: number;
-  productId: number;
-  selectedItems: string;
-  totalPrice: number;
-  updateTime: string;
-  qty: number;
-  usedQty: number;
 };
 
 export type SkuListItem = {
@@ -1290,7 +1253,9 @@ export type GetWxShopCateProductError =
 export type GetWxShopCateProductResponses = {
   200: {
     total: number;
-    rows: Array<ProductInfo>;
+    rows: Array<{
+      [key: string]: unknown;
+    }>;
     code: number;
     msg: unknown;
   };
@@ -1325,7 +1290,9 @@ export type GetWxShopProductSearchError =
 export type GetWxShopProductSearchResponses = {
   200: {
     total: number;
-    rows: Array<ProductInfo>;
+    rows: Array<{
+      [key: string]: unknown;
+    }>;
     code: number;
     msg?: unknown;
   };
@@ -1357,7 +1324,7 @@ export type GetWxShopProductDetailResponses = {
   200: {
     msg: string;
     code: number;
-    data: GetProductDetailReturnData;
+    data: ProductDetail;
   };
 };
 

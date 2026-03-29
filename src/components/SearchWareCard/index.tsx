@@ -1,4 +1,4 @@
-import { ProductInfo } from "@/client";
+import { ProductDetail } from "@/client";
 import { appRouter } from "@/router";
 import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { AppImage } from "../AppImage";
 
 export type SearchWareCardProps = {
-  info: ProductInfo;
+  info: ProductDetail;
   border?: boolean;
 };
 export const SearchWareCard = (props: SearchWareCardProps) => {

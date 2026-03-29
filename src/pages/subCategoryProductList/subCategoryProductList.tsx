@@ -1,7 +1,7 @@
 import { BasePage } from "@/components";
 import { View } from "@tarojs/components";
 import { usePageParams, useRequest } from "@/hooks";
-import { getWxShopCateProduct, ProductInfo } from "@/client";
+import { getWxShopCateProduct, ProductDetail } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
 import { AppList } from "@/components/AppList";
 import "./subCategoryProductList.css";
@@ -20,7 +20,7 @@ const SubCategoryProductList = () => {
           pageSize: "20",
         },
       });
-      let list: ProductInfo[] = [];
+      let list: ProductDetail[] = [];
       if (pageNum !== 1) {
         list = dataRequest.data?.list.concat(res.data?.rows || []) || [];
       } else {

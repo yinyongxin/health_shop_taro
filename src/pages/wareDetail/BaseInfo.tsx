@@ -1,11 +1,11 @@
-import { ProductInfo } from "@/client";
+import { ProductDetail } from "@/client";
 import { AppTag } from "@/components";
 import Box from "@/components/Box";
 import { safeJson } from "@/utils";
 import { View, Text } from "@tarojs/components";
 
 type BaseInfoProps = {
-  info: ProductInfo;
+  info: ProductDetail;
 };
 
 export const BaseInfo = (props: BaseInfoProps) => {

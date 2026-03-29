@@ -1,8 +1,8 @@
-import { ProductInfo } from "@/client";
+import { ProductDetail } from "@/client";
 import { RichText, View } from "@tarojs/components";
 
 type DetailInfoProps = {
-  info: ProductInfo;
+  info: ProductDetail;
 };
 export const DetailInfo = (props: DetailInfoProps) => {
   const { info } = props;
