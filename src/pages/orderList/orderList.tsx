@@ -8,7 +8,6 @@ import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
-import { View } from "@tarojs/components";
 import { appLoading } from "@/utils";
 import { OrderCard } from "./OrderCard";
 import { Skeleton } from "./Skeleton";
@@ -43,7 +42,6 @@ const OrderList = () => {
       }
       const res = await getWxShopOrderMy({
         query: {
-          orgId: APP_ENV_CONFIG.ORG_ID,
           status: active === "all" ? undefined : active,
           pageNum: pageNum.toString(),
           pageSize: pageSize?.toString() ?? "10",

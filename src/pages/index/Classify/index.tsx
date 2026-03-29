@@ -13,7 +13,9 @@ export const Classify = () => {
   const { subCategoryList = [] } = mainActive || {};
   const { data, loading } = useRequest(async () => {
     const res = await getWxShopCateList({
-      query: { orgId: APP_ENV_CONFIG.ORG_ID },
+      query: { 
+        // orgId: APP_ENV_CONFIG.ORG_ID
+       },
     });
     setMainActive(res.data?.data[0]);
     return res.data;

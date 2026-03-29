@@ -25,7 +25,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     async (pageNum: number = 1) => {
       const res = await getWxShopProductSearch({
         query: {
-          orgId: APP_ENV_CONFIG.ORG_ID,
+          // orgId: APP_ENV_CONFIG.ORG_ID,
           searchKey: searchKey,
           pageNum: pageNum.toString(),
           pageSize: "20",
