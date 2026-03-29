@@ -243,7 +243,6 @@ const WareDetail = () => {
     if (!isFW) {
       return;
     }
-    console.log("productInfo?.itemsList", productInfo?.itemsList);
     return (
       <NewServiceBlock
         serviceList={(productInfo?.itemsList || [])?.map((item) => ({
@@ -265,13 +264,6 @@ const WareDetail = () => {
           title={productInfo.name}
           footer={
             <View>
-              <AddressSelect
-                className="py-[24px]"
-                address={currentAddress}
-                handleSelectAddress={(val) => {
-                  setCurrentAddress(val);
-                }}
-              />
               <AppButton
                 loading={handleServerPay.loading}
                 className="flex-1"
@@ -287,7 +279,7 @@ const WareDetail = () => {
             </View>
           }
         >
-          {getServiceBlock()}
+          <View className="px-2">{getServiceBlock()}</View>
         </AppPopup>
       );
     }
@@ -370,14 +362,13 @@ const WareDetail = () => {
           </Swiper>
           <BaseInfo info={productInfo} />
           {!isFW && (
-            <View className="px-[24px] py-2 bg-white border-t border-gray-100">
-              <AddressSelect
-                address={currentAddress}
-                handleSelectAddress={(val) => {
-                  setCurrentAddress(val);
-                }}
-              />
-            </View>
+            <AddressSelect
+              className="px-[24px] py-2 bg-white border-t border-gray-100"
+              address={currentAddress}
+              handleSelectAddress={(val) => {
+                setCurrentAddress(val);
+              }}
+            />
           )}
           {serviceTagsRender()}
 

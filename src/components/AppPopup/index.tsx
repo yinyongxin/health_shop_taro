@@ -37,7 +37,7 @@ export const AppPopup = (props: AppPopupProps) => {
         <View
           className={classNames(
             "h-[100px] w-full",
-            " px-[32px]",
+            "px-3",
             "flex justify-start items-center",
             " absolute bg-white z-[1]",
           )}
@@ -59,8 +59,8 @@ export const AppPopup = (props: AppPopupProps) => {
           className={classNames(
             { "pt-[100px]": !!title },
             {
-              "pb-[24px]": !footer,
-              "pb-[48px]": !footer && isIOS(),
+              "pb-2": !footer,
+              "pb-4": !footer && isIOS(),
             },
           )}
         >
@@ -69,8 +69,8 @@ export const AppPopup = (props: AppPopupProps) => {
       </ScrollView>
       {footer && (
         <View
-          className={classNames("px-[24px] py-[24px]", {
-            "pb-[48px]": isIOS(),
+          className={classNames("px-2 py-2", {
+            "pb-4": isIOS(),
           })}
         >
           {footer}
