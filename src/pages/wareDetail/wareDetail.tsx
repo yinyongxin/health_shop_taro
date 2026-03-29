@@ -47,7 +47,9 @@ const WareDetail = () => {
   // 商品详情
   const { data: productInfo, loading } = useRequest(async () => {
     const res = await getWxShopProductDetail({
-      query: { productId: pageParams.id, orgId: APP_ENV_CONFIG.ORG_ID },
+      query: {
+        productId: pageParams.id,
+      },
     });
     if (!(res.data?.data?.type === "FW")) {
       const { skuList = [] } = res.data?.data || {};
