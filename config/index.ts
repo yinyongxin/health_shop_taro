@@ -37,6 +37,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
       "@/router": path.resolve(__dirname, "..", "src/router"),
       "@/mock": path.resolve(__dirname, "..", "src/mock"),
       "@/enums": path.resolve(__dirname, "..", "src/enums"),
+      "@/types": path.resolve(__dirname, "..", "src/types"),
     },
     sourceRoot: "src",
     outputRoot: "dist",
@@ -64,7 +65,7 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
           },
         },
         UnifiedViteWeappTailwindcssPlugin({
-          rem2px: true,
+          rem2rpx: true,
           disabled: process.env.TARO_ENV === "h5",
           tailwindcss: {
             v4: {

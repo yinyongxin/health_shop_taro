@@ -1,6 +1,6 @@
-import { CartListItem } from "@/stores";
 import { AddressInfo } from "@/client";
 import { type SaleStatusEnum } from "@/enums";
+import { CartListItem } from "@/types";
 import { pages } from "./pages";
 
 export const AllPages = [
