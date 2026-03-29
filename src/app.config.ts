@@ -1,7 +1,7 @@
-import { pages } from "./router/pages";
+import { PAGES } from "./router/base";
 
 export default defineAppConfig({
-  pages: pages.map((page) => page.path),
+  pages: PAGES.map((page) => page.url),
   subpackages: [],
   window: {
     backgroundTextStyle: "light",

@@ -1,7 +1,7 @@
-import { AllPageKey, AllPagesQueryType } from "@/router/base";
+import { PageName, AllPagesQueryType } from "@/router/base";
 import Taro, { useLoad } from "@tarojs/taro";
 
-export const usePageParams = <P extends AllPageKey>(
+export const usePageParams = <P extends PageName>(
   call?: (params: AllPagesQueryType[P]) => void,
 ) => {
   const instance = Taro.getCurrentInstance();

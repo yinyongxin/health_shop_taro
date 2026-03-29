@@ -25,7 +25,7 @@ import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
 import AddressSelect from "./AddressSelect";
-import { ServiceTags } from "./ServiceTags";
+// import { ServiceTags } from "./ServiceTags";
 import { Skeleton } from "./Skeleton";
 import { Delivery } from "./Delivery";
 

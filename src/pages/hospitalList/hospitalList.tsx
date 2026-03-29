@@ -1,5 +1,4 @@
 import { BasePage, HospitalList } from "@/components";
-import "./wareList.css";
 
 const HospitalListPage = () => {
   return (
