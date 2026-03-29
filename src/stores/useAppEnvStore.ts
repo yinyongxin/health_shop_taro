@@ -1,16 +1,15 @@
 import { createAppStore } from "./base";
 
 interface useAppEnvState {
-  orgId: string;
+  orgId?: string;
   updateOrgId: (orgId?: string) => void;
-  getOrgId: () => string;
+  getOrgId: () => string | undefined;
 }
 
 export const useAppEnvStore = createAppStore<useAppEnvState>(
   (set, get) => ({
-    orgId: "800001004",
     updateOrgId: (orgId) => set({ orgId }),
-    getOrgId: () => get().orgId,
+    getOrgId: () => get()?.orgId,
   }),
   "appEnv",
 );

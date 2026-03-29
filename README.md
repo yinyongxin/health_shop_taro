@@ -28,7 +28,8 @@ pnpm 10+
 
 ### 本地环境
 
-<http://localhost:10086/?isPublicPlatform=true&orgId=800001004#/pages/index/index>
+<http://localhost:10086/?isPublicPlatform=false&orgId=800001004#/pages/index/index>
+<http://localhost:10086/?isPublicPlatform=true#/pages/index/index>
 
 ### 测试环境
 
