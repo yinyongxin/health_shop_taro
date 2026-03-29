@@ -35,7 +35,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
       >
         <View className="p-2">
           <AppImage
-            className="w-full h-[320px] bg-gray-200 rounded-md"
+            className="w-full h-[305px] bg-gray-200 rounded-md"
             src={props.info.mainImage}
             mode="aspectFill"
           />
