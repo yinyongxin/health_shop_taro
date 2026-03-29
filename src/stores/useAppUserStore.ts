@@ -21,10 +21,8 @@ export const useAppUserStore = createAppStore<AppUserState>(
     addressList: [],
     updateAddressList: async () => {
       const res = await getWxShopAddrList({});
-      if (res.data?.code !== 0) {
-        return;
-      }
-      const addressList = res.data?.data || [];
+
+      const addressList = res?.data?.data || [];
       set({
         addressList,
         defaultAddress: addressList.find((item) => item.isDefault),
