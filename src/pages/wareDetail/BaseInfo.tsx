@@ -1,6 +1,5 @@
 import { ProductDetail } from "@/client";
-import { AppTag } from "@/components";
-import Box from "@/components/Box";
+import { AppTag, Box } from "@/components";
 import { safeJson } from "@/utils";
 import { View, Text } from "@tarojs/components";
 

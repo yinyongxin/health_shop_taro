@@ -7,7 +7,7 @@ export type BoxProps = {
   radius?: "sm" | "md" | "lg";
 } & ViewProps;
 
-const Box = (props: BoxProps) => {
+export const Box = (props: BoxProps) => {
   const { bgProps, children, radius, className, wapperProps, ...rest } = props;
   const {
     children: bgChildren,
@@ -44,4 +44,3 @@ const Box = (props: BoxProps) => {
     </View>
   );
 };
-export default Box;

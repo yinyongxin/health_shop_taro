@@ -1,5 +1,4 @@
-import { LucideIcon, AppTag } from "@/components";
-import Box from "@/components/Box";
+import { LucideIcon, AppTag, Box } from "@/components";
 import { View } from "@tarojs/components";
 
 /**

@@ -1,6 +1,5 @@
 import { SkuListItem } from "@/client";
-import { LucideIcon } from "@/components";
-import Box from "@/components/Box";
+import { LucideIcon, Box } from "@/components";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 

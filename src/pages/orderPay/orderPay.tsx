@@ -15,6 +15,7 @@ import {
   AppFixedBottom,
   CartWareCard,
   ServiceBlock,
+  Box,
 } from "@/components";
 import { AddressList } from "@/components/AddressList";
 import { AddressCard } from "@/components/AddressList/AddressCard";
@@ -26,7 +27,6 @@ import { appLoading, appToast } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
-import Box from "@/components/Box";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPay } from "@/utils/order";

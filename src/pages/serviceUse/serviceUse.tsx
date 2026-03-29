@@ -1,26 +1,18 @@
-import { AppButton, BasePage, AppPopup } from "@/components";
+import { AppButton, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
-import { View, Text, Image } from "@tarojs/components";
-import {
-  AddressInfo,
-  CartItem,
-  getWxShopOrderDetail,
-  postWxShopAddrViewById,
-} from "@/client";
+import { View, Text } from "@tarojs/components";
+import { CartItem, getWxShopOrderDetail } from "@/client";
 import { useAppUserStore } from "@/stores";
-import { appToast, getServiceStatusText } from "@/utils";
+import { getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
-import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
-import QRCode, { QRCodeToDataURLOptions } from "qrcode";
 import dayjs from "dayjs";
+import { appRouter } from "@/router";
 
 export default () => {
   const appUserStore = useAppUserStore();
   const pageParams = usePageParams<"orderPay">();
-  const [address, setAddress] = useState<AddressInfo>();
-  const [qrCodeData, setQrCodeData] = useState("");
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
@@ -31,23 +23,6 @@ export default () => {
     }
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
-
-  const initAddress = async () => {
-    if (!orderDetailRequest.data?.order.addressId) {
-      return;
-    }
-    const getAddressRes = await postWxShopAddrViewById({
-      path: { id: orderDetailRequest.data?.order.addressId.toString() },
-    });
-    if (getAddressRes.data?.code === 0) {
-      setAddress(getAddressRes.data?.data);
-    } else {
-      appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
-    }
-  };
-  useEffect(() => {
-    initAddress();
-  }, [orderDetailRequest.data?.order.addressId]);
 
   if (orderDetailRequest.error) {
     return (
@@ -78,28 +53,12 @@ export default () => {
   const { order: orderDetail } = orderDetailRequest.data;
 
   const handleUse = (info: CartItem) => {
-    const opts: QRCodeToDataURLOptions = {
-      errorCorrectionLevel: "H",
-      type: "image/jpeg",
-      margin: 1,
-    } as const;
-
-    QRCode.toDataURL(
-      JSON.stringify({
-        qrcodeType: "fromShop",
-        phone: address?.receiverPhone,
-        orderNo: info.orderNo,
-        serviceId: info.itemId,
-      }),
-      opts,
-      function (err, url) {
-        if (err) {
-          appToast.error("生成二维码失败");
-          return;
-        }
-        setQrCodeData(url);
+    appRouter.navigateTo("serverQrcode", {
+      query: {
+        orderNo: orderDetail.orderNo,
+        serverId: info.itemId.toString(),
       },
-    );
+    });
   };
 
   return (
@@ -226,26 +185,6 @@ export default () => {
           </View>
         </View>
       </BasePage>
-      <AppPopup
-        title="服务核销"
-        open={!!qrCodeData}
-        onClose={() => {
-          setQrCodeData("");
-          orderDetailRequest.run();
-        }}
-        showClose
-      >
-        <View className="flex-center">
-          <Image
-            showMenuByLongpress
-            className="size-[600px]"
-            src={qrCodeData}
-          />
-        </View>
-        <View className="text-center text-orange-500 text-[32px] mt-[24px]">
-          请将二维码出示给服务人员
-        </View>
-      </AppPopup>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { OrderListItem } from "@/client";
-import Box from "@/components/Box";
+import { Box } from "@/components";
 import { View } from "@tarojs/components";
 import { InfoCardItem } from "./InfoCard/InfoCardItem";
 

@@ -1,5 +1,5 @@
 import { ProductDetailServiceItem } from "@/client";
-import Box from "@/components/Box";
+import { Box } from "@/components";
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 

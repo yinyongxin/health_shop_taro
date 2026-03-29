@@ -1,5 +1,4 @@
-import { AppTag } from "@/components";
-import Box from "@/components/Box";
+import { AppTag, Box } from "@/components";
 import { View, ScrollView } from "@tarojs/components";
 import classNames from "classnames";
 

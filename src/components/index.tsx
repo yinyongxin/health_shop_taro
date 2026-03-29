@@ -23,3 +23,4 @@ export * from "./AddressList/AddressCard";
 export * from "./AfterSaleStep";
 export * from "./Classify";
 export * from "./HospitalList";
+export * from "./Box";
