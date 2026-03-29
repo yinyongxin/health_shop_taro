@@ -1,5 +1,6 @@
 import { BasePage, Title } from "@/components";
 import { View } from "@tarojs/components";
+import { useAppEnvStore } from "@/stores";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { appRouter } from "@/router";
 import { Banners } from "./Banners";
@@ -7,6 +8,7 @@ import { TopSearch } from "./TopSearch";
 // import { GridBlock } from "./GridBlock";
 
 export const Home = () => {
+  const { orgId } = useAppEnvStore();
   return (
     <BasePage>
       <View className="pt-[32px] pb-[144px]">
@@ -34,7 +36,7 @@ export const Home = () => {
             推荐商品
           </Title>
         </View>
-        <SearchWareCardList />
+        <SearchWareCardList orgId={orgId} />
       </View>
     </BasePage>
   );

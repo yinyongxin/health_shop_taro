@@ -1,12 +1,13 @@
-import { useAppUserStore } from "@/stores";
+import { useAppUserStore, useAppEnvStore } from "@/stores";
 import { AppTabs } from "@/common";
+import { Classify } from "@/components";
 import { Home } from "./Home";
 import My from "./My";
 import { TabBar } from "./TabBar";
-import { Classify } from "./Classify";
 
 export default () => {
   const appUserStore = useAppUserStore();
+  const { orgId } = useAppEnvStore();
 
   return (
     <>
@@ -29,7 +30,7 @@ export default () => {
           display: appUserStore.tabActive === "classify" ? "block" : "none",
         }}
       >
-        <Classify />
+        <Classify orgId={orgId} />
       </div>
 
       <TabBar

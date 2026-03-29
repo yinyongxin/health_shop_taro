@@ -11,6 +11,7 @@ export type SearchWareCardListProps = {
   searchKey?: string;
   refreshNumber?: number;
   order?: "new" | "sell";
+  orgId?: string;
 };
 
 export const SearchWareCardList = (props: SearchWareCardListProps) => {

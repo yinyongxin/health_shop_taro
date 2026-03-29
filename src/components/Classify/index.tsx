@@ -2,24 +2,36 @@ import { BasePage } from "@/components";
 import { View, ScrollView } from "@tarojs/components";
 import { CateInfo, getWxShopCateList } from "@/client";
 import { useState } from "react";
-import { APP_ENV_CONFIG } from "@/common";
 import { useRequest } from "@/hooks";
 import { Sidebar } from "./Sidebar";
 import { ClassifyItem } from "./ClassifyItem";
 import { Skeleton } from "./Skeleton";
 
-export const Classify = () => {
+export type ClassifyPropsType = {
+  orgId?: string;
+};
+
+export const Classify = (props: ClassifyPropsType) => {
+  const { orgId } = props;
   const [mainActive, setMainActive] = useState<CateInfo>();
   const { subCategoryList = [] } = mainActive || {};
-  const { data, loading } = useRequest(async () => {
-    const res = await getWxShopCateList({
-      query: { 
-        // orgId: APP_ENV_CONFIG.ORG_ID
-       },
-    });
-    setMainActive(res.data?.data[0]);
-    return res.data;
-  });
+  const { data, loading } = useRequest(
+    async () => {
+      if (!orgId) {
+        return;
+      }
+      const res = await getWxShopCateList({
+        query: {
+          orgId,
+        },
+      });
+      setMainActive(res.data?.data[0]);
+      return res.data;
+    },
+    {
+      refreshDeps: [orgId],
+    },
+  );
   if (loading && !data) {
     return <Skeleton />;
   }

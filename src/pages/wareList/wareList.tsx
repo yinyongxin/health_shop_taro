@@ -1,5 +1,6 @@
 import { AppTopSearch, BasePage } from "@/components";
 import { View } from "@tarojs/components";
+import { useAppEnvStore } from "@/stores";
 import { useState } from "react";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { DropdownMenu } from "@taroify/core";
@@ -7,6 +8,7 @@ import classNames from "classnames";
 import "./wareList.css";
 
 const WareList = () => {
+  const { orgId } = useAppEnvStore();
   const [search, setSearch] = useState("");
   const [refreshNumber, setRefreshNumber] = useState(0);
   const [value, setValue] = useState(0);
@@ -47,6 +49,7 @@ const WareList = () => {
           />
         </DropdownMenu>
         <SearchWareCardList
+          orgId={orgId}
           searchWareCardProps={{ border: true }}
           searchKey={search}
           refreshNumber={refreshNumber}
