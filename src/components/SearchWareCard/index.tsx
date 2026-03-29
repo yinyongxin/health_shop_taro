@@ -35,12 +35,12 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
       >
         <View className="p-2">
           <AppImage
-            className="w-full h-[320px] bg-gray-200 rounded-md"
+            className="w-full h-[280px] bg-gray-200 rounded-md"
             src={props.info.mainImage}
             mode="aspectFill"
           />
         </View>
-        <View className="py-2 flex flex-col gap-2">
+        <View className="pb-2 flex flex-col gap-2">
           <View className="text-[28px] px-2 font-semibold truncate">
             {props.info.name}
           </View>
