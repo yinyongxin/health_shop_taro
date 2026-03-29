@@ -1,18 +1,30 @@
 import { getWxShopCateList } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { AppImage, LucideIcon } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { Grid } from "@taroify/core";
 import { View } from "@tarojs/components";
 
-export const ClassifyBlock = () => {
-  const { data, loading } = useRequest(async () => {
-    const res = await getWxShopCateList({
-      query: { orgId: APP_ENV_CONFIG.ORG_ID },
-    });
-    return res.data?.data.slice(0, 4);
-  });
+export type ClassifyBlockPropsType = {
+  orgId?: string;
+};
+
+export const ClassifyBlock = (props: ClassifyBlockPropsType) => {
+  const { orgId } = props;
+  const { data, loading } = useRequest(
+    async () => {
+      if (!orgId) {
+        return;
+      }
+      const res = await getWxShopCateList({
+        query: { orgId },
+      });
+      return res.data?.data.slice(0, 4);
+    },
+    {
+      refreshDeps: [orgId],
+    },
+  );
 
   if (loading && !data) {
     return (

@@ -8,7 +8,6 @@ import {
   getWxShopOrderDetail,
   postWxShopAddrViewById,
 } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { useAppUserStore } from "@/stores";
 import { appToast, getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
@@ -24,7 +23,7 @@ export default () => {
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
-      query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
+      query: { orderNo: pageParams.orderNo },
     });
     if (res.data?.code === 0) {
       return res?.data?.data;
@@ -243,7 +242,11 @@ export default () => {
         showClose
       >
         <View className="flex-center">
-          <Image showMenuByLongpress className="size-[600px]" src={qrCodeData} />
+          <Image
+            showMenuByLongpress
+            className="size-[600px]"
+            src={qrCodeData}
+          />
         </View>
         <View className="text-center text-orange-500 text-[32px] mt-[24px]">
           请将二维码出示给服务人员

@@ -112,7 +112,6 @@ const WareDetail = () => {
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
-            orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
             ...getAmount(),
@@ -202,7 +201,6 @@ const WareDetail = () => {
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
-            orgId: APP_ENV_CONFIG.ORG_ID,
             addressId: currentAddress.id,
             payType: 1,
             ...serviceAmountInfo,

@@ -45,7 +45,7 @@ const OrderPayPage = () => {
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
-      query: { orderNo: pageParams.orderNo, orgId: APP_ENV_CONFIG.ORG_ID },
+      query: { orderNo: pageParams.orderNo },
     });
     if (res.data?.code === 0) {
       return res?.data?.data;
@@ -127,7 +127,6 @@ const OrderPayPage = () => {
         query: {
           orderNo: pageParams.orderNo,
           addId: selectAddress?.id,
-          orgId: APP_ENV_CONFIG.ORG_ID,
         },
       });
       if (updateOrderAddressRes.data?.code === 0) {
