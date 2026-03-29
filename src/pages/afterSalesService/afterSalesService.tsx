@@ -95,7 +95,7 @@ const OrderList = () => {
         loading={dataRequest.loading}
         bodyProps={{
           className: classNames(
-            "px-[24px] pt-[16px] pb-[32px] flex flex-col gap-[24px] pt-[24px]",
+            "px-[24px] pt-2 pb-[32px] flex flex-col gap-[24px] pt-[24px]",
           ),
         }}
         itemRender={(item) => <AfterSaleCard info={item} />}

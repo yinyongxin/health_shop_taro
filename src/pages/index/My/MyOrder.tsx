@@ -21,7 +21,7 @@ export const MyOrder = () => {
           <LucideIcon name="chevron-right" />
         </View>
       </View>
-      <View className="px-[24px] mt-[16px] pb-[24px] ">
+      <View className="px-[24px] mt-2 pb-[24px] ">
         <View className="flex justify-between gap-2">
           {appUserStore.orderStatusList.slice(0, 5).map((status, index) => {
             return (

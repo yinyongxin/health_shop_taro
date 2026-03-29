@@ -29,13 +29,13 @@ export const SkuSelectContent = (props: SkuSelectContentProps) => {
 
   return (
     <View className="flex flex-col gap-[24px] min-h-[40vh] relative flex flex-col">
-      <View className="flex gap-[16px] px-[24px]">
+      <View className="flex gap-2 px-[24px]">
         <AppImage
           className="size-[120px] bg-gray-200 rounded-[12px]"
           src={currentSku?.image || "/fixed-files/images/my-patient.png"}
           mode="aspectFill"
         />
-        <View className="flex flex-col justify-center gap-[16px]">
+        <View className="flex flex-col justify-center gap-2">
           <View className=" font-bold text-rose-500">
             <Text className="text-[28px]">￥</Text>
             <Text className="text-[40px] text-rose-500">{data?.price}</Text>

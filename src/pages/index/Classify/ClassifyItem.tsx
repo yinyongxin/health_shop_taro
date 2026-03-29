@@ -17,7 +17,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
         });
       }}
     >
-      <View className="bg-white click-effect rounded-lg flex items-center gap-2 p-[16px]">
+      <View className="bg-white click-effect rounded-lg flex items-center gap-2 p-2">
         <View className="size-[100px] flex-center overflow-hidden rounded-lg bg-gray-100">
           {info?.logo ? (
             <AppImage

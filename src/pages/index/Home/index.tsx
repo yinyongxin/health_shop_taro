@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <BasePage>
       <View className="pt-[32px] pb-[144px]">
-        <View className="px-[16px]">
+        <View className="px-2">
           <TopSearch
             onClick={(e) => {
               e.stopPropagation();
@@ -21,7 +21,7 @@ export const Home = () => {
           <Banners />
         </View>
         {/* <GridBlock /> */}
-        <View className="px-[16px] pt-[24px]">
+        <View className="px-2 pt-[24px]">
           <Title
             className="pt-[24px]"
             action={{

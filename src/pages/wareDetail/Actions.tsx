@@ -21,7 +21,7 @@ export const Actions = (props: ActionsProps) => {
           },
         )}
       >
-        <View className="flex-3 flex gap-[16px] py-[24px]">
+        <View className="flex-3 flex gap-2 py-[24px]">
           <AppButton
             className="flex-3"
             onClick={() => {

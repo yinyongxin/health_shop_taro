@@ -16,7 +16,7 @@ export const InfoCard = (props: InfoCardProps) => {
       <View className="px-[24px] text-[32px] font-semibold">{title}</View>
       {title && <Divider className="mt-[24px]" />}
       {list && list.length > 0 && (
-        <View className="px-[24px] flex flex-col gap-[16px]">
+        <View className="px-[24px] flex flex-col gap-2">
           {list.map((item, index) => {
             return <InfoCardItem key={index} {...item} />;
           })}

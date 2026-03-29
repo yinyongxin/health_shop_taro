@@ -10,7 +10,7 @@ export const AddressList = (props: AddressListProps) => {
   const { addressCardProps } = props;
   const { addressList } = useAppUserStore();
   return (
-    <View className="flex flex-col gap-[16px] px-[24px]">
+    <View className="flex flex-col gap-2 px-[24px]">
       {addressList.map((address) => {
         return (
           <AddressCard

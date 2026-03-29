@@ -377,7 +377,7 @@ const WareDetail = () => {
                 className: "bg-white rounded-xl",
               }}
             >
-              <View className="px-[24px] py-[16px] flex flex-col">
+              <View className="px-[24px] py-2 flex flex-col">
                 <AddressSelect
                   address={currentAddress}
                   handleSelectAddress={(val) => {

@@ -16,7 +16,7 @@ const PayResult = () => {
           <LucideIcon name="circle-check" size={60} className="text-white" />
         </View>
         <Text className="text-[40px] font-semibold mt-[40px]">支付成功</Text>
-        <Text className="text-[24px] text-gray-500 mt-[16px]">
+        <Text className="text-[24px] text-gray-500 mt-2">
           请耐心等待发货
         </Text>
         <View className="w-3/5 mt-[64px]">

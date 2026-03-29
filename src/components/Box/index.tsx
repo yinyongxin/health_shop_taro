@@ -24,7 +24,7 @@ const Box = (props: BoxProps) => {
           className={classNames(
             "absolute inset-0",
             {
-              "roudned-[16px]": radius === "sm",
+              "roudned-2": radius === "sm",
               "roudned-[24px]": radius === "md",
               "roudned-[32px]": radius === "lg",
             },

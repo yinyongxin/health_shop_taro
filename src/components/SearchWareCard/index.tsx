@@ -15,7 +15,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
   // const [liked, setLiked] = useState(false);
   return (
     <View
-      className={classNames("pt-[16px] pl-[16px] w-1/2", "relative")}
+      className={classNames("pt-2 pl-2 w-1/2", "relative")}
       onClick={() => {
         appRouter.navigateTo("wareDetail", {
           query: {
@@ -33,19 +33,21 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           },
         )}
       >
-        <AppImage
-          className="w-full h-[320px] bg-gray-200"
-          src={props.info.mainImage}
-          mode="aspectFill"
-        />
-        <View className="py-[16px] flex flex-col gap-[16px]">
-          <View className="text-[28px] px-[16px] font-semibold truncate">
+        <View className="p-2">
+          <AppImage
+            className="w-full h-[320px] bg-gray-200 rounded-md"
+            src={props.info.mainImage}
+            mode="aspectFill"
+          />
+        </View>
+        <View className="py-2 flex flex-col gap-2">
+          <View className="text-[28px] px-2 font-semibold truncate">
             {props.info.name}
           </View>
-          <View className="text-[24px] px-[16px] text-gray-500 line-clamp-2 h-[60px] overflow-hidden">
+          <View className="text-[24px] px-2 text-gray-500 line-clamp-2 h-[60px] overflow-hidden">
             {props.info.description || "暂无描述"}
           </View>
-          <View className=" px-[16px] flex justify-between items-end">
+          <View className=" px-2 flex justify-between items-end">
             <View className="flex gap-[8px] items-end text-rose-500 font-semibold">
               <Text className="text-[28px]">¥</Text>
               <Text className="text-[32px]">{props.info.price}</Text>

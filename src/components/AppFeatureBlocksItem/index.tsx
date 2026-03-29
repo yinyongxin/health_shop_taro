@@ -15,7 +15,7 @@ export const AppFeatureBlocksItem = (props: AppFeatureBlocksItemProps) => {
     <View className="w-1/5 pl-[24px]">
       <View
         className={classNames(
-          "flex flex-col items-center gap-[16px]",
+          "flex flex-col items-center gap-2",
           className,
         )}
         onClick={onClick}

@@ -14,7 +14,7 @@ export const MyOrderItem = (props: MyOrderItemProps) => {
   return (
     <View
       className={classNames(
-        "flex-1 flex flex-col items-center gap-[16px] py-[16px]",
+        "flex-1 flex flex-col items-center gap-2 py-2",
         className,
       )}
       onClick={onClick}

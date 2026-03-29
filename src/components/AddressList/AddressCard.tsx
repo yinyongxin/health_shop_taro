@@ -67,7 +67,7 @@ export const AddressCard = (props: AddressCardProps) => {
       onClick={() => handleClick?.(info)}
     >
       <View className="flex">
-        <View className="flex-1 flex flex-col gap-[16px]">
+        <View className="flex-1 flex flex-col gap-2">
           <View className="w-full px-2 flex justify-between">
             <View className="flex items-center gap-2">
               <AppTag>{info.tag}</AppTag>

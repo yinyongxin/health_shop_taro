@@ -16,7 +16,7 @@ export const BaseInfo = (props: BaseInfoProps) => {
         className: "bg-white rounded-xl",
       }}
     >
-      <View className="px-[24px] py-[24px] flex flex-col gap-[16px]">
+      <View className="px-[24px] py-[24px] flex flex-col gap-2">
         <View className="flex justify-between items-center">
           <View className=" font-bold text-rose-500">
             <Text className="text-[28px]">￥</Text>

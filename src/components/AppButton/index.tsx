@@ -28,7 +28,7 @@ const activeColors: Record<AppButtonStatus, string> = {
 };
 
 const sizes: Record<AppButtonSize, string> = {
-  sm: "px-[24px] py-[16px] rounded-[20px] text-[24px]",
+  sm: "px-[24px] py-2 rounded-[20px] text-[24px]",
   default: "px-[32px] py-[24px] rounded-[24px] text-[28px]",
   lg: "px-[40px] py-[28px] rounded-[28px] text-[30px]",
   xl: "px-[48px] py-[32px] rounded-[32px] text-[32px]",

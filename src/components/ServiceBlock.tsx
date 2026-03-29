@@ -17,13 +17,13 @@ export const ServiceBlock = (props: ServiceBlockProps) => {
         }}
       >
         <View className="p-[24px] flex flex-col">
-          <View className="rounded-lg p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-[16px]">
+          <View className="rounded-lg p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-2">
             {productName}
           </View>
           <View className="mt-[24px] flex flex-col gap-[24px]">
             <InfoCardItem
               value={
-                <View className="flex flex-col gap-[16px]">
+                <View className="flex flex-col gap-2">
                   {serviceList.map((item, index) => {
                     return (
                       <View

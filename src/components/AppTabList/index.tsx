@@ -58,7 +58,7 @@ export const AppTabList = (props: AppTabListProps) => {
             <View
               id={`tab${tab.value}`}
               key={tab.value}
-              className="inline-block mr-[16px] shrink-0"
+              className="inline-block mr-2 shrink-0"
             >
               <AppTag
                 className={`tag-${tab.value}`}

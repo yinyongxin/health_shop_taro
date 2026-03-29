@@ -229,7 +229,7 @@ const OrderPayPage = () => {
               rightAction={
                 <View className="flex flex-col justify-center">
                   <LucideIcon
-                    name="chevron-right text-gray-500 pr-[16px]"
+                    name="chevron-right text-gray-500 pr-2"
                     size={24}
                   />
                 </View>
