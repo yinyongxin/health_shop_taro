@@ -1,8 +1,9 @@
-import { BasePage } from "@/components";
+import { AppTopSearch, BasePage } from "@/components";
 import { View } from "@tarojs/components";
 import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopCateProduct, ProductDetail } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
+import { useState } from "react";
 import { AppList } from "@/components/AppList";
 import "./subCategoryProductList.css";
 import { Skeleton } from "./Skeleton";
@@ -10,12 +11,15 @@ import { Skeleton } from "./Skeleton";
 const SubCategoryProductList = () => {
   const pageParams = usePageParams<"subCategoryProductList">();
 
+  const [search, setSearch] = useState("");
+  const [refreshNumber, setRefreshNumber] = useState(0);
+
   const dataRequest = useRequest(
     async (pageNum: number = 1) => {
       const res = await getWxShopCateProduct({
         query: {
           subCategoryId: pageParams.subCategoryId,
-          // searchKey: searchKey,
+          searchKey: search,
           pageNum: pageNum.toString(),
           pageSize: "20",
         },
@@ -47,9 +51,14 @@ const SubCategoryProductList = () => {
 
   return (
     <BasePage fullScreen className="flex-1 subCategoryProductListPage">
-      {/* <View className="p-[24px]">
-        <AppTopSearch />
-      </View> */}
+      <View className="p-2 pb-0">
+        <AppTopSearch
+          onSearch={(val) => {
+            setSearch(val);
+            setRefreshNumber(refreshNumber + 1);
+          }}
+        />
+      </View>
       <View className="flex-1 flex flex-col overflow-hidden">
         {/* <DownMenu /> */}
         <AppList

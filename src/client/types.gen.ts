@@ -1236,6 +1236,7 @@ export type GetWxShopCateProductData = {
     pageSize?: string;
     pageNum?: string;
     orderBy?: string;
+    searchKey?: string;
   };
   url: "/wx/shop/cate/product";
 };
@@ -1253,9 +1254,7 @@ export type GetWxShopCateProductError =
 export type GetWxShopCateProductResponses = {
   200: {
     total: number;
-    rows: Array<{
-      [key: string]: unknown;
-    }>;
+    rows: Array<ProductDetail>;
     code: number;
     msg: unknown;
   };
