@@ -22,7 +22,6 @@ export const Home = () => {
         {/* <GridBlock /> */}
         <View className="px-2 pt-[24px]">
           <Title
-            className="pt-[24px]"
             action={{
               text: "查看更多",
               onClick: () => {
