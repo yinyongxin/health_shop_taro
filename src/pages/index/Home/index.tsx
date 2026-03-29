@@ -4,13 +4,13 @@ import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardLi
 import { appRouter } from "@/router";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
-import { GridBlock } from "./GridBlock";
+// import { GridBlock } from "./GridBlock";
 
 export const Home = () => {
   return (
     <BasePage>
       <View className="pt-[32px] pb-[144px]">
-        <View className="px-[24px]">
+        <View className="px-[16px]">
           <TopSearch
             onClick={(e) => {
               e.stopPropagation();
@@ -20,8 +20,8 @@ export const Home = () => {
         <View className="pt-[32px]">
           <Banners />
         </View>
-        <GridBlock />
-        <View className="px-[24px] pt-[24px]">
+        {/* <GridBlock /> */}
+        <View className="px-[16px] pt-[24px]">
           <Title
             className="pt-[24px]"
             action={{

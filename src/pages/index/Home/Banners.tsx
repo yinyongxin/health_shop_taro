@@ -25,11 +25,11 @@ export const Banners = () => {
 
   return (
     <View className="overflow-hidden">
-      <Swiper className="h-[350px]" autoplay={4000}>
+      <Swiper className="h-[400px]" autoplay={4000}>
         <Swiper.Indicator />
         {data.map((item) => (
           <Swiper.Item key={item.id} onClick={() => handleClick(item.jumpUrl)}>
-            <View className="bg-white size-full px-[24px]">
+            <View className="size-full px-[24px]">
               <AppImage
                 src={item.imagePath}
                 className="w-full h-full rounded-xl"
