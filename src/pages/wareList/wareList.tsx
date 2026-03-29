@@ -11,8 +11,8 @@ import "./wareList.css";
 const WareList = () => {
   const { orgId } = useAppEnvStore();
   const [search, setSearch] = useState("");
-  const pageParams = usePageParams<"wareList">();
   const [refreshNumber, setRefreshNumber] = useState(0);
+  const pageParams = usePageParams<"wareList">();
   const [value, setValue] = useState(0);
   const [order, setOrder] = useState<"default" | "new" | "sell">();
   return (

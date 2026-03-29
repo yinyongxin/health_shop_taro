@@ -1,4 +1,4 @@
-import { AppButton, BasePage, AddressCard, AppPopup } from "@/components";
+import { AppButton, BasePage, AppPopup } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text, Image } from "@tarojs/components";
@@ -14,6 +14,7 @@ import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import QRCode, { QRCodeToDataURLOptions } from "qrcode";
+import dayjs from "dayjs";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -121,7 +122,7 @@ export default () => {
                   handleUse(item);
                 }}
               >
-                剩余{item.qty - item.usedQty}次，点击核销
+                点击核销
               </AppButton>
             );
 
@@ -134,23 +135,28 @@ export default () => {
               );
             }
             return (
-              <View key={item.id} className="bg-white rounded-xl">
+              <View key={item.id} className="bg-white rounded-lg">
                 <View className="p-[24px] flex flex-col gap-2">
                   <View className="flex justify-between items-center">
-                    <View className="text-[32px] font-semibold">
+                    <View className="text-[32px] font-semibold line-clamp-1">
                       {item.itemName}
                     </View>
-                    <View className="flex gap-[8px]">
-                      <View className="text-blue-500">共{item.qty}次</View>
-                      <View className="text-red-500">
-                        已使用{item.usedQty}次
-                      </View>
+                    <View className="shrink-0 text-red-500">
+                      {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}过期
                     </View>
                   </View>
-                  <View className="flex justify-between items-end">
-                    <View>{item.qrCodeExpireTime}过期</View>
-                    <View>{btn}</View>
+                  <View className="flex gap-2">
+                    <View className="flex-1 text-sky-500 bg-sky-100 py-2 flex-center rounded">
+                      共{item.qty}次
+                    </View>
+                    <View className="flex-1 text-green-500  text-red-500  bg-red-100 bg-green-100 py-2 flex-center rounded">
+                      已使用{item.usedQty}次
+                    </View>
+                    <View className="flex-1 text-green-500 bg-green-100 py-2 flex-center rounded">
+                      剩余{item.qty - item.usedQty}次
+                    </View>
                   </View>
+                  <View>{btn}</View>
                 </View>
               </View>
             );
@@ -218,17 +224,6 @@ export default () => {
               value={orderDetailRequest.data?.order.createdAt}
             />
           </View>
-        </View>
-
-        <View className="px-[24px] mt-[24px]">
-          {address && (
-            <AddressCard
-              className="shadow-none!"
-              info={address}
-              isMaskPhone
-              showActions={false}
-            />
-          )}
         </View>
       </BasePage>
       <AppPopup
