@@ -2,8 +2,6 @@ import { AppCell, AppDivier, BasePage, LucideIcon } from "@/components";
 import { View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
 import { appRouter } from "@/router";
-import { orderPay } from "@/utils/order";
-import { FeatureBlocks } from "./FeatureBlocks";
 import { MyOrder } from "./MyOrder";
 
 const UserMy = () => {
@@ -16,22 +14,22 @@ const UserMy = () => {
       }}
     >
       <View className="pb-[144px]">
-        <View className="px-[24px] mt-[32px]">
-          <View className="flex gap-[24px]">
+        <View className="px-2 mt-3">
+          <View className="flex gap-2">
             <Avatar src="./static/images/default-avatar.png" size="large" />
             <View className="flex-1 flex flex-col justify-around">
-              <View className="text-[32px] font-semibold">微信用户</View>
+              <View className="text-3 font-semibold">微信用户</View>
             </View>
           </View>
         </View>
-        <View className="px-[24px] mt-[32px]">
+        <View className="px-2 mt-3">
           <MyOrder />
         </View>
-        {/* <View className="px-[24px] mt-[32px]">
+        {/* <View className="px-2 mt-3">
           <FeatureBlocks />
         </View> */}
-        <View className="mt-[32px] px-[24px]">
-          <View className="rounded-[24px] overflow-hidden bg-white">
+        <View className="mt-3 px-2">
+          <View className="rounded-xl overflow-hidden bg-white">
             <AppCell
               icon={<LucideIcon name="hand-coins" size={20} />}
               onClick={() => {
@@ -40,7 +38,7 @@ const UserMy = () => {
             >
               退款售后
             </AppCell>
-            <AppDivier className="px-[32px]" />
+            <AppDivier className="px-3" />
             <AppCell
               icon={<LucideIcon name="hand-platter" size={20} />}
               onClick={() => {
@@ -49,7 +47,7 @@ const UserMy = () => {
             >
               我的服务
             </AppCell>
-            <AppDivier className="px-[32px]" />
+            <AppDivier className="px-3" />
             <AppCell
               icon={<LucideIcon name="map-pin-house" size={20} />}
               onClick={() => {

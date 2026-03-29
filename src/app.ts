@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { useLaunch } from "@tarojs/taro";
 import VConsole from "vconsole";
-import { useAppAuthStore, useAppUserStore } from "./stores";
+import { useAppAuthStore, useAppUserStore, useAppNavBarStore } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet } from "./client";
@@ -17,6 +17,7 @@ import { client } from "./client/client.gen";
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
   const appUserStore = useAppUserStore();
+  const appNavBarStore = useAppNavBarStore();
   const checkLogin = async () => {
     // 如果已经登录，则返回true
     if (appAuthStore.isLogged) {
@@ -59,7 +60,7 @@ function App({ children }: PropsWithChildren<any>) {
     if (showVConsole) {
       new VConsole();
     }
-    appUserStore.updateTabActive("home");
+    appNavBarStore.updateTabActive("home");
     appUserStore.updateOrderStatus();
     await checkLogin();
     client.instance.interceptors.response.use((response) => {

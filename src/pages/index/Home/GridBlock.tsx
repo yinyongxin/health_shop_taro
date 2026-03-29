@@ -3,13 +3,12 @@ import { APP_ENV_CONFIG } from "@/common";
 import { AppImage, LucideIcon, Title } from "@/components";
 import { useRequest } from "@/hooks";
 import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
+import { useAppNavBarStore } from "@/stores";
 import { Grid } from "@taroify/core";
 import { View } from "@tarojs/components";
 
 export const GridBlock = () => {
-  const appUserStore = useAppUserStore();
-
+  const appNavBarStore = useAppNavBarStore();
   const { data, loading } = useRequest(async () => {
     const res = await getWxShopCateList({
       query: { orgId: APP_ENV_CONFIG.ORG_ID },
@@ -47,7 +46,7 @@ export const GridBlock = () => {
         action={{
           text: "查看更多",
           onClick: () => {
-            appUserStore.updateTabActive("classify");
+            appNavBarStore.updateTabActive("classify");
           },
         }}
       >
