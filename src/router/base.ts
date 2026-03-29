@@ -22,6 +22,9 @@ export interface AllPagesQueryType
   wareDetail: {
     id: string;
   };
+  wareList: {
+    orgId?: string;
+  };
   orderDetail: {
     orderNo: string;
   };

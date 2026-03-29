@@ -4,12 +4,14 @@ import { useAppEnvStore } from "@/stores";
 import { useState } from "react";
 import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardList";
 import { DropdownMenu } from "@taroify/core";
+import { usePageParams } from "@/hooks";
 import classNames from "classnames";
 import "./wareList.css";
 
 const WareList = () => {
   const { orgId } = useAppEnvStore();
   const [search, setSearch] = useState("");
+  const pageParams = usePageParams<"wareList">();
   const [refreshNumber, setRefreshNumber] = useState(0);
   const [value, setValue] = useState(0);
   const [order, setOrder] = useState<"default" | "new" | "sell">();
@@ -49,7 +51,7 @@ const WareList = () => {
           />
         </DropdownMenu>
         <SearchWareCardList
-          orgId={orgId}
+          orgId={pageParams.orgId || orgId}
           searchWareCardProps={{ border: true }}
           searchKey={search}
           refreshNumber={refreshNumber}
