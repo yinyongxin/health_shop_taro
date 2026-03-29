@@ -8,7 +8,6 @@ import {
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
-import { APP_ENV_CONFIG } from "@/common";
 import {
   AddressInfo,
   getWxShopProductDetail,
@@ -161,7 +160,7 @@ const WareDetail = () => {
      * 总价
      * 商品现价 + 运费
      */
-    const totalAmount = round(add(productInfo?.price || 0, freightAmount), 2);
+    const totalAmount = round(productInfo?.price || 0, 2);
     /**
      * 优惠金额
      * 商品原价 - 商品现价
@@ -197,13 +196,13 @@ const WareDetail = () => {
         appToast.error("请选择收货地址");
         return;
       }
-      const serviceAmountInfo = getServiceAmount();
+
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
             addressId: currentAddress.id,
             payType: 1,
-            ...serviceAmountInfo,
+            ...getServiceAmount(),
             productList: [
               {
                 productId: productInfo.id,
