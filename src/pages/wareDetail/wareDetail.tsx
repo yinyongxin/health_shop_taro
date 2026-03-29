@@ -342,7 +342,7 @@ const WareDetail = () => {
       </AppPopup>
     );
   };
-  
+
   return (
     <BasePage>
       <>
@@ -361,8 +361,8 @@ const WareDetail = () => {
                 </Swiper.Item>
               ))}
           </Swiper>
+          <BaseInfo info={productInfo} />
           <View className="px-[24px] pt-[32px] flex flex-col gap-[24px]">
-            <BaseInfo info={productInfo} />
             {!isFW && (
               <Delivery
                 sku={currentSku}

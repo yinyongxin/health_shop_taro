@@ -16,7 +16,7 @@ export const AppTopSearch = (props: AppTopSeatchProps) => {
   }, [propsValue]);
   return (
     <View
-      className="px-[32px] py-2 flex items-center gap-[24px] bg-white/70 backdrop-blur-md rounded-full"
+      className="px-2 py-1 flex items-center gap-[24px] bg-white/70 backdrop-blur-md rounded-full"
       {...rest}
     >
       <LucideIcon name="search" size={22} />

@@ -13,23 +13,30 @@ export const BaseInfo = (props: BaseInfoProps) => {
   return (
     <Box
       bgProps={{
-        className: "bg-white rounded-xl",
+        className: "bg-white",
       }}
     >
       <View className="px-[24px] py-[24px] flex flex-col gap-2">
-        <View className="flex justify-between items-center">
-          <View className=" font-bold text-rose-500">
+        <View className="flex items-end gap-3 font-bold ">
+          <View className="text-rose-500 flex items-end">
+            <Text className="text-[28px]">现价</Text>
             <Text className="text-[28px]">￥</Text>
-            <Text className="text-[40px] text-rose-500">{info.price}</Text>
+            <Text className="text-[48px] leading-5 text-rose-500 align-baseline">
+              {info.price}
+            </Text>
+          </View>
+          <View className="text-gray-500">
+            <Text className="text-[28px]">原价</Text>
+            <Text className="text-[28px]">￥</Text>
             {info.originalPrice && info.originalPrice !== info.price && (
-              <Text className="text-[32px] text-gray-500 line-through ml-2">
-                {info.originalPrice}
-              </Text>
+              <>
+                <Text className="text-[28px] ">{info.originalPrice}</Text>
+              </>
             )}
           </View>
-          <View className="text-gray-500">{/* 已售：{info?.sales} */}</View>
         </View>
         <View className="text-[32px] font-bold">{info?.name}</View>
+
         <View className="text-gray-500">
           {info?.description || "没有任何描述"}
         </View>

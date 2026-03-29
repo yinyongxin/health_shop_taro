@@ -12,11 +12,8 @@ const WareList = () => {
   const [value, setValue] = useState(0);
   const [order, setOrder] = useState<"default" | "new" | "sell">();
   return (
-    <BasePage
-      fullScreen
-      className="flex-1 wareListPage"
-    >
-      <View className="p-[24px]">
+    <BasePage fullScreen className="flex-1 wareListPage">
+      <View className="p-2">
         <AppTopSearch
           onSearch={(val) => {
             setSearch(val);
