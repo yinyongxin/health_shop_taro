@@ -12,5 +12,5 @@ export const useAppEnvStore = createAppStore<useAppEnvState>(
     updateOrgId: (orgId) => set({ orgId }),
     getOrgId: () => get().orgId,
   }),
-  "appShopEnvStore",
+  "appShopEnv",
 );

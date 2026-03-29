@@ -13,5 +13,5 @@ export const useAppNavBarStore = createAppStore<AppNavBarState>(
       set({ tabActive });
     },
   }),
-  "shop-appNavBar",
+  "appNavBar",
 );
