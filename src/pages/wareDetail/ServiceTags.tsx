@@ -1,22 +1,22 @@
-import { ProductInfo } from "@/client";
 import { AppTag } from "@/components";
 import Box from "@/components/Box";
-import { safeJson } from "@/utils";
 import { View, ScrollView } from "@tarojs/components";
+import classNames from "classnames";
 
 export interface ServiceTagsProps {
-  productInfo: ProductInfo;
+  serviceTags?: string[];
+  className?: string;
 }
 /**
  * 服务标签
  */
 export const ServiceTags = (props: ServiceTagsProps) => {
-  const { productInfo } = props;
+  const { serviceTags = [], className } = props;
   return (
     <>
       <Box
         bgProps={{
-          className: "bg-white rounded-xl",
+          className: classNames("bg-white", className),
         }}
       >
         <View className="px-[24px] py-[12px]">
@@ -26,7 +26,7 @@ export const ServiceTags = (props: ServiceTagsProps) => {
               scrollX
               className="flex-1 text-black flex gap-2 flex-nowrap"
             >
-              {safeJson.parse(productInfo.serviceTags, []).map((tag) => (
+              {serviceTags.map((tag) => (
                 <AppTag
                   key={tag}
                   size="default"

@@ -1,7 +1,7 @@
 import { OrderListItem } from "@/client";
 import Box from "@/components/Box";
-import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { View } from "@tarojs/components";
+import { InfoCardItem } from "./InfoCard/InfoCardItem";
 
 export type ServiceBlockProps = {
   serviceList: OrderListItem["productList"][number]["services"];

@@ -3,7 +3,7 @@ import {
   AppImage,
   AppPopup,
   BasePage,
-  ServiceBlock,
+  NewServiceBlock,
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { Swiper } from "@taroify/core";
@@ -249,16 +249,17 @@ const WareDetail = () => {
     if (!isFW) {
       return;
     }
-    const serviceList: OrderListItem["productList"][number]["services"] =
-      productInfo.itemsList
-        ? productInfo.itemsList?.map((item) => ({
-            ...item,
-            qty: item.num,
-            qrCode: "",
-            serviceDate: "",
-          }))
-        : [];
-    return <ServiceBlock serviceList={serviceList} />;
+    console.log("productInfo?.itemsList", productInfo?.itemsList);
+    return (
+      <NewServiceBlock
+        serviceList={(productInfo?.itemsList || [])?.map((item) => ({
+          ...item,
+          qty: item.num,
+          qrCode: "",
+          serviceDate: "",
+        }))}
+      />
+    );
   };
 
   const getPopup = () => {
@@ -342,6 +343,19 @@ const WareDetail = () => {
     );
   };
 
+  const serviceTagsRender = () => {
+    const serviceTags = safeJson.parse(productInfo.serviceTags, []);
+    if (serviceTags.length === 0) {
+      return null;
+    }
+    return (
+      <ServiceTags
+        className="border-t border-gray-100"
+        serviceTags={serviceTags}
+      />
+    );
+  };
+
   return (
     <BasePage>
       <>
@@ -369,19 +383,21 @@ const WareDetail = () => {
               }}
             />
           </View>
-          <View className="px-[24px] pt-[32px] flex flex-col gap-[24px]">
-            {!isFW && (
-              <Delivery
-                sku={currentSku}
-                handleClick={() => {
-                  control.setOpen(true);
-                }}
-              />
-            )}
+          {serviceTagsRender()}
+
+          {!isFW && (
+            <Delivery
+              className="border-t border-gray-100"
+              sku={currentSku}
+              handleClick={() => {
+                control.setOpen(true);
+              }}
+            />
+          )}
+          <View className="bg-white p-2 border-t border-gray-100">
             {getServiceBlock()}
-            {/* <Evaluate /> */}
-            <ServiceTags productInfo={productInfo} />
           </View>
+
           <DetailInfo info={productInfo} />
         </View>
 

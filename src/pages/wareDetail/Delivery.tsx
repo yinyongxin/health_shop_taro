@@ -2,22 +2,24 @@ import { SkuListItem } from "@/client";
 import { LucideIcon } from "@/components";
 import Box from "@/components/Box";
 import { View } from "@tarojs/components";
+import classNames from "classnames";
 
 type DeliveryProps = {
   handleClick?: () => void;
   sku?: SkuListItem;
+  className?: string;
 };
 
 /**
  * 邮寄
  */
 export const Delivery = (props: DeliveryProps) => {
-  const { sku, handleClick } = props;
+  const { sku, handleClick, className } = props;
   return (
     <>
       <Box
         bgProps={{
-          className: "bg-white rounded-xl",
+          className: classNames("bg-white", className),
         }}
         onClick={() => handleClick?.()}
       >
