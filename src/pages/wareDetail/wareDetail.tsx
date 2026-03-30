@@ -17,7 +17,7 @@ import {
 } from "@/client";
 import { appToast, safeJson } from "@/utils";
 import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
-import { useAppAuthStore, useAppUserStore } from "@/stores";
+import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { useState } from "react";
 import { orderPay } from "@/utils/order";
 import { add, multiply, round, subtract } from "lodash-es";
@@ -32,6 +32,7 @@ import { Delivery } from "./Delivery";
 const WareDetail = () => {
   const appUserStore = useAppUserStore();
   const authStore = useAppAuthStore();
+  const appEnvStore = useAppEnvStore();
 
   const pageParams = usePageParams<"wareDetail">();
   const control = usePopupControl();
@@ -108,6 +109,7 @@ const WareDetail = () => {
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
+            orgId: appEnvStore.orgId,
             addressId: currentAddress.id,
             payType: 1,
             ...getAmount(),
@@ -190,6 +192,7 @@ const WareDetail = () => {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
             payType: 1,
+            orgId: appEnvStore.orgId,
             ...getServiceAmount(),
             productList: [
               {

@@ -73,13 +73,15 @@ function App({ children }: PropsWithChildren<any>) {
     const url = new URL(window.location.href);
     const orgId = url.searchParams.get("orgId");
     const isPublicPlatform = url.searchParams.get("isPublicPlatform");
-    if (orgId && isPublicPlatform === "false") {
-      appEnvStore.updateOrgId(orgId);
+    if (isPublicPlatform === "false") {
+      orgId && appEnvStore.updateOrgId(orgId);
       appEnvStore.updateIsPublicPlatform(false);
-    } else if (isPublicPlatform === "true") {
+    }
+    if (isPublicPlatform === "true") {
       appEnvStore.updateOrgId("800001004");
       appEnvStore.updateIsPublicPlatform(true);
     }
+
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
       new VConsole();
@@ -88,12 +90,12 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    urlCheck();
     appNavBarStore.updateTabActive("home");
     appUserStore.updateOrderStatus();
     wx.miniProgram.getEnv((res) => {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
-    urlCheck();
     await checkLogin();
 
     appUserStore.updateAddressList();

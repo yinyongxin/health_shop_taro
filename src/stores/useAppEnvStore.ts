@@ -1,8 +1,8 @@
 import { createAppStore } from "./base";
 
 interface useAppEnvState {
-  orgId?: string;
-  isPublicPlatform?: boolean;
+  orgId: string;
+  isPublicPlatform: boolean;
   updateOrgId: (orgId?: string) => void;
   getOrgId: () => string | undefined;
   updateIsPublicPlatform: (isPublicPlatform: boolean) => void;
