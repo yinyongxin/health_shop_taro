@@ -22,7 +22,7 @@ import { AddressCard } from "@/components/AddressList/AddressCard";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
-import { useAppAuthStore, useAppUserStore } from "@/stores";
+import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
 import { Countdown, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
@@ -36,6 +36,7 @@ const OrderPayPage = () => {
   const pageParams = usePageParams<"orderPay">();
   const appUserStore = useAppUserStore();
   const useAuthStore = useAppAuthStore();
+  const { hospitalList } = useAppEnvStore();
 
   const selectAddressControl = usePopupControl();
 
@@ -292,6 +293,18 @@ const OrderPayPage = () => {
           <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem label="订单编号" value={orderDetail.orderNo} />
             <InfoCardItem label="下单时间" value={orderDetail.createdAt} />
+          </View>
+          <View className="p-2 bg-white rounded-md mt-2">
+            <View className="text-[28px] font-bold">
+              {
+                hospitalList?.find(
+                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
+                )?.orgName
+              }
+            </View>
+            <View className="color-gray-500 mt-2">
+              {orderDetailRequest.data?.order.orgId}
+            </View>
           </View>
           <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
             <AppCell
