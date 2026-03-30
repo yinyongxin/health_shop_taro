@@ -10,7 +10,7 @@ import { TabBar } from "./TabBar";
 export default () => {
   const { tabActive, updateTabActive } = useAppNavBarStore();
 
-  const { orgId } = useAppEnvStore();
+  const { orgId, isPublicPlatform } = useAppEnvStore();
 
   const contentRender = (content: ReactNode, condition: boolean[]) => {
     const show = condition.every((item) => item);
@@ -42,11 +42,11 @@ export default () => {
         tabs={AppTabs.filter((tab) => {
           if (tab.value === "hospital") {
             // 医院tab仅在orgId存在时显示
-            return !orgId;
+            return isPublicPlatform;
           }
           if (tab.value === "classify") {
             // 分类tab仅在orgId存在时显示
-            return !!orgId;
+            return !isPublicPlatform;
           }
           return tab.show;
         })}

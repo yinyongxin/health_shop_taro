@@ -7,7 +7,7 @@ import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
 
 export const Home = () => {
-  const { orgId } = useAppEnvStore();
+  const { orgId, isPublicPlatform } = useAppEnvStore();
   return (
     <BasePage>
       <View className="pt-[32px] pb-[144px]">
@@ -32,7 +32,7 @@ export const Home = () => {
             推荐商品
           </Title>
         </View>
-        <SearchWareCardList orgId={orgId} />
+        <SearchWareCardList orgId={!isPublicPlatform ? orgId : undefined} />
       </View>
     </BasePage>
   );
