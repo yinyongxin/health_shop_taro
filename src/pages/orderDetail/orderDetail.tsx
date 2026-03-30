@@ -8,7 +8,7 @@ import {
   postWxShopAddrViewById,
   postWxShopAfterSaleApply,
 } from "@/client";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
 import { Dialog, Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
@@ -22,6 +22,7 @@ import { RefundReasonMap } from "./common";
 
 export default () => {
   const appUserStore = useAppUserStore();
+  const { hospitalList } = useAppEnvStore();
   const pageParams = usePageParams<"orderPay">();
   const [refundReasonOpen, setRefundReasonOpen] = useState(false);
   const [refundReason, setRefundReason] = useState("");
@@ -280,7 +281,11 @@ export default () => {
           </View>
           <View className="p-2 bg-white rounded-md mt-2">
             <View className="text-[28px] font-bold">
-              {orderDetailRequest.data?.order?.orgName || ""}
+              {
+                hospitalList?.find(
+                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
+                )?.orgName
+              }
             </View>
             <View className="color-gray-500 mt-2">
               {orderDetailRequest.data?.order.orgId}

@@ -1,8 +1,7 @@
 import { View } from "@tarojs/components";
-import { useRequest } from "@/hooks";
-import { getWxShopOrgList } from "@/client";
 import classNames from "classnames";
 import { appRouter } from "@/router";
+import { useAppEnvStore } from "@/stores";
 import { BasePage } from "../BasePage";
 
 export type HospitalListProps = {
@@ -10,10 +9,7 @@ export type HospitalListProps = {
 };
 
 export const HospitalList = (props: HospitalListProps) => {
-  const { data: hospitalList = [] } = useRequest(async () => {
-    const res = await getWxShopOrgList();
-    return res.data?.data || [];
-  });
+  const { hospitalList = [] } = useAppEnvStore();
   const { className } = props;
 
   const handleClick = (orgId: string) => {

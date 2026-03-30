@@ -90,6 +90,7 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useLaunch(async () => {
+    appEnvStore.initHospitalList?.();
     urlCheck();
     appNavBarStore.updateTabActive("home");
     appUserStore.updateOrderStatus();
