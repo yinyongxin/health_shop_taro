@@ -29,7 +29,7 @@ const UserMy = () => {
           <FeatureBlocks />
         </View> */}
         <View className="mt-3 px-2">
-          <View className="rounded-xl overflow-hidden bg-white">
+          <View className="rounded-lg overflow-hidden bg-white">
             <AppCell
               icon={<LucideIcon name="hand-coins" size={20} />}
               onClick={() => {

@@ -91,7 +91,7 @@ export default () => {
       <BasePage className="pb-[200px]">
         <View className="mt-[32px] px-[24px]">
           <Title>商品信息</Title>
-          <View className="bg-white rounded-xl mt-[24px]">
+          <View className="bg-white rounded-lg mt-[24px]">
             <ServiceList
               product={product}
               isService={orderDetail.isService}
@@ -112,7 +112,7 @@ export default () => {
             />
           </View>
           <Title className="mt-[32px]">订单信息</Title>
-          <View className="bg-white rounded-xl p-[24px] flex flex-col gap-2 mt-[24px]">
+          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem
               label="订单编号"
               value={orderDetailRequest.data?.order.orderNo}
@@ -144,7 +144,7 @@ export default () => {
             <View className="mt-[32px] px-[24px]">
               <Title>进度</Title>
             </View>
-            <View className="px-[24px]  mt-[24px] rounded-xl">
+            <View className="px-[24px]  mt-[24px] rounded-lg">
               <AfterSaleStep info={detailRequest.data} />
             </View>
           </>

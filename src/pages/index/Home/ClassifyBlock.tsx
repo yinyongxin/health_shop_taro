@@ -28,18 +28,18 @@ export const ClassifyBlock = (props: ClassifyBlockPropsType) => {
 
   if (loading && !data) {
     return (
-      <View className="flex flex-col bg-white rounded-xl p-[24px] gap-2">
+      <View className="flex flex-col bg-white rounded-lg p-[24px] gap-2">
         <View className="flex gap-2">
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
         </View>
         <View className="flex gap-2">
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
-          <View className="flex-1 bg-gray-200 h-[140px] rounded-xl"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
+          <View className="flex-1 bg-gray-200 h-[140px] rounded-lg"></View>
         </View>
       </View>
     );
@@ -48,7 +48,7 @@ export const ClassifyBlock = (props: ClassifyBlockPropsType) => {
     return null;
   }
   return (
-    <Grid columns={4} className="rounded-xl overflow-hidden">
+    <Grid columns={4} className="rounded-lg overflow-hidden">
       {data?.map((item) => (
         <Grid.Item
           onClick={() => {

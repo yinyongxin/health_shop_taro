@@ -8,7 +8,7 @@ export const Evaluate = () => {
   return (
     <Box
       bgProps={{
-        className: "bg-white rounded-xl",
+        className: "bg-white rounded-lg",
       }}
     >
       <View className="px-[24px] py-[24px] flex flex-col gap-2">

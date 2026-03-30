@@ -43,7 +43,7 @@ export const Banners = (props: BannersPropsType) => {
             <View className="size-full px-[24px]">
               <AppImage
                 src={item.imagePath}
-                className="w-full h-full rounded-xl"
+                className="w-full h-full rounded-lg"
                 mode="aspectFill"
               />
             </View>

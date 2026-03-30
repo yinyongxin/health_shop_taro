@@ -87,7 +87,7 @@ const ServerQrcode = () => {
       </View>
       <Box
         bgProps={{
-          className: "bg-white rounded-xl",
+          className: "bg-white rounded-lg",
         }}
         wapperProps={{ className: "flex-center flex-col gap-2 py-4" }}
         className="mt-3"
@@ -101,7 +101,7 @@ const ServerQrcode = () => {
 
       <Box
         bgProps={{
-          className: "bg-white rounded-xl",
+          className: "bg-white rounded-lg",
         }}
         wapperProps={{ className: "flex flex-col gap-2 p-2" }}
         className="mt-3"

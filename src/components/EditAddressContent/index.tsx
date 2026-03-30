@@ -132,7 +132,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
           <View className="flex flex-col gap-[24px]">
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">标签（ 用于区分地址 ）</View>
-              <Field required name="tag" className="rounded-xl">
+              <Field required name="tag" className="rounded-lg">
                 <Input maxlength={10} placeholder="请输入内容" />
               </Field>
               {tagsRender()}
@@ -141,7 +141,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">姓名</View>
               <Field
-                className="rounded-xl"
+                className="rounded-lg"
                 required
                 name="receiverName"
                 rules={[
@@ -158,7 +158,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">手机号</View>
               <Field
-                className="rounded-xl"
+                className="rounded-lg"
                 required
                 label="手机号"
                 name="receiverPhone"
@@ -176,7 +176,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">地区</View>
               <Field
-                className="rounded-xl"
+                className="rounded-lg"
                 required
                 name="area"
                 isLink
@@ -222,7 +222,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">街道</View>
               <Field
-                className="rounded-xl"
+                className="rounded-lg"
                 required
                 name="street"
                 rules={[
@@ -239,7 +239,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">详细地址</View>
               <Field
-                className="rounded-xl"
+                className="rounded-lg"
                 required
                 name="detailAddress"
                 align="start"
