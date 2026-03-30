@@ -270,7 +270,16 @@ const WareDetail = () => {
             </View>
           }
         >
-          <View className="px-2">{getServiceBlock()}</View>
+          <View className="px-2">
+            {getServiceBlock()}
+            <AddressSelect
+              className="py-[24px]"
+              address={currentAddress}
+              handleSelectAddress={(val) => {
+                setCurrentAddress(val);
+              }}
+            />
+          </View>
         </AppPopup>
       );
     }
