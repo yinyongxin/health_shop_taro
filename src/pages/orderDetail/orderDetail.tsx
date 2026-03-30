@@ -194,6 +194,26 @@ export default () => {
     })?.dictLabel;
   };
 
+  const addressRender = () => {
+    if (!currentAddress) {
+      return null;
+    }
+    return (
+      <>
+        <View className="px-[24px] mt-[24px]">
+          {currentAddress && (
+            <AddressCard
+              className="shadow-none!"
+              info={currentAddress}
+              isMaskPhone
+              showActions={false}
+            />
+          )}
+        </View>
+      </>
+    );
+  };
+
   return (
     <>
       <BasePage className="pb-[400px]">
@@ -258,6 +278,15 @@ export default () => {
               </View>
             </View>
           </View>
+          <View className="p-2 bg-white rounded-md mt-2">
+            <View className="text-[28px] font-bold">
+              {orderDetailRequest.data?.order?.orgName || ""}
+            </View>
+            <View className="color-gray-500 mt-2">
+              {orderDetailRequest.data?.order.orgId}
+            </View>
+          </View>
+
           <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
             <InfoCardItem
               label="订单编号"
@@ -270,16 +299,7 @@ export default () => {
           </View>
         </View>
 
-        <View className="px-[24px] mt-[24px]">
-          {currentAddress && (
-            <AddressCard
-              className="shadow-none!"
-              info={currentAddress}
-              isMaskPhone
-              showActions={false}
-            />
-          )}
-        </View>
+        {addressRender()}
       </BasePage>
       {renderBottomBtns()}
       <AppPopup
