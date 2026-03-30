@@ -1,7 +1,7 @@
 import { OrderListItem } from "@/client";
 import { View } from "@tarojs/components";
+import { NewServiceBlock } from "@/components";
 import { CartWareCard } from "./CartWareCard";
-import { NewServiceBlock } from "./NewServiceBlock";
 
 type ServiceListProps = {
   serviceList: OrderListItem["productList"][number]["services"];
@@ -25,7 +25,25 @@ export const ServiceList = (props: ServiceListProps) => {
             <View>{product?.productName}</View>
             <View className="text-sky-500">{serviceList.length}项服务</View>
           </View>
-          {showServiceDetail && <NewServiceBlock serviceList={serviceList} />}
+          {showServiceDetail && (
+            <NewServiceBlock
+              serviceList={serviceList.map((server) => {
+                return {
+                  id: server.itemId,
+                  productId: product.productId,
+                  totalPrice: server.price,
+                  num: server.qty,
+                  itemId: server.itemId,
+                  itemName: server.itemName,
+                  price: server.price,
+                  selectedItems: [],
+                  itemDesc: "",
+                  createTime: "",
+                  updateTime: "",
+                };
+              })}
+            />
+          )}
         </View>
       )}
       {!isFW &&

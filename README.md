@@ -36,14 +36,14 @@ pnpm 10+
 <https://testpay.eh-med.com/zhfy>
 jysy 123456
 
-<https://testpay.eh-med.com/hmall/?openVConsole=true>
+<https://testpay.eh-med.com/hmall/?openVConsole=true&isPublicPlatform=false&orgId=800001004>
 
 ### 正式环境
 
 <https://chr.eh-med.com/zhfy/index>
 jysy 123456
 
-<https://chr.eh-med.com/hmall/?openVConsole=true>
+<https://chr.eh-med.com/hmall/?openVConsole=true&isPublicPlatform=false&orgId=800001004>
 
 ## 微信公众平台
 

@@ -78,12 +78,12 @@ export default () => {
 
   const { order: orderDetail } = orderDetailRequest.data || {};
 
-  if (orderDetailRequest.error) {
+  if (orderDetailRequest.error || !orderDetail) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
         <Empty.Description>
-          {orderDetailRequest.error.message}
+          {orderDetailRequest.error?.message || "订单不存在"}
         </Empty.Description>
         <AppButton
           actived={false}
@@ -98,10 +98,6 @@ export default () => {
 
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
-  }
-
-  if (!orderDetail) {
-    return;
   }
 
   const renderBottomBtns = () => {
@@ -211,20 +207,7 @@ export default () => {
               product={product}
               showServiceDetail
               isService={orderDetail.isService}
-              serviceList={
-                orderDetail.itemList.map((item) => {
-                  return {
-                    itemId: item.itemId,
-                    itemName: item.itemName,
-                    price: item.price,
-                    qrCode: item.qrCode,
-                    qty: item.qty,
-                    serviceDate: item.serviceDate,
-                    totalPrice: item.totalPrice,
-                    usedQty: item.usedQty,
-                  };
-                }) || []
-              }
+              serviceList={orderDetail?.itemList || []}
             />
             <View className="px-[24px] pb-[24px] flex flex-col gap-2">
               <InfoCardItem

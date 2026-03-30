@@ -7,6 +7,7 @@ export type NewServiceBlockProps = {
   serviceList: ProductDetailServiceItem[];
   className?: string;
 };
+
 export const NewServiceBlock = (props: NewServiceBlockProps) => {
   const { serviceList = [], className } = props;
   return (

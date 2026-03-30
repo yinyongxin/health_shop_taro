@@ -1,10 +1,14 @@
-import { BasePage, Box } from "@/components";
+import { AppButton, BasePage, Box } from "@/components";
 import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopOrderDetail } from "@/client";
 import { View, Image } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import QRCode, { QRCodeToDataURLOptions } from "qrcode";
 import { appToast } from "@/utils";
+import { navigateBack } from "@tarojs/taro";
+import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
+import { Empty } from "@taroify/core";
+import { Skeleton } from "./Skeleton";
 
 const ServerQrcode = () => {
   const pageParams = usePageParams<"serverQrcode">();
@@ -52,24 +56,59 @@ const ServerQrcode = () => {
       },
     );
   }, [orderDetail]);
+
+  if (orderDetailRequest.error || !orderDetail) {
+    return (
+      <Empty>
+        <Empty.Image></Empty.Image>
+        <Empty.Description>
+          {orderDetailRequest.error?.message || "服务不存在"}
+        </Empty.Description>
+        <AppButton
+          actived={false}
+          className="mt-[48px] w-[300px]"
+          onClick={() => navigateBack()}
+        >
+          返回
+        </AppButton>
+      </Empty>
+    );
+  }
+
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
+    return <Skeleton />;
+  }
   return (
     <BasePage fullScreen className="p-2">
-      <View className="font-bold text-[32px] flex-center">
-        {serverDetail?.itemName}-核销
+      <View className="flex items-end justify-between">
+        <View className="font-bold text-[32px]">
+          {serverDetail?.itemName}-核销
+        </View>
       </View>
-      <View>1次</View>
-      <View>{serverDetail?.productName}</View>
-      <View>{serverDetail?.orderNo}</View>
       <Box
         bgProps={{
           className: "bg-white rounded-xl",
         }}
         wapperProps={{ className: "flex-center flex-col gap-2 py-4" }}
+        className="mt-3"
       >
+        <View>请出示以下二维码给工作人员扫码核销</View>
         <Image showMenuByLongpress className="size-[600px]" src={qrCodeData} />
         <View className="text-orange-500">
           二维码将于 {serverDetail?.qrCodeExpireTime} 过期
         </View>
+      </Box>
+
+      <Box
+        bgProps={{
+          className: "bg-white rounded-xl",
+        }}
+        wapperProps={{ className: "flex flex-col gap-2 p-2" }}
+        className="mt-3"
+      >
+        <InfoCardItem label="核销数量" value="1次" />
+        <InfoCardItem label="服务名称" value={serverDetail?.productName} />
+        <InfoCardItem label="价格" value={`${serverDetail?.price}元`} />
       </Box>
     </BasePage>
   );
