@@ -7,10 +7,12 @@ import {
 import { createAppStore } from "./base";
 
 interface AppUserState {
+  totalPrice: number;
+
+  defaultAddress?: AddressInfo;
   addressList: AddressInfo[];
   updateAddressList: () => void;
-  defaultAddress?: AddressInfo;
-  totalPrice: number;
+
   orderStatusList: DictItem[];
   updateOrderStatus: () => void;
 }
@@ -36,11 +38,8 @@ export const useAppUserStore = createAppStore<AppUserState>(
           dictType: "shop_order_status",
         },
       });
-      if (res.data?.code !== 0) {
-        return;
-      }
       set({
-        orderStatusList: res.data.data,
+        orderStatusList: res?.data?.data || [],
       });
     },
   }),
