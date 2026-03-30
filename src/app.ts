@@ -49,6 +49,7 @@ function App({ children }: PropsWithChildren<any>) {
         path: { appId: APP_ENV_CONFIG.APPID },
         query: {
           code: wxLoginCode,
+          orgId: appEnvStore.orgId,
           state: "1",
         },
       });
