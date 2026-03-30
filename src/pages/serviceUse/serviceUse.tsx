@@ -3,7 +3,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { CartItem, getWxShopOrderDetail } from "@/client";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
@@ -12,6 +12,8 @@ import { appRouter } from "@/router";
 
 export default () => {
   const appUserStore = useAppUserStore();
+  const { hospitalList } = useAppEnvStore();
+
   const pageParams = usePageParams<"orderPay">();
 
   const orderDetailRequest = useRequest(async () => {
@@ -182,6 +184,19 @@ export default () => {
               label="下单时间"
               value={orderDetailRequest.data?.order.createdAt}
             />
+          </View>
+
+          <View className="p-2 bg-white rounded-md mt-2">
+            <View className="text-[28px] font-bold">
+              {
+                hospitalList?.find(
+                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
+                )?.orgName
+              }
+            </View>
+            <View className="color-gray-500 mt-2">
+              {orderDetailRequest.data?.order.orgId}
+            </View>
           </View>
         </View>
       </BasePage>
