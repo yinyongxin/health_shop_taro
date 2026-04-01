@@ -113,32 +113,6 @@ export type OrderListItem = {
   isService: number;
 };
 
-export type OrderDetail = {
-  id: number;
-  orderNo: string;
-  orgId: string;
-  userId: string;
-  addressId: number;
-  totalAmount: number;
-  paymentAmount: number;
-  freightAmount: number;
-  discountAmount: number;
-  paymentType: unknown;
-  paymentTime: unknown;
-  status: number;
-  deliveryCompany: unknown;
-  deliveryNo: unknown;
-  deliveryTime: unknown;
-  receiveTime: unknown;
-  createdAt: string;
-  updatedAt: string;
-  remark: unknown;
-  applyPayNo: unknown;
-  payId: unknown;
-  isService: number;
-  itemList: Array<CartItem>;
-};
-
 export type BannerItem = {
   productId?: string;
   imagePath: string;
@@ -223,26 +197,6 @@ export type ProductDetailServiceItem = {
   updateTime: unknown;
   groupName: string;
   unit: string;
-};
-
-export type CartItem = {
-  createdAt: string;
-  id: number;
-  isService: number;
-  itemId: number;
-  itemName: string;
-  orderNo: string;
-  orgId: string;
-  price: number;
-  productId: number;
-  productImage: string;
-  productName: string;
-  qrCode: string;
-  qrCodeExpireTime: string;
-  qty: number;
-  serviceDate: string;
-  totalPrice: number;
-  usedQty: number;
 };
 
 export type GetWxExamineeListData = {
@@ -1553,7 +1507,53 @@ export type GetWxShopOrderDetailResponses = {
     msg: string;
     code: number;
     data: {
-      order: OrderDetail;
+      order: {
+        id: number;
+        orderNo: string;
+        orgId: string;
+        userId: string;
+        addressId: unknown;
+        totalAmount: number;
+        paymentAmount: number;
+        freightAmount: number;
+        discountAmount: number;
+        paymentType: number;
+        itemList: Array<{
+          id: number;
+          orgId: string;
+          orderNo: string;
+          productId: number;
+          productName: string;
+          productImage: string;
+          itemId: number;
+          itemName: string;
+          price: number;
+          qty: number;
+          totalPrice: number;
+          isService: number;
+          serviceDate: string;
+          qrCode: string;
+          qrCodeExpireTime: string;
+          createdAt: string;
+          usedQty: number;
+          itemDesc: string;
+          groupName: string;
+          unit: string;
+          shopProduct: unknown;
+        }>;
+        status: number;
+        deliveryCompany: unknown;
+        deliveryNo: unknown;
+        paymentTime: string;
+        deliveryTime: unknown;
+        receiveTime: unknown;
+        createdAt: string;
+        remark: unknown;
+        applyPayNo: string;
+        payId: string;
+        updatedAt: string;
+        isService: number;
+      };
     };
   };
 };

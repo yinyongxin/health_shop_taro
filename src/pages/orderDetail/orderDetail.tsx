@@ -77,6 +77,10 @@ export default () => {
     orderDetailRequest.run();
   };
 
+  if (orderDetailRequest.loading) {
+    return <Skeleton />;
+  }
+
   const { order: orderDetail } = orderDetailRequest.data || {};
 
   if (orderDetailRequest.error || !orderDetail) {
@@ -97,24 +101,15 @@ export default () => {
     );
   }
 
-  if (orderDetailRequest.loading && !orderDetailRequest.data) {
-    return <Skeleton />;
-  }
-
   const renderBottomBtns = () => {
     if (orderDetail.isService === 1) {
       if ([2].includes(orderDetail.status)) {
-        const allQty = reduce(
-          orderDetail.itemList.map((item) => item.qty),
-          (a, b) => a + b,
-          0,
-        );
         const allUsedQty = reduce(
           orderDetail.itemList.map((item) => item.usedQty),
           (a, b) => a + b,
           0,
         );
-        const notUse = allQty === allUsedQty;
+        const notUse = allUsedQty === 0;
         return (
           <AppFixedBottom className="flex flex-col gap-[24px]">
             <AppButton
