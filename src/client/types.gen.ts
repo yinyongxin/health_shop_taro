@@ -221,6 +221,8 @@ export type ProductDetailServiceItem = {
   itemDesc: string;
   createTime: unknown;
   updateTime: unknown;
+  groupName: string;
+  unit: string;
 };
 
 export type CartItem = {
@@ -1071,6 +1073,24 @@ export type GetWxOrdersReportDetailResponses = {
 
 export type GetWxOrdersReportDetailResponse =
   GetWxOrdersReportDetailResponses[keyof GetWxOrdersReportDetailResponses];
+
+export type GetWxOrdersReportImgUrlsData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orderId?: string;
+  };
+  url: "/wx/orders/report/img/urls";
+};
+
+export type GetWxOrdersReportImgUrlsResponses = {
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type GetWxOrdersReportImgUrlsResponse =
+  GetWxOrdersReportImgUrlsResponses[keyof GetWxOrdersReportImgUrlsResponses];
 
 export type GetWxRedirectByAppIdGreetData = {
   body?: never;

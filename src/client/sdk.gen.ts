@@ -83,6 +83,8 @@ import type {
   GetWxOrdersReportListResponses,
   GetWxOrdersReportDetailData,
   GetWxOrdersReportDetailResponses,
+  GetWxOrdersReportImgUrlsData,
+  GetWxOrdersReportImgUrlsResponses,
   GetWxRedirectByAppIdGreetData,
   GetWxRedirectByAppIdGreetResponses,
   GetWxRedirectByAppIdGreetErrors,
@@ -901,6 +903,23 @@ export const getWxOrdersReportDetail = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/orders/reportDetail",
+    ...options,
+  });
+};
+
+/**
+ * 根据orderId查询报告文件的图片列表
+ */
+export const getWxOrdersReportImgUrls = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxOrdersReportImgUrlsData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxOrdersReportImgUrlsResponses,
+    unknown,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/orders/report/img/urls",
     ...options,
   });
 };
