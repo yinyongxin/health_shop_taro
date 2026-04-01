@@ -31,7 +31,9 @@ export default () => {
     return <Skeleton />;
   }
 
-  if (!orderDetailRequest.loading && !orderDetailRequest.data) {
+  const { order: orderDetail } = orderDetailRequest.data || {};
+
+  if (!orderDetail) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
@@ -48,8 +50,6 @@ export default () => {
       </Empty>
     );
   }
-
-  const { order: orderDetail } = orderDetailRequest.data;
 
   const isFW = orderDetail.isService === 1;
 
