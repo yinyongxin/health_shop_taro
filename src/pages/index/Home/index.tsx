@@ -26,7 +26,11 @@ export const Home = () => {
             action={{
               text: "查看更多",
               onClick: () => {
-                appRouter.navigateTo("wareList");
+                appRouter.navigateTo("wareList", {
+                  query: {
+                    orgId: !isPublicPlatform ? orgId : undefined,
+                  },
+                });
               },
             }}
           >

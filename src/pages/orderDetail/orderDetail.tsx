@@ -77,7 +77,7 @@ export default () => {
     orderDetailRequest.run();
   };
 
-  if (orderDetailRequest.loading) {
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
 
