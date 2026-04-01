@@ -106,7 +106,7 @@ const ServerQrcode = () => {
         {/* <InfoCardItem label="核销数量" value="1" /> */}
         <InfoCardItem label="商品名称" value={serverDetail?.productName} />
         <InfoCardItem label="服务名称" value={serverDetail?.itemName} />
-        <InfoCardItem label="价格" value={`${serverDetail?.price}元`} />
+        {/* <InfoCardItem label="价格" value={`${serverDetail?.price}元`} /> */}
       </Box>
     </BasePage>
   );
