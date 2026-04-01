@@ -5,10 +5,11 @@ import { View, Text } from "@tarojs/components";
 import { CartItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
-import { Empty, Skeleton } from "@taroify/core";
+import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import dayjs from "dayjs";
 import { appRouter } from "@/router";
+import { Skeleton } from "./Skeleton";
 
 export default () => {
   const appUserStore = useAppUserStore();
@@ -26,12 +27,16 @@ export default () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
 
-  if (orderDetailRequest.error) {
+  if (orderDetailRequest.loading && !orderDetailRequest.data) {
+    return <Skeleton />;
+  }
+
+  if (!orderDetailRequest.loading && !orderDetailRequest.data) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
         <Empty.Description>
-          {orderDetailRequest.error.message}
+          {orderDetailRequest.error?.message || "订单不存在"}
         </Empty.Description>
         <AppButton
           actived={false}
@@ -42,14 +47,6 @@ export default () => {
         </AppButton>
       </Empty>
     );
-  }
-
-  if (orderDetailRequest.loading && !orderDetailRequest.data) {
-    return <Skeleton />;
-  }
-
-  if (!orderDetailRequest.data) {
-    return;
   }
 
   const { order: orderDetail } = orderDetailRequest.data;

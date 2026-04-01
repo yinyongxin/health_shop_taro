@@ -57,7 +57,10 @@ const ServerQrcode = () => {
     );
   }, [orderDetail]);
 
-  if (orderDetailRequest.error || !orderDetail) {
+  if (
+    !orderDetailRequest.loading &&
+    (orderDetailRequest.error || !orderDetail)
+  ) {
     return (
       <Empty>
         <Empty.Image></Empty.Image>
