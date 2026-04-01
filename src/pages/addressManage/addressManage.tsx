@@ -10,7 +10,7 @@ const AddressManage = () => {
     <>
       <BasePage
         wapperProps={{
-          className: "py-[24px] pb-[160px]",
+          className: "py-2 pb-[184px]",
         }}
       >
         <AddressList />
