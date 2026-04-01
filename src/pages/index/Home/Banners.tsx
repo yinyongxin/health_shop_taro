@@ -15,6 +15,9 @@ export const Banners = (props: BannersPropsType) => {
   const { orgId, className } = props;
 
   const { data, loading } = useRequest(async () => {
+    if (!orgId) {
+      return;
+    }
     const res = await getWxShopBannerList({
       query: { orgId },
     });

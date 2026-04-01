@@ -243,7 +243,6 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
                 required
                 name="detailAddress"
                 align="start"
-                label="详细地址"
                 rules={[
                   {
                     validator: (value) => {

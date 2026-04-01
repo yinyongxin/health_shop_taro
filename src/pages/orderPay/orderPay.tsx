@@ -97,7 +97,7 @@ const OrderPayPage = () => {
   );
 
   const initAddress = async () => {
-    if (!orderDetail) {
+    if (!orderDetail?.addressId) {
       return;
     }
     const getAddressRes = await postWxShopAddrViewById({
