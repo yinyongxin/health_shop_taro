@@ -1309,9 +1309,7 @@ export type GetWxShopProductSearchError =
 export type GetWxShopProductSearchResponses = {
   200: {
     total: number;
-    rows: Array<{
-      [key: string]: unknown;
-    }>;
+    rows: Array<ProductDetail>;
     code: number;
     msg?: unknown;
   };
