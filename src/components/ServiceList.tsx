@@ -40,6 +40,8 @@ export const ServiceList = (props: ServiceListProps) => {
                   itemDesc: "",
                   createTime: "",
                   updateTime: "",
+                  groupName: "",
+                  unit: "",
                 };
               })}
             />

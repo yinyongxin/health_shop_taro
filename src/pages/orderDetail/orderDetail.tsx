@@ -196,7 +196,7 @@ export default () => {
   };
 
   const addressRender = () => {
-    if (!currentAddress) {
+    if (orderDetail.isService === 1) {
       return null;
     }
     return (
@@ -212,6 +212,63 @@ export default () => {
           )}
         </View>
       </>
+    );
+  };
+
+  const popupRender = () => {
+    return (
+      <AppPopup
+        title="申请原因"
+        open={refundReasonOpen}
+        showClose
+        onClose={() => {
+          setRefundReasonOpen(false);
+        }}
+        footer={
+          <AppButton
+            disabled={!refundReason}
+            status="error"
+            onClick={() => {
+              setRefundReasonOpen(false);
+              Dialog.confirm({
+                theme: "rounded",
+                title: "提示",
+                message: "确定申请退款吗？",
+                onConfirm: () => {
+                  cancelOrder();
+                },
+              });
+            }}
+          >
+            确定
+          </AppButton>
+        }
+      >
+        <RadioGroup
+          onChange={(e) => {
+            setRefundReason(e.detail.value);
+          }}
+        >
+          <View className="px-[32px]">
+            {RefundReasonMap.map((item) => {
+              return (
+                <View
+                  className="py-[24px] flex justify-between"
+                  key={item.reason}
+                  onClick={() => {}}
+                >
+                  <View className="text-[28px] font-bold">{item.reason}</View>
+                  <Radio
+                    name={item.reason}
+                    value={item.reason}
+                    checked={item.reason === refundReason}
+                  />
+                </View>
+              );
+            })}
+          </View>
+        </RadioGroup>
+      </AppPopup>
     );
   };
 
@@ -307,58 +364,7 @@ export default () => {
         {addressRender()}
       </BasePage>
       {renderBottomBtns()}
-      <AppPopup
-        title="申请原因"
-        open={refundReasonOpen}
-        showClose
-        onClose={() => {
-          setRefundReasonOpen(false);
-        }}
-        footer={
-          <AppButton
-            disabled={!refundReason}
-            status="error"
-            onClick={() => {
-              setRefundReasonOpen(false);
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "确定申请退款吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
-            }}
-          >
-            确定
-          </AppButton>
-        }
-      >
-        <RadioGroup
-          onChange={(e) => {
-            setRefundReason(e.detail.value);
-          }}
-        >
-          <View className="px-[32px]">
-            {RefundReasonMap.map((item) => {
-              return (
-                <View
-                  className="py-[24px] flex justify-between"
-                  key={item.reason}
-                  onClick={() => {}}
-                >
-                  <View className="text-[28px] font-bold">{item.reason}</View>
-                  <Radio
-                    name={item.reason}
-                    value={item.reason}
-                    checked={item.reason === refundReason}
-                  />
-                </View>
-              );
-            })}
-          </View>
-        </RadioGroup>
-      </AppPopup>
+      {popupRender()}
     </>
   );
 };

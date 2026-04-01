@@ -13,7 +13,6 @@ export const NewServiceBlock = (props: NewServiceBlockProps) => {
   const { serviceList = [], className } = props;
   const group = groupBy(serviceList, (item) => item.groupName);
   const groupKeys = Object.keys(group);
-  console.log("group", group);
   return (
     <>
       <Box
@@ -30,7 +29,7 @@ export const NewServiceBlock = (props: NewServiceBlockProps) => {
           return (
             <View key={groupKey} className="flex flex-col mb-3">
               <Title key={groupKey} className="mb-2">
-                {groupKey}
+                {groupKey || "基础项目"}
               </Title>
               <View className="bg-sky-100 rounded-md">
                 {itemList?.map((item, index) => {
@@ -46,7 +45,7 @@ export const NewServiceBlock = (props: NewServiceBlockProps) => {
                         {item.itemName}
                       </View>
                       <View className="px-2 w-14 text-amber-500 font-semibold flex justify-end">
-                        {item?.num} / {item.unit}
+                        {item?.num} {item.unit && "/"} {item.unit}
                       </View>
                     </View>
                   );

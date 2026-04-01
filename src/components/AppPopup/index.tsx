@@ -31,7 +31,7 @@ export const AppPopup = (props: AppPopupProps) => {
       placement={placement}
       rounded={rounded}
       {...rest}
-      className="flex flex-col max-h-[80vh]"
+      className="flex flex-col max-h-[80vh]!"
     >
       {(leftAction || leftAction || title) && (
         <View

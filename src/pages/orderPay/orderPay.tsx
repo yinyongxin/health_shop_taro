@@ -14,7 +14,7 @@ import {
   LucideIcon,
   AppFixedBottom,
   CartWareCard,
-  ServiceBlock,
+  NewServiceBlock,
   Box,
 } from "@/components";
 import { AddressList } from "@/components/AddressList";
@@ -163,14 +163,12 @@ const OrderPayPage = () => {
   const isFW = orderDetail.isService === 1;
 
   const itemListRender = () => {
-    const serviceList: OrderListItem["productList"][number]["services"] =
-      orderDetail.itemList
-        ? orderDetail.itemList?.map((item) => ({
-            ...item,
-            qrCode: "",
-            serviceDate: "",
-          }))
-        : [];
+    const serviceList = (orderDetail.itemList || [])?.map((item) => ({
+      ...item,
+      qrCode: "",
+      serviceDate: "",
+    }));
+
     if (!isFW) {
       return orderDetail.itemList?.map((item) => (
         <CartWareCard
@@ -188,19 +186,37 @@ const OrderPayPage = () => {
       ));
     }
     return (
-      <ServiceBlock
-        productName={orderDetail.itemList[0].productName!}
-        serviceList={serviceList}
-      />
+      <View className="p-2">
+        <NewServiceBlock
+          serviceList={serviceList.map((server) => {
+            return {
+              id: server.itemId,
+              productId: 0,
+              totalPrice: server.price,
+              num: server.qty,
+              itemId: server.itemId,
+              itemName: server.itemName,
+              price: server.price,
+              selectedItems: [],
+              itemDesc: "",
+              createTime: "",
+              updateTime: "",
+              groupName: "",
+              unit: "",
+            };
+          })}
+        />
+      </View>
     );
   };
   return (
     <>
       <BasePage className="pb-[200px]">
         {!isCancel && (
-          <View className="text-[32px] font-semibold text-rose-500 flex justify-center items-center gap-2 mt-[24px]">
-            支付倒计时
+          <View className="text-[32px] font-semibold text-rose-500 flex-center gap-2 mt-[24px]">
+            <View>支付倒计时</View>
             <Countdown
+              className="pt-0.5"
               value={dayjs(orderDetail.createdAt)
                 .add(29, "minute")
                 .diff(dayjs(), "ms")}
@@ -215,30 +231,32 @@ const OrderPayPage = () => {
             </View>
           </View>
         )}
-        <View className="px-[24px] pt-[24px]">
-          {currentAddress ? (
-            <AddressCard
-              className="shadow-none!"
-              handleClick={() => {
-                selectAddressControl.setOpen(true);
-                setSelectAddress(currentAddress);
-              }}
-              info={currentAddress}
-              showActions={false}
-              isMaskPhone
-              rightAction={
-                <View className="flex flex-col justify-center">
-                  <LucideIcon
-                    name="chevron-right text-gray-500 pr-2"
-                    size={24}
-                  />
-                </View>
-              }
-            />
-          ) : (
-            <Box>请选择地址</Box>
-          )}
-        </View>
+        {!isFW && (
+          <View className="px-[24px] pt-[24px]">
+            {currentAddress ? (
+              <AddressCard
+                className="shadow-none!"
+                handleClick={() => {
+                  selectAddressControl.setOpen(true);
+                  setSelectAddress(currentAddress);
+                }}
+                info={currentAddress}
+                showActions={false}
+                isMaskPhone
+                rightAction={
+                  <View className="flex flex-col justify-center">
+                    <LucideIcon
+                      name="chevron-right text-gray-500 pr-2"
+                      size={24}
+                    />
+                  </View>
+                }
+              />
+            ) : (
+              <Box>请选择地址</Box>
+            )}
+          </View>
+        )}
 
         <View className="mt-[24px] px-[24px]">
           <View className="bg-white rounded-lg">
