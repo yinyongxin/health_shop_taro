@@ -89,18 +89,7 @@ export default () => {
   return (
     <>
       <BasePage className="pb-[200px]">
-        {detailRequest.data && (
-          <>
-            <View className="mt-3 px-2">
-              <Title>进度</Title>
-            </View>
-            <View className="px-2  mt-2 rounded-lg">
-              <AfterSaleStep info={detailRequest.data} />
-            </View>
-          </>
-        )}
-
-        <View className="mt-3 px-2">
+        <View className="px-2">
           <Title className="mt-3">订单信息</Title>
           <View className="bg-white rounded-lg p-2 flex flex-col gap-2 mt-2">
             <InfoCardItem
@@ -128,17 +117,16 @@ export default () => {
             </View>
           </View>
         </View>
-
-        <View className="mt-3 px-2">
-          <View className="bg-white rounded-lg mt-2">
-            <ServiceList
-              product={product}
-              isService={orderDetail.isService}
-              serviceList={orderDetail.itemList || []}
-              showServiceDetail
-            />
-          </View>
-        </View>
+        {detailRequest.data && (
+          <>
+            <View className="mt-3 px-2">
+              <Title>进度</Title>
+            </View>
+            <View className="px-2  mt-2 rounded-lg">
+              <AfterSaleStep info={detailRequest.data} />
+            </View>
+          </>
+        )}
       </BasePage>
       <AppFixedBottom>
         <AppButton
