@@ -106,7 +106,7 @@ const ServerQrcode = () => {
         wapperProps={{ className: "flex flex-col gap-2 p-2" }}
         className="mt-3"
       >
-        <InfoCardItem label="核销数量" value="1次" />
+        <InfoCardItem label="核销数量" value="1" />
         <InfoCardItem label="服务名称" value={serverDetail?.productName} />
         <InfoCardItem label="价格" value={`${serverDetail?.price}元`} />
       </Box>
