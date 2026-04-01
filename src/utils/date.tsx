@@ -49,7 +49,7 @@ export const appDayFormatter = (
     weekList: weekDay,
   });
   if (isStop) {
-    day.bottom = <Text className="text-red-500">停诊</Text>;
+    day.bottom = <Text className="text-rose-500">停诊</Text>;
   } else {
     day.bottom = <Text className="text-lime-500">出诊</Text>;
   }

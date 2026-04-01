@@ -12,7 +12,7 @@ export const MyOrder = () => {
       <View className="px-[24px] pt-[24px] flex justify-between items-center">
         <View className="text-[32px] font-semibold">我的订单</View>
         <View
-          className="flex items-center gap-[8px] active:text-blue-500"
+          className="flex items-center gap-[8px] active:text-sky-500"
           onClick={() => {
             appRouter.navigateTo("orderList", { query: { status: "all" } });
           }}

@@ -61,7 +61,7 @@ export const AfterSaleCard = (props: AfterSaleCardProps) => {
               lableClassName="text-[32px] font-semibold w-auto"
               valueClassName="text-end"
               value={
-                <View className="text-[32px] font-semibold text-red-500">
+                <View className="text-[32px] font-semibold text-rose-500">
                   <Text>￥</Text>
                   <Text>{info.applyAmount}</Text>
                 </View>

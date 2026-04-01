@@ -55,7 +55,7 @@ export const AppTabs = (props: AppTabsProps) => {
                 className={classNames([
                   "text-[28px] text-gray-800",
                   {
-                    "text-blue-500! text-[30px] font-bold": active == tab.value,
+                    "text-sky-500! text-[30px] font-bold": active == tab.value,
                   },
                 ])}
               >
@@ -66,7 +66,7 @@ export const AppTabs = (props: AppTabsProps) => {
                   className={classNames(
                     "absolute left-[50%] bottom-[12px] -translate-x-1/2",
                     "h-[12px] rounded-full w-[80px]",
-                    "bg-linear-to-r from-blue-400 to-blue-500",
+                    "bg-linear-to-r from-sky-400 to-sky-500",
                   )}
                 ></View>
               )}

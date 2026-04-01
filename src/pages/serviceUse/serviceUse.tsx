@@ -54,6 +54,8 @@ export default () => {
 
   const { order: orderDetail } = orderDetailRequest.data;
 
+  const isFW = orderDetail.isService === 1;
+
   const handleUse = (info: CartItem) => {
     appRouter.navigateTo("serverQrcode", {
       query: {
@@ -93,6 +95,7 @@ export default () => {
             let btn = (
               <AppButton
                 size="sm"
+                actived={false}
                 onClick={() => {
                   handleUse(item);
                 }}
@@ -115,17 +118,17 @@ export default () => {
                     <View>{btn}</View>
                   </View>
                   <View className="flex gap-2">
-                    <View className="flex-1 text-sky-500 bg-sky-100 py-2 flex-center rounded">
+                    <View className="flex-1 text-sky-500 bg-sky-50 py-2 flex-center rounded">
                       共{item.qty}次
                     </View>
-                    <View className="flex-1 text-green-500  text-red-500  bg-red-100 bg-green-100 py-2 flex-center rounded">
+                    <View className="flex-1 text-lime-500  text-rose-500  bg-rose-50 py-2 flex-center rounded">
                       已使用{item.usedQty}次
                     </View>
-                    <View className="flex-1 text-green-500 bg-green-100 py-2 flex-center rounded">
+                    <View className="flex-1 text-lime-500 bg-lime-50 py-2 flex-center rounded">
                       剩余{item.qty - item.usedQty}次
                     </View>
                   </View>
-                  <View className="shrink-0 text-red-500">
+                  <View className="shrink-0 text-rose-500">
                     {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}过期
                   </View>
                 </View>
@@ -147,16 +150,20 @@ export default () => {
                   </View>
                 }
               />
-              <InfoCardItem
-                label="快递费"
-                valueClassName="text-end"
-                value={
-                  <View className="text-[32px]">
-                    <Text>￥</Text>
-                    <Text>{orderDetailRequest.data?.order.freightAmount}</Text>
-                  </View>
-                }
-              />
+              {!isFW && (
+                <InfoCardItem
+                  label="快递费"
+                  valueClassName="text-end"
+                  value={
+                    <View className="text-[32px]">
+                      <Text>￥</Text>
+                      <Text>
+                        {orderDetailRequest.data?.order.freightAmount}
+                      </Text>
+                    </View>
+                  }
+                />
+              )}
               <InfoCardItem
                 label="折扣"
                 valueClassName="text-end"
@@ -194,19 +201,6 @@ export default () => {
               label="下单时间"
               value={orderDetailRequest.data?.order.createdAt}
             />
-          </View>
-
-          <View className="p-2 bg-white rounded-md mt-2">
-            <View className="text-[28px] font-bold">
-              {
-                hospitalList?.find(
-                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
-                )?.orgName
-              }
-            </View>
-            <View className="color-gray-500 mt-2">
-              {orderDetailRequest.data?.order.orgId}
-            </View>
           </View>
         </View>
       </BasePage>

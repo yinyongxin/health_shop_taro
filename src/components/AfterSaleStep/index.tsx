@@ -76,7 +76,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
           <View>退款中</View>
         </Steps.Step>
         <Steps.Step>
-          <View className="text-red-500">退款失败</View>
+          <View className="text-rose-500">退款失败</View>
         </Steps.Step>
       </Steps>
     );
@@ -110,7 +110,7 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
           <View>待审核</View>
         </Steps.Step>
         <Steps.Step>
-          <View className="text-red-500">拒绝</View>
+          <View className="text-rose-500">拒绝</View>
         </Steps.Step>
       </Steps>
     );

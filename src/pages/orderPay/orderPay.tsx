@@ -329,7 +329,7 @@ const OrderPayPage = () => {
               right={
                 <LucideIcon
                   name="check"
-                  className="text-green-500"
+                  className="text-lime-500"
                   size={20}
                 ></LucideIcon>
               }
