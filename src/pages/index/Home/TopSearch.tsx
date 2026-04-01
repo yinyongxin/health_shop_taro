@@ -1,10 +1,12 @@
 import { LucideIcon } from "@/components";
 import { appRouter } from "@/router";
+import { useAppEnvStore } from "@/stores";
 import { View, ViewProps } from "@tarojs/components";
 
 type TopSearchProps = {} & ViewProps;
 
 export const TopSearch = (props: TopSearchProps) => {
+  const { orgId, isPublicPlatform } = useAppEnvStore();
   const { ...rest } = props;
 
   return (
@@ -12,7 +14,11 @@ export const TopSearch = (props: TopSearchProps) => {
       className="px-[28px] py-[20px] flex items-center gap-[24px] bg-white/70 backdrop-blur-md rounded-full"
       {...rest}
       onClick={() => {
-        appRouter.navigateTo("wareList");
+        appRouter.navigateTo("wareList", {
+          query: {
+            orgId: !isPublicPlatform ? orgId : undefined,
+          },
+        });
       }}
     >
       <LucideIcon name="search" size={22} />
