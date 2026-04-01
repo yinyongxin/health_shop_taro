@@ -89,30 +89,20 @@ export default () => {
   return (
     <>
       <BasePage className="pb-[200px]">
-        <View className="mt-[32px] px-[24px]">
-          <Title>商品信息</Title>
-          <View className="bg-white rounded-lg mt-[24px]">
-            <ServiceList
-              product={product}
-              isService={orderDetail.isService}
-              serviceList={
-                orderDetail.itemList.map((item) => {
-                  return {
-                    itemId: item.itemId,
-                    itemName: item.itemName,
-                    price: item.price,
-                    qrCode: item.qrCode,
-                    qty: item.qty,
-                    serviceDate: item.serviceDate,
-                    totalPrice: item.totalPrice,
-                    usedQty: item.usedQty,
-                  };
-                }) || []
-              }
-            />
-          </View>
-          <Title className="mt-[32px]">订单信息</Title>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+        {detailRequest.data && (
+          <>
+            <View className="mt-3 px-2">
+              <Title>进度</Title>
+            </View>
+            <View className="px-2  mt-2 rounded-lg">
+              <AfterSaleStep info={detailRequest.data} />
+            </View>
+          </>
+        )}
+
+        <View className="mt-3 px-2">
+          <Title className="mt-3">订单信息</Title>
+          <View className="bg-white rounded-lg p-2 flex flex-col gap-2 mt-2">
             <InfoCardItem
               label="订单编号"
               value={orderDetailRequest.data?.order.orderNo}
@@ -123,13 +113,13 @@ export default () => {
               value={orderDetailRequest.data?.order.createdAt}
               valueClassName="text-end"
             />
-            <View className="border-t-[1px] border-gray-200 pt-[24px]">
+            <View className="border-t-[1px] border-gray-200 pt-2">
               <InfoCardItem
                 label="退款金额"
-                lableClassName="text-[32px] font-semibold w-auto"
+                lableClassName="text-3 font-semibold w-auto"
                 valueClassName="text-end"
                 value={
-                  <View className="text-[32px] font-semibold text-rose-500">
+                  <View className="text-3 font-semibold text-rose-500">
                     <Text>￥</Text>
                     <Text>{orderDetailRequest.data?.order.paymentAmount}</Text>
                   </View>
@@ -139,16 +129,16 @@ export default () => {
           </View>
         </View>
 
-        {detailRequest.data && (
-          <>
-            <View className="mt-[32px] px-[24px]">
-              <Title>进度</Title>
-            </View>
-            <View className="px-[24px]  mt-[24px] rounded-lg">
-              <AfterSaleStep info={detailRequest.data} />
-            </View>
-          </>
-        )}
+        <View className="mt-3 px-2">
+          <View className="bg-white rounded-lg mt-2">
+            <ServiceList
+              product={product}
+              isService={orderDetail.isService}
+              serviceList={orderDetail.itemList || []}
+              showServiceDetail
+            />
+          </View>
+        </View>
       </BasePage>
       <AppFixedBottom>
         <AppButton

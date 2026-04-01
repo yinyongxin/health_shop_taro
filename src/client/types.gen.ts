@@ -113,6 +113,30 @@ export type OrderListItem = {
   isService: number;
 };
 
+export type CartItem = {
+  id: number;
+  orgId: string;
+  orderNo: string;
+  productId: number;
+  productName: string;
+  productImage: string;
+  itemId: number;
+  itemName: string;
+  price: number;
+  qty: number;
+  totalPrice: number;
+  isService: number;
+  serviceDate: string;
+  qrCode: string;
+  qrCodeExpireTime: string;
+  createdAt: string;
+  usedQty: number;
+  itemDesc: string;
+  groupName: string;
+  unit: string;
+  shopProduct: unknown;
+};
+
 export type BannerItem = {
   productId?: string;
   imagePath: string;
@@ -1518,29 +1542,7 @@ export type GetWxShopOrderDetailResponses = {
         freightAmount: number;
         discountAmount: number;
         paymentType: number;
-        itemList: Array<{
-          id: number;
-          orgId: string;
-          orderNo: string;
-          productId: number;
-          productName: string;
-          productImage: string;
-          itemId: number;
-          itemName: string;
-          price: number;
-          qty: number;
-          totalPrice: number;
-          isService: number;
-          serviceDate: string;
-          qrCode: string;
-          qrCodeExpireTime: string;
-          createdAt: string;
-          usedQty: number;
-          itemDesc: string;
-          groupName: string;
-          unit: string;
-          shopProduct: unknown;
-        }>;
+        itemList: Array<CartItem>;
         status: number;
         deliveryCompany: unknown;
         deliveryNo: unknown;

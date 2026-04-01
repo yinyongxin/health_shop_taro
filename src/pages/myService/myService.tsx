@@ -102,7 +102,7 @@ const MyService = () => {
           onLoad={(pageNum) => {
             dataRequest.run(pageNum);
           }}
-        ></AppList>
+        />
       )}
     </BasePage>
   );

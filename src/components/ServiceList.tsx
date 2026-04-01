@@ -1,10 +1,10 @@
-import { OrderListItem } from "@/client";
+import { CartItem } from "@/client";
 import { View } from "@tarojs/components";
 import { NewServiceBlock } from "@/components";
 import { CartWareCard } from "./CartWareCard";
 
 type ServiceListProps = {
-  serviceList: OrderListItem["productList"][number]["services"];
+  serviceList: CartItem[];
   isService: number;
   product: {
     productName: string;
@@ -20,7 +20,7 @@ export const ServiceList = (props: ServiceListProps) => {
   return (
     <>
       {isFW && (
-        <View className="px-2 mb-2 flex flex-col gap-2">
+        <View className="p-2 mb-2 flex flex-col gap-2">
           <View className="rounded-lg p-[24px] bg-linear-to-r from-gray-100 to-white text-[28px] font-semibold flex gap-2 justify-between">
             <View>{product?.productName}</View>
             <View className="text-sky-500">{serviceList.length}项服务</View>
@@ -37,11 +37,11 @@ export const ServiceList = (props: ServiceListProps) => {
                   itemName: server.itemName,
                   price: server.price,
                   selectedItems: [],
-                  itemDesc: "",
-                  createTime: "",
-                  updateTime: "",
-                  groupName: "",
-                  unit: "",
+                  itemDesc: server.itemDesc,
+                  createTime: server.createdAt,
+                  updateTime: server.createdAt,
+                  groupName: server.groupName,
+                  unit: server.unit,
                 };
               })}
             />
