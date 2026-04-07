@@ -8,7 +8,8 @@ import { createAppStore } from "./base";
 
 interface AppUserState {
   totalPrice: number;
-
+  currentAddress?: AddressInfo;
+  updateCurrentAddress: (address: AddressInfo) => void;
   defaultAddress?: AddressInfo;
   addressList: AddressInfo[];
   updateAddressList: () => void;
@@ -20,6 +21,12 @@ interface AppUserState {
 export const useAppUserStore = createAppStore<AppUserState>(
   (set, get) => ({
     totalPrice: 0,
+    currentAddress: undefined,
+    updateCurrentAddress: (address) => {
+      set({
+        currentAddress: address,
+      });
+    },
     addressList: [],
     updateAddressList: async () => {
       const res = await getWxShopAddrList({});
@@ -28,6 +35,8 @@ export const useAppUserStore = createAppStore<AppUserState>(
       set({
         addressList,
         defaultAddress: addressList.find((item) => item.isDefault),
+        currentAddress:
+          addressList.find((item) => item.isDefault) || addressList[0],
       });
     },
 

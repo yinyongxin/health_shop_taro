@@ -7,10 +7,9 @@ import {
   Title,
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
-import { Swiper } from "@taroify/core";
+import { Dialog, Swiper } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import {
-  AddressInfo,
   getWxShopProductDetail,
   postWxShopOrderPay,
   SkuListItem,
@@ -20,6 +19,7 @@ import { SkuSelectContent } from "@/components/SkuSelect/SkuSelectContent";
 import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { useState } from "react";
 import { orderPay } from "@/utils/order";
+import { appRouter } from "@/router";
 import { add, multiply, round, subtract } from "lodash-es";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
@@ -38,11 +38,7 @@ const WareDetail = () => {
   const control = usePopupControl();
   const [quantity, setQuantity] = useState(1);
   const [currentSku, setCurrentSku] = useState<SkuListItem>();
-
-  // 默认地址
-  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
-    appUserStore.defaultAddress,
-  );
+  const { currentAddress, updateCurrentAddress } = appUserStore;
 
   // 商品详情
   const { data: productInfo, loading } = useRequest(async () => {
@@ -102,7 +98,7 @@ const WareDetail = () => {
       if (!productInfo || !currentSku) {
         return;
       }
-      if (!currentAddress?.id) {
+      if (!currentAddress) {
         appToast.error("请选择收货地址");
         return;
       }
@@ -187,6 +183,28 @@ const WareDetail = () => {
       if (!productInfo) {
         return;
       }
+
+      if (!currentAddress) {
+        appToast.error("请选择收货地址");
+        return;
+      }
+
+      if (!currentAddress?.idNo) {
+        Dialog.confirm({
+          theme: "rounded",
+          title: "提示",
+          message:
+            "当前地址没有身份证信息，需要身份证信息才能购买服务，是否去完善地址？",
+          onConfirm: () => {
+            appRouter.navigateTo("editAddress", {
+              query: {
+                detail: currentAddress,
+              },
+            });
+          },
+        });
+        return;
+      }
       try {
         const postWxShopOrderPayRes = await postWxShopOrderPay({
           body: {
@@ -250,6 +268,13 @@ const WareDetail = () => {
           title={productInfo.name}
           footer={
             <View>
+              <AddressSelect
+                className="py-[24px]"
+                address={currentAddress}
+                handleSelectAddress={(val) => {
+                  updateCurrentAddress(val);
+                }}
+              />
               <AppButton
                 loading={handleServerPay.loading}
                 className="flex-1"
@@ -280,7 +305,7 @@ const WareDetail = () => {
               className="py-[24px]"
               address={currentAddress}
               handleSelectAddress={(val) => {
-                setCurrentAddress(val);
+                updateCurrentAddress(val);
               }}
             />
             <AppButton
@@ -352,7 +377,7 @@ const WareDetail = () => {
               className="px-[24px] py-2 bg-white border-t border-gray-100"
               address={currentAddress}
               handleSelectAddress={(val) => {
-                setCurrentAddress(val);
+                updateCurrentAddress(val);
               }}
             />
           )}
