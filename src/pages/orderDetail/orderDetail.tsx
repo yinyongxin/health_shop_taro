@@ -4,7 +4,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { getWxShopOrderDetail, postWxShopAfterSaleApply } from "@/client";
 import { useAppEnvStore } from "@/stores";
-import { appLoading, appToast, isRefundNotCompleted } from "@/utils";
+import { appLoading, appToast, getIsRefundNotCompleted } from "@/utils";
 import { Empty, Skeleton } from "@taroify/core";
 import { SaleStatusEnum } from "@/enums";
 import { useState } from "react";
@@ -57,7 +57,9 @@ export default () => {
 
   const { order: orderDetail, afterSalesRefund } =
     orderDetailRequest.data || {};
-
+  const isRefundNotCompleted = getIsRefundNotCompleted(
+    afterSalesRefund?.refundStatus as SaleStatusEnum,
+  );
   if (orderDetailRequest.error || !orderDetail) {
     return (
       <Empty>
@@ -84,12 +86,28 @@ export default () => {
           (a, b) => a + b,
           0,
         );
+
         if (
           // 如果是售后订单，并且售后类型存在，并且退款未完成，则不展示使用和申请退款按钮
-          afterSalesRefund?.afterSaleType &&
-          isRefundNotCompleted(afterSalesRefund.refundStatus as SaleStatusEnum)
+          isRefundNotCompleted
         ) {
-          return;
+          return (
+            <AppFixedBottom className="flex flex-col gap-2">
+              <AppButton
+                status="warning"
+                onClick={() => {
+                  appRouter.navigateTo("afterSaleDetail", {
+                    query: {
+                      id: afterSalesRefund?.id!,
+                      showBtn: false,
+                    },
+                  });
+                }}
+              >
+                退款申请中-查看进度
+              </AppButton>
+            </AppFixedBottom>
+          );
         }
         const notUse = allUsedQty === 0;
         return (

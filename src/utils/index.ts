@@ -227,7 +227,7 @@ export const maskIdNo = (idNo?: string): string => {
  * @param afterSaleType 售后状态
  * @returns
  */
-export const isRefundNotCompleted = (afterSaleType: SaleStatusEnum) => {
+export const getIsRefundNotCompleted = (afterSaleType: SaleStatusEnum) => {
   const salingStatus: SaleStatusEnum[] = [SaleStatusEnum.PENDING_AUDIT.value];
   return salingStatus.includes(afterSaleType);
 };

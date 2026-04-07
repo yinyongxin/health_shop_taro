@@ -6,7 +6,6 @@ import { getWxShopAfterSaleDetail, getWxShopOrderDetail } from "@/client";
 import { Empty, Skeleton } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import { AppFixedBottom } from "@/components/AppFixedBottom";
-import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
 
 /**
@@ -14,7 +13,7 @@ import { appRouter } from "@/router";
  */
 export default () => {
   const pageParams = usePageParams<"afterSaleDetail">();
-
+  const { showBtn = true } = pageParams || {};
   const detailRequest = useRequest(
     async () => {
       if (!pageParams?.id) {
@@ -122,22 +121,24 @@ export default () => {
           </>
         )}
       </BasePage>
-      <AppFixedBottom>
-        <AppButton
-          onClick={() => {
-            if (!detailRequest.data) {
-              return;
-            }
-            appRouter.navigateTo("orderDetail", {
-              query: {
-                orderNo: detailRequest.data.orderNo,
-              },
-            });
-          }}
-        >
-          查看订单
-        </AppButton>
-      </AppFixedBottom>
+      {showBtn && (
+        <AppFixedBottom>
+          <AppButton
+            onClick={() => {
+              if (!detailRequest.data) {
+                return;
+              }
+              appRouter.navigateTo("orderDetail", {
+                query: {
+                  orderNo: detailRequest.data.orderNo,
+                },
+              });
+            }}
+          >
+            查看订单
+          </AppButton>
+        </AppFixedBottom>
+      )}
     </>
   );
 };

@@ -48,6 +48,7 @@ export interface AllPagesQueryType
   };
   afterSaleDetail: {
     id: string;
+    showBtn?: boolean;
   };
   serviceUse: {
     orderNo: string;
