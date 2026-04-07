@@ -228,11 +228,7 @@ export const maskIdNo = (idNo?: string): string => {
  * @returns
  */
 export const isRefundNotCompleted = (afterSaleType: SaleStatusEnum) => {
-  const salingStatus: SaleStatusEnum[] = [
-    SaleStatusEnum.PENDING_AUDIT.value,
-    SaleStatusEnum.AUDIT_PASS.value,
-    SaleStatusEnum.REFUNDING.value,
-  ];
+  const salingStatus: SaleStatusEnum[] = [SaleStatusEnum.PENDING_AUDIT.value];
   return salingStatus.includes(afterSaleType);
 };
 
