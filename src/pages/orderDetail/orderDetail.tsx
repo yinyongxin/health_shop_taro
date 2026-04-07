@@ -218,6 +218,10 @@ export default () => {
         open={refundReasonOpen}
         setOpen={setRefundReasonOpen}
         showClose
+        onSubmit={(value) => {
+          setRefundReason(value);
+          cancelOrder();
+        }}
       />
     );
   };

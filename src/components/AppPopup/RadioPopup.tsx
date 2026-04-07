@@ -13,10 +13,11 @@ export type RadioPopupProps = AppPopupProps & {
   defaultValue?: string;
   list: RadioPopupItem[];
   onChange?: (value: string) => void;
+  onSubmit?: (value: string) => void;
 };
 
 export const RadioPopup = (props: RadioPopupProps) => {
-  const { onChange, defaultValue, list, setOpen, ...rest } = props;
+  const { onChange, defaultValue, list, setOpen, onSubmit, ...rest } = props;
 
   const { onClose, ...appPopupProps } = rest || {};
 
@@ -36,6 +37,7 @@ export const RadioPopup = (props: RadioPopupProps) => {
           onClick={() => {
             setOpen?.(false);
             onChange?.(value);
+            onSubmit?.(value);
           }}
         >
           确定

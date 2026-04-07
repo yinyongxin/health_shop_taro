@@ -162,7 +162,40 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               <Field
                 className="rounded-lg"
                 required
-                label="手机号"
+                name="receiverPhone"
+                rules={[
+                  {
+                    pattern: new RegExp(PHONE_REGEXP_STR),
+                    message: "请输入正确手机号",
+                  },
+                ]}
+              >
+                <Input type="digit" maxlength={11} placeholder="请输入内容" />
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-2">
+              <View className="text-gray-500">证件类型</View>
+              <Field
+                className="rounded-lg"
+                required
+                name="receiverPhone"
+                rules={[
+                  {
+                    pattern: new RegExp(PHONE_REGEXP_STR),
+                    message: "请输入正确手机号",
+                  },
+                ]}
+              >
+                <Input type="digit" maxlength={11} placeholder="请输入内容" />
+              </Field>
+            </View>
+
+            <View className="flex flex-col gap-2">
+              <View className="text-gray-500">证件号</View>
+              <Field
+                className="rounded-lg"
+                required
                 name="receiverPhone"
                 rules={[
                   {
