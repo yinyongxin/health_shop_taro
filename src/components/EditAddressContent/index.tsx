@@ -64,6 +64,8 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         "detailAddress",
         "postalCode",
         "isDefault",
+        "idNo",
+        "idType",
       ]),
     });
     if (res.data?.code === 0) {
