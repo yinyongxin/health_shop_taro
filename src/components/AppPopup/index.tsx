@@ -39,7 +39,7 @@ export const AppPopup = (props: AppPopupProps) => {
             "h-[100px] w-full",
             "px-3",
             "flex justify-start items-center",
-            " absolute bg-white z-[1]",
+            "absolute bg-white z-[1]",
           )}
         >
           <View className="flex-1 flex flex-start">{leftAction}</View>
