@@ -94,6 +94,7 @@ function App({ children }: PropsWithChildren<any>) {
     urlCheck();
     appNavBarStore.updateTabActive("home");
     appEnvStore.updateOrderStatus();
+    appEnvStore.updateCardTypeDictList();
     wx.miniProgram.getEnv((res) => {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
