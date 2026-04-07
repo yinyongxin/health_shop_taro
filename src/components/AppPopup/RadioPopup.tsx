@@ -56,7 +56,13 @@ export const RadioPopup = (props: RadioPopupProps) => {
         <View className="px-[32px]">
           {list.map((item) => {
             return (
-              <View className="py-[24px] flex justify-between" key={item.value}>
+              <View
+                className="py-[24px] flex justify-between"
+                key={item.value}
+                onClick={() => {
+                  setValue(item.value);
+                }}
+              >
                 <View className="text-[28px] font-bold">{item.title}</View>
                 <Radio
                   name={item.value}
