@@ -1,7 +1,7 @@
-import { AppButton, AppPopup, BasePage } from "@/components";
+import { AppButton, BasePage, RadioPopup } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
-import { View, Text, Radio, RadioGroup } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import {
   AddressInfo,
   getWxShopOrderDetail,
@@ -10,7 +10,7 @@ import {
 } from "@/client";
 import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
-import { Dialog, Empty, Skeleton } from "@taroify/core";
+import { Empty, Skeleton } from "@taroify/core";
 import { useState, useEffect } from "react";
 import { navigateBack } from "@tarojs/taro";
 import { AddressCard } from "@/components/AddressList/AddressCard";
@@ -212,58 +212,13 @@ export default () => {
 
   const popupRender = () => {
     return (
-      <AppPopup
+      <RadioPopup
         title="申请原因"
+        list={RefundReasonMap}
         open={refundReasonOpen}
+        setOpen={setRefundReasonOpen}
         showClose
-        onClose={() => {
-          setRefundReasonOpen(false);
-        }}
-        footer={
-          <AppButton
-            disabled={!refundReason}
-            status="error"
-            onClick={() => {
-              setRefundReasonOpen(false);
-              Dialog.confirm({
-                theme: "rounded",
-                title: "提示",
-                message: "确定申请退款吗？",
-                onConfirm: () => {
-                  cancelOrder();
-                },
-              });
-            }}
-          >
-            确定
-          </AppButton>
-        }
-      >
-        <RadioGroup
-          onChange={(e) => {
-            setRefundReason(e.detail.value);
-          }}
-        >
-          <View className="px-[32px]">
-            {RefundReasonMap.map((item) => {
-              return (
-                <View
-                  className="py-[24px] flex justify-between"
-                  key={item.reason}
-                  onClick={() => {}}
-                >
-                  <View className="text-[28px] font-bold">{item.reason}</View>
-                  <Radio
-                    name={item.reason}
-                    value={item.reason}
-                    checked={item.reason === refundReason}
-                  />
-                </View>
-              );
-            })}
-          </View>
-        </RadioGroup>
-      </AppPopup>
+      />
     );
   };
 

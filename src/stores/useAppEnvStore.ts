@@ -44,7 +44,7 @@ export const useAppEnvStore = createAppStore<useAppEnvState>(
         },
       });
       set({
-        orderStatusList: res?.data?.data || [],
+        cardTypeDictList: res?.data?.data || [],
       });
     },
 
