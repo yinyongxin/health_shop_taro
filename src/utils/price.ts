@@ -1,6 +1,6 @@
-import { CartItem } from "@/client";
+import { OrderDetailItemListItem } from "@/client";
 
-export const calculateTotalPrice = (cartList: CartItem[]) => {
+export const calculateTotalPrice = (cartList: OrderDetailItemListItem[]) => {
   const totalPrice = cartList.reduce((pre, cur) => {
     const { price = 0, quantity = 1 } = cur;
     return pre + price * quantity;

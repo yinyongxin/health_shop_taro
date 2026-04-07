@@ -1,14 +1,14 @@
-import { CartItem } from "@/client";
+import { OrderDetailItemListItem } from "@/client";
 import { View } from "@tarojs/components";
 import { NewServiceBlock } from "@/components";
 import { CartWareCard } from "./CartWareCard";
 
 type ServiceListProps = {
-  serviceList: CartItem[];
+  serviceList: OrderDetailItemListItem[];
   isService: number;
   product: {
-    productName: string;
-    productImage: string;
+    productName?: string;
+    productImage?: string;
     productId: number;
   };
   showServiceDetail?: boolean;

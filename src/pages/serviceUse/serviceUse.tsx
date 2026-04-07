@@ -2,7 +2,7 @@ import { AppButton, BasePage } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
-import { CartItem, getWxShopOrderDetail } from "@/client";
+import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
@@ -53,7 +53,7 @@ export default () => {
 
   const isFW = orderDetail.isService === 1;
 
-  const handleUse = (info: CartItem) => {
+  const handleUse = (info: OrderDetailItemListItem) => {
     appRouter.navigateTo("serverQrcode", {
       query: {
         orderNo: orderDetail.orderNo,

@@ -88,6 +88,8 @@ export type AddressInfo = {
   tag?: string;
   createdAt?: string;
   updatedAt?: string;
+  idNo: string;
+  idType: string;
 };
 
 export type OrderListItem = {
@@ -113,7 +115,34 @@ export type OrderListItem = {
   isService: number;
 };
 
-export type CartItem = {
+export type OrderDetail = {
+  id: number;
+  orderNo: string;
+  orgId: string;
+  userId: string;
+  addressId: number;
+  addressInfo?: AddressInfo;
+  totalAmount: number;
+  paymentAmount: number;
+  freightAmount: number;
+  discountAmount: number;
+  paymentType: unknown;
+  paymentTime: unknown;
+  status: number;
+  deliveryCompany: unknown;
+  deliveryNo: unknown;
+  deliveryTime: unknown;
+  receiveTime: unknown;
+  createdAt: string;
+  updatedAt: string;
+  remark: unknown;
+  applyPayNo: unknown;
+  payId: unknown;
+  isService: number;
+  itemList: OrderDetailItemListItem;
+};
+
+export type OrderDetailItemListItem = {
   id: number;
   orgId: string;
   orderNo: string;
@@ -135,19 +164,6 @@ export type CartItem = {
   groupName: string;
   unit: string;
   shopProduct: unknown;
-};
-
-export type BannerItem = {
-  productId?: string;
-  imagePath: string;
-  name: string;
-  orgId: string;
-  updatedAt: string;
-  bannerOrder: number;
-  bannerType: string;
-  createdAt: string;
-  id: string;
-  jumpUrl?: string;
 };
 
 export type SafeInfo = {
@@ -173,6 +189,19 @@ export type SafeInfo = {
   updateTime: string;
   updateBy: unknown;
   remark: unknown;
+};
+
+export type BannerItem = {
+  productId?: string;
+  imagePath: string;
+  name: string;
+  orgId: string;
+  updatedAt: string;
+  bannerOrder: number;
+  bannerType: string;
+  createdAt: string;
+  id: string;
+  jumpUrl?: string;
 };
 
 export type OrgData = {
@@ -1536,26 +1565,28 @@ export type GetWxShopOrderDetailResponses = {
         orderNo: string;
         orgId: string;
         userId: string;
-        addressId: unknown;
+        addressId: number;
+        addressInfo?: AddressInfo;
         totalAmount: number;
         paymentAmount: number;
         freightAmount: number;
         discountAmount: number;
-        paymentType: number;
-        itemList: Array<CartItem>;
+        paymentType: unknown;
+        paymentTime: unknown;
         status: number;
         deliveryCompany: unknown;
         deliveryNo: unknown;
-        paymentTime: string;
         deliveryTime: unknown;
         receiveTime: unknown;
         createdAt: string;
-        remark: unknown;
-        applyPayNo: string;
-        payId: string;
         updatedAt: string;
+        remark: unknown;
+        applyPayNo: unknown;
+        payId: unknown;
         isService: number;
+        itemList: Array<OrderDetailItemListItem>;
       };
+      afterSalesRefund: SafeInfo;
     };
   };
 };
