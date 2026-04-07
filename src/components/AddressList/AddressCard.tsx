@@ -27,7 +27,7 @@ export const AddressCard = (props: AddressCardProps) => {
     checked,
     handleClick,
     rightAction,
-    isMaskPhone,
+    isMaskPhone = true,
     isMaskIdNo = true,
     showIdNo = false,
   } = props;

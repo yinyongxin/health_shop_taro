@@ -168,7 +168,7 @@ export default () => {
       return (
         <Box
           bgProps={{ className: "bg-white rounded-lg" }}
-          className="px-2 mt-2"
+          className="p-2 mt-2"
         >
           没有地址
         </Box>
@@ -176,7 +176,7 @@ export default () => {
     }
     return (
       <>
-        <View className="px-2 mt-2">
+        <View className="mt-2">
           <AddressCard
             className="shadow-none!"
             info={orderDetailRequest.data?.addressInfo}
@@ -291,9 +291,8 @@ export default () => {
               value={orderDetailRequest.data?.order.createdAt}
             />
           </View>
+          {addressRender()}
         </View>
-
-        {addressRender()}
       </BasePage>
       {renderBottomBtns()}
       {popupRender()}

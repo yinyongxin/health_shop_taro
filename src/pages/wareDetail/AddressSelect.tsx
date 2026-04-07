@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import { AddressInfo } from "@/client";
-import { AppButton, AppPopup, AppTag, LucideIcon } from "@/components";
+import { AppPopup, LucideIcon } from "@/components";
 import { usePopupControl } from "@/hooks";
 import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
@@ -67,23 +67,16 @@ const AddressSelect = (props: AddressSelectProps) => {
             新增地址
           </Text>
         }
-        footer={
-          <AppButton
-            className="w-full"
-            onClick={() => selectAddressControl.setOpen(false)}
-          >
-            确定
-          </AppButton>
-        }
         showClose
       >
         <AddressList
           selectId={address?.id}
           addressCardProps={{
             showActions: false,
-            isMaskPhone: true,
+            showIdNo: true,
             handleClick: (info) => {
               handleSelectAddress?.(info);
+              selectAddressControl.setOpen(false);
             },
           }}
         />

@@ -1,5 +1,6 @@
 import { DictItem } from "@/client";
 import { APP_ENV_CONFIG } from "@/common";
+import { SaleStatusEnum } from "@/enums";
 import {
   getSystemInfoSync,
   showToast,
@@ -219,4 +220,18 @@ export const maskIdNo = (idNo?: string): string => {
   const suffix = idNo.slice(-4);
   const maskedSection = "*".repeat(idNo.length - 8);
   return `${prefix}${maskedSection}${suffix}`;
+};
+
+/**
+ *  判断是否是未完成的售后状态
+ * @param afterSaleType 售后状态
+ * @returns
+ */
+export const isRefundNotCompleted = (afterSaleType: SaleStatusEnum) => {
+  const salingStatus: SaleStatusEnum[] = [
+    SaleStatusEnum.PENDING_AUDIT.value,
+    SaleStatusEnum.AUDIT_PASS.value,
+    SaleStatusEnum.REFUNDING.value,
+  ];
+  return salingStatus.includes(afterSaleType);
 };
