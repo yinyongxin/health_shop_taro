@@ -72,13 +72,13 @@ export default () => {
           </View>
         </View>
 
-        <View className="mt-2 px-2 flex flex-col gap-2">
+        <View className="mt-2 px-2 flex flex-col gap-4">
           {groupKeys.map((groupName) => {
             const itemList = orderDetail.itemList.filter(
               (item) => item.groupName === groupName,
             );
             return (
-              <>
+              <View key={groupName} className="flex flex-col gap-2">
                 <Title key={groupName}>{groupName}</Title>
                 {itemList.map((item) => {
                   let btn = (
@@ -137,7 +137,7 @@ export default () => {
                     </View>
                   );
                 })}
-              </>
+              </View>
             );
           })}
         </View>
