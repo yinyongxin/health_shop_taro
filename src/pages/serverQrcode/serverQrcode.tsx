@@ -78,6 +78,21 @@ const ServerQrcode = () => {
     );
   }
 
+  if (orderDetail?.status !== undefined && orderDetail?.status !== 2) {
+    return (
+      <Empty>
+        <Empty.Description>服务不存在</Empty.Description>
+        <AppButton
+          actived={false}
+          className="mt-[48px] w-[300px]"
+          onClick={() => navigateBack()}
+        >
+          返回
+        </AppButton>
+      </Empty>
+    );
+  }
+
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
     return <Skeleton />;
   }
