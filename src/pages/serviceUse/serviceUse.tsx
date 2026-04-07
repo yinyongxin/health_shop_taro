@@ -5,12 +5,13 @@ import { View, Text } from "@tarojs/components";
 import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
 import { filter, groupBy, keyBy, orderBy } from "lodash-es";
-import { getServiceStatusText } from "@/utils";
+import { getIsRefundNotCompleted, getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import dayjs from "dayjs";
 import { appRouter } from "@/router";
 import { Skeleton } from "./Skeleton";
+import { SaleStatusEnum } from "@/enums";
 
 export default () => {
   const { hospitalList, orderStatusList } = useAppEnvStore();
@@ -31,7 +32,12 @@ export default () => {
     return <Skeleton />;
   }
 
-  const { order: orderDetail } = orderDetailRequest.data || {};
+  const { order: orderDetail, afterSalesRefund } =
+    orderDetailRequest.data || {};
+
+  const isRefundNotCompleted = getIsRefundNotCompleted(
+    afterSalesRefund?.refundStatus as SaleStatusEnum,
+  );
 
   if (!orderDetail) {
     return (
@@ -68,7 +74,9 @@ export default () => {
       <BasePage className="pb-[200px]">
         <View className="px-2 mt-2">
           <View className="text-[32px] font-semibold">
-            {getServiceStatusText(orderDetail.status, orderStatusList)}
+            {isRefundNotCompleted
+              ? "退款申请中"
+              : getServiceStatusText(orderDetail.status, orderStatusList)}
           </View>
         </View>
 
@@ -94,7 +102,11 @@ export default () => {
                   );
 
                   const surplus = item.qty - item.usedQty;
-                  if (surplus === 0 || orderDetail.status !== 2) {
+                  if (
+                    surplus === 0 ||
+                    orderDetail.status !== 2 ||
+                    isRefundNotCompleted
+                  ) {
                     btn = <></>;
                   }
                   return (
