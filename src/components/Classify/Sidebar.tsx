@@ -20,7 +20,7 @@ export const Sidebar = (props: SidebarProps) => {
             key={item.id}
             className="w-full"
             wapperProps={{
-              className: "p-2",
+              className: "px-2 pt-2",
             }}
             onClick={() => {
               setMainActive(item);
