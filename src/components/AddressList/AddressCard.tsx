@@ -80,20 +80,21 @@ export const AddressCard = (props: AddressCardProps) => {
               <View className="text-[28px] font-semibold">
                 {info.receiverName}
               </View>
-              <View>
-                {isMaskPhone
-                  ? maskPhone(info.receiverPhone)
-                  : info.receiverPhone}
-              </View>
-              <View>
-                {showIdNo &&
-                  (isMaskIdNo ? maskIdNo(info.idNo ?? "") : (info.idNo ?? ""))}
-              </View>
             </View>
+
             <View>
               {checked !== undefined && checked && (
                 <AppTag status="error">当前地址</AppTag>
               )}
+            </View>
+          </View>
+          <View className="flex gap-2 px-2">
+            <View>
+              {isMaskPhone ? maskPhone(info.receiverPhone) : info.receiverPhone}
+            </View>
+            <View>
+              {showIdNo &&
+                (isMaskIdNo ? maskIdNo(info.idNo ?? "") : (info.idNo ?? ""))}
             </View>
           </View>
           <View className="flex items-center gap-2 px-2">

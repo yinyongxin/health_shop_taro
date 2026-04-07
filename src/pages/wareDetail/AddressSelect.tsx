@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import { AddressInfo } from "@/client";
-import { AppPopup, LucideIcon } from "@/components";
+import { AppPopup, AppTag, LucideIcon } from "@/components";
 import { usePopupControl } from "@/hooks";
 import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
@@ -18,20 +18,23 @@ const AddressSelect = (props: AddressSelectProps) => {
   return (
     <>
       <View
-        className={classNames(className, "flex flex-col gap-[8px]")}
+        className={classNames(className, "flex flex-col gap-2")}
         onClick={() => {
           selectAddressControl.setOpen(true);
         }}
       >
         {address ? (
-          <View>
-            <View className="flex gap-[8px]">
+          <View className="flex flex-col gap-1">
+            <View className="flex items-center gap-2">
+              <AppTag>{address.tag}</AppTag>
               <View>{address.receiverName}</View>
-              <View>{maskPhone(address.receiverPhone)}</View>
-              <View>{maskIdNo(address?.idNo || "")}</View>
             </View>
             <View className="flex justify-between items-center gap-2">
-              <View className="flex-1 text-black">
+              <View className="flex flex-col gap-1">
+                <View className="flex gap-2">
+                  <View>{maskPhone(address.receiverPhone)}</View>
+                  <View>{maskIdNo(address?.idNo || "")}</View>
+                </View>
                 <View className="flex-1 text-black flex items-center gap-2">
                   <View>{address.province}</View>
                   <View>{address.city}</View>

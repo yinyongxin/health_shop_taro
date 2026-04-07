@@ -271,7 +271,7 @@ const WareDetail = () => {
           footer={
             <View>
               <AddressSelect
-                className="py-[24px]"
+                className="pb-2"
                 address={currentAddress}
                 handleSelectAddress={(val) => {
                   updateCurrentAddress(val);
@@ -304,7 +304,7 @@ const WareDetail = () => {
         footer={
           <View>
             <AddressSelect
-              className="py-[24px]"
+              className="pb-2"
               address={currentAddress}
               handleSelectAddress={(val) => {
                 updateCurrentAddress(val);

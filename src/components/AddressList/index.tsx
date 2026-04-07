@@ -22,10 +22,6 @@ export const AddressList = (props: AddressListProps) => {
   return (
     <View className="flex flex-col gap-2 px-[24px]">
       {addressList.map((address) => {
-        console.log("addressList", address.id === props.selectId, {
-          address,
-          props,
-        });
         return (
           <AddressCard
             key={address.id}
