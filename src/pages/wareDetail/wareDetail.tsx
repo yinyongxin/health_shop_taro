@@ -3,6 +3,7 @@ import {
   AppImage,
   AppPopup,
   BasePage,
+  Box,
   NewServiceBlock,
   Title,
 } from "@/components";
@@ -396,9 +397,7 @@ const WareDetail = () => {
               }}
             />
           )}
-
-          <Title className="px-[24px] mt-[24px]">医院</Title>
-          <View className="p-2 pb-0">
+          <View className="px-2 mt-3">
             <View className="p-2 bg-white rounded-md ">
               <View className="text-[28px] font-bold">
                 {productInfo.orgName}
@@ -408,7 +407,18 @@ const WareDetail = () => {
           </View>
           {/* 
           <Title className="px-[24px] mt-[24px]">服务内容</Title> */}
-          <View className="px-2 mt-3">{getServiceBlock()}</View>
+          <View className="px-2 mt-3">
+            <Box
+              bgProps={{
+                className: "rounded-lg bg-white",
+              }}
+              wapperProps={{
+                className: "p-2",
+              }}
+            >
+              {getServiceBlock()}
+            </Box>
+          </View>
 
           <DetailInfo info={productInfo} />
         </View>

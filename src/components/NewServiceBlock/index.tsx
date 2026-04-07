@@ -27,7 +27,10 @@ export const NewServiceBlock = (props: NewServiceBlockProps) => {
             return null;
           }
           return (
-            <View key={groupKey} className="flex flex-col mb-3">
+            <View
+              key={groupKey}
+              className={classNames("flex flex-col not-first:mt-3")}
+            >
               <Title key={groupKey} className="mb-2">
                 {groupKey || "基础项目"}
               </Title>
