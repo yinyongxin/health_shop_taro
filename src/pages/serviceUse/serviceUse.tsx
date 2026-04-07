@@ -1,10 +1,10 @@
-import { AppButton, BasePage } from "@/components";
+import { AppButton, BasePage, Title } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
-import { groupBy, orderBy } from "lodash-es";
+import { filter, groupBy, keyBy, orderBy } from "lodash-es";
 import { getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
@@ -52,7 +52,7 @@ export default () => {
   }
 
   const group = groupBy(orderDetail.itemList, (item) => item.groupName);
-
+  const groupKeys = Object.keys(group);
   const handleUse = (info: OrderDetailItemListItem) => {
     appRouter.navigateTo("serverQrcode", {
       query: {
@@ -72,67 +72,72 @@ export default () => {
         </View>
 
         <View className="mt-2 px-2 flex flex-col gap-2">
-          {orderBy(orderDetail.itemList, "groupName").map((item) => {
-            let btn = (
-              <AppButton
-                size="sm"
-                actived={false}
-                onClick={() => {
-                  handleUse(item);
-                }}
-              >
-                去核销
-              </AppButton>
-            );
-
-            const surplus = item.qty - item.usedQty;
-            if (surplus === 0) {
-              btn = <></>;
-            }
+          {groupKeys.map((groupName) => {
             return (
-              <View key={item.id} className="bg-white rounded-lg">
-                <View className="p-2 flex flex-col gap-2">
-                  <View className="flex justify-between items-center">
-                    <View className="text-[32px] font-semibold line-clamp-1">
-                      {item.itemName}
-                    </View>
-                    <View>{btn}</View>
-                  </View>
-                  <View className="flex justify-between">
-                    <View>共：</View>
-                    <View className="shrink-0 text-sky-500">
-                      {item.qty}
-                      {item.unit || ""}
-                    </View>
-                  </View>
-                  <View className="flex justify-between">
-                    <View>已使用：</View>
-                    <View className="shrink-0 text-rose-500">
-                      {item.usedQty}
-                      {item.unit || ""}
-                    </View>
-                  </View>
-                  <View className="flex justify-between">
-                    <View>剩余：</View>
-                    <View className="shrink-0 text-lime-500">
-                      {item.qty - item.usedQty}
-                      {item.unit || ""}
-                    </View>
-                  </View>
-                  <View className="flex justify-between">
-                    <View>过期时间：</View>
-                    <View className="shrink-0 text-gray-500">
-                      {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}
-                    </View>
-                  </View>
-                  <View className="flex justify-between">
-                    <View>分组：</View>
-                    <View className="shrink-0 text-gray-500">
-                      {item.groupName}
-                    </View>
-                  </View>
-                </View>
-              </View>
+              <>
+                <Title key={groupName}>{groupName}</Title>
+                {orderDetail.itemList
+                  .filter((item) => item.groupName === groupName)
+                  .map((item) => {
+                    let btn = (
+                      <AppButton
+                        size="sm"
+                        actived={false}
+                        onClick={() => {
+                          handleUse(item);
+                        }}
+                      >
+                        去核销
+                      </AppButton>
+                    );
+
+                    const surplus = item.qty - item.usedQty;
+                    if (surplus === 0) {
+                      btn = <></>;
+                    }
+                    return (
+                      <View key={item.id} className="bg-white rounded-lg">
+                        <View className="p-2 flex flex-col gap-2">
+                          <View className="flex justify-between items-center">
+                            <View className="text-[32px] font-semibold line-clamp-1">
+                              {item.itemName}
+                            </View>
+                            <View>{btn}</View>
+                          </View>
+                          <View className="flex justify-between">
+                            <View>共：</View>
+                            <View className="shrink-0 text-sky-500">
+                              {item.qty}
+                              {item.unit || ""}
+                            </View>
+                          </View>
+                          <View className="flex justify-between">
+                            <View>已使用：</View>
+                            <View className="shrink-0 text-rose-500">
+                              {item.usedQty}
+                              {item.unit || ""}
+                            </View>
+                          </View>
+                          <View className="flex justify-between">
+                            <View>剩余：</View>
+                            <View className="shrink-0 text-lime-500">
+                              {item.qty - item.usedQty}
+                              {item.unit || ""}
+                            </View>
+                          </View>
+                          <View className="flex justify-between">
+                            <View>过期时间：</View>
+                            <View className="shrink-0 text-gray-500">
+                              {dayjs(item.qrCodeExpireTime).format(
+                                "YYYY-MM-DD",
+                              )}
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    );
+                  })}
+              </>
             );
           })}
         </View>
