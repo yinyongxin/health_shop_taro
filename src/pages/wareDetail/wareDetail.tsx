@@ -405,6 +405,13 @@ const WareDetail = () => {
               <View className="color-gray-500 mt-2">{productInfo.orgId}</View>
             </View>
           </View>
+          {productInfo?.usageInstructions && (
+            <View className="px-2 mt-3">
+              <View className="p-2 bg-white rounded-md ">
+                {productInfo?.usageInstructions}
+              </View>
+            </View>
+          )}
           {/* 
           <Title className="px-[24px] mt-[24px]">服务内容</Title> */}
           <View className="px-2 mt-3">
