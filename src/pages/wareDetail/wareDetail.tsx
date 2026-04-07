@@ -208,6 +208,7 @@ const WareDetail = () => {
       const postWxShopOrderPayRes = await postWxShopOrderPay({
         body: {
           payType: 1,
+          addressId: currentAddress.id,
           orgId: appEnvStore.orgId,
           ...getServiceAmount(),
           productList: [
@@ -373,15 +374,13 @@ const WareDetail = () => {
               ))}
           </Swiper>
           <BaseInfo info={productInfo} />
-          {!isFW && (
-            <AddressSelect
-              className="px-[24px] py-2 bg-white border-t border-gray-100"
-              address={currentAddress}
-              handleSelectAddress={(val) => {
-                updateCurrentAddress(val);
-              }}
-            />
-          )}
+          <AddressSelect
+            className="px-[24px] py-2 bg-white border-t border-gray-100"
+            address={currentAddress}
+            handleSelectAddress={(val) => {
+              updateCurrentAddress(val);
+            }}
+          />
           {/* {serviceTagsRender()} */}
 
           {!isFW && (

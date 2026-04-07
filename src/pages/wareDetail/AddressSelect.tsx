@@ -5,7 +5,7 @@ import { usePopupControl } from "@/hooks";
 import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
 import classNames from "classnames";
-import { maskPhone } from "@/utils";
+import { maskIdNo, maskPhone } from "@/utils";
 
 type AddressSelectProps = {
   address?: AddressInfo;
@@ -28,6 +28,7 @@ const AddressSelect = (props: AddressSelectProps) => {
             <View className="flex gap-[8px]">
               <View>{address.receiverName}</View>
               <View>{maskPhone(address.receiverPhone)}</View>
+              <View>{maskIdNo(address?.idNo || "")}</View>
             </View>
             <View className="flex justify-between items-center gap-2">
               <View className="flex-1 text-black">

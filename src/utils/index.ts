@@ -210,3 +210,13 @@ export function maskPhone(phone?: string): string {
 
   return phone.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
 }
+
+export const maskIdNo = (idNo?: string): string => {
+  if (!idNo || idNo.length < 8) {
+    return idNo || "";
+  }
+  const prefix = idNo.slice(0, 4);
+  const suffix = idNo.slice(-4);
+  const maskedSection = "*".repeat(idNo.length - 8);
+  return `${prefix}${maskedSection}${suffix}`;
+};
