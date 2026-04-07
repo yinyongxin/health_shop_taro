@@ -187,8 +187,8 @@ export type SafeInfo = {
   createBy: string;
   createTime: string;
   updateTime: string;
-  updateBy: unknown;
-  remark: unknown;
+  updateBy: string;
+  remark: string;
 };
 
 export type BannerItem = {

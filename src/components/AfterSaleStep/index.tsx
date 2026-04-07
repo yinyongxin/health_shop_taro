@@ -111,6 +111,9 @@ export const AfterSaleStep = (props: AfterSaleStepProps) => {
         </Steps.Step>
         <Steps.Step>
           <View className="text-rose-500">拒绝</View>
+          <View className="mt-2 text-gray-500">
+            {info?.remark || "暂无备注"}
+          </View>
         </Steps.Step>
       </Steps>
     );

@@ -80,12 +80,6 @@ export default () => {
     return;
   }
 
-  const product = {
-    productId: orderDetail.itemList[0].productId!,
-    productName: orderDetail.itemList[0].productName!,
-    productImage: orderDetail.itemList[0].productImage!,
-  };
-
   return (
     <>
       <BasePage className="pb-[200px]">
