@@ -185,10 +185,12 @@ const WareDetail = () => {
 
       if (!currentAddress) {
         appToast.error("请选择收货地址");
+        control.setOpen(true);
         return;
       }
 
       if (!currentAddress?.idNo) {
+        control.setOpen(false);
         Dialog.confirm({
           theme: "rounded",
           title: "提示",

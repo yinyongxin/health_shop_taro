@@ -10,6 +10,8 @@ page {
   line-height: normal;
   @apply bg-gray-100;
   color: rgba(0, 0, 0, 0.75);
+  --popup-z-index: 1010;
+  --backdrop-z-index: 1000;
 }
 
 .taroify-grid-item__icon {
