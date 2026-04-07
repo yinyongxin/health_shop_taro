@@ -3,7 +3,7 @@ import { AppButton } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore } from "@/stores";
 import { View, Text } from "@tarojs/components";
 
 type OrderCardProps = {
@@ -12,7 +12,7 @@ type OrderCardProps = {
 export const OrderCard = (props: OrderCardProps) => {
   const { info } = props;
 
-  const appUserStore = useAppUserStore();
+  const { orderStatusList } = useAppEnvStore();
 
   const getActions = () => {
     if (info.status === 0) {
@@ -58,7 +58,7 @@ export const OrderCard = (props: OrderCardProps) => {
   };
 
   const getStatusText = () => {
-    return appUserStore.orderStatusList.find((item) => {
+    return orderStatusList.find((item) => {
       return item.dictValue === info.status.toString();
     })?.dictLabel;
   };

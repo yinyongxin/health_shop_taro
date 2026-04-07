@@ -22,7 +22,7 @@ import { RefundReasonMap } from "./common";
 
 export default () => {
   const appUserStore = useAppUserStore();
-  const { hospitalList } = useAppEnvStore();
+  const { hospitalList, orderStatusList } = useAppEnvStore();
   const pageParams = usePageParams<"orderPay">();
   const [refundReasonOpen, setRefundReasonOpen] = useState(false);
   const [refundReason, setRefundReason] = useState("");
@@ -185,7 +185,7 @@ export default () => {
       };
 
   const getStatusText = () => {
-    return appUserStore.orderStatusList.find((item) => {
+    return orderStatusList.find((item) => {
       return item.dictValue === orderDetail.status.toString();
     })?.dictLabel;
   };

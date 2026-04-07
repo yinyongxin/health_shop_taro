@@ -3,7 +3,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
-import { useAppEnvStore, useAppUserStore } from "@/stores";
+import { useAppEnvStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
@@ -12,8 +12,7 @@ import { appRouter } from "@/router";
 import { Skeleton } from "./Skeleton";
 
 export default () => {
-  const appUserStore = useAppUserStore();
-  const { hospitalList } = useAppEnvStore();
+  const { hospitalList, orderStatusList } = useAppEnvStore();
 
   const pageParams = usePageParams<"orderPay">();
 
@@ -67,10 +66,7 @@ export default () => {
       <BasePage className="pb-[200px]">
         <View className="px-2 pt-2">
           <View className="text-[32px] font-semibold">
-            {getServiceStatusText(
-              orderDetail.status,
-              appUserStore.orderStatusList,
-            )}
+            {getServiceStatusText(orderDetail.status, orderStatusList)}
           </View>
         </View>
 

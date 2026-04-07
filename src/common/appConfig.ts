@@ -6,13 +6,6 @@ type AppEnvConfig = {
   FILE_PREFIX: string;
 };
 
-// export const APP_ENV_CONFIG = {
-//   //@ts-ignore
-//   development: window.devConfig as AppEnvConfig,
-//   //@ts-ignore
-//   production: window.prodConfig as AppEnvConfig,
-// }[process.env.NODE_ENV];
-
 export const APP_ENV_CONFIG: AppEnvConfig = {
   ENV: "prod",
   APPID: "wxfaaff87825f44139",

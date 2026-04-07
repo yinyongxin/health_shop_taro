@@ -93,7 +93,7 @@ function App({ children }: PropsWithChildren<any>) {
     appEnvStore.initHospitalList?.();
     urlCheck();
     appNavBarStore.updateTabActive("home");
-    appUserStore.updateOrderStatus();
+    appEnvStore.updateOrderStatus();
     wx.miniProgram.getEnv((res) => {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });

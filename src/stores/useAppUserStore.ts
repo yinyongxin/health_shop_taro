@@ -1,9 +1,4 @@
-import {
-  AddressInfo,
-  DictItem,
-  getWxRedirectQueryDict,
-  getWxShopAddrList,
-} from "@/client";
+import { AddressInfo, getWxShopAddrList } from "@/client";
 import { createAppStore } from "./base";
 
 interface AppUserState {
@@ -13,13 +8,10 @@ interface AppUserState {
   defaultAddress?: AddressInfo;
   addressList: AddressInfo[];
   updateAddressList: () => void;
-
-  orderStatusList: DictItem[];
-  updateOrderStatus: () => void;
 }
 
 export const useAppUserStore = createAppStore<AppUserState>(
-  (set, get) => ({
+  (set, _get) => ({
     totalPrice: 0,
     currentAddress: undefined,
     updateCurrentAddress: (address) => {
@@ -37,18 +29,6 @@ export const useAppUserStore = createAppStore<AppUserState>(
         defaultAddress: addressList.find((item) => item.isDefault),
         currentAddress:
           addressList.find((item) => item.isDefault) || addressList[0],
-      });
-    },
-
-    orderStatusList: [],
-    updateOrderStatus: async () => {
-      const res = await getWxRedirectQueryDict({
-        query: {
-          dictType: "shop_order_status",
-        },
-      });
-      set({
-        orderStatusList: res?.data?.data || [],
       });
     },
   }),

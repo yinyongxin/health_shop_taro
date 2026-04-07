@@ -1,10 +1,9 @@
 import { AppTabList, BasePage } from "@/components";
 import { useEffect, useRef, useState } from "react";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopOrderMy, OrderListItem } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { AppList } from "@/components/AppList";
 import classNames from "classnames";
 import { useDidShow } from "@tarojs/taro";
@@ -14,7 +13,7 @@ import { Skeleton } from "./Skeleton";
 
 const OrderList = () => {
   const pageParams = usePageParams<"orderList">();
-  const { orderStatusList } = useAppUserStore();
+  const { orderStatusList } = useAppEnvStore();
   const tabs = [
     {
       label: "全部",

@@ -1,12 +1,12 @@
 import { LucideIcon } from "@/components";
 import { View, Text } from "@tarojs/components";
 import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore } from "@/stores";
 import { OrderStatusIcon } from "@/options";
 import { MyOrderItem } from "./MyOrderItem";
 
 export const MyOrder = () => {
-  const appUserStore = useAppUserStore();
+  const { orderStatusList } = useAppEnvStore();
   return (
     <View className="bg-white rounded-[24px]">
       <View className="px-[24px] pt-[24px] flex justify-between items-center">
@@ -23,7 +23,7 @@ export const MyOrder = () => {
       </View>
       <View className="px-[24px] mt-2 pb-[24px] ">
         <View className="flex justify-between gap-2">
-          {appUserStore.orderStatusList.slice(0, 5).map((status, index) => {
+          {orderStatusList.slice(0, 5).map((status, index) => {
             return (
               <MyOrderItem
                 key={status.dictCode}

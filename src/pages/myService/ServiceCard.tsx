@@ -2,7 +2,7 @@ import { OrderListItem } from "@/client";
 import { AppButton } from "@/components";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { View, Text } from "@tarojs/components";
 
@@ -11,8 +11,7 @@ type ServiceCardProps = {
 };
 export const ServiceCard = (props: ServiceCardProps) => {
   const { info } = props;
-
-  const appUserStore = useAppUserStore();
+  const { orderStatusList } = useAppEnvStore();
 
   const getActions = () => {
     if (info.status === 2) {
@@ -51,7 +50,7 @@ export const ServiceCard = (props: ServiceCardProps) => {
       <View className="py-[24px] px-[24px] flex items-center justify-between">
         <View className="text-[28px] font-semibold">{info.createAt}</View>
         <View className="text-amber-500">
-          {getServiceStatusText(info.status, appUserStore.orderStatusList)}
+          {getServiceStatusText(info.status, orderStatusList)}
         </View>
       </View>
       <View className="bg-white rounded-lg">
