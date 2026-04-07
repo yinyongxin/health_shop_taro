@@ -94,7 +94,7 @@ export default () => {
                   );
 
                   const surplus = item.qty - item.usedQty;
-                  if (surplus === 0) {
+                  if (surplus === 0 && orderDetail.status !== 2) {
                     btn = <></>;
                   }
                   return (
