@@ -25,7 +25,6 @@ import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";
 import { BaseInfo } from "./BaseInfo";
 import AddressSelect from "./AddressSelect";
-// import { ServiceTags } from "./ServiceTags";
 import { Skeleton } from "./Skeleton";
 import { Delivery } from "./Delivery";
 
@@ -205,26 +204,28 @@ const WareDetail = () => {
         });
         return;
       }
+
+      const postWxShopOrderPayRes = await postWxShopOrderPay({
+        body: {
+          payType: 1,
+          orgId: appEnvStore.orgId,
+          ...getServiceAmount(),
+          productList: [
+            {
+              productId: productInfo.id,
+              productName: productInfo.name,
+            },
+          ],
+        },
+      });
+      if (
+        postWxShopOrderPayRes.data?.code !== 0 ||
+        !postWxShopOrderPayRes.data?.data
+      ) {
+        appToast.error("订单创建失败");
+        return;
+      }
       try {
-        const postWxShopOrderPayRes = await postWxShopOrderPay({
-          body: {
-            payType: 1,
-            orgId: appEnvStore.orgId,
-            ...getServiceAmount(),
-            productList: [
-              {
-                productId: productInfo.id,
-                productName: productInfo.name,
-              },
-            ],
-          },
-        });
-        if (
-          postWxShopOrderPayRes.data?.code !== 0 ||
-          !postWxShopOrderPayRes.data?.data
-        ) {
-          throw new Error("订单创建失败");
-        }
         await orderPay(postWxShopOrderPayRes.data.data, {
           success: () => {
             appToast.success("支付成功");
