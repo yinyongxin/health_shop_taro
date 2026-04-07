@@ -4,6 +4,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
+import { groupBy, orderBy } from "lodash-es";
 import { getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
@@ -50,7 +51,7 @@ export default () => {
     );
   }
 
-  const isFW = orderDetail.isService === 1;
+  const group = groupBy(orderDetail.itemList, (item) => item.groupName);
 
   const handleUse = (info: OrderDetailItemListItem) => {
     appRouter.navigateTo("serverQrcode", {
@@ -64,27 +65,14 @@ export default () => {
   return (
     <>
       <BasePage className="pb-[200px]">
-        <View className="px-2 pt-2">
+        <View className="px-2 mt-2">
           <View className="text-[32px] font-semibold">
             {getServiceStatusText(orderDetail.status, orderStatusList)}
           </View>
         </View>
 
         <View className="mt-2 px-2 flex flex-col gap-2">
-          <View className="p-2 bg-white rounded-md mt-2">
-            <View className="text-[28px] font-bold">
-              {
-                hospitalList?.find(
-                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
-                )?.orgName
-              }
-            </View>
-            <View className="color-gray-500 mt-2">
-              {orderDetailRequest.data?.order.orgId}
-            </View>
-          </View>
-
-          {orderDetail.itemList.map((item) => {
+          {orderBy(orderDetail.itemList, "groupName").map((item) => {
             let btn = (
               <AppButton
                 size="sm"
@@ -110,26 +98,58 @@ export default () => {
                     </View>
                     <View>{btn}</View>
                   </View>
-                  <View className="flex gap-2">
-                    <View className="flex-1 text-sky-500 bg-sky-50 py-2 flex-center rounded">
-                      共{item.qty}次
-                    </View>
-                    <View className="flex-1 text-lime-500  text-rose-500  bg-rose-50 py-2 flex-center rounded">
-                      已使用{item.usedQty}次
-                    </View>
-                    <View className="flex-1 text-lime-500 bg-lime-50 py-2 flex-center rounded">
-                      剩余{item.qty - item.usedQty}次
+                  <View className="flex justify-between">
+                    <View>共：</View>
+                    <View className="shrink-0 text-sky-500">
+                      {item.qty}
+                      {item.unit || ""}
                     </View>
                   </View>
-                  <View className="shrink-0 text-rose-500">
-                    {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}过期
+                  <View className="flex justify-between">
+                    <View>已使用：</View>
+                    <View className="shrink-0 text-rose-500">
+                      {item.usedQty}
+                      {item.unit || ""}
+                    </View>
+                  </View>
+                  <View className="flex justify-between">
+                    <View>剩余：</View>
+                    <View className="shrink-0 text-lime-500">
+                      {item.qty - item.usedQty}
+                      {item.unit || ""}
+                    </View>
+                  </View>
+                  <View className="flex justify-between">
+                    <View>过期时间：</View>
+                    <View className="shrink-0 text-gray-500">
+                      {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}
+                    </View>
+                  </View>
+                  <View className="flex justify-between">
+                    <View>分组：</View>
+                    <View className="shrink-0 text-gray-500">
+                      {item.groupName}
+                    </View>
                   </View>
                 </View>
               </View>
             );
           })}
         </View>
-
+        <View className="px-2 mt-2">
+          <View className="p-2 bg-white rounded-md">
+            <View className="text-[28px] font-bold">
+              {
+                hospitalList?.find(
+                  (item) => item.orgId === orderDetailRequest.data?.order.orgId,
+                )?.orgName
+              }
+            </View>
+            <View className="color-gray-500 mt-2">
+              {orderDetailRequest.data?.order.orgId}
+            </View>
+          </View>
+        </View>
         <View className="mt-2 px-2">
           <View className="bg-white rounded-lg">
             <View className="p-2 flex flex-col gap-2">
@@ -143,20 +163,7 @@ export default () => {
                   </View>
                 }
               />
-              {!isFW && (
-                <InfoCardItem
-                  label="快递费"
-                  valueClassName="text-end"
-                  value={
-                    <View className="text-[32px]">
-                      <Text>￥</Text>
-                      <Text>
-                        {orderDetailRequest.data?.order.freightAmount}
-                      </Text>
-                    </View>
-                  }
-                />
-              )}
+
               <InfoCardItem
                 label="折扣"
                 valueClassName="text-end"

@@ -235,3 +235,7 @@ export const isRefundNotCompleted = (afterSaleType: SaleStatusEnum) => {
   ];
   return salingStatus.includes(afterSaleType);
 };
+
+export const getIsFW = (isService: number) => {
+  return isService === 1;
+};
