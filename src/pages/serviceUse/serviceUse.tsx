@@ -4,14 +4,14 @@ import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
-import { filter, groupBy, keyBy, orderBy } from "lodash-es";
+import { groupBy } from "lodash-es";
 import { getIsRefundNotCompleted, getServiceStatusText } from "@/utils";
 import { Empty } from "@taroify/core";
 import { navigateBack } from "@tarojs/taro";
 import dayjs from "dayjs";
 import { appRouter } from "@/router";
-import { Skeleton } from "./Skeleton";
 import { SaleStatusEnum } from "@/enums";
+import { Skeleton } from "./Skeleton";
 
 export default () => {
   const { hospitalList, orderStatusList } = useAppEnvStore();
