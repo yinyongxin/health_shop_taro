@@ -1,6 +1,8 @@
 export * from "./AppTabs";
 export * from "./BasePage";
 export * from "./InfoCard";
+export * from "./InfoCard/InfoCardItem";
+
 export * from "./LoadArea";
 export * from "./AppImage";
 export * from "./Title";

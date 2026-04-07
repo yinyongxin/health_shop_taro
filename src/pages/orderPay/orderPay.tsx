@@ -3,7 +3,6 @@ import {
   getWxShopOrderAddrChange,
   getWxShopOrderDetail,
   getWxShopOrderPay2,
-  OrderListItem,
   postWxShopAddrViewById,
 } from "@/client";
 import {
@@ -16,10 +15,10 @@ import {
   CartWareCard,
   NewServiceBlock,
   Box,
+  AddressList,
+  AddressCard,
+  InfoCardItem,
 } from "@/components";
-import { AddressList } from "@/components/AddressList";
-import { AddressCard } from "@/components/AddressList/AddressCard";
-import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
@@ -40,9 +39,6 @@ const OrderPayPage = () => {
 
   const selectAddressControl = usePopupControl();
 
-  const [currentAddress, setCurrentAddress] = useState<AddressInfo | undefined>(
-    appUserStore.defaultAddress,
-  );
   const [selectAddress, setSelectAddress] = useState<AddressInfo>();
 
   const orderDetailRequest = useRequest(async () => {
@@ -50,7 +46,9 @@ const OrderPayPage = () => {
       query: { orderNo: pageParams.orderNo },
     });
     if (res.data?.code === 0) {
-      return res?.data?.data;
+      const orderData = res.data?.data || {};
+
+      return orderData;
     }
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
@@ -97,16 +95,23 @@ const OrderPayPage = () => {
   );
 
   const initAddress = async () => {
-    if (!orderDetail?.addressId) {
+    if (orderDetailRequest.data?.addressInfo) {
+      setSelectAddress(orderDetailRequest.data?.addressInfo);
       return;
-    }
-    const getAddressRes = await postWxShopAddrViewById({
-      path: { id: orderDetail.addressId.toString() },
-    });
-    if (getAddressRes.data?.code === 0) {
-      setCurrentAddress(getAddressRes.data?.data);
     } else {
-      appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
+      if (!orderDetail?.addressId) {
+        setSelectAddress(appUserStore?.defaultAddress);
+        return;
+      } else {
+        const getAddressRes = await postWxShopAddrViewById({
+          path: { id: orderDetail.addressId.toString() },
+        });
+        if (getAddressRes.data?.code === 0) {
+          setSelectAddress(getAddressRes.data?.data);
+        } else {
+          appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
+        }
+      }
     }
   };
 
@@ -121,15 +126,16 @@ const OrderPayPage = () => {
   /** 是否取消订单 */
   const isCancel = orderDetail.status === 4;
 
-  const updataOrderAddress = async () => {
+  const updataOrderAddress = async (address: AddressInfo) => {
     try {
       appLoading.show("修改订单地址中...");
       const updateOrderAddressRes = await getWxShopOrderAddrChange({
         query: {
           orderNo: pageParams.orderNo,
-          addId: selectAddress?.id,
+          addId: address?.id,
         },
       });
+      setSelectAddress(address);
       if (updateOrderAddressRes.data?.code === 0) {
         await orderDetailRequest.run();
       }
@@ -163,12 +169,6 @@ const OrderPayPage = () => {
   const isFW = orderDetail.isService === 1;
 
   const itemListRender = () => {
-    const serviceList = (orderDetail.itemList || [])?.map((item) => ({
-      ...item,
-      qrCode: "",
-      serviceDate: "",
-    }));
-
     if (!isFW) {
       return orderDetail.itemList?.map((item) => (
         <CartWareCard
@@ -185,27 +185,25 @@ const OrderPayPage = () => {
         />
       ));
     }
+    const serviceList = (orderDetail.itemList || [])?.map((item) => ({
+      id: item.itemId,
+      productId: 0,
+      totalPrice: item.price,
+      num: item.qty,
+      itemId: item.itemId,
+      itemName: item.itemName,
+      price: item.price,
+      selectedItems: [],
+      itemDesc: item.itemDesc,
+      createTime: "",
+      updateTime: "",
+      groupName: item.groupName,
+      unit: item.unit,
+    }));
+
     return (
       <View className="p-2">
-        <NewServiceBlock
-          serviceList={serviceList.map((server) => {
-            return {
-              id: server.itemId,
-              productId: 0,
-              totalPrice: server.price,
-              num: server.qty,
-              itemId: server.itemId,
-              itemName: server.itemName,
-              price: server.price,
-              selectedItems: [],
-              itemDesc: "",
-              createTime: "",
-              updateTime: "",
-              groupName: "",
-              unit: "",
-            };
-          })}
-        />
+        <NewServiceBlock serviceList={serviceList} />
       </View>
     );
   };
@@ -213,7 +211,7 @@ const OrderPayPage = () => {
     <>
       <BasePage className="pb-[200px]">
         {!isCancel && (
-          <View className="text-[32px] font-semibold text-rose-500 flex-center gap-2 mt-[24px]">
+          <View className="text-[32px] font-semibold text-rose-500 flex-center gap-2 mt-2">
             <View>支付倒计时</View>
             <Countdown
               className="pt-0.5"
@@ -225,43 +223,17 @@ const OrderPayPage = () => {
           </View>
         )}
         {isCancel && (
-          <View className="px-[24px] pt-[24px]">
+          <View className="px-2 pt-2">
             <View className="text-[32px] font-semibold text-rose-500">
               订单已取消
             </View>
           </View>
         )}
-        {!isFW && (
-          <View className="px-[24px] pt-[24px]">
-            {currentAddress ? (
-              <AddressCard
-                className="shadow-none!"
-                handleClick={() => {
-                  selectAddressControl.setOpen(true);
-                  setSelectAddress(currentAddress);
-                }}
-                info={currentAddress}
-                showActions={false}
-                isMaskPhone
-                rightAction={
-                  <View className="flex flex-col justify-center">
-                    <LucideIcon
-                      name="chevron-right text-gray-500 pr-2"
-                      size={24}
-                    />
-                  </View>
-                }
-              />
-            ) : (
-              <Box>请选择地址</Box>
-            )}
-          </View>
-        )}
 
-        <View className="mt-[24px] px-[24px]">
+        <View className="mt-2 px-2">
           <View className="bg-white rounded-lg">
             {itemListRender()}
-            <View className="px-[24px] pb-[24px] flex flex-col gap-2">
+            <View className="px-2 pb-2 flex flex-col gap-2">
               <InfoCardItem
                 label="总金额"
                 valueClassName="text-end"
@@ -293,7 +265,7 @@ const OrderPayPage = () => {
                   </View>
                 }
               />
-              <View className="border-t-[1px] border-gray-200 pt-[24px]">
+              <View className="border-t-[1px] border-gray-200 pt-2">
                 <InfoCardItem
                   label="付款金额"
                   lableClassName="text-[32px] font-semibold w-auto"
@@ -308,7 +280,39 @@ const OrderPayPage = () => {
               </View>
             </View>
           </View>
-          <View className="bg-white rounded-lg p-[24px] flex flex-col gap-2 mt-[24px]">
+          <View className="mt-2">
+            {selectAddress ? (
+              <>
+                <AddressCard
+                  className="shadow-none!"
+                  handleClick={() => {
+                    selectAddressControl.setOpen(true);
+                  }}
+                  showIdNo
+                  info={selectAddress}
+                  showActions={false}
+                  isMaskPhone
+                  rightAction={
+                    <View className="flex flex-col justify-center">
+                      <LucideIcon
+                        name="chevron-right text-gray-500 pr-2"
+                        size={24}
+                      />
+                    </View>
+                  }
+                />
+              </>
+            ) : (
+              <Box
+                bgProps={{
+                  className: "bg-white rounded-lg",
+                }}
+              >
+                请选择地址
+              </Box>
+            )}
+          </View>
+          <View className="bg-white rounded-lg p-2 flex flex-col gap-2 mt-2">
             <InfoCardItem label="订单编号" value={orderDetail.orderNo} />
             <InfoCardItem label="下单时间" value={orderDetail.createdAt} />
           </View>
@@ -324,7 +328,7 @@ const OrderPayPage = () => {
               {orderDetailRequest.data?.order.orgId}
             </View>
           </View>
-          <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-[24px]">
+          <View className="bg-white rounded-lg flex flex-col gap-[12px] mt-2">
             <AppCell
               right={
                 <LucideIcon
@@ -341,19 +345,6 @@ const OrderPayPage = () => {
       </BasePage>
       {!isCancel && (
         <AppFixedBottom className="flex gap-2">
-          {/* <AppButton
-            round
-            disabled={!data?.order.orderNo}
-            className="flex-1"
-            loading={orderPayRequest.loading}
-            status="primary"
-            actived={false}
-            onClick={() => {
-              navigateBack();
-            }}
-          >
-            返回
-          </AppButton> */}
           <AppButton
             status="error"
             disabled={!orderDetail.orderNo}
@@ -367,6 +358,7 @@ const OrderPayPage = () => {
           </AppButton>
         </AppFixedBottom>
       )}
+
       <AppPopup
         style={{
           height: "60vh",
@@ -383,29 +375,18 @@ const OrderPayPage = () => {
             新增地址
           </Text>
         }
-        footer={
-          <AppButton
-            className="w-full"
-            onClick={() => {
-              selectAddressControl.setOpen(false);
-              updataOrderAddress();
-            }}
-          >
-            确定
-          </AppButton>
-        }
         onClose={() => {
-          setSelectAddress(undefined);
           selectAddressControl.setOpen(false);
         }}
         showClose
       >
         <AddressList
-          selectId={selectAddress?.id}
           addressCardProps={{
             showActions: false,
+            showIdNo: true,
             handleClick: (info) => {
-              setSelectAddress(info);
+              updataOrderAddress(info);
+              selectAddressControl.setOpen(false);
             },
           }}
         />

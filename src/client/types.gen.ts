@@ -88,8 +88,8 @@ export type AddressInfo = {
   tag?: string;
   createdAt?: string;
   updatedAt?: string;
-  idNo: string;
-  idType: string;
+  idNo?: string;
+  idType?: string;
 };
 
 export type OrderListItem = {
@@ -1587,6 +1587,7 @@ export type GetWxShopOrderDetailResponses = {
         itemList: Array<OrderDetailItemListItem>;
       };
       afterSalesRefund: SafeInfo;
+      addressInfo: AddressInfo;
     };
   };
 };
