@@ -9,16 +9,19 @@ import { navigateBack } from "@tarojs/taro";
 const EditeAddress = () => {
   const { detail } = usePageParams<"editAddress">();
   const appUserStore = useAppUserStore();
+  const address = appUserStore.addressList.find(
+    (item) => item.id === detail?.id,
+  );
   return (
     <>
       <BasePage
         wapperProps={{
-          className: "py-[24px] pb-[160px]",
+          className: "py-[24px] pb-[180px]",
         }}
       >
         <View className="px-[24px] ">
           <EditAddressContent
-            defaultValues={detail}
+            defaultValues={address}
             success={() => {
               appUserStore.updateAddressList();
               navigateBack({

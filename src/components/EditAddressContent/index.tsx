@@ -1,15 +1,16 @@
-import { View } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import classNames from "classnames";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Field, Form, Input, Textarea } from "@taroify/core";
 import { FormController, FormInstance } from "@taroify/core/form";
-import { NAME_REGEXP_STR, PHONE_REGEXP_STR } from "@/common";
+import { CARDNO_REGEXP_STR, NAME_REGEXP_STR, PHONE_REGEXP_STR } from "@/common";
 import { AddressInfo, postWxShopAddrAdd, postWxShopAddrEdit } from "@/client";
-import { useAppUserStore } from "@/stores";
+import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast, getAreaChinese, getAreaCode } from "@/utils";
 import { pick } from "lodash-es";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
 import { AppTag } from "../AppTag";
+import { RadioPopup } from "../AppPopup/RadioPopup";
 
 type EditAddressContentProps = {
   className?: string;
@@ -19,11 +20,16 @@ type EditAddressContentProps = {
 };
 export const EditAddressContent = (props: EditAddressContentProps) => {
   const { addressList = [] } = useAppUserStore();
+  const { cardTypeDictList } = useAppEnvStore();
   const { className, btn, success, defaultValues } = props;
+
+  const [cardTypeOpen, setCardTypeOpen] = useState(false);
   const formRef = useRef<FormInstance>(null);
   const getDefaultValues = () => {
     return {
       ...defaultValues,
+      idType: defaultValues?.idType || cardTypeDictList?.[0]?.dictValue || "",
+      idNo: defaultValues?.idNo || "",
       area: getAreaCode({
         province: defaultValues?.province!,
         city: defaultValues?.city!,
@@ -133,7 +139,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         >
           <View className="flex flex-col gap-[24px]">
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">标签（ 用于区分地址 ）</View>
+              <View className="text-gray-500">
+                标签（ 用于区分地址 ）
+                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+              </View>
               <Field required name="tag" className="rounded-lg">
                 <Input maxlength={10} placeholder="请输入内容" />
               </Field>
@@ -141,7 +150,9 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">姓名</View>
+              <View className="text-gray-500">
+                姓名<Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+              </View>
               <Field
                 className="rounded-lg"
                 required
@@ -158,7 +169,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">手机号</View>
+              <View className="text-gray-500">
+                手机号
+                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+              </View>
               <Field
                 className="rounded-lg"
                 required
@@ -175,41 +189,77 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">证件类型</View>
-              <Field
-                className="rounded-lg"
-                required
-                name="receiverPhone"
-                rules={[
-                  {
-                    pattern: new RegExp(PHONE_REGEXP_STR),
-                    message: "请输入正确手机号",
-                  },
-                ]}
-              >
-                <Input type="digit" maxlength={11} placeholder="请输入内容" />
+              <View className="text-gray-500">
+                证件类型{" "}
+                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+              </View>
+              <Field className="rounded-lg" required name="idType" isLink>
+                {(fieldController: FormController<string>) => {
+                  const value = fieldController?.value;
+                  console.log("idType value:", fieldController);
+                  return (
+                    <>
+                      <Input
+                        value={
+                          cardTypeDictList.find(
+                            (item) => item.dictValue === value,
+                          )?.dictLabel
+                        }
+                        readonly
+                        placeholder="请选择证件类型"
+                        onClick={() => setCardTypeOpen(true)}
+                      />
+                      <RadioPopup
+                        defaultValue={value}
+                        title="证件类型"
+                        open={cardTypeOpen}
+                        setOpen={setCardTypeOpen}
+                        list={cardTypeDictList.map((item) => {
+                          return {
+                            title: item.dictLabel,
+                            value: item.dictValue,
+                          };
+                        })}
+                        onSubmit={(val) => {
+                          formRef.current?.setFieldsValue({
+                            idType: val,
+                          });
+                        }}
+                      />
+                    </>
+                  );
+                }}
               </Field>
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">证件号</View>
+              <View className="text-gray-500">
+                证件号{" "}
+                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+              </View>
               <Field
                 className="rounded-lg"
-                required
-                name="receiverPhone"
+                name="idNo"
                 rules={[
                   {
-                    pattern: new RegExp(PHONE_REGEXP_STR),
-                    message: "请输入正确手机号",
+                    message: "请输入正确的证件号",
+                    validator: (value) => {
+                      if (!value) {
+                        return true;
+                      }
+                      return new RegExp(CARDNO_REGEXP_STR).test(value);
+                    },
                   },
                 ]}
               >
-                <Input type="digit" maxlength={11} placeholder="请输入内容" />
+                <Input placeholder="请输入内容" />
               </Field>
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">地区</View>
+              <View className="text-gray-500">
+                地区<Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+              </View>
               <Field
                 className="rounded-lg"
                 required
@@ -255,7 +305,9 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">街道</View>
+              <View className="text-gray-500">
+                街道<Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+              </View>
               <Field
                 className="rounded-lg"
                 required
@@ -272,7 +324,10 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
             </View>
 
             <View className="flex flex-col gap-2">
-              <View className="text-gray-500">详细地址</View>
+              <View className="text-gray-500">
+                详细地址
+                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+              </View>
               <Field
                 className="rounded-lg"
                 required

@@ -1,5 +1,5 @@
 import { Radio, RadioGroup, View } from "@tarojs/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppPopup, AppPopupProps } from ".";
 import { AppButton } from "../AppButton";
 
@@ -22,6 +22,10 @@ export const RadioPopup = (props: RadioPopupProps) => {
   const { onClose, ...appPopupProps } = rest || {};
 
   const [value, setValue] = useState(defaultValue || "");
+
+  useEffect(() => {
+    setValue(defaultValue || "");
+  }, [defaultValue]);
 
   return (
     <AppPopup
