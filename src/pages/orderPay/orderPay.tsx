@@ -3,7 +3,6 @@ import {
   getWxShopOrderAddrChange,
   getWxShopOrderDetail,
   getWxShopOrderPay2,
-  postWxShopAddrViewById,
 } from "@/client";
 import {
   AppButton,
@@ -23,7 +22,7 @@ import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
 import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
-import { Countdown, Empty } from "@taroify/core";
+import { Countdown, Dialog, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
 import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
@@ -64,6 +63,16 @@ const OrderPayPage = () => {
       if (!orderDetail) {
         return;
       }
+
+      if (!selectAddress?.idNo) {
+        Dialog.confirm({
+          theme: "rounded",
+          title: "提示",
+          backdrop: true,
+          message: "需要证件号信息才能购买服务，请检查所选地址是否包括证件号？",
+        });
+        return;
+      }
       appLoading.show("正在支付...");
       // 创建订单时没有地址
       if (appUserStore.addressList.length === 0) {
@@ -79,7 +88,7 @@ const OrderPayPage = () => {
         },
       });
       if (payRes.data?.code !== 0 || !payRes?.data?.data) {
-        appToast.error("支付失败");
+        appToast.error(payRes.data?.msg || "支付失败");
         return;
       }
       await orderPay(payRes.data.data, {
@@ -95,24 +104,7 @@ const OrderPayPage = () => {
   );
 
   const initAddress = async () => {
-    if (orderDetailRequest.data?.addressInfo) {
-      setSelectAddress(orderDetailRequest.data?.addressInfo);
-      return;
-    } else {
-      if (!orderDetail?.addressId) {
-        setSelectAddress(appUserStore?.defaultAddress);
-        return;
-      } else {
-        const getAddressRes = await postWxShopAddrViewById({
-          path: { id: orderDetail.addressId.toString() },
-        });
-        if (getAddressRes.data?.code === 0) {
-          setSelectAddress(getAddressRes.data?.data);
-        } else {
-          appToast.error(getAddressRes.data?.msg ?? "获取地址失败");
-        }
-      }
-    }
+    setSelectAddress(orderDetailRequest.data?.addressInfo);
   };
 
   useEffect(() => {
@@ -207,6 +199,7 @@ const OrderPayPage = () => {
       </View>
     );
   };
+
   return (
     <>
       <BasePage className="pb-[200px]">

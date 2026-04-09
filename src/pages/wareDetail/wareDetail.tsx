@@ -196,8 +196,7 @@ const WareDetail = () => {
           theme: "rounded",
           title: "提示",
           backdrop: true,
-          message:
-            "当前地址没有身份证信息，需要身份证信息才能购买服务，是否去完善地址？",
+          message: "需要证件号信息才能购买服务，是否去完善信息？",
           onConfirm: () => {
             control.setOpen(false);
             appRouter.navigateTo("editAddress", {

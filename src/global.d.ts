@@ -1,4 +1,4 @@
-declare interface Window extends globalThis.Window {
+declare interface Window {
   env: {
     APPID: string;
     BASE_URL: string;
