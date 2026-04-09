@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components";
 import { AddressInfo } from "@/client";
-import { AppPopup, AppTag, LucideIcon } from "@/components";
+import { AppButton, AppPopup, AppTag, LucideIcon } from "@/components";
 import { usePopupControl } from "@/hooks";
 import { AddressList } from "@/components/AddressList";
 import { appRouter } from "@/router";
@@ -50,7 +50,10 @@ const AddressSelect = (props: AddressSelectProps) => {
             </View>
           </View>
         ) : (
-          <View className="flex-1 text-black flex">去添加</View>
+          <View className="flex-1 text-black flex justify-between py-2">
+            <View className="text-orange-500">购买需要地址信息</View>
+            <View>去添加</View>
+          </View>
         )}
       </View>
 
