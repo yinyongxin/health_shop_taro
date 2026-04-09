@@ -20,22 +20,13 @@
   <body>
     <div id="app"></div>
   </body>
-  <script>
-  window.env = {
-    dev: {
-      ENV: "prod",
+  <script type="text/javascript">
+    window.env = {
       APPID: "wxfaaff87825f44139",
       BASE_URL: "",
       API_PREFIX: "/zhfy",
       FILE_PREFIX: "",
-    }
-    prod: {
-      ENV: "prod",
-      APPID: "wxfaaff87825f44139",
-      BASE_URL: "",
-      API_PREFIX: "/zhfy",
-      FILE_PREFIX: "",
-    }
-  };
-</script>
+    };
+    console.log('当前环境', window.env)
+  </script>
 </html>
