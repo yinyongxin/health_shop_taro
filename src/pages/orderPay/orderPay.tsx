@@ -69,6 +69,7 @@ const OrderPayPage = () => {
           theme: "rounded",
           title: "提示",
           backdrop: true,
+          cancel: null,
           message: "需要证件号信息才能购买服务，请检查所选地址是否包括证件号？",
         });
         return;
