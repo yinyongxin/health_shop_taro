@@ -201,6 +201,43 @@ const OrderPayPage = () => {
     );
   };
 
+  const popupRender = () => {
+    return (
+      <AppPopup
+        style={{
+          height: "60vh",
+        }}
+        {...selectAddressControl}
+        title="选择地址"
+        leftAction={
+          <Text
+            onClick={() => {
+              appRouter.navigateTo("addAddress");
+            }}
+            className="text-sky-500 font-bold"
+          >
+            新增地址
+          </Text>
+        }
+        onClose={() => {
+          selectAddressControl.setOpen(false);
+        }}
+        showClose
+      >
+        <AddressList
+          addressCardProps={{
+            showActions: false,
+            showIdNo: true,
+            handleClick: (info) => {
+              updataOrderAddress(info);
+              selectAddressControl.setOpen(false);
+            },
+          }}
+        />
+      </AppPopup>
+    );
+  };
+
   return (
     <>
       <BasePage className="pb-[200px]">
@@ -352,39 +389,7 @@ const OrderPayPage = () => {
           </AppButton>
         </AppFixedBottom>
       )}
-
-      <AppPopup
-        style={{
-          height: "60vh",
-        }}
-        {...selectAddressControl}
-        title="选择地址"
-        leftAction={
-          <Text
-            onClick={() => {
-              appRouter.navigateTo("addAddress");
-            }}
-            className="text-sky-500 font-bold"
-          >
-            新增地址
-          </Text>
-        }
-        onClose={() => {
-          selectAddressControl.setOpen(false);
-        }}
-        showClose
-      >
-        <AddressList
-          addressCardProps={{
-            showActions: false,
-            showIdNo: true,
-            handleClick: (info) => {
-              updataOrderAddress(info);
-              selectAddressControl.setOpen(false);
-            },
-          }}
-        />
-      </AppPopup>
+      {popupRender()}
     </>
   );
 };
