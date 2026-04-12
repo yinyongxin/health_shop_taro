@@ -44,7 +44,8 @@ const ServerQrcode = () => {
     } as const;
     QRCode.toDataURL(
       JSON.stringify({
-        qrcodeType: "fromShop",
+        orderNo: pageParams.orderNo,
+        serverId: pageParams.serverId,
       }),
       opts,
       function (err, url) {
