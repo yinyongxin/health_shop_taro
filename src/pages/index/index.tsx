@@ -1,5 +1,5 @@
 import { useAppNavBarStore, useAppEnvStore } from "@/stores";
-import { ReactNode } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import { AppTabs } from "@/common";
 import { Classify, HospitalList } from "@/components";
 import { View } from "@tarojs/components";
@@ -12,19 +12,21 @@ export default () => {
 
   const { orgId, isPublicPlatform } = useAppEnvStore();
 
-  const contentRender = (content: ReactNode, condition: boolean[]) => {
-    const show = condition.every((item) => item);
-    console.log("contentRender", { content, condition, show });
-    return (
-      <View
-        style={{
-          display: show ? "block" : "none",
-        }}
-      >
-        {content}
-      </View>
-    );
-  };
+  const contentRender = useCallback(
+    (content: ReactNode, condition: boolean[]) => {
+      const show = condition.every((item) => item);
+      return (
+        <View
+          style={{
+            display: show ? "block" : "none",
+          }}
+        >
+          {content}
+        </View>
+      );
+    },
+    [tabActive],
+  );
 
   return (
     <>
