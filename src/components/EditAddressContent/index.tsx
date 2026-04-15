@@ -49,7 +49,6 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     });
     if (res.data?.code === 0) {
       appToast.success("添加成功");
-
       success?.();
       return;
     }
@@ -75,7 +74,6 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     });
     if (res.data?.code === 0) {
       appToast.success("修改成功");
-
       success?.();
       return;
     }
@@ -83,26 +81,22 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   };
 
   const onSubmit = async (values: AddressInfo & { area: string[] }) => {
-    try {
-      appLoading.show();
-      const { area, ...rest } = values;
-      const [province, city, district] = getAreaChinese(area);
-      const lastValues = {
-        ...rest,
-        province,
-        city,
-        district,
-      } as Required<AddressInfo>;
-      if (defaultValues) {
-        await update({
-          ...defaultValues,
-          ...lastValues,
-        });
-      } else {
-        await add(lastValues);
-      }
-    } finally {
-      appLoading.hide();
+    appLoading.show();
+    const { area, ...rest } = values;
+    const [province, city, district] = getAreaChinese(area);
+    const lastValues = {
+      ...rest,
+      province,
+      city,
+      district,
+    } as Required<AddressInfo>;
+    if (defaultValues) {
+      await update({
+        ...defaultValues,
+        ...lastValues,
+      });
+    } else {
+      await add(lastValues);
     }
   };
 

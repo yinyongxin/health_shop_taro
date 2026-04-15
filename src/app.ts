@@ -10,21 +10,13 @@ import {
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet } from "./client";
-import {
-  appToast,
-  getUrlCode,
-  isDev,
-  jumpWxGetCode,
-  removeUrlParameter,
-} from "./utils";
+import { getUrlCode, isDev, jumpWxGetCode, removeUrlParameter } from "./utils";
 import { client } from "./client/client.gen";
 
 client.instance.interceptors.response.use((response) => {
   const appAuthStore = useAppAuthStore.getState();
   if (appAuthStore.isLogged && response.data?.code === 506) {
-    if (isDev) {
-      appToast.error("登录已过期，请重新登录");
-    } else {
+    if (!isDev) {
       appAuthStore.logout();
     }
   }
