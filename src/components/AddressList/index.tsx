@@ -27,6 +27,7 @@ export const AddressList = (props: AddressListProps) => {
             key={address.id}
             info={address}
             {...addressCardProps}
+            showIdNo
             checked={address.id === props.selectId}
           />
         );

@@ -26,15 +26,12 @@ const AddressSelect = (props: AddressSelectProps) => {
         {address ? (
           <View className="flex flex-col gap-1">
             <View className="flex items-center gap-2">
-              <AppTag>{address.tag}</AppTag>
               <View>{address.receiverName}</View>
+              <View>{maskPhone(address.receiverPhone)}</View>
+              <View>{maskIdNo(address?.idNo || "")}</View>
             </View>
             <View className="flex justify-between items-center gap-2">
               <View className="flex flex-col gap-1">
-                <View className="flex gap-2">
-                  <View>{maskPhone(address.receiverPhone)}</View>
-                  <View>{maskIdNo(address?.idNo || "")}</View>
-                </View>
                 <View className="flex-1 text-black flex items-center gap-2">
                   <View>{address.province}</View>
                   <View>{address.city}</View>

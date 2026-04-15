@@ -9,7 +9,6 @@ import { useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast, getAreaChinese, getAreaCode } from "@/utils";
 import { pick } from "lodash-es";
 import AppAreaPickerPopup from "../AppAreaPickerPopup";
-import { AppTag } from "../AppTag";
 import { RadioPopup } from "../AppPopup/RadioPopup";
 
 type EditAddressContentProps = {
