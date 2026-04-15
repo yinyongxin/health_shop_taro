@@ -1,5 +1,5 @@
 import { useAppNavBarStore, useAppEnvStore } from "@/stores";
-import { ReactNode, useCallback, useMemo } from "react";
+import { ReactNode, useCallback } from "react";
 import { AppTabs } from "@/common";
 import { Classify, HospitalList } from "@/components";
 import { View } from "@tarojs/components";
