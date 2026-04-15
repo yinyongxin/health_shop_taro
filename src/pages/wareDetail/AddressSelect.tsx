@@ -25,9 +25,7 @@ const AddressSelect = (props: AddressSelectProps) => {
   const { address, handleSelectAddress, className } = props;
   const selectAddressControl = usePopupControl();
 
-  const ref = useRef({
-    id: "",
-  });
+
   const appUserStore = useAppUserStore();
   const addAddressControl = usePopupControl();
 
