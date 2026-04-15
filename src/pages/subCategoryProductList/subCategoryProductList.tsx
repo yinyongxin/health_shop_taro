@@ -63,6 +63,7 @@ const SubCategoryProductList = () => {
         style={{
           height: "70vh",
         }}
+        showClose
         {...addAddressControl}
       >
         <View className="p-2 bg-gray-100 overflow-auto pb-20">
