@@ -189,8 +189,8 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
 
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">
-                证件类型{" "}
-                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+                证件类型
+                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
               </View>
               <Field className="rounded-lg" required name="idType" isLink>
                 {(fieldController: FormController<string>) => {

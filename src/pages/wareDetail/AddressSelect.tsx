@@ -77,6 +77,7 @@ const AddressSelect = (props: AddressSelectProps) => {
           addressCardProps={{
             showActions: false,
             showIdNo: true,
+            className: classNames("border border-gray-200 app-shadow"),
             handleClick: (info) => {
               handleSelectAddress?.(info);
               selectAddressControl.setOpen(false);
