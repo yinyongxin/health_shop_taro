@@ -7,8 +7,8 @@ import { AppImage } from "../AppImage";
 
 export type CartWareCardProps = {
   product: {
-    productName: string;
-    productImage: string;
+    productName?: string;
+    productImage?: string;
     productId: number;
   };
   price: number;
@@ -51,7 +51,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
           <AppImage
             className="size-[180px] bg-gray-300 shrink-0 rounded-lg"
             mode="aspectFill"
-            src={product.productImage || ""}
+            src={product?.productImage || ""}
             onClick={() => {
               goToDetailPage();
             }}
@@ -64,7 +64,7 @@ export const CartWareCard = (props: CartWareCardProps) => {
               goToDetailPage();
             }}
           >
-            {product.productName}
+            {product?.productName}
           </View>
           <View className="flex gap-1">
             <AppTag status="secondary">{itemName}</AppTag>

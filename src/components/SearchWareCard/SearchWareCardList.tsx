@@ -77,6 +77,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();
+              addAddressControl.setOpen(false);
             }}
             btn={
               <AppFixedBottom>

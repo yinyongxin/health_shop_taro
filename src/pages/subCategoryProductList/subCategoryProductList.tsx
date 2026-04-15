@@ -1,8 +1,16 @@
-import { AppTopSearch, BasePage } from "@/components";
+import {
+  AppButton,
+  AppFixedBottom,
+  AppPopup,
+  AppTopSearch,
+  BasePage,
+} from "@/components";
 import { View } from "@tarojs/components";
-import { usePageParams, useRequest } from "@/hooks";
+import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { getWxShopCateProduct, ProductDetail } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
+import { EditAddressContent } from "@/components/EditAddressContent";
+import { useAppUserStore } from "@/stores";
 import { useState } from "react";
 import { appRouter } from "@/router";
 import { AppList } from "@/components/AppList";
@@ -45,47 +53,88 @@ const SubCategoryProductList = () => {
     },
   );
 
+  const appUserStore = useAppUserStore();
+  const addAddressControl = usePopupControl();
+
+  const getAddAddressPopup = () => {
+    return (
+      <AppPopup
+        title="新增地址"
+        style={{
+          height: "70vh",
+        }}
+        {...addAddressControl}
+      >
+        <View className="p-2 bg-gray-100 overflow-auto pb-20">
+          <EditAddressContent
+            success={() => {
+              appUserStore.updateAddressList();
+              addAddressControl.setOpen(false);
+            }}
+            btn={
+              <AppFixedBottom>
+                <AppButton className="w-full" status="primary">
+                  保存
+                </AppButton>
+              </AppFixedBottom>
+            }
+          />
+        </View>
+      </AppPopup>
+    );
+  };
+
   if (dataRequest.loading && !dataRequest.data) {
     // if (true) {
     return <Skeleton />;
   }
 
   return (
-    <BasePage fullScreen className="flex-1 subCategoryProductListPage">
-      <View className="p-2 pb-0">
-        <AppTopSearch
-          onSearch={(val) => {
-            setSearch(val);
-            setRefreshNumber(refreshNumber + 1);
-          }}
-        />
-      </View>
-      <View className="flex-1 flex flex-col overflow-hidden">
-        {/* <DownMenu /> */}
-        <AppList
-          {...dataRequest.data}
-          loading={dataRequest.loading}
-          bodyProps={{
-            className: "pr-[24px] flex flex-wrap",
-          }}
-          itemRender={(item) => (
-            <SearchWareCard
-              key={item.id}
-              info={item}
-              handleClick={() => {
-                appRouter.navigateTo("wareDetail", {
-                  query: {
-                    id: item.id.toString(),
-                  },
-                });
-              }}
-            />
-          )}
-          className="flex-1 overflow-y-auto"
-          onLoad={dataRequest.run}
-        />
-      </View>
-    </BasePage>
+    <>
+      <BasePage fullScreen className="flex-1 subCategoryProductListPage">
+        <View className="p-2 pb-0">
+          <AppTopSearch
+            onSearch={(val) => {
+              setSearch(val);
+              setRefreshNumber(refreshNumber + 1);
+            }}
+          />
+        </View>
+        <View className="flex-1 flex flex-col overflow-hidden">
+          {/* <DownMenu /> */}
+          <AppList
+            {...dataRequest.data}
+            loading={dataRequest.loading}
+            bodyProps={{
+              className: "pr-[24px] flex flex-wrap",
+            }}
+            itemRender={(item) => (
+              <SearchWareCard
+                key={item.id}
+                info={item}
+                handleClick={() => {
+                  if (
+                    appUserStore.addressList &&
+                    !appUserStore.addressList.length
+                  ) {
+                    addAddressControl.setOpen(true);
+                    return;
+                  }
+                  appRouter.navigateTo("wareDetail", {
+                    query: {
+                      id: item.id.toString(),
+                    },
+                  });
+                }}
+              />
+            )}
+            className="flex-1 overflow-y-auto"
+            onLoad={dataRequest.run}
+          />
+        </View>
+      </BasePage>
+      {getAddAddressPopup()}
+    </>
   );
 };
 
