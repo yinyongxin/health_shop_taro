@@ -4,6 +4,7 @@ import { usePageParams, useRequest } from "@/hooks";
 import { getWxShopCateProduct, ProductDetail } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
 import { useState } from "react";
+import { appRouter } from "@/router";
 import { AppList } from "@/components/AppList";
 import "./subCategoryProductList.css";
 import { Skeleton } from "./Skeleton";
@@ -67,7 +68,19 @@ const SubCategoryProductList = () => {
           bodyProps={{
             className: "pr-[24px] flex flex-wrap",
           }}
-          itemRender={(item) => <SearchWareCard key={item.id} info={item} />}
+          itemRender={(item) => (
+            <SearchWareCard
+              key={item.id}
+              info={item}
+              handleClick={() => {
+                appRouter.navigateTo("wareDetail", {
+                  query: {
+                    id: item.id.toString(),
+                  },
+                });
+              }}
+            />
+          )}
           className="flex-1 overflow-y-auto"
           onLoad={dataRequest.run}
         />

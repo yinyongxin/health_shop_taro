@@ -245,7 +245,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
                     message: "请输入正确的证件号",
                     validator: (value) => {
                       if (!value) {
-                        return true;
+                        return false;
                       }
                       return new RegExp(CARDNO_REGEXP_STR).test(value);
                     },
