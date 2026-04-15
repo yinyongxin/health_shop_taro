@@ -48,8 +48,8 @@ const AddressSelect = (props: AddressSelectProps) => {
           </View>
         ) : (
           <View className="flex-1 text-black flex justify-between py-2">
-            <View className="text-orange-500">购买需要地址信息</View>
-            <View>去添加</View>
+            <View className="text-orange-500">购买请填写必要信息</View>
+            <View>去填写</View>
           </View>
         )}
       </View>
