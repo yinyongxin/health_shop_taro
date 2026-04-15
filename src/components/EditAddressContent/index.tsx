@@ -107,23 +107,23 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     }
   };
 
-  const tagsRender = () => {
-    const list = ["家", "公司", "学校", "父母", "朋友"];
-    return (
-      <View className="w-full flex gap-[24px] ">
-        {list.map((tag) => (
-          <AppTag
-            key={tag}
-            onClick={() => {
-              formRef.current?.setFieldsValue({ tag });
-            }}
-          >
-            {tag}
-          </AppTag>
-        ))}
-      </View>
-    );
-  };
+  // const tagsRender = () => {
+  //   const list = ["家", "公司", "学校", "父母", "朋友"];
+  //   return (
+  //     <View className="w-full flex gap-[24px] ">
+  //       {list.map((tag) => (
+  //         <AppTag
+  //           key={tag}
+  //           onClick={() => {
+  //             formRef.current?.setFieldsValue({ tag });
+  //           }}
+  //         >
+  //           {tag}
+  //         </AppTag>
+  //       ))}
+  //     </View>
+  //   );
+  // };
 
   return (
     <>
@@ -138,16 +138,16 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
           }}
         >
           <View className="flex flex-col gap-[24px]">
-            <View className="flex flex-col gap-2">
+            {/* <View className="flex flex-col gap-2">
               <View className="text-gray-500">
                 标签（ 用于区分地址 ）
-                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
+                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
               </View>
-              <Field required name="tag" className="rounded-lg">
+              <Field name="tag" className="rounded-lg">
                 <Input maxlength={10} placeholder="请输入内容" />
               </Field>
               {tagsRender()}
-            </View>
+            </View> */}
 
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">
@@ -234,12 +234,13 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
 
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">
-                证件号{" "}
-                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+                证件号
+                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
               </View>
               <Field
                 className="rounded-lg"
                 name="idNo"
+                required
                 rules={[
                   {
                     message: "请输入正确的证件号",
@@ -304,7 +305,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               </Field>
             </View>
 
-            <View className="flex flex-col gap-2">
+            {/* <View className="flex flex-col gap-2">
               <View className="text-gray-500">
                 街道<Text className="text-[18px] text-rose-500 ml-1">必填</Text>
               </View>
@@ -321,12 +322,12 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               >
                 <Input placeholder="请输入内容" />
               </Field>
-            </View>
+            </View> */}
 
             <View className="flex flex-col gap-2">
               <View className="text-gray-500">
                 详细地址
-                <Text className="text-[18px] text-orange-500 ml-1">选填</Text>
+                <Text className="text-[18px] text-rose-500 ml-1">必填</Text>
               </View>
               <Field
                 className="rounded-lg"
