@@ -64,6 +64,7 @@ const SubCategoryProductList = () => {
           height: "70vh",
         }}
         showClose
+        destroyOnClose
         {...addAddressControl}
       >
         <View className="p-2 bg-gray-100 overflow-auto pb-20">

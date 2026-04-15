@@ -12,6 +12,7 @@ export type AppPopupProps = {
   rightAction?: ReactNode;
   showClose?: boolean;
   footer?: ReactNode;
+  destroyOnClose?: boolean;
 } & PopupProps;
 
 export const AppPopup = (props: AppPopupProps) => {
@@ -24,6 +25,7 @@ export const AppPopup = (props: AppPopupProps) => {
     showClose = false,
     children,
     footer,
+    destroyOnClose,
     ...rest
   } = props;
   return (
@@ -64,7 +66,7 @@ export const AppPopup = (props: AppPopupProps) => {
             },
           )}
         >
-          {children}
+          {destroyOnClose ? rest.open && children : children}
         </View>
       </ScrollView>
       {footer && (
