@@ -11,7 +11,7 @@ import { getWxShopCateProduct, ProductDetail } from "@/client";
 import { SearchWareCard } from "@/components/SearchWareCard";
 import { EditAddressContent } from "@/components/EditAddressContent";
 import { useAppUserStore } from "@/stores";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { appRouter } from "@/router";
 import { AppList } from "@/components/AppList";
 import "./subCategoryProductList.css";
@@ -53,6 +53,9 @@ const SubCategoryProductList = () => {
     },
   );
 
+  const ref = useRef({
+    id: "",
+  });
   const appUserStore = useAppUserStore();
   const addAddressControl = usePopupControl();
 
@@ -71,6 +74,11 @@ const SubCategoryProductList = () => {
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: ref.current.id,
+                },
+              });
               addAddressControl.setOpen(false);
             }}
             btn={
@@ -119,6 +127,7 @@ const SubCategoryProductList = () => {
                     appUserStore.addressList &&
                     !appUserStore.addressList.length
                   ) {
+                    ref.current.id = item.id.toString();
                     addAddressControl.setOpen(true);
                     return;
                   }

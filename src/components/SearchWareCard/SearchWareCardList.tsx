@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { getWxShopProductSearch, type ProductDetail } from "@/client";
 import { usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
@@ -61,6 +62,9 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     },
   );
 
+  const ref = useRef({
+    id: "",
+  });
   const appUserStore = useAppUserStore();
   const addAddressControl = usePopupControl();
 
@@ -79,6 +83,11 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();
+              appRouter.navigateTo("wareDetail", {
+                query: {
+                  id: ref.current.id,
+                },
+              });
               addAddressControl.setOpen(false);
             }}
             btn={
@@ -115,6 +124,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
                 appUserStore.addressList &&
                 !appUserStore.addressList.length
               ) {
+                ref.current.id = item.id.toString();
                 addAddressControl.setOpen(true);
                 return;
               }
