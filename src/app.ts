@@ -64,15 +64,7 @@ function App({ children }: PropsWithChildren<any>) {
   const urlCheck = () => {
     const url = new URL(window.location.href);
     const orgId = url.searchParams.get("orgId");
-    const isPublicPlatform = url.searchParams.get("isPublicPlatform");
-    if (isPublicPlatform === "false") {
-      orgId && appEnvStore.updateOrgId(orgId);
-      appEnvStore.updateIsPublicPlatform(false);
-    }
-    if (isPublicPlatform === "true") {
-      appEnvStore.updateOrgId("800001004");
-      appEnvStore.updateIsPublicPlatform(true);
-    }
+    appEnvStore.updateOrgId(orgId || undefined);
 
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {

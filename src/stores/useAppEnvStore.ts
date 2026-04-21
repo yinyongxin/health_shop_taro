@@ -1,11 +1,11 @@
 import { DictItem, getWxRedirectQueryDict, getWxShopOrgList } from "@/client";
 import { createAppStore } from "./base";
 
-interface useAppEnvState {
-  orgId: string;
+interface UseAppEnvState {
+  orgId?: string;
   isPublicPlatform: boolean;
-  updateOrgId: (orgId?: string) => void;
-  getOrgId: () => string | undefined;
+  updateOrgId: (orgId?: UseAppEnvState["orgId"]) => void;
+  getOrgId: () => UseAppEnvState["orgId"];
   updateIsPublicPlatform: (isPublicPlatform: boolean) => void;
   getIsPublicPlatform: () => boolean | undefined;
 
@@ -19,9 +19,9 @@ interface useAppEnvState {
   updateCardTypeDictList: () => void;
 }
 
-export const useAppEnvStore = createAppStore<useAppEnvState>(
+export const useAppEnvStore = createAppStore<UseAppEnvState>(
   (set, get) => ({
-    orgId: "800001004",
+    orgId: undefined,
     updateOrgId: (orgId) => set({ orgId }),
     getOrgId: () => get()?.orgId,
     isPublicPlatform: false,
