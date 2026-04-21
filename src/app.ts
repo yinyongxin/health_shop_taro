@@ -104,7 +104,6 @@ function App({ children }: PropsWithChildren<any>) {
     const checkRes = urlCheck();
     if (appAuthStore.isLogged) {
       appUserStore.updateAddressList();
-      return;
     }
     await checkLogin(checkRes);
   });
