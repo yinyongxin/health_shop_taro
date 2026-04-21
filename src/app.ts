@@ -30,7 +30,7 @@ function App({ children }: PropsWithChildren<any>) {
   const appNavBarStore = useAppNavBarStore();
   const appEnvStore = useAppEnvStore();
 
-  const checkLogin = async (orgId?: string) => {
+  const startLogin = async (orgId?: string) => {
     const { data } = await getWxRedirectOrgIdAppId({
       query: {
         orgId,
@@ -75,13 +75,13 @@ function App({ children }: PropsWithChildren<any>) {
       if (appAuthStore.isLogged) {
         if (appEnvStore.orgId !== orgId) {
           appEnvStore.updateOrgId(orgId);
-          checkLogin(orgId);
+          startLogin(orgId);
           return;
         }
         appUserStore.updateAddressList();
         return;
       }
-      await checkLogin(orgId);
+      await startLogin(orgId);
     };
     start();
   }, [appAuthStore.isLogged]);
