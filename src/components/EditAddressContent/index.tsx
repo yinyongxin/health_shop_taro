@@ -121,7 +121,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   return (
     <>
       <View className="text-orange-500 text-[24px] mt-2">
-        温馨提示：为了确保您能顺利收到商品，请务必填写真实有效的收货地址信息。
+        温馨提示：为了更好的为您服务，请务必填写准确真实有效信息，感谢您的配合。
       </View>
       <View className={classNames("mt-[32px]", className)}>
         <Form

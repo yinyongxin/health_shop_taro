@@ -32,7 +32,7 @@ const AddressSelect = (props: AddressSelectProps) => {
   const getAddAddressPopup = () => {
     return (
       <AppPopup
-        title="新增地址"
+        title="新增服务信息"
         style={{
           height: "70vh",
         }}
