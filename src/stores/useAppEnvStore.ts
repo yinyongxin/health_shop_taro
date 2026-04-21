@@ -3,11 +3,8 @@ import { createAppStore } from "./base";
 
 interface UseAppEnvState {
   orgId?: string;
-  isPublicPlatform: boolean;
   updateOrgId: (orgId?: UseAppEnvState["orgId"]) => void;
   getOrgId: () => UseAppEnvState["orgId"];
-  updateIsPublicPlatform: (isPublicPlatform: boolean) => void;
-  getIsPublicPlatform: () => boolean | undefined;
 
   hospitalList?: any[];
   initHospitalList?: () => void;
@@ -24,10 +21,6 @@ export const useAppEnvStore = createAppStore<UseAppEnvState>(
     orgId: undefined,
     updateOrgId: (orgId) => set({ orgId }),
     getOrgId: () => get()?.orgId,
-    isPublicPlatform: false,
-    updateIsPublicPlatform: (isPublicPlatform) => set({ isPublicPlatform }),
-    getIsPublicPlatform: () => get()?.isPublicPlatform,
-
     hospitalList: [],
     initHospitalList: async () => {
       const res = await getWxShopOrgList();

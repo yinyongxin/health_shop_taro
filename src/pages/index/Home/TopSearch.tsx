@@ -6,7 +6,7 @@ import { View, ViewProps } from "@tarojs/components";
 type TopSearchProps = {} & ViewProps;
 
 export const TopSearch = (props: TopSearchProps) => {
-  const { orgId, isPublicPlatform } = useAppEnvStore();
+  const { orgId } = useAppEnvStore();
   const { ...rest } = props;
 
   return (
@@ -16,7 +16,7 @@ export const TopSearch = (props: TopSearchProps) => {
       onClick={() => {
         appRouter.navigateTo("wareList", {
           query: {
-            orgId: !isPublicPlatform ? orgId : undefined,
+            orgId,
           },
         });
       }}

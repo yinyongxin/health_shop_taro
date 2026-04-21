@@ -97,6 +97,9 @@ import type {
   GetBusinessNumberSourceGeneratedData,
   GetBusinessNumberSourceGeneratedResponses,
   GetBusinessNumberSourceGeneratedErrors,
+  GetWxJsapiByAppIdGetJsapiTicketData,
+  GetWxJsapiByAppIdGetJsapiTicketResponses,
+  GetWxJsapiByAppIdGetJsapiTicketErrors,
   GetWxShopCateListData,
   GetWxShopCateListResponses,
   GetWxShopCateProductData,
@@ -152,9 +155,9 @@ import type {
   GetWxShopOrgListData,
   GetWxShopOrgListResponses,
   GetWxShopOrgListErrors,
-  PostShopShopOrderCheckInData,
-  PostShopShopOrderCheckInResponses,
-  PostShopShopOrderCheckInErrors,
+  GetWxRedirectOrgIdAppIdData,
+  GetWxRedirectOrgIdAppIdResponses,
+  GetWxRedirectOrgIdAppIdErrors,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -1013,6 +1016,25 @@ export const getBusinessNumberSourceGenerated = <
 };
 
 /**
+ * 获取js api Ticket
+ */
+export const getWxJsapiByAppIdGetJsapiTicket = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<GetWxJsapiByAppIdGetJsapiTicketData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    GetWxJsapiByAppIdGetJsapiTicketResponses,
+    GetWxJsapiByAppIdGetJsapiTicketErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/jsapi/{appId}/getJsapiTicket",
+    ...options,
+  });
+};
+
+/**
  * 一二级分类列表
  */
 export const getWxShopCateList = <ThrowOnError extends boolean = false>(
@@ -1451,31 +1473,18 @@ export const getWxShopOrgList = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 医生核销服务接口（需要医生先登录）
- * 请求参数（JSON）：
- *
- * 字段        类型      必填   说明
- * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- * orderNo     String    是     订单编号
- * productId   Long      是     商品ID
- * itemId      Long      是     项目ID
- * qty         Integer   是     核销数量
- * qrCode      String    否     二维码
+ * 根据orgId获取appId
  */
-export const postShopShopOrderCheckIn = <ThrowOnError extends boolean = false>(
-  options: Options<PostShopShopOrderCheckInData, ThrowOnError>,
+export const getWxRedirectOrgIdAppId = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxRedirectOrgIdAppIdData, ThrowOnError>,
 ) => {
-  return (options.client ?? _heyApiClient).post<
-    PostShopShopOrderCheckInResponses,
-    PostShopShopOrderCheckInErrors,
+  return (options?.client ?? _heyApiClient).get<
+    GetWxRedirectOrgIdAppIdResponses,
+    GetWxRedirectOrgIdAppIdErrors,
     ThrowOnError
   >({
     responseType: "json",
-    url: "/shop/shopOrder/checkIn",
+    url: "/wx/redirect/orgId/appId",
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
   });
 };

@@ -70,7 +70,7 @@ function App({ children }: PropsWithChildren<any>) {
     if (showVConsole) {
       new VConsole();
     }
-    removeUrlParameter(["orgId", "isPublicPlatform"]);
+    removeUrlParameter(["orgId"]);
   };
 
   useLaunch(async () => {

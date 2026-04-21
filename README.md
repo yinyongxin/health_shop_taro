@@ -20,30 +20,29 @@ pnpm 10+
 
 ### URL 参数说明
 
-| 参数               | 说明                                                                                                                         |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `isPublicPlatform` | 是否从微信公众号平台进入。`true` 表示从公众号进入，会清空 orgId 使用默认机构；`false` 表示从管理后台进入，会使用传入的 orgId |
-| `orgId`            | 机构ID，用于多租户数据隔离。不同 orgId 对应不同医疗机构/商户的数据。默认值 `800001004`                                       |
-| `openVConsole`     | 打开 VConsole 调试面板（仅测试/正式环境有效）                                                                                |
+| 参数           | 说明                                                                                   |
+| -------------- | -------------------------------------------------------------------------------------- |
+| `orgId`        | 机构ID，用于多租户数据隔离。不同 orgId 对应不同医疗机构/商户的数据。默认值 `800001004` |
+| `openVConsole` | 打开 VConsole 调试面板（仅测试/正式环境有效）                                          |
 
 ### 本地环境
 
-<http://localhost:10086/?isPublicPlatform=false&orgId=800001004#/pages/index/index>
-<http://localhost:10086/?isPublicPlatform=true#/pages/index/index>
+<http://localhost:10086/?orgId=800001004#/pages/index/index>
+<http://localhost:10086/#/pages/index/index>
 
 ### 测试环境
 
 <https://testpay.eh-med.com/zhfy>
 jysy 123456
 
-<https://testpay.eh-med.com/hmall/?openVConsole=true&isPublicPlatform=false&orgId=800001004>
+<https://testpay.eh-med.com/hmall/?openVConsole=true&orgId=800001004>
 
 ### 正式环境
 
 <https://chr.eh-med.com/zhfy/index>
 jysy 123456
 
-<https://chr.eh-med.com/hmall/?openVConsole=true&isPublicPlatform=false&orgId=800001004>
+<https://chr.eh-med.com/hmall/?openVConsole=true&orgId=800001004>
 
 ## 微信公众平台
 

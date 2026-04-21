@@ -1235,6 +1235,47 @@ export type GetBusinessNumberSourceGeneratedResponses = {
 export type GetBusinessNumberSourceGeneratedResponse =
   GetBusinessNumberSourceGeneratedResponses[keyof GetBusinessNumberSourceGeneratedResponses];
 
+export type GetWxJsapiByAppIdGetJsapiTicketData = {
+  body?: never;
+  path: {
+    appId: string;
+  };
+  query?: {
+    url?: string;
+  };
+  url: "/wx/jsapi/{appId}/getJsapiTicket";
+};
+
+export type GetWxJsapiByAppIdGetJsapiTicketErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxJsapiByAppIdGetJsapiTicketError =
+  GetWxJsapiByAppIdGetJsapiTicketErrors[keyof GetWxJsapiByAppIdGetJsapiTicketErrors];
+
+export type GetWxJsapiByAppIdGetJsapiTicketResponses = {
+  200: {
+    code: number;
+    msg: string;
+    data?:
+      | string
+      | number
+      | boolean
+      | Array<unknown>
+      | {
+          [key: string]: unknown;
+        }
+      | number
+      | null;
+  };
+};
+
+export type GetWxJsapiByAppIdGetJsapiTicketResponse =
+  GetWxJsapiByAppIdGetJsapiTicketResponses[keyof GetWxJsapiByAppIdGetJsapiTicketResponses];
+
 export type GetWxShopCateListData = {
   body?: never;
   path?: never;
@@ -1956,45 +1997,29 @@ export type GetWxShopOrgListResponses = {
 export type GetWxShopOrgListResponse =
   GetWxShopOrgListResponses[keyof GetWxShopOrgListResponses];
 
-export type PostShopShopOrderCheckInData = {
-  body: {
-    /**
-     * 订单编号
-     */
-    orderNo: string;
-    /**
-     * 商品ID
-     */
-    productId: string;
-    /**
-     * 项目ID
-     */
-    itemId: string;
-    /**
-     * 核销数量
-     */
-    qty: string;
-    /**
-     * 二维码
-     */
-    qrCode: string;
-  };
+export type GetWxRedirectOrgIdAppIdData = {
+  body?: never;
   path?: never;
-  query?: never;
-  url: "/shop/shopOrder/checkIn";
+  query?: {
+    /**
+     * orgId,非必填，传空或不传给默认appid
+     */
+    orgId?: string;
+  };
+  url: "/wx/redirect/orgId/appId";
 };
 
-export type PostShopShopOrderCheckInErrors = {
+export type GetWxRedirectOrgIdAppIdErrors = {
   400: {
     code: number;
     msg: string;
   };
 };
 
-export type PostShopShopOrderCheckInError =
-  PostShopShopOrderCheckInErrors[keyof PostShopShopOrderCheckInErrors];
+export type GetWxRedirectOrgIdAppIdError =
+  GetWxRedirectOrgIdAppIdErrors[keyof GetWxRedirectOrgIdAppIdErrors];
 
-export type PostShopShopOrderCheckInResponses = {
+export type GetWxRedirectOrgIdAppIdResponses = {
   200: {
     code: number;
     msg: string;
@@ -2011,8 +2036,8 @@ export type PostShopShopOrderCheckInResponses = {
   };
 };
 
-export type PostShopShopOrderCheckInResponse =
-  PostShopShopOrderCheckInResponses[keyof PostShopShopOrderCheckInResponses];
+export type GetWxRedirectOrgIdAppIdResponse =
+  GetWxRedirectOrgIdAppIdResponses[keyof GetWxRedirectOrgIdAppIdResponses];
 
 export type ClientOptions = {
   baseURL: string;

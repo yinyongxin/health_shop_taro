@@ -8,7 +8,7 @@ import { TopSearch } from "./TopSearch";
 // import { GridBlock } from "./GridBlock";
 
 export const Home = () => {
-  const { orgId, isPublicPlatform } = useAppEnvStore();
+  const { orgId } = useAppEnvStore();
   return (
     <BasePage>
       <View className="pt-[32px] pb-[144px]">
@@ -20,7 +20,6 @@ export const Home = () => {
           />
         </View>
         <Banners className="pt-[32px]" orgId={orgId} />
-        {/* {!isPublicPlatform && <GridBlock orgId={orgId} />} */}
         <View className="px-2 pt-[24px]">
           <Title
             action={{
@@ -28,7 +27,7 @@ export const Home = () => {
               onClick: () => {
                 appRouter.navigateTo("wareList", {
                   query: {
-                    orgId: !isPublicPlatform ? orgId : undefined,
+                    orgId,
                   },
                 });
               },
@@ -37,7 +36,7 @@ export const Home = () => {
             推荐商品
           </Title>
         </View>
-        <SearchWareCardList orgId={!isPublicPlatform ? orgId : undefined} />
+        <SearchWareCardList orgId={orgId} />
       </View>
     </BasePage>
   );
