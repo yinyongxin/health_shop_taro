@@ -9,8 +9,14 @@ import {
 } from "./stores";
 import "./app.css";
 import { APP_ENV_CONFIG } from "./common";
-import { getWxRedirectByAppIdGreet } from "./client";
-import { getUrlCode, isDev, jumpWxGetCode, removeUrlParameter } from "./utils";
+import { getWxRedirectByAppIdGreet, getWxRedirectOrgIdAppId } from "./client";
+import {
+  appToast,
+  getUrlCode,
+  isDev,
+  jumpWxGetCode,
+  removeUrlParameter,
+} from "./utils";
 import { client } from "./client/client.gen";
 
 client.instance.interceptors.response.use((response) => {
@@ -29,8 +35,18 @@ function App({ children }: PropsWithChildren<any>) {
   const appNavBarStore = useAppNavBarStore();
   const appEnvStore = useAppEnvStore();
 
-  const checkLogin = async () => {
+  const checkLogin = async (orgId?: string) => {
     if (appAuthStore.isLogged) {
+      return;
+    }
+    const { data } = await getWxRedirectOrgIdAppId({
+      query: {
+        orgId,
+      },
+    });
+    const appId = data?.data;
+    if (!appId) {
+      appToast.error("未获取到医院信息，请确定是否正确访问");
       return;
     }
     // 获取URL中的微信登录码
@@ -38,10 +54,10 @@ function App({ children }: PropsWithChildren<any>) {
     if (wxLoginCode) {
       // 使用微信登录码进行登录
       const res = await getWxRedirectByAppIdGreet({
-        path: { appId: APP_ENV_CONFIG.APPID },
+        path: { appId },
         query: {
           code: wxLoginCode,
-          orgId: appEnvStore.orgId,
+          orgId,
           state: "1",
         },
       });
@@ -57,13 +73,13 @@ function App({ children }: PropsWithChildren<any>) {
       if (isDev) {
         return;
       }
-      jumpWxGetCode();
+      jumpWxGetCode(appId);
     }
   };
 
   const urlCheck = () => {
     const url = new URL(window.location.href);
-    const orgId = url.searchParams.get("orgId");
+    const orgId = url.searchParams.get("orgId") || undefined;
     appEnvStore.updateOrgId(orgId || undefined);
 
     const showVConsole = url.searchParams.get("openVConsole");
@@ -71,18 +87,19 @@ function App({ children }: PropsWithChildren<any>) {
       new VConsole();
     }
     removeUrlParameter(["orgId"]);
+    return orgId;
   };
 
   useLaunch(async () => {
     appEnvStore.initHospitalList?.();
-    urlCheck();
     appNavBarStore.updateTabActive("home");
     appEnvStore.updateOrderStatus();
     appEnvStore.updateCardTypeDictList();
     wx.miniProgram.getEnv((res) => {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
-    await checkLogin();
+    const checkRes = urlCheck();
+    await checkLogin(checkRes);
 
     appUserStore.updateAddressList();
   });

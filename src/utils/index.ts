@@ -110,8 +110,7 @@ export const getUrlCode = () => {
  *
  * https://developers.weixin.qq.com/doc/service/guide/h5/auth.html
  */
-export const getWinxinLoginUrl = () => {
-  const { APPID } = APP_ENV_CONFIG;
+export const getWinxinLoginUrl = (appId: string) => {
   const redirect_uri = encodeURI(
     window.location.origin + window.location.pathname + window.location.search,
   );
@@ -119,7 +118,7 @@ export const getWinxinLoginUrl = () => {
   const url = new URL(
     `https://open.weixin.qq.com/connect/oauth2/authorize#wechat_redirect`,
   );
-  url.searchParams.set("appid", APPID);
+  url.searchParams.set("appid", appId);
   url.searchParams.set("redirect_uri", redirect_uri);
   url.searchParams.set("response_type", "code");
   // snsapi_base：用来获取进入页面的用户的openid的，并且是静默授权并自动跳转到回调页的。（不会弹出信息确认框,仅能获取用户 openid 等信息，无法获取昵称头像）
@@ -129,8 +128,8 @@ export const getWinxinLoginUrl = () => {
 
   return url.href;
 };
-export const jumpWxGetCode = () => {
-  window.location.href = getWinxinLoginUrl();
+export const jumpWxGetCode = (appId: string) => {
+  window.location.href = getWinxinLoginUrl(appId);
 };
 
 export const appToast = {

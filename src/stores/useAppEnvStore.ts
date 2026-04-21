@@ -6,6 +6,10 @@ interface UseAppEnvState {
   updateOrgId: (orgId?: UseAppEnvState["orgId"]) => void;
   getOrgId: () => UseAppEnvState["orgId"];
 
+  appId?: string;
+  updateAppId: (orgId?: UseAppEnvState["appId"]) => void;
+  getAppId: () => UseAppEnvState["appId"];
+
   hospitalList?: any[];
   initHospitalList?: () => void;
 
@@ -21,6 +25,11 @@ export const useAppEnvStore = createAppStore<UseAppEnvState>(
     orgId: undefined,
     updateOrgId: (orgId) => set({ orgId }),
     getOrgId: () => get()?.orgId,
+
+    appId: undefined,
+    updateAppId: (appId) => set({ appId }),
+    getAppId: () => get()?.appId,
+
     hospitalList: [],
     initHospitalList: async () => {
       const res = await getWxShopOrgList();

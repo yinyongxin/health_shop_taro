@@ -2023,16 +2023,7 @@ export type GetWxRedirectOrgIdAppIdResponses = {
   200: {
     code: number;
     msg: string;
-    data?:
-      | string
-      | number
-      | boolean
-      | Array<unknown>
-      | {
-          [key: string]: unknown;
-        }
-      | number
-      | null;
+    data?: string;
   };
 };
 
