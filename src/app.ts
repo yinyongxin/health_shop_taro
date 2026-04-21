@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useLaunch } from "@tarojs/taro";
 import VConsole from "vconsole";
 import {
@@ -18,15 +18,11 @@ import {
 } from "./utils";
 import { client } from "./client/client.gen";
 
-client.instance.interceptors.response.use((response) => {
-  const appAuthStore = useAppAuthStore.getState();
-  if (appAuthStore.isLogged && response.data?.code === 506) {
-    if (!isDev) {
-      appAuthStore.logout();
-    }
-  }
-  return response;
-});
+const getOrgId = () => {
+  const url = new URL(window.location.href);
+  const orgId = url.searchParams.get("orgId") || undefined;
+  return orgId;
+};
 
 function App({ children }: PropsWithChildren<any>) {
   const appAuthStore = useAppAuthStore();
@@ -73,39 +69,40 @@ function App({ children }: PropsWithChildren<any>) {
     }
   };
 
-  const urlCheck = () => {
+  useEffect(() => {
+    const orgId = getOrgId();
+    appEnvStore.updateOrgId(orgId);
+    const start = async () => {
+      if (appAuthStore.isLogged) {
+        appUserStore.updateAddressList();
+        return;
+      }
+      await checkLogin(orgId);
+    };
+    start();
+  }, []);
+
+  useLaunch(async () => {
+    client.instance.interceptors.response.use((response) => {
+      if (appAuthStore.isLogged && response.data?.code === 506) {
+        if (!isDev) {
+          appAuthStore.logout();
+        }
+      }
+      return response;
+    });
     const url = new URL(window.location.href);
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
       new VConsole();
     }
-    const orgId = url.searchParams.get("orgId") || undefined;
-    const isPublicPlatform =
-      url.searchParams.get("isPublicPlatform") || undefined;
-    if (isPublicPlatform === "true") {
-      appEnvStore.updateOrgId(undefined);
-      return undefined;
-    } else if (isPublicPlatform === "false" && orgId) {
-      appEnvStore.updateOrgId(orgId || undefined);
-      return orgId;
-    } else if (!orgId && !isPublicPlatform) {
-      return appEnvStore.getOrgId();
-    }
-  };
-
-  useLaunch(async () => {
-    appEnvStore.initHospitalList?.();
     appNavBarStore.updateTabActive("home");
+    appEnvStore.initHospitalList?.();
     appEnvStore.updateOrderStatus();
     appEnvStore.updateCardTypeDictList();
     wx.miniProgram.getEnv((res) => {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
-    const checkRes = urlCheck();
-    if (appAuthStore.isLogged) {
-      appUserStore.updateAddressList();
-    }
-    await checkLogin(checkRes);
   });
 
   // children 是将要会渲染的页面
