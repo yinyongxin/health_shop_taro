@@ -70,9 +70,9 @@ function App({ children }: PropsWithChildren<any>) {
   };
 
   useEffect(() => {
-    const orgId = getOrgId();
-    appEnvStore.updateOrgId(orgId);
     const start = async () => {
+      const orgId = getOrgId();
+      appEnvStore.updateOrgId(orgId);
       if (appAuthStore.isLogged) {
         appUserStore.updateAddressList();
         return;
@@ -80,7 +80,7 @@ function App({ children }: PropsWithChildren<any>) {
       await checkLogin(orgId);
     };
     start();
-  }, []);
+  }, [appAuthStore.isLogged]);
 
   useLaunch(async () => {
     client.instance.interceptors.response.use((response) => {

@@ -34,9 +34,6 @@ export const useAppAuthStore = createAppStore<AppAuthState>(
         requestInterceptorId = null;
       }
       set({ isLogged: false });
-      if (useAppEnvStore.getState().appId) {
-        jumpWxGetCode(useAppEnvStore.getState().appId!);
-      }
     },
   }),
   "appAuth",
