@@ -44,11 +44,11 @@ export default () => {
         tabs={AppTabs.filter((tab) => {
           if (tab.value === "hospital") {
             // 医院tab仅在orgId存在时显示
-            return !!orgId;
+            return !orgId;
           }
           if (tab.value === "classify") {
             // 分类tab仅在orgId存在时显示
-            return !orgId;
+            return !!orgId;
           }
           return tab.show;
         })}
