@@ -8,7 +8,6 @@ import {
   useAppEnvStore,
 } from "./stores";
 import "./app.css";
-import { APP_ENV_CONFIG } from "./common";
 import { getWxRedirectByAppIdGreet, getWxRedirectOrgIdAppId } from "./client";
 import {
   appToast,
@@ -36,9 +35,6 @@ function App({ children }: PropsWithChildren<any>) {
   const appEnvStore = useAppEnvStore();
 
   const checkLogin = async (orgId?: string) => {
-    if (appAuthStore.isLogged) {
-      return;
-    }
     const { data } = await getWxRedirectOrgIdAppId({
       query: {
         orgId,
@@ -79,15 +75,22 @@ function App({ children }: PropsWithChildren<any>) {
 
   const urlCheck = () => {
     const url = new URL(window.location.href);
-    const orgId = url.searchParams.get("orgId") || undefined;
-    appEnvStore.updateOrgId(orgId || undefined);
-
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
       new VConsole();
     }
-    removeUrlParameter(["orgId"]);
-    return orgId;
+    const orgId = url.searchParams.get("orgId") || undefined;
+    const isPublicPlatform =
+      url.searchParams.get("isPublicPlatform") || undefined;
+    if (isPublicPlatform === "true") {
+      appEnvStore.updateOrgId(undefined);
+      return undefined;
+    } else if (isPublicPlatform === "false" && orgId) {
+      appEnvStore.updateOrgId(orgId || undefined);
+      return orgId;
+    } else if (!orgId && !isPublicPlatform) {
+      return appEnvStore.getOrgId();
+    }
   };
 
   useLaunch(async () => {
@@ -99,9 +102,11 @@ function App({ children }: PropsWithChildren<any>) {
       appAuthStore.updateMiniprogram(res.miniprogram);
     });
     const checkRes = urlCheck();
+    if (appAuthStore.isLogged) {
+      appUserStore.updateAddressList();
+      return;
+    }
     await checkLogin(checkRes);
-
-    appUserStore.updateAddressList();
   });
 
   // children 是将要会渲染的页面

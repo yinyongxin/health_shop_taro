@@ -1,6 +1,7 @@
 import { client } from "@/client/client.gen";
 import { jumpWxGetCode } from "@/utils";
 import { createAppStore } from "./base";
+import { useAppEnvStore } from "./useAppEnvStore";
 
 export interface AppAuthFieldsState {
   isLogged: boolean;
@@ -33,7 +34,9 @@ export const useAppAuthStore = createAppStore<AppAuthState>(
         requestInterceptorId = null;
       }
       set({ isLogged: false });
-      jumpWxGetCode();
+      if (useAppEnvStore.getState().appId) {
+        jumpWxGetCode(useAppEnvStore.getState().appId!);
+      }
     },
   }),
   "appAuth",
