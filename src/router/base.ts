@@ -21,6 +21,11 @@ export const PAGE_NAMES = [
   "afterSaleDetail",
   "hospitalList",
   "serverQrcode",
+  "styleDemo",
+  "clinicalZen",
+  "warmCare",
+  "medTech",
+  "luxuryClinic",
 ] as const;
 
 export type PageName = (typeof PAGE_NAMES)[number];
@@ -75,4 +80,9 @@ export interface AllPagesQueryType
     orderNo: string;
     serverIds: number[];
   };
+  styleDemo: Record<string, unknown>;
+  clinicalZen: Record<string, unknown>;
+  warmCare: Record<string, unknown>;
+  medTech: Record<string, unknown>;
+  luxuryClinic: Record<string, unknown>;
 }
