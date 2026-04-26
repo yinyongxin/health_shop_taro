@@ -49,6 +49,7 @@ export default () => {
   );
 
   useDidShow(() => {
+    setSelectedIds([]);
     orderDetailRequest.run();
   });
 
