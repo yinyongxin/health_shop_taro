@@ -38,7 +38,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
 
   return (
     <View
-      className="pt-3 pl-3 w-1/2 relative"
+      className="pb-3 pl-3 w-1/2 relative"
       onClick={() => {
         handleClick?.();
       }}

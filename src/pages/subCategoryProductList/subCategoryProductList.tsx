@@ -110,7 +110,7 @@ const SubCategoryProductList = () => {
             }}
           />
         </View>
-        <View className="flex-1 flex flex-col overflow-hidden">
+        <View className="flex-1 flex flex-col overflow-hidden mt-4">
           {/* <DownMenu /> */}
           <AppList
             {...dataRequest.data}

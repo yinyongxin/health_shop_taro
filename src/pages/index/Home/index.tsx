@@ -54,7 +54,7 @@ export const Home = () => {
   return (
     <BasePage>
       <HeaderSection />
-      <View className="rounded-t-[24px] bg-gradient-to-b from-sky-100 to-white">
+      <View className="bg-gradient-to-b from-sky-100 to-white">
         <Banners className="pt-4" orgId={orgId} />
 
         <View className="px-3 mt-4">
