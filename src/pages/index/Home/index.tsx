@@ -55,7 +55,7 @@ export const Home = () => {
     <BasePage>
       <HeaderSection />
       <View className="rounded-t-[24px] overflow-hidden bg-gradient-to-b from-sky-100 to-white -translate-y-2">
-        <Banners className="pt-[32px]" orgId={orgId} />
+        <Banners className="pt-4" orgId={orgId} />
 
         <View className="px-2 mt-4">
           <View className="bg-white/80 backdrop-blur-sm rounded-2xl p-4">
