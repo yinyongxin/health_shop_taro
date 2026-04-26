@@ -96,7 +96,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             </View>
           </View>
 
-          <Text className="text-[24px] text-slate-500 line-clamp-2 h-8 leading-relaxed mb-[16px]">
+          <Text className="text-[24px] text-slate-500 line-clamp-1 leading-relaxed mb-[16px]">
             {info.description || "暂无介绍"}
           </Text>
 
