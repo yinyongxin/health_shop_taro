@@ -4,6 +4,7 @@ import {
   Title,
   ServiceProgress,
   AppFixedBottom,
+  ServiceStatusBadge,
 } from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
@@ -13,13 +14,13 @@ import { getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
 import { useState } from "react";
 import { groupBy } from "lodash-es";
-import { getIsRefundNotCompleted, getServiceStatusText, appToast } from "@/utils";
+import { getIsRefundNotCompleted, appToast } from "@/utils";
 import { appRouter } from "@/router";
 import { SaleStatusEnum } from "@/enums";
 import { Skeleton } from "./Skeleton";
 
 export default () => {
-  const { hospitalList, orderStatusList } = useAppEnvStore();
+  const { hospitalList } = useAppEnvStore();
 
   const pageParams = usePageParams<"orderPay">();
 
@@ -91,11 +92,20 @@ export default () => {
     <>
       <BasePage className="pb-[200px]">
         {orderDetail && (
-          <View className="px-2 mt-2">
-            <View className="text-[32px] font-semibold">
-              {isRefundNotCompleted
-                ? "退款申请中"
-                : getServiceStatusText(orderDetail?.status, orderStatusList)}
+          <View className="sticky top-0 z-10 bg-white px-2 py-3 border-b border-gray-100">
+            <View className="flex items-center justify-between">
+              <View className="flex-1">
+                {!orderDetail || isRefundNotCompleted ? (
+                  <ServiceStatusBadge status="refund" />
+                ) : orderDetail.status === 2 ? (
+                  <ServiceStatusBadge status="using" />
+                ) : (
+                  <ServiceStatusBadge status="completed" />
+                )}
+              </View>
+              <Text className="text-[24px] text-gray-400">
+                {orderDetail.orderNo}
+              </Text>
             </View>
           </View>
         )}
