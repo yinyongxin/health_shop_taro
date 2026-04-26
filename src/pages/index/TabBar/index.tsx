@@ -50,7 +50,7 @@ export const TabBar = (props: TabBarProps) => {
             >
               <View
                 className={classNames(
-                  "w-[64px] h-[48px] flex items-center justify-center rounded-full mb-1",
+                  "w-[72px] h-[56px] flex items-center justify-center rounded-full mb-1",
                   "transition-all duration-200",
                   isActived && "bg-gradient-to-b from-sky-100 to-sky-50",
                 )}
@@ -59,7 +59,7 @@ export const TabBar = (props: TabBarProps) => {
               </View>
 
               <Text
-                className={classNames("text-[20px] leading-none", {
+                className={classNames("text-[24px] leading-none", {
                   "font-semibold text-sky-600": isActived,
                   "text-slate-400": !isActived,
                 })}

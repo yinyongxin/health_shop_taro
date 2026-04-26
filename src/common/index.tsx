@@ -24,7 +24,7 @@ export const AppTabs = [
     label: "首页",
     value: "home",
     icon: () => {
-      return <LucideIcon name="house"></LucideIcon>;
+      return <LucideIcon size={18} name="house"></LucideIcon>;
     },
     show: true,
   },
@@ -32,7 +32,7 @@ export const AppTabs = [
     label: "分类",
     value: "classify",
     icon: () => {
-      return <LucideIcon name="layout-grid"></LucideIcon>;
+      return <LucideIcon size={18} name="layout-grid"></LucideIcon>;
     },
     show: true,
   },
@@ -41,7 +41,7 @@ export const AppTabs = [
     label: "医院",
     value: "hospital",
     icon: () => {
-      return <LucideIcon name="hospital" />;
+      return <LucideIcon size={18} name="hospital" />;
     },
     show: true,
   },
@@ -49,7 +49,7 @@ export const AppTabs = [
     label: "我的",
     value: "my",
     icon: () => {
-      return <LucideIcon name="user"></LucideIcon>;
+      return <LucideIcon size={18} name="user"></LucideIcon>;
     },
     show: true,
   },
