@@ -10,6 +10,7 @@ import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
 import { Checkbox } from "@taroify/core";
+import { useDidShow } from "@tarojs/taro";
 import { getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
 import { useState } from "react";
@@ -32,14 +33,23 @@ export default () => {
     );
   };
 
-  const orderDetailRequest = useRequest(async () => {
-    const res = await getWxShopOrderDetail({
-      query: { orderNo: pageParams.orderNo },
-    });
-    if (res.data?.code === 0) {
-      return res?.data?.data;
-    }
-    throw new Error(res.data?.msg ?? "获取订单详情失败");
+  const orderDetailRequest = useRequest(
+    async () => {
+      const res = await getWxShopOrderDetail({
+        query: { orderNo: pageParams.orderNo },
+      });
+      if (res.data?.code === 0) {
+        return res?.data?.data;
+      }
+      throw new Error(res.data?.msg ?? "获取订单详情失败");
+    },
+    {
+      manual: true,
+    },
+  );
+
+  useDidShow(() => {
+    orderDetailRequest.run();
   });
 
   if (orderDetailRequest.loading && !orderDetailRequest.data) {
