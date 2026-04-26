@@ -18,6 +18,15 @@ import {
 } from "./utils";
 import { client } from "./client/client.gen";
 
+client.instance.interceptors.response.use((response) => {
+  if (useAppAuthStore.getState().isLogged && response.data?.code === 506) {
+    if (!isDev) {
+      useAppAuthStore.getState().logout();
+    }
+  }
+  return response;
+});
+
 const getOrgId = () => {
   const url = new URL(window.location.href);
   const orgId = url.searchParams.get("orgId") || undefined;
@@ -74,7 +83,7 @@ function App({ children }: PropsWithChildren<any>) {
       const orgId = getOrgId();
       if (appEnvStore.orgId !== orgId) {
         appEnvStore.updateOrgId(orgId);
-        startLogin(orgId);
+        appAuthStore.logout();
         return;
       }
       if (appAuthStore.isLogged) {
@@ -87,14 +96,6 @@ function App({ children }: PropsWithChildren<any>) {
   }, [appAuthStore.isLogged]);
 
   useLaunch(async () => {
-    client.instance.interceptors.response.use((response) => {
-      if (appAuthStore.isLogged && response.data?.code === 506) {
-        if (!isDev) {
-          appAuthStore.logout();
-        }
-      }
-      return response;
-    });
     const url = new URL(window.location.href);
     const showVConsole = url.searchParams.get("openVConsole");
     if (showVConsole) {
