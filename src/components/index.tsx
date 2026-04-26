@@ -25,5 +25,6 @@ export * from "./AddressList/AddressCard";
 export * from "./AfterSaleStep";
 export * from "./Classify";
 export * from "./HospitalList";
+export * from "./ServiceProgress";
 export * from "./Box";
 export * from "./AppPopup/RadioPopup";

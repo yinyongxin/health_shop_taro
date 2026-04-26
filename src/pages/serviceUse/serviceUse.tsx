@@ -1,14 +1,19 @@
-import { AppButton, BasePage, Title } from "@/components";
+import {
+  AppButton,
+  BasePage,
+  Title,
+  ServiceProgress,
+  AppFixedBottom,
+} from "@/components";
 import { InfoCardItem } from "@/components/InfoCard/InfoCardItem";
 import { usePageParams, useRequest } from "@/hooks";
 import { View, Text } from "@tarojs/components";
-import { OrderDetailItemListItem, getWxShopOrderDetail } from "@/client";
+import { Checkbox } from "@taroify/core";
+import { getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
+import { useState } from "react";
 import { groupBy } from "lodash-es";
 import { getIsRefundNotCompleted, getServiceStatusText } from "@/utils";
-import { Empty } from "@taroify/core";
-import { navigateBack } from "@tarojs/taro";
-import dayjs from "dayjs";
 import { appRouter } from "@/router";
 import { SaleStatusEnum } from "@/enums";
 import { Skeleton } from "./Skeleton";
@@ -17,6 +22,14 @@ export default () => {
   const { hospitalList, orderStatusList } = useAppEnvStore();
 
   const pageParams = usePageParams<"orderPay">();
+
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
+  const toggleSelect = (id: number) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
+    );
+  };
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
@@ -39,112 +52,88 @@ export default () => {
     afterSalesRefund?.refundStatus as SaleStatusEnum,
   );
 
-  if (!orderDetail) {
-    return (
-      <Empty>
-        <Empty.Image></Empty.Image>
-        <Empty.Description>
-          {orderDetailRequest.error?.message || "订单不存在"}
-        </Empty.Description>
-        <AppButton
-          actived={false}
-          className="mt-[48px] w-[300px]"
-          onClick={() => navigateBack()}
-        >
-          返回
-        </AppButton>
-      </Empty>
-    );
-  }
+  const itemList = orderDetail?.itemList ?? [];
+  const allSelected = itemList
+    .filter((item) => item.qty - item.usedQty > 0)
+    .map((item) => item.id);
 
-  const group = groupBy(orderDetail.itemList, (item) => item.groupName);
-  const groupKeys = Object.keys(group);
+  const isAllSelected =
+    allSelected.length > 0 &&
+    allSelected.every((id) => selectedIds.includes(id));
 
-  const handleUse = (info: OrderDetailItemListItem) => {
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(allSelected || []);
+    }
+  };
+
+  const handleVerify = () => {
+    if (selectedIds.length === 0) return;
+    const firstItem = itemList.find((item) => item.id === selectedIds[0]);
+    if (!firstItem) return;
     appRouter.navigateTo("serverQrcode", {
       query: {
-        orderNo: orderDetail.orderNo,
-        serverId: info.itemId.toString(),
+        orderNo: orderDetail?.orderNo!,
+        serverId: firstItem.itemId.toString(),
       },
     });
   };
 
+  const group = groupBy(itemList, (item) => item.groupName);
+  const groupKeys = Object.keys(group);
+
   return (
     <>
       <BasePage className="pb-[200px]">
-        <View className="px-2 mt-2">
-          <View className="text-[32px] font-semibold">
-            {isRefundNotCompleted
-              ? "退款申请中"
-              : getServiceStatusText(orderDetail.status, orderStatusList)}
+        {orderDetail && (
+          <View className="px-2 mt-2">
+            <View className="text-[32px] font-semibold">
+              {isRefundNotCompleted
+                ? "退款申请中"
+                : getServiceStatusText(orderDetail?.status, orderStatusList)}
+            </View>
           </View>
-        </View>
+        )}
 
         <View className="mt-2 px-2 flex flex-col gap-4">
+          <View className="flex items-center justify-between bg-white rounded-lg px-2 py-3">
+            <Text className="text-[28px]">全选</Text>
+            <Checkbox checked={isAllSelected} onChange={handleSelectAll} />
+          </View>
           {groupKeys.map((groupName) => {
-            const itemList = orderDetail.itemList.filter(
+            const filteredItems = itemList.filter(
               (item) => item.groupName === groupName,
             );
             return (
               <View key={groupName} className="flex flex-col gap-2">
                 <Title key={groupName}>{groupName}</Title>
-                {itemList.map((item) => {
-                  let btn = (
-                    <AppButton
-                      size="sm"
-                      actived={false}
-                      onClick={() => {
-                        handleUse(item);
-                      }}
-                    >
-                      去核销
-                    </AppButton>
-                  );
-
+                {filteredItems.map((item) => {
                   const surplus = item.qty - item.usedQty;
-                  if (
+                  const disabled =
                     surplus === 0 ||
-                    orderDetail.status !== 2 ||
-                    isRefundNotCompleted
-                  ) {
-                    btn = <></>;
-                  }
+                    orderDetail?.status !== 2 ||
+                    isRefundNotCompleted;
                   return (
                     <View key={item.id} className="bg-white rounded-lg">
-                      <View className="p-2 flex flex-col gap-2">
-                        <View className="flex justify-between items-center">
-                          <View className="text-[32px] font-semibold line-clamp-1">
+                      <View className="p-2 flex flex-col gap-3">
+                        <View className="flex items-center gap-2">
+                          <Checkbox
+                            checked={selectedIds.includes(item.id)}
+                            disabled={disabled}
+                            onChange={() => toggleSelect(item.id)}
+                          />
+                          <View className="flex-1 text-[32px] font-semibold line-clamp-1">
                             {item.itemName}
                           </View>
-                          <View>{btn}</View>
                         </View>
-                        <View className="flex justify-between">
-                          <View>共：</View>
-                          <View className="shrink-0 text-sky-500">
-                            {item.qty}
-                            {item.unit || ""}
-                          </View>
-                        </View>
-                        <View className="flex justify-between">
-                          <View>已使用：</View>
-                          <View className="shrink-0 text-rose-500">
-                            {item.usedQty}
-                            {item.unit || ""}
-                          </View>
-                        </View>
-                        <View className="flex justify-between">
-                          <View>剩余：</View>
-                          <View className="shrink-0 text-lime-500">
-                            {item.qty - item.usedQty}
-                            {item.unit || ""}
-                          </View>
-                        </View>
-                        <View className="flex justify-between">
-                          <View>过期时间：</View>
-                          <View className="shrink-0 text-gray-500">
-                            {dayjs(item.qrCodeExpireTime).format("YYYY-MM-DD")}
-                          </View>
-                        </View>
+                        <ServiceProgress
+                          total={item.qty}
+                          used={item.usedQty}
+                          remaining={surplus}
+                          unit={item.unit}
+                        />
                       </View>
                     </View>
                   );
@@ -220,6 +209,12 @@ export default () => {
             />
           </View>
         </View>
+        <AppFixedBottom className="flex justify-between items-center">
+          <Text className="text-[28px]">已选 {selectedIds.length} 项</Text>
+          <AppButton actived={selectedIds.length > 0} onClick={handleVerify}>
+            统一核销
+          </AppButton>
+        </AppFixedBottom>
       </BasePage>
     </>
   );
