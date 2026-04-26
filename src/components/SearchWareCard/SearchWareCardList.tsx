@@ -19,6 +19,8 @@ export type SearchWareCardListProps = {
   refreshNumber?: number;
   order?: "new" | "sell";
   orgId?: string;
+  defaultPageSize?: number;
+  openLoad?: boolean;
 };
 
 export const SearchWareCardList = (props: SearchWareCardListProps) => {
@@ -29,6 +31,8 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
     refreshNumber,
     order,
     orgId,
+    defaultPageSize = 20,
+    openLoad = true,
   } = props;
 
   const dataRequest = useRequest(
@@ -38,7 +42,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           orgId,
           searchKey: searchKey,
           pageNum: pageNum.toString(),
-          pageSize: "20",
+          pageSize: `${defaultPageSize}`,
           orderBy: order || undefined,
         },
       });
@@ -137,7 +141,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
           />
         )}
         className={className}
-        onLoad={dataRequest.run}
+        onLoad={openLoad ? dataRequest.run : () => {}}
       />
       {getAddAddressPopup()}
     </>
