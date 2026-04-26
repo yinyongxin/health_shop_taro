@@ -1,4 +1,4 @@
-import { View } from "@tarojs/components";
+import { Text, View } from "@tarojs/components";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
