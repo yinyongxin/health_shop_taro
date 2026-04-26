@@ -75,7 +75,11 @@ export const Home = () => {
         </View>
 
         <View className="mt-2 pr-3 pb-[144px]">
-          <SearchWareCardList orgId={orgId} openLoad={false} />
+          <SearchWareCardList
+            orgId={orgId}
+            openLoad={false}
+            defaultPageSize={10}
+          />
         </View>
       </View>
     </BasePage>
