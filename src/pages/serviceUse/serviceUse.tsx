@@ -13,7 +13,7 @@ import { getWxShopOrderDetail } from "@/client";
 import { useAppEnvStore } from "@/stores";
 import { useState } from "react";
 import { groupBy } from "lodash-es";
-import { getIsRefundNotCompleted, getServiceStatusText } from "@/utils";
+import { getIsRefundNotCompleted, getServiceStatusText, appToast } from "@/utils";
 import { appRouter } from "@/router";
 import { SaleStatusEnum } from "@/enums";
 import { Skeleton } from "./Skeleton";
@@ -70,7 +70,10 @@ export default () => {
   };
 
   const handleVerify = () => {
-    if (selectedIds.length === 0) return;
+    if (selectedIds.length === 0) {
+      appToast.info("请先选择要核销的服务");
+      return;
+    }
     const firstItem = itemList.find((item) => item.id === selectedIds[0]);
     if (!firstItem) return;
     appRouter.navigateTo("serverQrcode", {
@@ -98,10 +101,6 @@ export default () => {
         )}
 
         <View className="mt-2 px-2 flex flex-col gap-4">
-          <View className="flex items-center justify-between bg-white rounded-lg px-2 py-3">
-            <Text className="text-[28px]">全选</Text>
-            <Checkbox checked={isAllSelected} onChange={handleSelectAll} />
-          </View>
           {groupKeys.map((groupName) => {
             const filteredItems = itemList.filter(
               (item) => item.groupName === groupName,
@@ -118,15 +117,15 @@ export default () => {
                   return (
                     <View key={item.id} className="bg-white rounded-lg">
                       <View className="p-2 flex flex-col gap-3">
-                        <View className="flex items-center gap-2">
+                        <View className="flex justify-between items-center">
+                          <View className="flex-1 text-[32px] font-semibold line-clamp-1">
+                            {item.itemName}
+                          </View>
                           <Checkbox
                             checked={selectedIds.includes(item.id)}
                             disabled={disabled}
                             onChange={() => toggleSelect(item.id)}
                           />
-                          <View className="flex-1 text-[32px] font-semibold line-clamp-1">
-                            {item.itemName}
-                          </View>
                         </View>
                         <ServiceProgress
                           total={item.qty}
@@ -210,7 +209,13 @@ export default () => {
           </View>
         </View>
         <AppFixedBottom className="flex justify-between items-center">
-          <Text className="text-[28px]">已选 {selectedIds.length} 项</Text>
+          <View className="flex items-center gap-2">
+            <Checkbox checked={isAllSelected} onChange={handleSelectAll} />
+            <Text className="text-[28px]">全选</Text>
+            <Text className="text-[28px] text-gray-400">
+              已选 {selectedIds.length} 项
+            </Text>
+          </View>
           <AppButton actived={selectedIds.length > 0} onClick={handleVerify}>
             统一核销
           </AppButton>
