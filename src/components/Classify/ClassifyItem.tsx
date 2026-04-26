@@ -31,7 +31,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
           {info?.logo ? (
             <AppImage
               src={info.logo || ""}
-              className="w-[100px] h-[100px]"
+              className="w-[60px] h-[60px]"
               mode="aspectFill"
             />
           ) : (
