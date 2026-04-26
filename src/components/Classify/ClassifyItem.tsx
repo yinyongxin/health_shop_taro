@@ -1,41 +1,55 @@
 import { SubCategoryInfo } from "@/client";
 import { AppImage, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
-import { View } from "@tarojs/components";
+import { Text, View } from "@tarojs/components";
 
 export interface ClassifyItemProps {
   info: SubCategoryInfo;
 }
+
 export const ClassifyItem = (props: ClassifyItemProps) => {
   const { info } = props;
+
   return (
     <View
-      className="pt-2"
+      className="pt-3 px-3"
       onClick={() => {
         appRouter.navigateTo("subCategoryProductList", {
           query: { subCategoryId: info.id.toString() },
         });
       }}
     >
-      <View className="bg-white click-effect rounded-lg flex items-center gap-2 p-2">
-        <View className="size-[120px] flex-center overflow-hidden rounded-lg bg-gray-100">
+      <View
+        className="flex items-center gap-3 p-3 rounded-2xl overflow-hidden"
+        style={{
+          background: "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(8px)",
+          boxShadow: "0 2px 12px 0 rgba(0,0,0,0.04)",
+        }}
+      >
+        <View className="w-[100px] h-[100px] flex-center overflow-hidden rounded-xl bg-gradient-to-br from-slate-100 to-slate-50">
           {info?.logo ? (
             <AppImage
               src={info.logo || ""}
-              className="size-[120px]"
+              className="w-[100px] h-[100px]"
               mode="aspectFill"
             />
           ) : (
-            <LucideIcon className="text-gray-200" name="image" size={50} />
+            <LucideIcon className="text-slate-300" name="image" size={40} />
           )}
         </View>
-        <View className="h-[120px] flex-1 flex flex-col gap-[8px] justify-start">
-          <View className="line-clamp-1 text-[28px] font-bold shrink-0">
+
+        <View className="flex-1 flex flex-col gap-2">
+          <Text className="text-[28px] font-semibold text-slate-800 shrink-0 line-clamp-1">
             {info.name}
-          </View>
-          <View className="text-gray-400 line-clamp-2 overflow-hidden h-full">
+          </Text>
+          <Text className="text-[24px] text-slate-500 line-clamp-2 overflow-hidden">
             {info.description || "暂无描述"}
-          </View>
+          </Text>
+        </View>
+
+        <View className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+          <LucideIcon className="text-slate-400" name="chevron-right" size={18} />
         </View>
       </View>
     </View>

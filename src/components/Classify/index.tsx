@@ -1,5 +1,5 @@
 import { BasePage } from "@/components";
-import { View, ScrollView } from "@tarojs/components";
+import { Text, View, ScrollView } from "@tarojs/components";
 import { CateInfo, getWxShopCateList } from "@/client";
 import { useState } from "react";
 import { useRequest } from "@/hooks";
@@ -39,15 +39,18 @@ export const Classify = (props: ClassifyPropsType) => {
   return (
     <BasePage fullScreen>
       <View className="flex h-full w-full overflow-hidden">
-        <View className="flex-1">
+        <View className="w-25 bg-slate-50/80">
           <Sidebar
             cateList={data?.data || []}
             mainActive={mainActive}
             setMainActive={setMainActive}
           />
         </View>
-        <ScrollView scrollY className="flex-3">
-          <View className="flex flex-col px-2 pb-[180px]">
+        <ScrollView scrollY className="flex-1 bg-slate-100/50">
+          <View className="flex flex-col py-3 pb-[180px]">
+            <Text className="px-3 text-[22px] text-slate-400 mb-2">
+              共{subCategoryList.length} 个分类
+            </Text>
             {[...subCategoryList].map((item) => (
               <ClassifyItem key={item.id} info={item} />
             ))}
