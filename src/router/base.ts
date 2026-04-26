@@ -73,6 +73,6 @@ export interface AllPagesQueryType
   };
   serverQrcode: {
     orderNo: string;
-    serverIds: string;
+    serverIds: number[];
   };
 }

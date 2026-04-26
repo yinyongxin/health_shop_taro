@@ -28,12 +28,13 @@ const ServerQrcode = () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
   const orderDetail = orderDetailRequest.data?.order;
-  const serverDetail = orderDetail?.itemList?.find(
-    (item) => item.itemId.toString() === pageParams.serverIds,
+  const serverIds = pageParams.serverIds as unknown as number[];
+  const serverDetails = orderDetail?.itemList?.filter((item) =>
+    serverIds?.includes(item.itemId),
   );
 
   useEffect(() => {
-    if (!orderDetail) {
+    if (!orderDetail || !serverDetails?.length) {
       return;
     }
 
@@ -42,11 +43,12 @@ const ServerQrcode = () => {
       type: "image/jpeg",
       margin: 1,
     } as const;
+    const data = serverIds.map((id) => ({
+      orderNo: pageParams.orderNo,
+      serverId: id,
+    }));
     QRCode.toDataURL(
-      JSON.stringify({
-        orderNo: pageParams.orderNo,
-        serverId: pageParams.serverId,
-      }),
+      JSON.stringify(data),
       opts,
       function (err, url) {
         if (err) {
@@ -56,7 +58,7 @@ const ServerQrcode = () => {
         setQrCodeData(url);
       },
     );
-  }, [orderDetail]);
+  }, [orderDetail, serverDetails]);
 
   if (
     !orderDetailRequest.loading &&
@@ -108,7 +110,7 @@ const ServerQrcode = () => {
         <View>请出示以下二维码给工作人员扫码核销</View>
         <Image showMenuByLongpress className="size-[600px]" src={qrCodeData} />
         <View className="text-orange-500">
-          二维码将于 {serverDetail?.qrCodeExpireTime} 过期
+          二维码将于 {serverDetails?.[0]?.qrCodeExpireTime} 过期
         </View>
       </Box>
 
@@ -119,10 +121,15 @@ const ServerQrcode = () => {
         wapperProps={{ className: "flex flex-col gap-2 p-2" }}
         className="mt-3"
       >
-        {/* <InfoCardItem label="核销数量" value="1" /> */}
-        <InfoCardItem label="商品名称" value={serverDetail?.productName} />
-        <InfoCardItem label="服务名称" value={serverDetail?.itemName} />
-        {/* <InfoCardItem label="价格" value={`${serverDetail?.price}元`} /> */}
+        <View className="text-[28px] font-semibold">
+          共 {serverDetails?.length} 项服务
+        </View>
+        {serverDetails?.map((item) => (
+          <View key={item.id} className="border-t border-gray-100 pt-2">
+            <InfoCardItem label="商品名称" value={item.productName} />
+            <InfoCardItem label="服务名称" value={item.itemName} />
+          </View>
+        ))}
       </Box>
     </BasePage>
   );

@@ -75,12 +75,14 @@ export default () => {
       appToast.info("请先选择要核销的服务");
       return;
     }
-    const firstItem = itemList.find((item) => item.id === selectedIds[0]);
-    if (!firstItem) return;
+    const selectedItems = itemList.filter((item) =>
+      selectedIds.includes(item.id),
+    );
+    const serverIds = selectedItems.map((item) => item.itemId);
     appRouter.navigateTo("serverQrcode", {
       query: {
         orderNo: orderDetail?.orderNo!,
-        serverIds: firstItem.itemId.toString(),
+        serverIds: serverIds,
       },
     });
   };
