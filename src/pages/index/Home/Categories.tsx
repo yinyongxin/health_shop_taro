@@ -15,12 +15,16 @@ const QuickService = ({
 }) => (
   <View className="flex flex-col items-center gap-[8px]" onClick={onClick}>
     <View
-      className="w-[64px] h-[64px] rounded-2xl flex items-center justify-center shadow-sm"
+      className="w-[72px] h-[72px] rounded-2xl flex items-center justify-center shadow-sm"
       style={{
         background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
       }}
     >
-      {icon ? <Image src={icon} /> : <LucideIcon name="image" />}
+      {icon ? (
+        <Image className="size-[40px]" src={icon} />
+      ) : (
+        <LucideIcon name="image" />
+      )}
     </View>
     <Text className="text-[22px] text-slate-600 font-medium">{label}</Text>
   </View>
@@ -52,7 +56,7 @@ export const Categories = (props: CategoriesPropsType) => {
   return (
     categories &&
     categories.length > 0 && (
-      <View className="grid grid-cols-4">
+      <View className="grid grid-cols-4 mt-4">
         {categories.map((item) => (
           <QuickService
             key={item.id}

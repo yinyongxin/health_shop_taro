@@ -72,15 +72,16 @@ function App({ children }: PropsWithChildren<any>) {
   useEffect(() => {
     const start = async () => {
       const orgId = getOrgId();
-      if (appAuthStore.isLogged) {
-        if (appEnvStore.orgId !== orgId) {
-          appEnvStore.updateOrgId(orgId);
-          startLogin(orgId);
-          return;
-        }
-        appUserStore.updateAddressList();
+      // if (appAuthStore.isLogged) {
+      if (appEnvStore.orgId !== orgId) {
+        console.log("orgId", orgId);
+        appEnvStore.updateOrgId(orgId);
+        startLogin(orgId);
         return;
       }
+      appUserStore.updateAddressList();
+      return;
+      // }
       await startLogin(orgId);
     };
     start();
