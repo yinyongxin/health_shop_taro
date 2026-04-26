@@ -80,7 +80,7 @@ export default () => {
     appRouter.navigateTo("serverQrcode", {
       query: {
         orderNo: orderDetail?.orderNo!,
-        serverId: firstItem.itemId.toString(),
+        serverIds: firstItem.itemId.toString(),
       },
     });
   };

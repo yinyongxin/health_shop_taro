@@ -29,7 +29,7 @@ const ServerQrcode = () => {
   });
   const orderDetail = orderDetailRequest.data?.order;
   const serverDetail = orderDetail?.itemList?.find(
-    (item) => item.itemId.toString() === pageParams.serverId,
+    (item) => item.itemId.toString() === pageParams.serverIds,
   );
 
   useEffect(() => {
