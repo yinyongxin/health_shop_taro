@@ -213,32 +213,32 @@ const fetchData = async () => {
 
 ### 7. 设计风格规范
 
-项目统一使用 **科技医疗风格**，以蓝灰色调为主，清新专业。
+项目统一使用 **科技医疗风格**，以天蓝色调为主，清新专业。
 
 #### 主色调
 
-- **品牌色**: `blue-500` ~ `blue-600`
-- **背景色**: `blue-50` ~ `blue-100` 淡蓝灰
-- **导航栏**: `blue-600` 渐变
-- **强调色**: `blue-500`
+- **品牌色**: `sky-500` ~ `sky-600`
+- **背景色**: `sky-50` ~ `sky-100` 淡天蓝
+- **导航栏**: `sky-600` 渐变
+- **强调色**: `sky-500`
 
 #### 配色方案
 
 ```typescript
-// 页面主背景 - 淡蓝渐变
-background: "linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%)"
+// 页面主背景 - 淡天蓝渐变
+background: "linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%)"
 
-// 导航栏 - 蓝渐变
-background: "linear-gradient(135deg, #2563EB 0%, #3B82F6 100%)"
+// 导航栏 - 天蓝渐变
+background: "linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)"
 
-// 图标/分类背景 - 淡蓝渐变
-background: "linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)"
+// 图标/分类背景 - 淡天蓝渐变
+background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)"
 
 // 卡片背景 - 半透明模糊
 bg-white/80 backdrop-blur-sm
 
 // 标签背景
-bg-blue-50 text-blue-600
+bg-sky-50 text-sky-600
 ```
 
 #### 设计特点
@@ -252,9 +252,9 @@ bg-blue-50 text-blue-600
 
 ```tsx
 // 页面结构
-<View className="min-h-screen" style={{ background: "linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%)" }}>
+<View className="min-h-screen" style={{ background: "linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%)" }}>
   // 导航栏
-  <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #2563EB 0%, #3B82F6 100%)" }}>
+  <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)" }}>
     <Text className="text-xl font-bold text-white">标题</Text>
     {/* 其他内容 */}
   </View>
@@ -282,17 +282,17 @@ bg-blue-50 text-blue-600
 ```tsx
 // 分类图标
 <View className="w-12 h-12 rounded-xl flex items-center justify-center mb-2"
-  style={{ background: "linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)" }}>
+  style={{ background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)" }}>
   <Text className="text-lg">📦</Text>
 </View>
 
 // 列表项
 <View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
   <Text className="text-sm text-slate-800">商品名称</Text>
-  <Text className="text-xs text-blue-600 mt-0.5">描述</Text>
+  <Text className="text-xs text-sky-600 mt-0.5">描述</Text>
   <View className="flex items-center justify-between mt-3">
     <Text className="text-sm font-semibold text-slate-600">¥199</Text>
-    <View className="text-xs px-3 py-1.5 bg-blue-500 text-white rounded-lg">详情</View>
+    <View className="text-xs px-3 py-1.5 bg-sky-500 text-white rounded-lg">详情</View>
   </View>
 </View>
 ```
@@ -302,7 +302,7 @@ bg-blue-50 text-blue-600
 - 标题: `text-white`（导航栏内）或 `text-slate-800`（内容区）
 - 副标题: `text-slate-500`
 - 描述: `text-slate-400`
-- 强调: `text-blue-600`
+- 强调: `text-sky-600`
 
 ### 8. 命名规范
 

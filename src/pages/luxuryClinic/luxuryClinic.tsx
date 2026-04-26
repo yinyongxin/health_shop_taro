@@ -19,16 +19,16 @@ export default function LuxuryClinicPage() {
   const [searchVal, setSearchVal] = useState("");
 
   return (
-    <View className="min-h-screen" style={{ background: "linear-gradient(180deg, #FAFAF9 0%, #F5F5F4 100%)" }}>
-      <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #78716C 0%, #A8A29E 100%)" }}>
+    <View className="min-h-screen" style={{ background: "linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%)" }}>
+      <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)" }}>
         <View className="flex justify-between items-end mb-5">
           <Text className="text-xl font-bold text-white" style={{ letterSpacing: "0.2em" }}>CLINIC</Text>
-          <Text className="text-xs text-stone-200">Luxury Healthcare</Text>
+          <Text className="text-xs text-sky-100">Luxury Healthcare</Text>
         </View>
         <View className="flex items-center px-3 py-2.5 bg-white/20 rounded-lg">
-          <Text className="text-stone-200 text-sm">🔍</Text>
+          <Text className="text-sky-100 text-sm">🔍</Text>
           <Input
-            className="flex-1 ml-2 text-sm text-white placeholder-stone-300"
+            className="flex-1 ml-2 text-sm text-white placeholder-sky-200"
             placeholder="搜索珍品..."
             value={searchVal}
             onInput={(e) => setSearchVal(e.detail.value)}
@@ -39,7 +39,7 @@ export default function LuxuryClinicPage() {
       <View className="px-4 -mt-3">
         <View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
           <Text className="text-base font-medium text-slate-800">尊享健康</Text>
-          <Text className="text-xs text-stone-500 mt-0.5">为您甄选全球顶级滋补</Text>
+          <Text className="text-xs text-sky-600 mt-0.5">为您甄选全球顶级滋补</Text>
         </View>
       </View>
 
@@ -47,7 +47,7 @@ export default function LuxuryClinicPage() {
         <View className="flex justify-between">
           {CATEGORIES.map((cat) => (
             <View key={cat.id} className="flex flex-col items-center">
-              <View className="w-14 h-14 rounded-2xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #E7E5E4 0%, #D6D3D1 100%)" }}>
+              <View className="w-14 h-14 rounded-2xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)" }}>
                 <Text className="text-xl">📦</Text>
               </View>
               <Text className="text-xs text-slate-500">{cat.name}</Text>
@@ -65,14 +65,14 @@ export default function LuxuryClinicPage() {
         <View className="grid grid-cols-2 gap-3">
           {PRODUCTS.map((product) => (
             <View key={product.id} className="p-3 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
-              <View className="h-20 rounded-xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #FAFAF9 0%, #F5F5F4 100%)" }}>
+              <View className="h-20 rounded-xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #E0F2FE 0%, #F0F9FF 100%)" }}>
                 <Text className="text-2xl opacity-60">📦</Text>
               </View>
               <Text className="text-sm text-slate-800 leading-tight">{product.name}</Text>
-              <Text className="text-xs text-stone-400 mt-0.5 truncate">{product.desc}</Text>
+              <Text className="text-xs text-slate-400 mt-0.5 truncate">{product.desc}</Text>
               <View className="flex items-center justify-between mt-2">
-                <Text className="text-sm font-semibold text-stone-600">¥{product.price.toLocaleString()}</Text>
-                <Text className="text-stone-400">→</Text>
+                <Text className="text-sm font-semibold text-slate-600">¥{product.price.toLocaleString()}</Text>
+                <Text className="text-sky-500">→</Text>
               </View>
             </View>
           ))}
