@@ -50,6 +50,7 @@ const WareList = () => {
           />
         </DropdownMenu>
         <SearchWareCardList
+          className="mt-3 pr-3"
           orgId={pageParams.orgId}
           searchWareCardProps={{ border: true }}
           searchKey={search}
