@@ -79,7 +79,7 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
         destroyOnClose
         {...addAddressControl}
       >
-        <View className="p-4 overflow-auto pb-20">
+        <View className="p-4 overflow-auto  pb-20 bg-gray-100">
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();

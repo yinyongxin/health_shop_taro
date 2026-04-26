@@ -70,7 +70,7 @@ const SubCategoryProductList = () => {
         destroyOnClose
         {...addAddressControl}
       >
-        <View className="p-2 bg-gray-100 overflow-auto pb-20">
+        <View className="p-2 bg-gray-100 overflow-auto pb-20 bg-gray-100">
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();

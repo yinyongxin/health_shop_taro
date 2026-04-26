@@ -25,7 +25,6 @@ const AddressSelect = (props: AddressSelectProps) => {
   const { address, handleSelectAddress, className } = props;
   const selectAddressControl = usePopupControl();
 
-
   const appUserStore = useAppUserStore();
   const addAddressControl = usePopupControl();
 
@@ -40,7 +39,7 @@ const AddressSelect = (props: AddressSelectProps) => {
         destroyOnClose
         {...addAddressControl}
       >
-        <View className="p-2 bg-gray-100 overflow-auto pb-20">
+        <View className="p-2 bg-gray-100 overflow-auto pb-20 bg-gray-100">
           <EditAddressContent
             success={() => {
               appUserStore.updateAddressList();
