@@ -5,7 +5,6 @@ import { SearchWareCardList } from "@/components/SearchWareCard/SearchWareCardLi
 import { appRouter } from "@/router";
 import { Banners } from "./Banners";
 import { TopSearch } from "./TopSearch";
-// import { GridBlock } from "./GridBlock";
 
 export const Home = () => {
   const { orgId } = useAppEnvStore();

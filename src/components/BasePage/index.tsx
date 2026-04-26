@@ -37,6 +37,7 @@ export const BasePage = (props: BasePageProps) => {
         { [height]: fullScreen, [minHeight]: !fullScreen },
         className,
       )}
+      style={{ background: "linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%)" }}
       {...rest}
     >
       {bgProps && (
