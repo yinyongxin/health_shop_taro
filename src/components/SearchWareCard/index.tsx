@@ -1,8 +1,5 @@
 import { ProductDetail } from "@/client";
 import { View, Text } from "@tarojs/components";
-import classNames from "classnames";
-// import { useState } from "react";
-// import { LucideIcon } from "../LucideIcon";
 import { AppImage } from "../AppImage";
 
 export type SearchWareCardProps = {
@@ -10,73 +7,125 @@ export type SearchWareCardProps = {
   border?: boolean;
   handleClick?: () => void;
 };
-export const SearchWareCard = (props: SearchWareCardProps) => {
-  const { border, info, handleClick } = props;
-  // const [liked, setLiked] = useState(false);
+
+const TagBadge = ({
+  children,
+  type,
+}: {
+  children: React.ReactNode;
+  type: "sale" | "hot" | "new";
+}) => {
+  const styles = {
+    sale: "bg-gradient-to-r from-orange-500 to-red-500",
+    hot: "bg-gradient-to-r from-rose-500 to-pink-500",
+    new: "bg-gradient-to-r from-sky-500 to-blue-500",
+  };
   return (
     <View
-      className={classNames("pt-2 pl-2 w-1/2", "relative")}
+      className={`px-[12px] py-[4px] rounded-full text-[20px] text-white font-medium ${styles[type]}`}
+    >
+      {children}
+    </View>
+  );
+};
+
+export const SearchWareCard = (props: SearchWareCardProps) => {
+  const { border, info, handleClick } = props;
+  const hasDiscount = info.originalPrice && info.originalPrice > info.price;
+  const discountPercent = hasDiscount
+    ? Math.round((1 - info.price / info.originalPrice!) * 100)
+    : 0;
+
+  return (
+    <View
+      className="pt-2 pl-2 w-1/2 relative"
       onClick={() => {
         handleClick?.();
       }}
     >
       <View
-        className={classNames(
-          "rounded-lg bg-white overflow-hidden",
-          "relative",
-          {
-            "border-2 border-gray-100": border,
-          },
-        )}
+        className="rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+        style={{
+          border: border ? "2px solid #E2E8F0" : "none",
+        }}
       >
-        <View className="p-2">
+        <View className="relative">
           <AppImage
-            className="w-full h-[305px] bg-gray-200 rounded-md"
-            src={props.info.mainImage}
+            className="w-full h-[280px] bg-gradient-to-br from-sky-50 to-blue-100"
+            src={info.mainImage}
             mode="aspectFill"
           />
-        </View>
-        <View className="pb-2 flex flex-col gap-2">
-          <View className="text-[28px] px-2 font-semibold truncate">
-            {props.info.name}
+          <View className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          <View className="absolute top-[16px] left-[16px] flex gap-[8px] flex-wrap">
+            <TagBadge type="new">新品</TagBadge>
+            {hasDiscount && <TagBadge type="sale">{discountPercent}折</TagBadge>}
           </View>
-          <View className="text-[24px] px-2 text-gray-500 line-clamp-2 h-[60px] overflow-hidden">
-            {props.info.description || "暂无描述"}
-          </View>
-          <View className=" px-2 flex justify-between items-end">
-            <View className="flex gap-[8px] items-end text-rose-500 font-semibold">
-              <Text className="text-[28px]">¥</Text>
-              <Text className="text-[32px]">{props.info.price}</Text>
-              {info.originalPrice !== info.price && (
-                <Text className="text-gray-500 line-through">
-                  {props.info.originalPrice}
-                </Text>
-              )}
+          <View className="absolute bottom-[16px] right-[16px]">
+            <View
+              className="w-[56px] h-[56px] rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <Text className="text-[28px] text-sky-500">♡</Text>
             </View>
-            <View className="text-[24px] text-gray-500">
-              {/* 已售：{props.info.s} */}
+          </View>
+        </View>
+
+        <View className="p-[20px]">
+          <View className="flex items-start gap-[12px] mb-[16px]">
+            <View className="flex-1 min-w-0">
+              <Text className="text-[28px] font-bold text-slate-800 truncate block leading-tight">
+                {info.name}
+              </Text>
+              <View className="flex items-center gap-[8px] mt-[8px]">
+                <View
+                  className="px-[12px] py-[4px] rounded-full text-[20px]"
+                  style={{
+                    background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
+                  }}
+                >
+                  <Text className="text-sky-600 font-medium">
+                    {info.categoryName || "健康商品"}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          {info.description && (
+            <Text className="text-[24px] text-slate-500 line-clamp-2 h-8 leading-relaxed mb-[16px]">
+              {info.description}
+            </Text>
+          )}
+
+          <View className="flex items-end justify-between pt-[16px] border-t border-slate-100">
+            <View className="flex items-baseline gap-[6px]">
+              <Text className="text-[24px] text-sky-500 font-semibold">¥</Text>
+              <Text className="text-[40px] font-bold text-sky-600 leading-none">
+                {info.price}
+              </Text>
+              {hasDiscount && (
+                <View className="flex items-center gap-[8px]">
+                  <Text className="text-[22px] text-slate-400 line-through">
+                    ¥{info.originalPrice}
+                  </Text>
+                  <View
+                    className="px-[10px] py-[4px] rounded-md"
+                    style={{
+                      background: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
+                    }}
+                  >
+                    <Text className="text-orange-600 text-[20px] font-semibold">
+                      省 ¥{info.originalPrice! - info.price}
+                    </Text>
+                  </View>
+                </View>
+              )}
             </View>
           </View>
         </View>
       </View>
-      {/* <View
-        className="absolute top-[48px] right-[24px] "
-        onClick={(e) => {
-          e.stopPropagation();
-          setLiked(!liked);
-        }}
-      >
-        <View
-          className={classNames(
-            "bg-blur size-[48px] flex-center rounded-full",
-            {
-              "bg-error text-white": liked,
-            },
-          )}
-        >
-          <LucideIcon name="star" />
-        </View>
-      </View> */}
     </View>
   );
 };
