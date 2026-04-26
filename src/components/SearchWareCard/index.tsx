@@ -111,17 +111,6 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
                   <Text className="text-[22px] text-slate-400 line-through">
                     ¥{info.originalPrice}
                   </Text>
-                  <View
-                    className="px-[10px] py-[4px] rounded-md"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
-                    }}
-                  >
-                    <Text className="text-orange-600 text-[20px] font-semibold">
-                      省 ¥{(info.originalPrice! - info.price).toFixed(1)}
-                    </Text>
-                  </View>
                 </View>
               )}
             </View>
