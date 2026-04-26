@@ -10,7 +10,7 @@ const UserMy = () => {
       bgProps={{
         children: (
           <View
-            className="h-[40vh]"
+            className="h-full"
             style={{
               background:
                 "linear-gradient(180deg, #E0F2FE 0%, #F0F9FF 50%, #F8FAFC 100%)",

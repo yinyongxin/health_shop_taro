@@ -18,7 +18,7 @@ export const HospitalList = (props: HospitalListProps) => {
   };
 
   return (
-    <View className={`px-4 ${className || ""}`}>
+    <View className={`px-4 pt-4 ${className || ""}`}>
       <View className="flex flex-col gap-3 pb-4">
         {hospitalList.map((item) => (
           <View
