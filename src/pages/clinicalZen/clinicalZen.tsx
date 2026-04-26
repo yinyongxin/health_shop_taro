@@ -19,13 +19,13 @@ export default function ClinicalZenPage() {
   const [searchVal, setSearchVal] = useState("");
 
   return (
-    <View className="min-h-screen bg-emerald-50">
-      <View className="px-5 pt-12 pb-6 bg-emerald-600">
+    <View className="min-h-screen" style={{ background: "linear-gradient(180deg, #ECFDF5 0%, #F0FDF4 100%)" }}>
+      <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #059669 0%, #10B981 100%)" }}>
         <View className="flex items-center justify-between mb-4">
           <Text className="text-xl font-bold text-white">健康商城</Text>
           <Text className="text-emerald-100 text-sm">Clinical Zen</Text>
         </View>
-        <View className="flex items-center px-3 py-2.5 bg-emerald-700/30 rounded-lg">
+        <View className="flex items-center px-3 py-2.5 bg-white/20 rounded-lg">
           <Text className="text-emerald-100 text-sm">🔍</Text>
           <Input
             className="flex-1 ml-2 text-sm text-white placeholder-emerald-200"
@@ -37,7 +37,7 @@ export default function ClinicalZenPage() {
       </View>
 
       <View className="px-4 -mt-3">
-        <View className="p-4 bg-white rounded-2xl shadow-sm">
+        <View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
           <View className="flex justify-between">
             <Text className="text-sm text-slate-500">春季健康季</Text>
             <Text className="text-xs text-emerald-600">满199减30</Text>
@@ -49,7 +49,7 @@ export default function ClinicalZenPage() {
         <View className="flex justify-between">
           {CATEGORIES.map((cat) => (
             <View key={cat.id} className="flex flex-col items-center">
-              <View className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center mb-2">
+              <View className="w-14 h-14 rounded-2xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)" }}>
                 <Text className="text-xl">📦</Text>
               </View>
               <Text className="text-xs text-slate-500">{cat.name}</Text>
@@ -66,16 +66,14 @@ export default function ClinicalZenPage() {
 
         <View className="grid grid-cols-2 gap-3">
           {PRODUCTS.map((product) => (
-            <View key={product.id} className="p-3 bg-white rounded-2xl shadow-sm">
-              <View className="h-20 bg-emerald-50 rounded-xl flex items-center justify-center mb-2">
+            <View key={product.id} className="p-3 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
+              <View className="h-20 rounded-xl flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)" }}>
                 <Text className="text-2xl opacity-60">💊</Text>
               </View>
               <Text className="text-sm text-slate-800 leading-tight">{product.name}</Text>
               <Text className="text-xs text-slate-400 mt-0.5 truncate">{product.desc}</Text>
               <View className="flex items-center justify-between mt-2">
-                <Text className="text-sm font-semibold text-slate-600">
-                  ¥{product.price}
-                </Text>
+                <Text className="text-sm font-semibold text-slate-600">¥{product.price}</Text>
                 <Text className="text-emerald-500">+</Text>
               </View>
             </View>
