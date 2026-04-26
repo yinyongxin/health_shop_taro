@@ -58,9 +58,11 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           <View className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           <View className="absolute top-[16px] left-[16px] flex gap-[8px] flex-wrap">
             <TagBadge type="new">新品</TagBadge>
-            {hasDiscount && <TagBadge type="sale">{discountPercent}折</TagBadge>}
+            {hasDiscount && discountPercent > 10 && discountPercent < 100 && (
+              <TagBadge type="sale">{discountPercent / 10}折</TagBadge>
+            )}
           </View>
-          <View className="absolute bottom-[16px] right-[16px]">
+          {/* <View className="absolute bottom-[16px] right-[16px]">
             <View
               className="w-[56px] h-[56px] rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg"
               onClick={(e) => {
@@ -69,7 +71,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             >
               <Text className="text-[28px] text-sky-500">♡</Text>
             </View>
-          </View>
+          </View> */}
         </View>
 
         <View className="p-[20px]">
@@ -82,7 +84,8 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
                 <View
                   className="px-[12px] py-[4px] rounded-full text-[20px]"
                   style={{
-                    background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
+                    background:
+                      "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
                   }}
                 >
                   <Text className="text-sky-600 font-medium">
@@ -113,7 +116,8 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
                   <View
                     className="px-[10px] py-[4px] rounded-md"
                     style={{
-                      background: "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
+                      background:
+                        "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
                     }}
                   >
                     <Text className="text-orange-600 text-[20px] font-semibold">
