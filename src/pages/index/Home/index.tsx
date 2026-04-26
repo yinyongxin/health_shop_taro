@@ -10,12 +10,17 @@ export const Home = () => {
   const { orgId } = useAppEnvStore();
   return (
     <BasePage>
-      <View className="pt-8 pb-4" style={{ background: "linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)" }}>
-        <View className="px-4">
+      <View
+        className="pt-8 pb-4"
+        style={{
+          background: "linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)",
+        }}
+      >
+        <View className="px-2 flex justify-between">
           <Text className="text-xl font-bold text-white">健康商城</Text>
           <Text className="text-xs text-sky-100 mt-1">Medical Healthcare</Text>
         </View>
-        <View className="px-4 mt-4">
+        <View className="px-2 mt-4">
           <TopSearch
             className="bg-white/80 backdrop-blur-sm rounded-xl"
             onClick={(e) => {
@@ -25,11 +30,9 @@ export const Home = () => {
         </View>
       </View>
 
-      <View className="px-4 mt-4">
-        <Banners orgId={orgId} />
-      </View>
+      <Banners className="pt-[32px]" orgId={orgId} />
 
-      <View className="px-4 mt-4">
+      <View className="px-2 mt-4">
         <View className="bg-white/80 backdrop-blur-sm rounded-2xl p-4">
           <Title
             action={{
@@ -48,7 +51,7 @@ export const Home = () => {
         </View>
       </View>
 
-      <View className="px-4 mt-2 pb-[144px]">
+      <View className="mt-2 pb-[144px]">
         <SearchWareCardList orgId={orgId} />
       </View>
     </BasePage>
