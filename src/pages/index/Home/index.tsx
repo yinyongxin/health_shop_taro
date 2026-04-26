@@ -24,22 +24,22 @@ const HeaderSection = () => {
         <View className="absolute top-20 right-20 w-[80px] h-[80px] rounded-full bg-white/10" />
       </View>
 
-      <View className="relative pt-12 px-5 pb-6">
+      <View className="relative pt-6 px-3 pb-5">
         <View className="flex items-center justify-between">
           <View className="flex items-center gap-3">
-            <View className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <Text className="text-2xl">🏥</Text>
+            <View className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <Text className="text-xl">🏥</Text>
             </View>
             <View>
-              <Text className="text-2xl font-bold text-white">健康商城</Text>
+              <Text className="text-lg font-semibold text-white">健康商城</Text>
             </View>
           </View>
-          <View className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            <Text className="text-white text-lg">📍</Text>
+          <View className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+            <Text className="text-white text-base">📍</Text>
           </View>
         </View>
 
-        <View className="mt-5">
+        <View className="mt-4">
           <TopSearch className="bg-white/95 backdrop-blur-lg rounded-2xl shadow-lg shadow-sky-500/20" />
         </View>
 
@@ -54,10 +54,10 @@ export const Home = () => {
   return (
     <BasePage>
       <HeaderSection />
-      <View className="rounded-t-[24px] overflow-hidden bg-gradient-to-b from-sky-100 to-white -translate-y-2">
+      <View className="rounded-t-[24px] bg-gradient-to-b from-sky-100 to-white">
         <Banners className="pt-4" orgId={orgId} />
 
-        <View className="px-2 mt-4">
+        <View className="px-3 mt-4">
           <Title
             action={{
               text: "查看更多",
@@ -74,7 +74,7 @@ export const Home = () => {
           </Title>
         </View>
 
-        <View className="mt-2 pr-2 pb-[144px]">
+        <View className="mt-2 pr-3 pb-[144px]">
           <SearchWareCardList orgId={orgId} />
         </View>
       </View>
