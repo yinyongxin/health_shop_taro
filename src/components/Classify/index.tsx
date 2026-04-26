@@ -25,7 +25,7 @@ export const Classify = (props: ClassifyPropsType) => {
           orgId,
         },
       });
-      setMainActive(res.data?.data[0]);
+      setMainActive(res.data?.data?.[0]);
       return res.data;
     },
     {
