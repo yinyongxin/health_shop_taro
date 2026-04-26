@@ -49,7 +49,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           border: border ? "2px solid #E2E8F0" : "none",
         }}
       >
-        <View className="relative">
+        <View className="relative flex">
           <AppImage
             className="w-full h-[280px] bg-gradient-to-br from-sky-50 to-blue-100"
             src={info.mainImage}
