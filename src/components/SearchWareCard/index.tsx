@@ -121,7 +121,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
                     }}
                   >
                     <Text className="text-orange-600 text-[20px] font-semibold">
-                      省 ¥{info.originalPrice! - info.price}
+                      省 ¥{(info.originalPrice! - info.price).toFixed(1)}
                     </Text>
                   </View>
                 </View>
