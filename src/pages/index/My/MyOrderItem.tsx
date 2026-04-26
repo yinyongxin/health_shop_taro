@@ -18,15 +18,12 @@ export const MyOrderItem = (props: MyOrderItemProps) => {
       onClick={onClick}
     >
       <View
-        className="w-full h-[90px] rounded-2xl flex items-center justify-center relative"
+        className="w-full h-[90px] rounded-2xl flex items-center justify-center"
         style={{
           background: "linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)",
         }}
       >
         {icon}
-        <View className="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full bg-sky-500 flex items-center justify-center">
-          <View className="w-1.5 h-1.5 rounded-full bg-white" />
-        </View>
       </View>
       <Text className="text-[22px] text-slate-600">{title}</Text>
     </View>

@@ -29,22 +29,28 @@ export const MyOrder = () => {
       }}
     >
       {/* 标题栏 */}
-      <View className="px-5 pt-5 flex justify-between items-center">
-        <Text className="text-[30px] font-semibold text-slate-800">我的订单</Text>
+      <View className="px-3 pt-3 flex justify-between items-center">
+        <Text className="text-[30px] font-semibold text-slate-800">
+          我的订单
+        </Text>
         <View
-          className="flex items-center gap-1 py-2 px-3 rounded-full active:bg-slate-100"
+          className="flex items-center gap-1 rounded-full active:bg-slate-100"
           onClick={() => {
             appRouter.navigateTo("orderList", { query: { status: "all" } });
           }}
         >
           <Text className="text-[24px] text-slate-500">全部订单</Text>
-          <LucideIcon className="text-slate-400" name="chevron-right" size={20} />
+          <LucideIcon
+            className="text-slate-400"
+            name="chevron-right"
+            size={20}
+          />
         </View>
       </View>
 
       {/* 订单状态列表 */}
-      <View className="px-4 pb-5 pt-2">
-        <View className="flex justify-between">
+      <View className="px-3 pb-5 pt-3">
+        <View className="flex gap-2 justify-between">
           {orderStatusList.slice(0, 5).map((status, index) => {
             return (
               <MyOrderItem
@@ -52,7 +58,15 @@ export const MyOrder = () => {
                 title={status.dictLabel}
                 icon={
                   <LucideIcon
-                    className={index === 0 ? "text-sky-500" : index === 1 ? "text-amber-500" : index === 2 ? "text-emerald-500" : "text-slate-400"}
+                    className={
+                      index === 0
+                        ? "text-sky-500"
+                        : index === 1
+                          ? "text-amber-500"
+                          : index === 2
+                            ? "text-emerald-500"
+                            : "text-slate-400"
+                    }
                     name={OrderStatusIcon[index]}
                     size={26}
                   />
