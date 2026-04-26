@@ -18,7 +18,7 @@ export const MyOrderItem = (props: MyOrderItemProps) => {
       onClick={onClick}
     >
       <View
-        className="w-full h-[90px] rounded-2xl flex items-center justify-center"
+        className="w-full h-[116px] rounded-2xl flex items-center justify-center"
         style={{
           background: "linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)",
         }}

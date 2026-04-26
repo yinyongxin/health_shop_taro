@@ -30,14 +30,16 @@ export const Sidebar = (props: SidebarProps) => {
           >
             <View
               className={classNames(
-                "h-[80px] flex-center rounded-xl px-3",
+                "flex-center rounded-xl px-3 py-3",
                 "transition-all duration-200",
                 isActived
                   ? "bg-gradient-to-r from-sky-500 to-sky-400 text-white font-semibold shadow-md"
-                  : "text-slate-600 active:bg-slate-100"
+                  : "text-slate-600 active:bg-slate-100",
               )}
             >
-              <Text className={classNames("text-[26px]", isActived && "text-white")}>
+              <Text
+                className={classNames("text-[26px]", isActived && "text-white")}
+              >
                 {item.name}
               </Text>
             </View>
