@@ -32,8 +32,8 @@ export const ServiceProgress = (props: ServiceProgressProps) => {
       </View>
 
       <View className="flex justify-between text-[24px] text-gray-400">
-        <Text>剩余 {remaining}{unit}</Text>
         <Text>总计 {total}{unit}</Text>
+        <Text>剩余 {remaining}{unit}</Text>
       </View>
     </View>
   );
