@@ -7,11 +7,11 @@ type TopSearchProps = {} & ViewProps;
 
 export const TopSearch = (props: TopSearchProps) => {
   const { orgId } = useAppEnvStore();
-  const { ...rest } = props;
+  const { className, ...rest } = props;
 
   return (
     <View
-      className="px-[28px] py-[20px] flex items-center gap-[24px] bg-white/70 backdrop-blur-md rounded-full"
+      className={`px-4 py-3 flex items-center gap-3 ${className || ""}`}
       {...rest}
       onClick={() => {
         appRouter.navigateTo("wareList", {
@@ -21,9 +21,9 @@ export const TopSearch = (props: TopSearchProps) => {
         });
       }}
     >
-      <LucideIcon name="search" size={22} />
-      <View className="text-[28px] flex-1 text-gray-500">请输入搜索内容</View>
-      <View className="text-[28px] font-semibold text-sky-500">搜索</View>
+      <LucideIcon name="search" size={20} />
+      <View className="flex-1 text-sm text-slate-400">请输入搜索内容</View>
+      <View className="text-sm font-medium text-sky-500">搜索</View>
     </View>
   );
 };
