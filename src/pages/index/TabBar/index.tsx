@@ -1,6 +1,6 @@
 import { AppTabs } from "@/common";
 import { isIOS } from "@/utils";
-import { View } from "@tarojs/components";
+import { Text, View } from "@tarojs/components";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
@@ -18,34 +18,53 @@ export type TabBarProps = {
 
 export const TabBar = (props: TabBarProps) => {
   const { tabs, currentActive, handleClick } = props;
+
   return (
     <View
       className={classNames("fixed bottom-0 left-0 right-0 z-[100]", {
-        "pb-[32px]": isIOS(),
+        "pb-[34px]": isIOS(),
       })}
+      style={{
+        background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.98) 100%)",
+        backdropFilter: "blur(12px)",
+        boxShadow: "0 -2px 16px 0 rgba(0, 0, 0, 0.06)",
+      }}
     >
-      <View className="absolute inset-0 bg-white/90 backdrop-blur-md shadow-[0_0_12px_0_rgba(0,0,0,0.1)]"></View>
-      <View className="relative h-[120px] flex">
+      <View className="relative h-[100px] flex">
         {tabs.map((tab) => {
           const isActived = tab.value === currentActive;
+
           return (
             <View
               onClick={() => handleClick(tab)}
               key={tab.value}
-              className={classNames("flex-1 flex flex-col items-center", {
-                "text-sky-600": isActived,
-              })}
+              className={classNames(
+                "flex-1 flex flex-col items-center justify-end pb-[8px]",
+                "click-effect transition-all duration-200",
+                {
+                  "text-sky-600": isActived,
+                  "text-slate-400": !isActived,
+                }
+              )}
             >
-              <View className="flex-1 flex justify-center items-center text-[48px]">
+              <View
+                className={classNames(
+                  "w-[56px] h-[40px] flex items-center justify-center rounded-full mb-1",
+                  "transition-all duration-200",
+                  isActived && "bg-gradient-to-b from-sky-100 to-sky-50"
+                )}
+              >
                 {tab.icon(isActived)}
               </View>
-              <View
-                className={classNames("pb-[8px]", {
-                  "font-semibold": isActived,
+
+              <Text
+                className={classNames("text-[20px] leading-none", {
+                  "font-semibold text-sky-600": isActived,
+                  "text-slate-400": !isActived,
                 })}
               >
                 {tab.label}
-              </View>
+              </Text>
             </View>
           );
         })}
