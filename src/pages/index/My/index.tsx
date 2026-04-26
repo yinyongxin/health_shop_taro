@@ -29,7 +29,7 @@ const UserMy = () => {
             }}
           >
             <View className="relative">
-              <Avatar src="./static/images/default-avatar.png" size={64} round />
+              <Avatar src="./static/images/default-avatar.png" size={48} round />
               <View className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center border-2 border-white">
                 <Text className="text-white text-xs">✓</Text>
               </View>
