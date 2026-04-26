@@ -57,7 +57,7 @@ export const Home = () => {
       <View className="bg-gradient-to-b from-sky-100 to-white">
         <Banners className="pt-4" orgId={orgId} />
 
-        <View className="px-3 mt-4">
+        <View className="px-3 mt-3">
           <Title
             action={{
               text: "查看更多",
