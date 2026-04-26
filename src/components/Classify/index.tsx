@@ -47,10 +47,12 @@ export const Classify = (props: ClassifyPropsType) => {
           />
         </View>
         <ScrollView scrollY className="flex-1 bg-slate-100/50">
-          <View className="flex flex-col py-3 pb-[180px]">
-            <Text className="px-3 text-[22px] text-slate-400 mb-2">
+          <View className="py-3">
+            <Text className="px-3 text-[22px] text-slate-400">
               共{subCategoryList.length} 个分类
             </Text>
+          </View>
+          <View className="flex flex-col gap-3 pb-[180px]">
             {[...subCategoryList].map((item) => (
               <ClassifyItem key={item.id} info={item} />
             ))}

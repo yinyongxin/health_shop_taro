@@ -12,7 +12,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
 
   return (
     <View
-      className="pt-3 px-3"
+      className="px-3"
       onClick={() => {
         appRouter.navigateTo("subCategoryProductList", {
           query: { subCategoryId: info.id.toString() },
@@ -20,7 +20,7 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
       }}
     >
       <View
-        className="flex items-center gap-3 p-3 rounded-2xl overflow-hidden"
+        className="flex items-center gap-3 p-3 rounded-xl overflow-hidden"
         style={{
           background: "rgba(255,255,255,0.95)",
           backdropFilter: "blur(8px)",
@@ -49,7 +49,11 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
         </View>
 
         <View className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-          <LucideIcon className="text-slate-400" name="chevron-right" size={18} />
+          <LucideIcon
+            className="text-slate-400"
+            name="chevron-right"
+            size={18}
+          />
         </View>
       </View>
     </View>
