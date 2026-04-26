@@ -58,22 +58,20 @@ export const Home = () => {
         <Banners className="pt-4" orgId={orgId} />
 
         <View className="px-2 mt-4">
-          <View className="bg-white/80 backdrop-blur-sm rounded-2xl p-4">
-            <Title
-              action={{
-                text: "查看更多",
-                onClick: () => {
-                  appRouter.navigateTo("wareList", {
-                    query: {
-                      orgId,
-                    },
-                  });
-                },
-              }}
-            >
-              推荐商品
-            </Title>
-          </View>
+          <Title
+            action={{
+              text: "查看更多",
+              onClick: () => {
+                appRouter.navigateTo("wareList", {
+                  query: {
+                    orgId,
+                  },
+                });
+              },
+            }}
+          >
+            推荐商品
+          </Title>
         </View>
 
         <View className="mt-2 pr-2 pb-[144px]">
