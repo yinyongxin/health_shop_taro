@@ -211,7 +211,100 @@ const fetchData = async () => {
 </View>
 ```
 
-### 7. 命名规范
+### 7. 设计风格规范
+
+项目统一使用 **科技医疗风格**，以蓝灰色调为主，清新专业。
+
+#### 主色调
+
+- **品牌色**: `blue-500` ~ `blue-600`
+- **背景色**: `blue-50` ~ `blue-100` 淡蓝灰
+- **导航栏**: `blue-600` 渐变
+- **强调色**: `blue-500`
+
+#### 配色方案
+
+```typescript
+// 页面主背景 - 淡蓝渐变
+background: "linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%)"
+
+// 导航栏 - 蓝渐变
+background: "linear-gradient(135deg, #2563EB 0%, #3B82F6 100%)"
+
+// 图标/分类背景 - 淡蓝渐变
+background: "linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)"
+
+// 卡片背景 - 半透明模糊
+bg-white/80 backdrop-blur-sm
+
+// 标签背景
+bg-blue-50 text-blue-600
+```
+
+#### 设计特点
+
+1. **透明模糊**: 卡片使用 `bg-white/80 backdrop-blur-sm` 实现毛玻璃效果
+2. **渐变背景**: 导航栏、图标、卡片使用渐变色
+3. **圆角**: 卡片 `rounded-2xl`，图标 `rounded-xl/rounded-2xl`
+4. **阴影**: 轻量阴影 `shadow-sm`
+
+#### 通用布局
+
+```tsx
+// 页面结构
+<View className="min-h-screen" style={{ background: "linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%)" }}>
+  // 导航栏
+  <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #2563EB 0%, #3B82F6 100%)" }}>
+    <Text className="text-xl font-bold text-white">标题</Text>
+    {/* 其他内容 */}
+  </View>
+
+  // 内容卡片（重叠效果）
+  <View className="px-4 -mt-3">
+    <View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
+      内容
+    </View>
+  </View>
+
+  // 列表内容
+  <View className="px-4 mt-4 pb-8">
+    <View className="space-y-3">
+      <View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
+        列表项
+      </View>
+    </View>
+  </View>
+</View>
+```
+
+#### 组件示例
+
+```tsx
+// 分类图标
+<View className="w-12 h-12 rounded-xl flex items-center justify-center mb-2"
+  style={{ background: "linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)" }}>
+  <Text className="text-lg">📦</Text>
+</View>
+
+// 列表项
+<View className="p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
+  <Text className="text-sm text-slate-800">商品名称</Text>
+  <Text className="text-xs text-blue-600 mt-0.5">描述</Text>
+  <View className="flex items-center justify-between mt-3">
+    <Text className="text-sm font-semibold text-slate-600">¥199</Text>
+    <View className="text-xs px-3 py-1.5 bg-blue-500 text-white rounded-lg">详情</View>
+  </View>
+</View>
+```
+
+#### 文字颜色
+
+- 标题: `text-white`（导航栏内）或 `text-slate-800`（内容区）
+- 副标题: `text-slate-500`
+- 描述: `text-slate-400`
+- 强调: `text-blue-600`
+
+### 8. 命名规范
 
 | 类型      | 规范       | 示例                                |
 | --------- | ---------- | ----------------------------------- |
@@ -222,7 +315,7 @@ const fetchData = async () => {
 | 接口/类型 | PascalCase | `UserInfo`, `OrderStatus`           |
 | 目录名    | kebab-case | `order-detail/`, `ware-list/`       |
 
-### 8. 错误处理
+### 9. 错误处理
 
 - 使用 try-catch 包装所有异步代码
 - 统一使用 `appToast` 显示提示信息
@@ -247,7 +340,7 @@ const name = user?.name ?? "未知";
 const list = data?.list || [];
 ```
 
-### 9. Git 提交规范
+### 10. Git 提交规范
 
 ```bash
 # 功能开发
