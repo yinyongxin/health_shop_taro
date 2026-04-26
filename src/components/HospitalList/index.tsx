@@ -32,11 +32,18 @@ export const HospitalList = (props: HospitalListProps) => {
             onClick={() => handleClick(item.orgId)}
           >
             <View className="flex items-center gap-3">
-              <View className="w-12 h-12 rounded-xl flex items-center justify-center"
+              <View
+                className="w-12 h-12 rounded-xl flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
-                }}>
-                <LucideIcon className="text-sky-600" name="hospital" size={24} />
+                  background:
+                    "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
+                }}
+              >
+                <LucideIcon
+                  className="text-sky-600"
+                  name="hospital"
+                  size={24}
+                />
               </View>
               <View className="flex-1">
                 <Text className="text-[28px] font-semibold text-slate-800">
@@ -47,7 +54,11 @@ export const HospitalList = (props: HospitalListProps) => {
                 </Text>
               </View>
               <View className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
-                <LucideIcon className="text-slate-400" name="chevron-right" size={18} />
+                <LucideIcon
+                  className="text-slate-400"
+                  name="chevron-right"
+                  size={18}
+                />
               </View>
             </View>
           </View>

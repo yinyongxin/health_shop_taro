@@ -96,11 +96,9 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
             </View>
           </View>
 
-          {info.description && (
-            <Text className="text-[24px] text-slate-500 line-clamp-2 h-8 leading-relaxed mb-[16px]">
-              {info.description}
-            </Text>
-          )}
+          <Text className="text-[24px] text-slate-500 line-clamp-2 h-8 leading-relaxed mb-[16px]">
+            {info.description || "暂无介绍"}
+          </Text>
 
           <View className="flex items-end justify-between pt-[16px] border-t border-slate-100">
             <View className="flex items-baseline gap-[6px]">
