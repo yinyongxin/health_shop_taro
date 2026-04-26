@@ -28,7 +28,7 @@ const ServerQrcode = () => {
     throw new Error(res.data?.msg ?? "获取订单详情失败");
   });
   const orderDetail = orderDetailRequest.data?.order;
-  const serverIds = pageParams.serverIds as unknown as number[];
+  const serverIds = pageParams.serverIds;
   const serverDetails = orderDetail?.itemList?.filter((item) =>
     serverIds?.includes(item.itemId),
   );
@@ -43,21 +43,17 @@ const ServerQrcode = () => {
       type: "image/jpeg",
       margin: 1,
     } as const;
-    const data = serverIds.map((id) => ({
+    const data = {
       orderNo: pageParams.orderNo,
-      serverId: id,
-    }));
-    QRCode.toDataURL(
-      JSON.stringify(data),
-      opts,
-      function (err, url) {
-        if (err) {
-          appToast.error("生成二维码失败");
-          return;
-        }
-        setQrCodeData(url);
-      },
-    );
+      serverIds,
+    };
+    QRCode.toDataURL(JSON.stringify(data), opts, function (err, url) {
+      if (err) {
+        appToast.error("生成二维码失败");
+        return;
+      }
+      setQrCodeData(url);
+    });
   }, [orderDetail, serverDetails]);
 
   if (
