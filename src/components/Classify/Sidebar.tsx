@@ -31,7 +31,7 @@ export const Sidebar = (props: SidebarProps) => {
             <View
               className={classNames(
                 "flex-center rounded-xl px-3 py-3",
-                "transition-all duration-200",
+                "transition-all duration-200 bg-gray-100",
                 isActived
                   ? "bg-gradient-to-r from-sky-500 to-sky-400 text-white font-semibold shadow-md"
                   : "text-slate-600 active:bg-slate-100",
