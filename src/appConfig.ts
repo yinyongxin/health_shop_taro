@@ -20,6 +20,15 @@ export const APP_CONFIG_OPTION = {
   },
 };
 
+export const isWechat = () => {
+  const ua = navigator.userAgent.toLowerCase();
+  return ua.includes("micromessenger");
+};
+
+export const isWechatMP = () => {
+  const ua = navigator.userAgent.toLowerCase();
+  return ua.includes("miniprogram");
+};
 
 export const APP_CONFIG = APP_CONFIG_OPTION[
   process.env?.TARO_APP_MODE as any
