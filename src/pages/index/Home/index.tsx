@@ -32,7 +32,7 @@ const HeaderSection = () => {
             </View>
             <View>
               <Text className="text-lg font-semibold text-white">
-                {hospital?.orgName}
+                {hospital?.orgName || '医疗商城'}
               </Text>
             </View>
           </View>
