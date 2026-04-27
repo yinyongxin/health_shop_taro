@@ -8,8 +8,8 @@ import { TopSearch } from "./TopSearch";
 import { Categories } from "./Categories";
 
 const HeaderSection = () => {
-  const { orgId } = useAppEnvStore();
-
+  const { orgId, hospitalList } = useAppEnvStore();
+  const hospital = hospitalList?.find((item) => item.orgId === orgId);
   return (
     <View
       className="relative overflow-hidden"
@@ -31,7 +31,9 @@ const HeaderSection = () => {
               <Text className="text-xl">🏥</Text>
             </View>
             <View>
-              <Text className="text-lg font-semibold text-white">健康商城</Text>
+              <Text className="text-lg font-semibold text-white">
+                {hospital?.orgName}
+              </Text>
             </View>
           </View>
           <View className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
