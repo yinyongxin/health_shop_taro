@@ -13,6 +13,7 @@ import prodConfig from "./prod";
 export default defineConfig<"vite">(async (merge, { command, mode }) => {
   console.log("command: ", command);
   console.log("mode: ", mode);
+
   // const { default: tailwindcss } = await import('@tailwindcss/vite')
 
   const baseConfig: UserConfigExport<"vite"> = {
@@ -155,10 +156,9 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
   };
 
   process.env.BROWSERSLIST_ENV = process.env.NODE_ENV;
-  console.log("process.env.NODE_ENV: ", process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
     // 本地开发构建配置（不混淆压缩）
-    return merge({}, baseConfig, devConfig);
+    return merge({}, baseConfig, devConfig(mode));
   }
   // 生产构建配置（默认开启压缩混淆等）
   return merge({}, baseConfig, prodConfig);

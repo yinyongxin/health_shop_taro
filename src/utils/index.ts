@@ -1,5 +1,4 @@
 import { DictItem } from "@/client";
-import { APP_ENV_CONFIG } from "@/common";
 import { SaleStatusEnum } from "@/enums";
 import {
   getSystemInfoSync,
@@ -9,6 +8,7 @@ import {
 } from "@tarojs/taro";
 import { areaList } from "@vant/area-data";
 import dayjs from "dayjs";
+import { APP_CONFIG } from "../../config/appConfig";
 
 export const getAreaChinese = (areaValue: string[]) => {
   const values = Object.values(areaList);
@@ -71,9 +71,9 @@ export const getBirthByCardNo = (
 
 export const getImagePath = (path: string) => {
   if (isDev) {
-    return APP_ENV_CONFIG.API_PREFIX + APP_ENV_CONFIG.FILE_PREFIX + path;
+    return APP_CONFIG.API_PREFIX + APP_CONFIG.FILE_PREFIX + path;
   }
-  return APP_ENV_CONFIG.FILE_PREFIX + path;
+  return APP_CONFIG.FILE_PREFIX + path;
 };
 
 export const getAge = (birthday?: string) => {
