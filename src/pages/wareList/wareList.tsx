@@ -50,9 +50,8 @@ const WareList = () => {
           />
         </DropdownMenu>
         <SearchWareCardList
-          className="mt-3 pr-3"
+          className="mt-3"
           orgId={pageParams.orgId}
-          searchWareCardProps={{ border: true }}
           searchKey={search}
           refreshNumber={refreshNumber}
           order={order === "default" ? undefined : order}

@@ -10,7 +10,11 @@ interface UseAppEnvState {
   updateAppId: (orgId?: UseAppEnvState["appId"]) => void;
   getAppId: () => UseAppEnvState["appId"];
 
-  hospitalList?: any[];
+  hospitalList?: {
+    orgId: string;
+    orgName: string;
+    main?: boolean;
+  }[];
   initHospitalList?: () => void;
 
   orderStatusList: DictItem[];

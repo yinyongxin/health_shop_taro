@@ -4,7 +4,6 @@ import { AppImage } from "../AppImage";
 
 export type SearchWareCardProps = {
   info: ProductDetail;
-  border?: boolean;
   handleClick?: () => void;
 };
 
@@ -30,7 +29,7 @@ const TagBadge = ({
 };
 
 export const SearchWareCard = (props: SearchWareCardProps) => {
-  const { border, info, handleClick } = props;
+  const { info, handleClick } = props;
   const hasDiscount = info.originalPrice && info.originalPrice > info.price;
   const discountPercent = hasDiscount
     ? Math.round((1 - info.price / info.originalPrice!) * 100)
@@ -38,17 +37,12 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
 
   return (
     <View
-      className="pb-3 pl-3 w-1/2 relative"
+      className="pb-2 pl-2 w-1/2 relative"
       onClick={() => {
         handleClick?.();
       }}
     >
-      <View
-        className="rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-        style={{
-          border: border ? "2px solid #E2E8F0" : "none",
-        }}
-      >
+      <View className="rounded-lg bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
         <View className="relative flex">
           <AppImage
             className="w-full h-[280px] bg-gradient-to-br from-sky-50 to-blue-100"
