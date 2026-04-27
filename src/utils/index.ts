@@ -8,7 +8,7 @@ import {
 } from "@tarojs/taro";
 import { areaList } from "@vant/area-data";
 import dayjs from "dayjs";
-import { APP_CONFIG } from "@/appConfig";
+import { APP_CONFIG } from "../appConfig/index";
 
 export const getAreaChinese = (areaValue: string[]) => {
   const values = Object.values(areaList);

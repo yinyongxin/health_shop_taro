@@ -1,10 +1,16 @@
 import type { UserConfigExport } from "@tarojs/cli";
-// @ts-ignore
-import { APP_CONFIG_OPTION } from "./appConfig.ts";
 
 export default (mode: string) => {
-  const { API_PREFIX, PROXY_TARGET } = APP_CONFIG_OPTION[mode];
-  console.log("APP_CONFIG_OPTION", APP_CONFIG_OPTION[mode]);
+  const { API_PREFIX, PROXY_TARGET } = {
+    test: {
+      PROXY_TARGET: "https://chr.eh-med.com",
+      API_PREFIX: "/zhfy",
+    },
+    prod: {
+      PROXY_TARGET: "https://gt.eh-med.com",
+      API_PREFIX: "/gt",
+    },
+  }[mode] as any;
   return {
     mini: {
       debugReact: true,
