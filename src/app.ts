@@ -19,7 +19,7 @@ import {
 import { client } from "./client/client.gen";
 
 client.instance.interceptors.response.use((response) => {
-  if (useAppAuthStore.getState().isLogged && response.data?.code === 506) {
+  if (response.data?.code === 506) {
     if (!isDev) {
       useAppAuthStore.getState().logout();
     }
