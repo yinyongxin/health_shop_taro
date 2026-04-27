@@ -49,12 +49,12 @@ const UserMy = () => {
         </View>
 
         {/* 我的订单 */}
-        <View className="px-3 mt-4">
+        <View className="px-3 mt-3">
           <MyOrder />
         </View>
 
         {/* 功能菜单 */}
-        <View className="mt-4 px-3">
+        <View className="mt-3 px-3">
           <View
             className="rounded-2xl overflow-hidden"
             style={{
