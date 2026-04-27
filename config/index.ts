@@ -151,7 +151,6 @@ export default defineConfig<"vite">(async (merge, { command, mode }) => {
     },
   };
 
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
   process.env.BROWSERSLIST_ENV = process.env.NODE_ENV;
   if (process.env.NODE_ENV === "development") {
     // 本地开发构建配置（不混淆压缩）
