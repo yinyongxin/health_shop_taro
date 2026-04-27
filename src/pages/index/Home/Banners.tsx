@@ -33,7 +33,7 @@ export const Banners = (props: BannersPropsType) => {
     return null;
   }
 
-  if (loading || !data?.length) {
+  if (!data?.length) {
     return <View className="h-[350px] flex-center bg-gray-100" />;
   }
 
