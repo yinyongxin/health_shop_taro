@@ -55,9 +55,9 @@ export const Home = () => {
     <BasePage>
       <HeaderSection />
       <View className="bg-gradient-to-b from-sky-100 to-white">
-        <Banners className="pt-4" orgId={orgId} />
+        <Banners orgId={orgId} />
 
-        <View className="px-3 mt-3">
+        <View className="px-3 mt-2">
           <Title
             action={{
               text: "查看更多",

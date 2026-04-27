@@ -13,9 +13,9 @@ const QuickService = ({
   label: string;
   onClick?: () => void;
 }) => (
-  <View className="flex flex-col items-center gap-[8px]" onClick={onClick}>
+  <View className="flex flex-col items-center gap-2" onClick={onClick}>
     <View
-      className="w-[72px] h-[72px] rounded-2xl flex items-center justify-center shadow-sm"
+      className="size-[100px] rounded-full flex items-center justify-center shadow-sm"
       style={{
         background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
       }}
@@ -26,7 +26,9 @@ const QuickService = ({
         <LucideIcon name="image" />
       )}
     </View>
-    <Text className="text-[22px] text-slate-600 font-medium">{label}</Text>
+    <Text className="text-[24px] text-slate-600 font-medium w-full truncate">
+      {label}
+    </Text>
   </View>
 );
 

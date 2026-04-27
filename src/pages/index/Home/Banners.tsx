@@ -43,10 +43,10 @@ export const Banners = (props: BannersPropsType) => {
         <Swiper.Indicator />
         {data.map((item) => (
           <Swiper.Item key={item.id} onClick={() => handleClick(item.jumpUrl)}>
-            <View className="size-full px-2">
+            <View className="size-full">
               <AppImage
                 src={item.imagePath}
-                className="w-full h-full rounded-xl"
+                className="w-full h-full"
                 mode="aspectFill"
               />
             </View>
