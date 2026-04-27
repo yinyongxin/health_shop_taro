@@ -189,7 +189,6 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
               <Field className="rounded-lg" required name="idType" isLink>
                 {(fieldController: FormController<string>) => {
                   const value = fieldController?.value;
-                  console.log("idType value:", fieldController);
                   return (
                     <>
                       <Input

@@ -26,7 +26,7 @@ const QuickService = ({
         <LucideIcon name="image" />
       )}
     </View>
-    <Text className="text-[24px] text-slate-600 font-medium w-full truncate">
+    <Text className="text-[24px] text-slate-600 font-medium w-full truncate text-center">
       {label}
     </Text>
   </View>
