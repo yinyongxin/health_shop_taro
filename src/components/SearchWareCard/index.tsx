@@ -47,7 +47,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           <AppImage
             className="w-full h-[280px] bg-gradient-to-br from-sky-50 to-blue-100"
             src={info.mainImage}
-            mode="aspectFill"
+            mode='widthFix'
           />
           <View className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           <View className="absolute top-[16px] left-[16px] flex gap-[8px] flex-wrap">
