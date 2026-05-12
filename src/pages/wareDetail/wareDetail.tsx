@@ -373,8 +373,10 @@ const WareDetail = () => {
                 <Swiper.Item key={index}>
                   <AppImage
                     src={item}
-                    className="w-full h-full bg-gray-200"
-                    mode="aspectFill"
+                    className="w-full h-full bg-gray-200 flex justify-center"
+                    mode="aspectFit"
+                    
+                    preview
                   />
                 </Swiper.Item>
               ))}
