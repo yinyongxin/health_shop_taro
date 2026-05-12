@@ -49,6 +49,7 @@ export const Categories = (props: CategoriesPropsType) => {
       return res.data?.data
         .map((item) => item.subCategoryList)
         .flat()
+        .sort((a, b) => a.sortOrder - b.sortOrder)
         .slice(0, 4);
     },
     {
