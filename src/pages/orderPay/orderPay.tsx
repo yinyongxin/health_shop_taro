@@ -24,10 +24,12 @@ import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
 import { Countdown, Dialog, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
+import classNames from "classnames";
 import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPay } from "@/utils/order";
+import { agreementContent } from "../../static/agreement";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
@@ -37,8 +39,10 @@ const OrderPayPage = () => {
   const { hospitalList } = useAppEnvStore();
 
   const selectAddressControl = usePopupControl();
+  const agreementControl = usePopupControl();
 
   const [selectAddress, setSelectAddress] = useState<AddressInfo>();
+  const [agreed, setAgreed] = useState(false);
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
@@ -203,38 +207,92 @@ const OrderPayPage = () => {
 
   const popupRender = () => {
     return (
-      <AppPopup
-        style={{
-          height: "60vh",
-        }}
-        {...selectAddressControl}
-        title="选择地址"
-        leftAction={
-          <Text
-            onClick={() => {
-              appRouter.navigateTo("addAddress");
-            }}
-            className="text-sky-500 font-bold"
-          >
-            新增地址
-          </Text>
-        }
-        onClose={() => {
-          selectAddressControl.setOpen(false);
-        }}
-        showClose
-      >
-        <AddressList
-          addressCardProps={{
-            showActions: false,
-            showIdNo: true,
-            handleClick: (info) => {
-              updataOrderAddress(info);
-              selectAddressControl.setOpen(false);
-            },
+      <>
+        <AppPopup
+          style={{
+            height: "60vh",
           }}
-        />
-      </AppPopup>
+          {...selectAddressControl}
+          title="选择地址"
+          leftAction={
+            <Text
+              onClick={() => {
+                appRouter.navigateTo("addAddress");
+              }}
+              className="text-sky-500 font-bold"
+            >
+              新增地址
+            </Text>
+          }
+          onClose={() => {
+            selectAddressControl.setOpen(false);
+          }}
+          showClose
+        >
+          <AddressList
+            addressCardProps={{
+              showActions: false,
+              showIdNo: true,
+              handleClick: (info) => {
+                updataOrderAddress(info);
+                selectAddressControl.setOpen(false);
+              },
+            }}
+          />
+        </AppPopup>
+        <AppPopup
+          style={{
+            height: "80vh",
+          }}
+          {...agreementControl}
+          title="患者服务包知情同意书"
+          onClose={() => {
+            agreementControl.setOpen(false);
+            setAgreed(false);
+          }}
+          showClose
+          footer={
+            <View className="flex flex-col gap-2 px-2 pb-2">
+              <View
+                className="flex items-center gap-2"
+                onClick={() => setAgreed(!agreed)}
+              >
+                <View
+                  className={classNames(
+                    "w-[32px] h-[32px] rounded-full border-2 flex items-center justify-center",
+                    agreed
+                      ? "bg-sky-500 border-sky-500"
+                      : "border-gray-300",
+                  )}
+                >
+                  {agreed && (
+                    <Text className="text-white text-[20px] font-bold">✓</Text>
+                  )}
+                </View>
+                <Text className="text-[26px] text-gray-600">
+                  我已阅读并同意《患者服务包知情同意书》
+                </Text>
+              </View>
+              <AppButton
+                status="error"
+                disabled={!agreed}
+                className="w-full"
+                onClick={() => {
+                  agreementControl.setOpen(false);
+                  setAgreed(false);
+                  orderPayRequest.run();
+                }}
+              >
+                确认支付
+              </AppButton>
+            </View>
+          }
+        >
+          <View className="px-4 py-2 text-[26px] leading-[1.8] text-gray-700 whitespace-pre-line">
+            {agreementContent}
+          </View>
+        </AppPopup>
+      </>
     );
   };
 
@@ -382,7 +440,7 @@ const OrderPayPage = () => {
             className="flex-2"
             loading={orderPayRequest.loading}
             onClick={() => {
-              orderPayRequest.run();
+              agreementControl.setOpen(true);
             }}
           >
             确认支付
