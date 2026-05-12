@@ -1427,7 +1427,7 @@ export type PostWxShopOrderPayData = {
     /**
      * 机构id
      */
-    orgId: string;
+    orgId?: string;
     /**
      * 商品列表
      */
