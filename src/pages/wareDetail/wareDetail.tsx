@@ -22,7 +22,7 @@ import { useState } from "react";
 import { orderPay } from "@/utils/order";
 import { appRouter } from "@/router";
 import { add, multiply, round, subtract } from "lodash-es";
-import { agreementContent } from "../../static/agreement";
+import { agreementContent } from "@/common";
 import classNames from "classnames";
 import { DetailInfo } from "./DetailInfo";
 import { Actions } from "./Actions";

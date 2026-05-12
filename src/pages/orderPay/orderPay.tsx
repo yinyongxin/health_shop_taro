@@ -29,7 +29,7 @@ import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPay } from "@/utils/order";
-import { agreementContent } from "../../static/agreement";
+import { agreementContent } from "@/common";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
