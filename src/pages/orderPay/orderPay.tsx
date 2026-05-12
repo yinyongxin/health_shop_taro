@@ -17,6 +17,7 @@ import {
   AddressList,
   AddressCard,
   InfoCardItem,
+  AgreementPopup,
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
 import { appRouter } from "@/router";
@@ -24,12 +25,10 @@ import { useAppAuthStore, useAppEnvStore, useAppUserStore } from "@/stores";
 import { appLoading, appToast } from "@/utils";
 import { Countdown, Dialog, Empty } from "@taroify/core";
 import { View, Text } from "@tarojs/components";
-import classNames from "classnames";
 import { navigateBack } from "@tarojs/taro";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { orderPay } from "@/utils/order";
-import { agreementContent } from "@/common";
 import { Skeleton } from "./Skeleton";
 
 const OrderPayPage = () => {
@@ -42,7 +41,6 @@ const OrderPayPage = () => {
   const agreementControl = usePopupControl();
 
   const [selectAddress, setSelectAddress] = useState<AddressInfo>();
-  const [agreed, setAgreed] = useState(false);
 
   const orderDetailRequest = useRequest(async () => {
     const res = await getWxShopOrderDetail({
@@ -240,58 +238,12 @@ const OrderPayPage = () => {
             }}
           />
         </AppPopup>
-        <AppPopup
-          style={{
-            height: "80vh",
-          }}
-          {...agreementControl}
-          title="患者服务包知情同意书"
-          onClose={() => {
-            agreementControl.setOpen(false);
-            setAgreed(false);
-          }}
-          showClose
-          footer={
-            <View className="flex flex-col gap-2 px-2 pb-2">
-              <View
-                className="flex items-center gap-2"
-                onClick={() => setAgreed(!agreed)}
-              >
-                <View
-                  className={classNames(
-                    "w-[32px] h-[32px] rounded-full border-2 flex items-center justify-center",
-                    agreed
-                      ? "bg-sky-500 border-sky-500"
-                      : "border-gray-300",
-                  )}
-                >
-                  {agreed && (
-                    <Text className="text-white text-[20px] font-bold">✓</Text>
-                  )}
-                </View>
-                <Text className="text-[26px] text-gray-600">
-                  我已阅读并同意《患者服务包知情同意书》
-                </Text>
-              </View>
-              <AppButton
-                status="error"
-                disabled={!agreed}
-                className="w-full"
-                onClick={() => {
-                  agreementControl.setOpen(false);
-                  setAgreed(false);
-                  orderPayRequest.run();
-                }}
-              >
-                确认支付
-              </AppButton>
-            </View>
-          }
-        >
-          <View className="px-4 py-2 text-[26px] leading-[1.8] text-gray-700 whitespace-pre-line">
-            {agreementContent}
-          </View>
-        </AppPopup>
+        <AgreementPopup
+          open={agreementControl.open}
+          onClose={agreementControl.onClose}
+          onConfirm={() => orderPayRequest.run()}
+          loading={orderPayRequest.loading}
+        />
       </>
     );
   };
