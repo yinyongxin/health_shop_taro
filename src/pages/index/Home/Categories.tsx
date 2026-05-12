@@ -15,13 +15,13 @@ const QuickService = ({
 }) => (
   <View className="flex flex-col items-center gap-2" onClick={onClick}>
     <View
-      className="size-[100px] rounded-full flex items-center justify-center shadow-sm"
+      className="size-[100px] rounded-full flex items-center justify-center shadow-sm overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)",
       }}
     >
       {icon ? (
-        <Image className="size-[40px]" src={icon} />
+        <Image className="size-[60px]" src={icon} />
       ) : (
         <LucideIcon name="image" />
       )}
