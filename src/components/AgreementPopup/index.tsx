@@ -11,9 +11,15 @@ export type AgreementPopupProps = {
   loading?: boolean;
 };
 
+const TIP_TEXT =
+  "温馨提示：本须知及免责声明旨在明确相关权责，凡购买使用本项目、服务及相关活动者，即默认自愿认可本声明全部内容，请认真阅读知悉。";
+
 export const AgreementPopup = (props: AgreementPopupProps) => {
   const { open, onClose, onConfirm, loading } = props;
   const [agreed, setAgreed] = useState(false);
+
+  const beforeTip = agreementContent.split(TIP_TEXT)[0];
+  const afterTip = agreementContent.split(TIP_TEXT)[1];
 
   return (
     <AppPopup
@@ -62,11 +68,9 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
       }
     >
       <View className="px-4 py-2 text-[26px] leading-[1.8] text-gray-700 whitespace-pre-line">
-        <Text className="text-red-500">
-          温馨提示：本须知及免责声明旨在明确相关权责，凡购买使用本项目、服务及相关活动者，即默认自愿认可本声明全部内容，请认真阅读知悉。
-        </Text>
-        {"\n\n"}
-        {agreementContent}
+        {beforeTip}
+        <Text className="text-red-500">{TIP_TEXT}</Text>
+        {afterTip}
       </View>
     </AppPopup>
   );
