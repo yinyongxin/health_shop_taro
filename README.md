@@ -32,13 +32,6 @@ pnpm 10+
 
 ### 测试环境
 
-<https://testpay.eh-med.com/zhfy>
-jysy 123456
-
-<https://testpay.eh-med.com/hmall/?openVConsole=true&orgId=800001004>
-
-### 正式环境
-
 <https://chr.eh-med.com/zhfy/index>
 jysy 123456
 
