@@ -73,7 +73,9 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
       }
     >
       {agreementData?.content ? (
-        <RichText nodes={agreementData?.content} />
+        <View className="px-4">
+          <RichText nodes={agreementData?.content} />
+        </View>
       ) : (
         <AgreementDefaultContent />
       )}
