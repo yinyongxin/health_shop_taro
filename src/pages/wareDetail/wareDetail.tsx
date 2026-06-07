@@ -5,7 +5,6 @@ import {
   BasePage,
   Box,
   NewServiceBlock,
-  Title,
   AgreementPopup,
 } from "@/components";
 import { usePageParams, usePopupControl, useRequest } from "@/hooks";
@@ -375,7 +374,6 @@ const WareDetail = () => {
                     src={item}
                     className="w-full h-full bg-gray-200 flex justify-center"
                     mode="aspectFit"
-                    
                     preview
                   />
                 </Swiper.Item>

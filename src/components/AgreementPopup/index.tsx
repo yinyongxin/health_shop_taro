@@ -19,10 +19,10 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
   const { agreementData, updataAgreementData } = useAppEnvStore();
 
   useEffect(() => {
-    if (!agreementData) {
+    if (!agreementData && open) {
       updataAgreementData();
     }
-  }, []);
+  }, [open]);
 
   // console.log("agreementData", agreementData);
 
@@ -72,11 +72,11 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
         </View>
       }
     >
-      {/* {agreementData?.content ? (
+      {agreementData?.content ? (
         <RichText nodes={agreementData?.content} />
       ) : (
         <AgreementDefaultContent />
-      )} */}
+      )}
     </AppPopup>
   );
 };
