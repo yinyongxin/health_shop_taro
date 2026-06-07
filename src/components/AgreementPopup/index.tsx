@@ -6,6 +6,7 @@ import { useAppEnvStore } from "@/stores";
 import { useRequest } from "@/hooks";
 import { getWxShopContentList } from "@/client";
 import { AgreementDefaultContent } from "./AgreementDefaultContent";
+import { Skeleton } from "./Skeleton";
 
 export type AgreementPopupProps = {
   open: boolean;
@@ -21,7 +22,7 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
 
   const { hospitalList } = useAppEnvStore();
 
-  const { data: agreementData } = useRequest(
+  const { data: agreementData, loading: agreementLoading } = useRequest(
     async () => {
       let currentOrgId = orgId;
       if (!currentOrgId) {
@@ -44,11 +45,13 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
     },
   );
 
+  const title = "患者服务包知情同意书";
+
   return (
     <AppPopup
       style={{ height: "80vh" }}
       open={open}
-      title="患者服务包知情同意书"
+      title={title}
       onClose={() => {
         onClose();
         setAgreed(false);
@@ -70,9 +73,8 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
                 <Text className="text-white text-[20px] font-bold">✓</Text>
               )}
             </View>
-            <Text className="text-[26px] text-gray-600">
-              我已阅读并同意《患者服务包知情同意书》
-            </Text>
+            <Text className="text-[26px] text-gray-600">我已阅读并同意</Text>
+            <View>《{title}》</View>
           </View>
           <AppButton
             status="error"
@@ -90,7 +92,9 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
         </View>
       }
     >
-      {agreementData?.content ? (
+      {agreementLoading ? (
+        <Skeleton />
+      ) : agreementData?.content ? (
         <View className="px-4">
           <RichText nodes={agreementData?.content} />
         </View>
