@@ -43,12 +43,12 @@ export const ClassifyItem = (props: ClassifyItemProps) => {
           <Text className="text-[28px] font-semibold text-slate-800 shrink-0 line-clamp-1">
             {info.name}
           </Text>
-          <Text className="text-[24px] text-slate-500 line-clamp-2 overflow-hidden">
+          <Text className="text-[24px] text-slate-500 line-clamp-1 overflow-hidden">
             {info.description || "暂无描述"}
           </Text>
         </View>
 
-        <View className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+        <View className="h-8 flex items-center justify-center">
           <LucideIcon
             className="text-slate-400"
             name="chevron-right"
