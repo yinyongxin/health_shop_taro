@@ -28,7 +28,6 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
       if (!currentOrgId) {
         currentOrgId = hospitalList?.find((item) => item.main)?.orgId;
       }
-      console.log("currentOrgId", currentOrgId);
       if (!currentOrgId) {
         return;
       }
