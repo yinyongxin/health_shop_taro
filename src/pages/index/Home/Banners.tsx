@@ -29,25 +29,20 @@ export const Banners = (props: BannersPropsType) => {
     Taro.navigateTo({ url: jumpUrl });
   };
 
-  if (!orgId) {
+  if (!orgId || loading || !data?.length) {
     return null;
-  }
-
-  if (!data?.length) {
-    return <View className="h-[350px] flex-center bg-gray-100" />;
   }
 
   return (
     <View className={classNames("overflow-hidden", className)}>
-      <Swiper className="h-[400px]" autoplay={4000}>
-        <Swiper.Indicator />
+      <Swiper className="h-[450px]" autoplay={4000}>
         {data.map((item) => (
           <Swiper.Item key={item.id} onClick={() => handleClick(item.jumpUrl)}>
             <View className="size-full">
               <AppImage
                 src={item.imagePath}
                 className="w-full h-full"
-                mode="aspectFill"
+                mode="aspectFit"
               />
             </View>
           </Swiper.Item>

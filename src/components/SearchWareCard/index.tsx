@@ -47,7 +47,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           <AppImage
             className="w-full h-[280px] bg-gradient-to-br from-sky-50 to-blue-100"
             src={info.mainImage}
-            mode='widthFix'
+            mode="widthFix"
           />
           <View className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           <View className="absolute top-[16px] left-[16px] flex gap-[8px] flex-wrap">
@@ -91,7 +91,7 @@ export const SearchWareCard = (props: SearchWareCardProps) => {
           </View>
 
           <Text className="text-[24px] text-slate-500 line-clamp-1 leading-relaxed mb-[16px]">
-            {info.description || "暂无介绍"}
+            {info.orgName || "暂无介绍"}
           </Text>
 
           <View className="flex items-end justify-between pt-[16px] border-t border-slate-100">
