@@ -27,13 +27,13 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
       if (!currentOrgId) {
         currentOrgId = hospitalList?.find((item) => item.main)?.orgId;
       }
-
+      console.log("currentOrgId", currentOrgId);
       if (!currentOrgId) {
         return;
       }
       const getWxShopContentListRes = await getWxShopContentList({
         query: {
-          orgId,
+          orgId: currentOrgId,
           category: "患者服务包知情同意书",
         },
       });

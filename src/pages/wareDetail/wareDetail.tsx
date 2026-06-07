@@ -448,6 +448,7 @@ const WareDetail = () => {
         <AgreementPopup
           open={agreementControl.open}
           onClose={agreementControl.onClose}
+          orgId={productInfo?.orgId}
           onConfirm={() => {
             if (isFW) {
               handleServerPay.run();
