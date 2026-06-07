@@ -239,6 +239,7 @@ const OrderPayPage = () => {
           />
         </AppPopup>
         <AgreementPopup
+          orgId={orderDetailRequest.data?.order?.orgId}
           open={agreementControl.open}
           onClose={agreementControl.onClose}
           onConfirm={() => orderPayRequest.run()}
