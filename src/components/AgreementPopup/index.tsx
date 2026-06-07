@@ -1,8 +1,10 @@
 import { AppButton, AppPopup } from "@/components";
 import classNames from "classnames";
 import { View, Text, RichText } from "@tarojs/components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppEnvStore } from "@/stores";
+import { useRequest } from "@/hooks";
+import { getWxShopContentList } from "@/client";
 import { AgreementDefaultContent } from "./AgreementDefaultContent";
 
 export type AgreementPopupProps = {
@@ -10,21 +12,34 @@ export type AgreementPopupProps = {
   onClose: () => void;
   onConfirm: () => void;
   loading?: boolean;
+  orgId?: string;
 };
 
 export const AgreementPopup = (props: AgreementPopupProps) => {
-  const { open, onClose, onConfirm, loading } = props;
+  const { open, onClose, onConfirm, loading, orgId } = props;
   const [agreed, setAgreed] = useState(false);
 
-  const { agreementData, updataAgreementData } = useAppEnvStore();
+  const { hospitalList } = useAppEnvStore();
 
-  useEffect(() => {
-    if (!agreementData && open) {
-      updataAgreementData();
-    }
-  }, [open]);
+  const { data: agreementData } = useRequest(
+    async () => {
+      let currentOrgId = orgId;
+      if (!currentOrgId) {
+        currentOrgId = hospitalList?.find((item) => item.main)?.orgId;
+      }
 
-  // console.log("agreementData", agreementData);
+      const getWxShopContentListRes = await getWxShopContentList({
+        query: {
+          orgId,
+          category: "患者服务包知情同意书",
+        },
+      });
+      return getWxShopContentListRes.data?.data?.[0];
+    },
+    {
+      refreshDeps: [open],
+    },
+  );
 
   return (
     <AppPopup

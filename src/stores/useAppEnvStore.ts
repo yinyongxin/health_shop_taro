@@ -1,7 +1,6 @@
 import {
   DictItem,
   getWxRedirectQueryDict,
-  getWxShopContentList,
   getWxShopOrgList,
   ShopContentInfo,
 } from "@/client";
@@ -28,9 +27,6 @@ interface UseAppEnvState {
 
   cardTypeDictList: DictItem[];
   updateCardTypeDictList: () => void;
-
-  agreementData?: ShopContentInfo;
-  updataAgreementData: () => void;
 }
 
 export const useAppEnvStore = createAppStore<UseAppEnvState>(
@@ -73,26 +69,6 @@ export const useAppEnvStore = createAppStore<UseAppEnvState>(
       set({
         orderStatusList: res?.data?.data || [],
       });
-    },
-
-    agreementData: undefined,
-    updataAgreementData: async () => {
-      let orgId = get()?.orgId;
-      if (!orgId) {
-        orgId = get()?.hospitalList?.find((item) => item.main)?.orgId;
-      }
-
-      const getWxShopContentListRes = await getWxShopContentList({
-        query: {
-          orgId,
-          category: "患者服务包知情同意书",
-        },
-      });
-      if (getWxShopContentListRes.data?.data?.[0]) {
-        set({
-          agreementData: getWxShopContentListRes.data?.data?.[0],
-        });
-      }
     },
   }),
   "appEnv",
