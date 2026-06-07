@@ -260,7 +260,7 @@ const WareDetail = () => {
   const amountInfo = isFW ? getServiceAmount() : getAmount();
 
   const getServiceBlock = () => {
-    if (!isFW) {
+    if (!isFW || !productInfo?.itemsList.length) {
       return;
     }
     return <NewServiceBlock serviceList={productInfo?.itemsList} />;
@@ -415,18 +415,20 @@ const WareDetail = () => {
           )}
           {/* 
           <Title className="px-[24px] mt-[24px]">服务内容</Title> */}
-          <View className="px-2 mt-3">
-            <Box
-              bgProps={{
-                className: "rounded-lg bg-white",
-              }}
-              wapperProps={{
-                className: "p-2",
-              }}
-            >
-              {getServiceBlock()}
-            </Box>
-          </View>
+          {getServiceBlock() && (
+            <View className="px-2 mt-3">
+              <Box
+                bgProps={{
+                  className: "rounded-lg bg-white",
+                }}
+                wapperProps={{
+                  className: "p-2",
+                }}
+              >
+                {getServiceBlock()}
+              </Box>
+            </View>
+          )}
 
           <DetailInfo info={productInfo} />
         </View>
