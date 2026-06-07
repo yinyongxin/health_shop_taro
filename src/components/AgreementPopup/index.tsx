@@ -28,6 +28,9 @@ export const AgreementPopup = (props: AgreementPopupProps) => {
         currentOrgId = hospitalList?.find((item) => item.main)?.orgId;
       }
 
+      if (!currentOrgId) {
+        return;
+      }
       const getWxShopContentListRes = await getWxShopContentList({
         query: {
           orgId,
