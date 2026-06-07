@@ -209,6 +209,22 @@ export type OrgData = {
   orgId: string;
 };
 
+export type ShopContentInfo = {
+  createBy?: string;
+  createTime?: unknown;
+  updateTime?: unknown;
+  updateBy?: string;
+  remark?: unknown;
+  id?: number;
+  title?: string;
+  content?: string;
+  coverImage?: unknown;
+  detailImages?: unknown;
+  category?: string;
+  orgId?: string;
+  contentUrl?: unknown;
+};
+
 export type SubCategoryInfo = {
   id: number;
   categoryId: number;
@@ -1427,7 +1443,7 @@ export type PostWxShopOrderPayData = {
     /**
      * 机构id
      */
-    orgId?: string;
+    orgId: string;
     /**
      * 商品列表
      */
@@ -2029,6 +2045,37 @@ export type GetWxRedirectOrgIdAppIdResponses = {
 
 export type GetWxRedirectOrgIdAppIdResponse =
   GetWxRedirectOrgIdAppIdResponses[keyof GetWxRedirectOrgIdAppIdResponses];
+
+export type GetWxShopContentListData = {
+  body?: never;
+  path?: never;
+  query?: {
+    orgId?: string;
+    category?: string;
+  };
+  url: "/wx/shop/content/list";
+};
+
+export type GetWxShopContentListErrors = {
+  400: {
+    code: number;
+    msg: string;
+  };
+};
+
+export type GetWxShopContentListError =
+  GetWxShopContentListErrors[keyof GetWxShopContentListErrors];
+
+export type GetWxShopContentListResponses = {
+  200: {
+    msg: string;
+    code: number;
+    data: Array<ShopContentInfo>;
+  };
+};
+
+export type GetWxShopContentListResponse =
+  GetWxShopContentListResponses[keyof GetWxShopContentListResponses];
 
 export type ClientOptions = {
   baseURL: string;

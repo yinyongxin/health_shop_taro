@@ -37,7 +37,14 @@ jysy 123456
 
 <https://chr.eh-med.com/hmall/?openVConsole=true&orgId=800001004>
 
+### 正式环境
 
+[客户端](https://gt.eh-med.com/hmall/?orgId=800001003&openVConsole=true)
+
+[核销端](https://gt.eh-med.com/verification/?openVConsole=true)
+
+[管理端](https://gt.eh-med.com/gt/index)
+zh_admin 123456
 
 ## 微信公众平台
 

@@ -158,6 +158,9 @@ import type {
   GetWxRedirectOrgIdAppIdData,
   GetWxRedirectOrgIdAppIdResponses,
   GetWxRedirectOrgIdAppIdErrors,
+  GetWxShopContentListData,
+  GetWxShopContentListResponses,
+  GetWxShopContentListErrors,
 } from "./types.gen";
 import { client as _heyApiClient } from "./client.gen";
 
@@ -1485,6 +1488,23 @@ export const getWxRedirectOrgIdAppId = <ThrowOnError extends boolean = false>(
   >({
     responseType: "json",
     url: "/wx/redirect/orgId/appId",
+    ...options,
+  });
+};
+
+/**
+ * 内容列表
+ */
+export const getWxShopContentList = <ThrowOnError extends boolean = false>(
+  options?: Options<GetWxShopContentListData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    GetWxShopContentListResponses,
+    GetWxShopContentListErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    url: "/wx/shop/content/list",
     ...options,
   });
 };
