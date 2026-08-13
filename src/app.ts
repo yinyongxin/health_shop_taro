@@ -109,10 +109,14 @@ function App({ children }: PropsWithChildren<Record<string, never>>) {
       if (appEnvStore.orgId !== orgId) {
         appEnvStore.updateOrgId(orgId);
         appAuthStore.logout();
-        return;
       }
       if (!appAuthStore.isLogged && !isLoggingIn) {
-        await startLogin(orgId);
+        isLoggingIn = true;
+        try {
+          await startLogin(orgId);
+        } finally {
+          isLoggingIn = false;
+        }
       }
     };
     start();

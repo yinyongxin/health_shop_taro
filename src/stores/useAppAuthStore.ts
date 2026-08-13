@@ -1,4 +1,3 @@
-import { client } from "@/client/client.gen";
 import { createAppStore } from "./base";
 
 export interface AppAuthFieldsState {
@@ -11,8 +10,6 @@ interface AppAuthState extends AppAuthFieldsState {
   logout: () => void;
   updateMiniprogram: (value: boolean) => void;
 }
-
-let requestInterceptorId: number | null = null;
 
 export const useAppAuthStore = createAppStore<AppAuthState>(
   (set) => ({
@@ -27,10 +24,6 @@ export const useAppAuthStore = createAppStore<AppAuthState>(
     },
 
     logout: () => {
-      if (requestInterceptorId !== null) {
-        client.instance.interceptors.request.eject(requestInterceptorId);
-        requestInterceptorId = null;
-      }
       set({ isLogged: false });
     },
   }),
