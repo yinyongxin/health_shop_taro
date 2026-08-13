@@ -9,9 +9,6 @@ import { navigateBack } from "@tarojs/taro";
 const EditeAddress = () => {
   const { detail } = usePageParams<"editAddress">();
   const appUserStore = useAppUserStore();
-  const address = appUserStore.addressList.find(
-    (item) => item.id === detail?.id,
-  );
   return (
     <>
       <BasePage
@@ -21,7 +18,7 @@ const EditeAddress = () => {
       >
         <View className="px-[24px] ">
           <EditAddressContent
-            defaultValues={address}
+            defaultValues={detail}
             success={() => {
               appUserStore.updateAddressList();
               navigateBack({

@@ -75,7 +75,7 @@ const AddressSelect = (props: AddressSelectProps) => {
             <View className="flex items-center gap-2">
               <View>{address.receiverName}</View>
               <View>{maskPhone(address.receiverPhone)}</View>
-              <View>{maskIdNo(address?.idNo || "")}</View>
+              {address.idNo && <View>{maskIdNo(address.idNo)}</View>}
             </View>
             <View className="flex justify-between items-center gap-2">
               <View className="flex flex-col gap-1">

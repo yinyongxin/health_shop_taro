@@ -9,21 +9,35 @@ type AppAreaPickerPopupProps = {
 };
 const AppAreaPickerPopup = (props: AppAreaPickerPopupProps) => {
   const { children, areaPickerProps } = props;
-  const { onConfirm, onCancel, ...otherAreaPickerProps } =
-    areaPickerProps || {};
+  const {
+    onConfirm,
+    onCancel,
+    defaultValue,
+    value,
+    ...otherAreaPickerProps
+  } = areaPickerProps || {};
   const [open, setOpen] = useState(false);
+  const [pickerValue, setPickerValue] = useState<string[] | undefined>(
+    value || defaultValue,
+  );
 
   return (
     <>
       {children?.({
         handleOpen: () => {
+          setPickerValue(value);
           setOpen(true);
         },
       })}
       <Popup open={open} rounded placement="bottom" onClose={setOpen}>
         <Popup.Backdrop />
         <AreaPicker
+          value={pickerValue}
+          onChange={(val) => {
+            setPickerValue(val);
+          }}
           onCancel={() => {
+            onCancel?.([], []);
             setOpen(false);
           }}
           onConfirm={(val, option) => {

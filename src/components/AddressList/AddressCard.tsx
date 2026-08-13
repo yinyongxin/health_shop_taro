@@ -92,10 +92,11 @@ export const AddressCard = (props: AddressCardProps) => {
             <View>
               {isMaskPhone ? maskPhone(info.receiverPhone) : info.receiverPhone}
             </View>
-            <View>
-              {showIdNo &&
-                (isMaskIdNo ? maskIdNo(info.idNo ?? "") : (info.idNo ?? ""))}
-            </View>
+            {showIdNo && info.idNo && (
+              <View>
+                {isMaskIdNo ? maskIdNo(info.idNo) : info.idNo}
+              </View>
+            )}
           </View>
           {(info.province || info.city || info.district || info.street) && (
             <View className="flex items-center gap-2 px-2">

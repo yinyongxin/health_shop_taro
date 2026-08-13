@@ -54,6 +54,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
 
   const [cardTypeOpen, setCardTypeOpen] = useState(false);
   const formRef = useRef<FormInstance>(null);
+  const submittingRef = useRef(false);
   const getDefaultValues = () => {
     return {
       ...defaultValues,
@@ -123,34 +124,46 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
   };
 
   const onSubmit = async (values: AddressInfo & { area?: string[] }) => {
+    if (submittingRef.current) {
+      return;
+    }
+    submittingRef.current = true;
     appLoading.show();
-    const { area = [], ...rest } = values;
-    const [province, city, district] = area.length
-      ? getAreaChinese(area)
-      : ["", "", ""];
-    const hasFormKey = (key: keyof AddressInfo) => key in rest;
-    const lastValues = {
-      ...rest,
-      province: province || defaultValues?.province || "",
-      city: city || defaultValues?.city || "",
-      district: district || defaultValues?.district || "",
-      detailAddress: hasFormKey("detailAddress")
-        ? (rest.detailAddress ?? "")
-        : defaultValues?.detailAddress || "",
-      idType: hasFormKey("idType")
-        ? (rest.idType ?? "")
-        : defaultValues?.idType || "",
-      idNo: hasFormKey("idNo")
-        ? (rest.idNo ?? "")
-        : defaultValues?.idNo || "",
-    } as Required<AddressInfo>;
-    if (defaultValues) {
-      await update({
-        ...defaultValues,
-        ...lastValues,
-      });
-    } else {
-      await add(lastValues);
+    try {
+      const { area = [], ...rest } = values;
+      const [province, city, district] = area.length
+        ? getAreaChinese(area)
+        : ["", "", ""];
+      const hasFormKey = (key: keyof AddressInfo) => key in rest;
+      const lastValues = {
+        ...rest,
+        province: province || defaultValues?.province || "",
+        city: city || defaultValues?.city || "",
+        district: district || defaultValues?.district || "",
+        detailAddress: hasFormKey("detailAddress")
+          ? (rest.detailAddress ?? "")
+          : defaultValues?.detailAddress || "",
+        idType: hasFormKey("idType")
+          ? (rest.idType ?? "")
+          : defaultValues?.idType || "",
+        idNo: hasFormKey("idNo")
+          ? (rest.idNo ?? "")
+          : defaultValues?.idNo || "",
+      } as Required<AddressInfo>;
+      if (defaultValues) {
+        await update({
+          ...defaultValues,
+          ...lastValues,
+        });
+      } else {
+        await add(lastValues);
+      }
+    } catch (error) {
+      console.error("保存地址失败:", error);
+      appToast.error("网络错误");
+    } finally {
+      appLoading.hide();
+      submittingRef.current = false;
     }
   };
 
@@ -339,6 +352,7 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
                     return (
                       <AppAreaPickerPopup
                         areaPickerProps={{
+                          value,
                           onConfirm: (val) => {
                             formRef.current?.setFieldsValue({
                               area: val,
