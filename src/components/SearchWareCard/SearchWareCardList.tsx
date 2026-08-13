@@ -85,6 +85,12 @@ export const SearchWareCardList = (props: SearchWareCardListProps) => {
       >
         <View className="p-4 overflow-auto  pb-20 bg-gray-100">
           <EditAddressContent
+            fieldConfig={{
+              idType: { visible: false },
+              idNo: { visible: false },
+              area: { visible: false },
+              detailAddress: { visible: false },
+            }}
             success={() => {
               appUserStore.updateAddressList();
               appRouter.navigateTo("wareDetail", {

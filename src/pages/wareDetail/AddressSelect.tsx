@@ -41,6 +41,12 @@ const AddressSelect = (props: AddressSelectProps) => {
       >
         <View className="p-2 bg-gray-100 overflow-auto pb-20 bg-gray-100">
           <EditAddressContent
+            fieldConfig={{
+              idType: { visible: false },
+              idNo: { visible: false },
+              area: { visible: false },
+              detailAddress: { visible: false },
+            }}
             success={() => {
               appUserStore.updateAddressList();
               addAddressControl.setOpen(false);
