@@ -1,10 +1,10 @@
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  '@swc/core': set this to true or false
-  '@tailwindcss/oxide': set this to true or false
-  '@tarojs/binding': set this to true or false
-  '@tarojs/cli': set this to true or false
-  core-js: set this to true or false
-  core-js-pure: set this to true or false
-  esbuild: set this to true or false
-  weapp-tailwindcss: set this to true or false
+  "@parcel/watcher": false
+  "@swc/core": false
+  "@tailwindcss/oxide": false
+  "@tarojs/binding": false
+  "@tarojs/cli": false
+  core-js: false
+  core-js-pure: false
+  esbuild: false
+  weapp-tailwindcss: false
