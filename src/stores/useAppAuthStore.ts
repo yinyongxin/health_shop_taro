@@ -1,7 +1,5 @@
 import { client } from "@/client/client.gen";
-import { jumpWxGetCode } from "@/utils";
 import { createAppStore } from "./base";
-import { useAppEnvStore } from "./useAppEnvStore";
 
 export interface AppAuthFieldsState {
   isLogged: boolean;

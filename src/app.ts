@@ -3,7 +3,6 @@ import { useLaunch } from "@tarojs/taro";
 import VConsole from "vconsole";
 import {
   useAppAuthStore,
-  useAppUserStore,
   useAppNavBarStore,
   useAppEnvStore,
 } from "./stores";
@@ -18,14 +17,10 @@ import {
 } from "./utils";
 import { client } from "./client/client.gen";
 
-client.instance.interceptors.response.use((response) => {
-  if (response.data?.code === 506) {
-    if (!isDev) {
-      useAppAuthStore.getState().logout();
-    }
-  }
-  return response;
-});
+let loginRetryCount = 0;
+const MAX_LOGIN_RETRY = 3;
+let lastRetryTime = 0;
+const RETRY_INTERVAL = 5000;
 
 const getOrgId = () => {
   const url = new URL(window.location.href);
@@ -33,13 +28,8 @@ const getOrgId = () => {
   return orgId;
 };
 
-function App({ children }: PropsWithChildren<any>) {
-  const appAuthStore = useAppAuthStore();
-  const appUserStore = useAppUserStore();
-  const appNavBarStore = useAppNavBarStore();
-  const appEnvStore = useAppEnvStore();
-
-  const startLogin = async (orgId?: string) => {
+const startLogin = async (orgId?: string) => {
+  try {
     const { data } = await getWxRedirectOrgIdAppId({
       query: {
         orgId,
@@ -50,10 +40,8 @@ function App({ children }: PropsWithChildren<any>) {
       appToast.error("未获取到医院信息，请确定是否正确访问");
       return;
     }
-    // 获取URL中的微信登录码
     const wxLoginCode = getUrlCode();
     if (wxLoginCode) {
-      // 使用微信登录码进行登录
       const res = await getWxRedirectByAppIdGreet({
         path: { appId },
         query: {
@@ -62,21 +50,50 @@ function App({ children }: PropsWithChildren<any>) {
           state: "1",
         },
       });
-      // 如果登录成功并获得访问令牌，则更新应用状态
       if (res.data?.code !== 0) {
+        appToast.error("登录失败，请重试");
         return;
       }
-      appAuthStore.updateIsLogged(true);
+      useAppAuthStore.getState().updateIsLogged(true);
       removeUrlParameter(["code"]);
       removeUrlParameter(["state"]);
     } else {
-      // 如果没有登录码，则直接调用登录函数
       if (isDev) {
         return;
       }
       jumpWxGetCode(appId);
     }
-  };
+  } catch (error) {
+    console.error("登录请求失败:", error);
+    appToast.error("网络错误，请检查网络连接");
+  }
+};
+
+client.instance.interceptors.response.use((response) => {
+  if (response.data?.code === 506) {
+    if (!isDev) {
+      const now = Date.now();
+      if (now - lastRetryTime > RETRY_INTERVAL) {
+        loginRetryCount = 0;
+      }
+      if (loginRetryCount < MAX_LOGIN_RETRY) {
+        loginRetryCount++;
+        lastRetryTime = now;
+        useAppAuthStore.getState().logout();
+        startLogin(getOrgId()).catch(() => {});
+      } else {
+        appToast.error("登录重试次数已用尽，请刷新页面重试");
+        loginRetryCount = 0;
+      }
+    }
+  }
+  return response;
+});
+
+function App({ children }: PropsWithChildren<any>) {
+  const appAuthStore = useAppAuthStore();
+  const appNavBarStore = useAppNavBarStore();
+  const appEnvStore = useAppEnvStore();
 
   useEffect(() => {
     const start = async () => {
@@ -84,10 +101,6 @@ function App({ children }: PropsWithChildren<any>) {
       if (appEnvStore.orgId !== orgId) {
         appEnvStore.updateOrgId(orgId);
         appAuthStore.logout();
-        return;
-      }
-      if (appAuthStore.isLogged) {
-        appUserStore.updateAddressList();
         return;
       }
       await startLogin(orgId);
@@ -110,7 +123,6 @@ function App({ children }: PropsWithChildren<any>) {
     });
   });
 
-  // children 是将要会渲染的页面
   return children;
 }
 
