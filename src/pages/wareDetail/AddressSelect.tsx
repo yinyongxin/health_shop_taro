@@ -79,19 +79,23 @@ const AddressSelect = (props: AddressSelectProps) => {
             </View>
             <View className="flex justify-between items-center gap-2">
               <View className="flex flex-col gap-1">
-                <View className="flex-1 text-black flex items-center gap-2">
-                  <View>{address.province}</View>
-                  <View>{address.city}</View>
-                  <View>{address.district}</View>
-                </View>
+                {(address.province || address.city || address.district) && (
+                  <View className="flex-1 text-black flex items-center gap-2">
+                    {address.province && <View>{address.province}</View>}
+                    {address.city && <View>{address.city}</View>}
+                    {address.district && <View>{address.district}</View>}
+                  </View>
+                )}
               </View>
               <View className="text-gray-400">
                 <LucideIcon name="chevron-right" size={20} />
               </View>
             </View>
-            <View className="flex gap-[8px]">
-              <View>{address.detailAddress}</View>
-            </View>
+            {address.detailAddress && (
+              <View className="flex gap-[8px]">
+                <View>{address.detailAddress}</View>
+              </View>
+            )}
           </View>
         ) : (
           <View

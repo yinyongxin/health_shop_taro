@@ -74,7 +74,15 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
         visibleFields.push(key);
       }
     });
-    visibleFields.push("isDefault");
+    visibleFields.push(
+      "isDefault",
+      "province",
+      "city",
+      "district",
+      "detailAddress",
+      "idType",
+      "idNo",
+    );
     return pick(values, visibleFields as (keyof Required<AddressInfo>)[]);
   };
 
@@ -120,11 +128,21 @@ export const EditAddressContent = (props: EditAddressContentProps) => {
     const [province, city, district] = area.length
       ? getAreaChinese(area)
       : ["", "", ""];
+    const hasFormKey = (key: keyof AddressInfo) => key in rest;
     const lastValues = {
       ...rest,
       province: province || defaultValues?.province || "",
       city: city || defaultValues?.city || "",
       district: district || defaultValues?.district || "",
+      detailAddress: hasFormKey("detailAddress")
+        ? (rest.detailAddress ?? "")
+        : defaultValues?.detailAddress || "",
+      idType: hasFormKey("idType")
+        ? (rest.idType ?? "")
+        : defaultValues?.idType || "",
+      idNo: hasFormKey("idNo")
+        ? (rest.idNo ?? "")
+        : defaultValues?.idNo || "",
     } as Required<AddressInfo>;
     if (defaultValues) {
       await update({

@@ -97,15 +97,19 @@ export const AddressCard = (props: AddressCardProps) => {
                 (isMaskIdNo ? maskIdNo(info.idNo ?? "") : (info.idNo ?? ""))}
             </View>
           </View>
-          <View className="flex items-center gap-2 px-2">
-            <View>{info.province}</View>
-            <View>{info.city}</View>
-            <View>{info.district}</View>
-            <View>{info.street}</View>
-          </View>
-          <View className="px-2">
-            <View>{info.detailAddress}</View>
-          </View>
+          {(info.province || info.city || info.district || info.street) && (
+            <View className="flex items-center gap-2 px-2">
+              {info.province && <View>{info.province}</View>}
+              {info.city && <View>{info.city}</View>}
+              {info.district && <View>{info.district}</View>}
+              {info.street && <View>{info.street}</View>}
+            </View>
+          )}
+          {info.detailAddress && (
+            <View className="px-2">
+              <View>{info.detailAddress}</View>
+            </View>
+          )}
         </View>
         {rightAction}
       </View>
