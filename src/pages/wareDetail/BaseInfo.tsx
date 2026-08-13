@@ -14,7 +14,7 @@ export const BaseInfo = (props: BaseInfoProps) => {
       bgProps={{
         className: "bg-white",
       }}
-      wapperProps={{ className: "px-[24px] py-[24px] flex flex-col gap-2" }}
+      wrapperProps={{ className: "px-[24px] py-[24px] flex flex-col gap-2" }}
     >
       <View className="flex items-end gap-3 font-bold ">
         <View className="text-rose-500 flex items-end">

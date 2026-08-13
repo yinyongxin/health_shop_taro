@@ -1,7 +1,6 @@
 import { AppFeatureBlocksItem, LucideIcon } from "@/components";
 import { appRouter } from "@/router";
 import { View } from "@tarojs/components";
-import { showToast } from "@tarojs/taro";
 
 export const FeatureBlocks = () => {
   return (

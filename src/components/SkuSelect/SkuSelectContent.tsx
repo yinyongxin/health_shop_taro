@@ -1,7 +1,5 @@
 import { ProductDetail, SkuListItem } from "@/client";
 import { View, Text } from "@tarojs/components";
-import { isIOS, safeJson } from "@/utils";
-import classNames from "classnames";
 import { AppImage } from "../AppImage";
 import { Title } from "../Title";
 import { AppTag } from "../AppTag";

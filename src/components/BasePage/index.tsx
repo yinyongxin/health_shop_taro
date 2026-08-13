@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 export type BasePageProps = {
   bgProps?: ViewProps;
-  wapperProps?: ViewProps;
+  wrapperProps?: ViewProps;
   fullScreen?: boolean;
   loading?: boolean;
   loadingText?: string;
@@ -15,7 +15,7 @@ export const BasePage = (props: BasePageProps) => {
     bgProps,
     children,
     className,
-    wapperProps,
+    wrapperProps,
     fullScreen,
     loading,
     loadingText = "加载中...",
@@ -27,7 +27,7 @@ export const BasePage = (props: BasePageProps) => {
     ...bgRest
   } = bgProps || {};
 
-  const { className: wapperClassName, ...wapperRest } = wapperProps || {};
+  const { className: wrapperClassName, ...wrapperRest } = wrapperProps || {};
   const height = isH5 ? "h-dvh" : "h-[100vh]";
   const minHeight = isH5 ? "min-h-dvh" : "min-h-[100vh]";
   return (
@@ -52,12 +52,12 @@ export const BasePage = (props: BasePageProps) => {
         className={classNames(
           "relative flex-1 flex flex-col",
           // "overflow-y-auto",
-          wapperClassName,
+          wrapperClassName,
           {
             "overflow-y-auto": fullScreen,
           },
         )}
-        {...wapperRest}
+        {...wrapperRest}
       >
         {children}
       </View>

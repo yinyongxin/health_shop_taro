@@ -18,7 +18,7 @@ import { RefundReasonMap } from "./common";
 
 export default () => {
   const { hospitalList, orderStatusList } = useAppEnvStore();
-  const pageParams = usePageParams<"orderPay">();
+  const pageParams = usePageParams<"orderDetail">();
   const [refundReasonOpen, setRefundReasonOpen] = useState(false);
   const [refundReason, setRefundReason] = useState("");
   const orderDetailRequest = useRequest(async () => {

@@ -15,7 +15,7 @@ const EditeAddress = () => {
   return (
     <>
       <BasePage
-        wapperProps={{
+        wrapperProps={{
           className: "py-[24px] pb-[180px]",
         }}
       >

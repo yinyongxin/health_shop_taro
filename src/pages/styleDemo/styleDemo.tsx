@@ -1,5 +1,4 @@
 import { View, Text } from "@tarojs/components";
-import { useLoad } from "@tarojs/taro";
 import { appRouter } from "@/router";
 
 const MENUS = [
@@ -10,10 +9,6 @@ const MENUS = [
 ];
 
 export default function StyleDemo() {
-  useLoad(() => {
-    console.log("StyleDemo loaded");
-  });
-
   return (
     <View className="min-h-screen" style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%)" }}>
       <View className="px-5 pt-12 pb-6" style={{ background: "linear-gradient(135deg, #64748B 0%, #94A3B8 100%)" }}>

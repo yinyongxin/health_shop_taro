@@ -27,7 +27,6 @@ const AppAreaPickerPopup = (props: AppAreaPickerPopupProps) => {
             setOpen(false);
           }}
           onConfirm={(val, option) => {
-            console.log("AreaPicker onConfirm:", val, option);
             onConfirm?.(val, option);
             setOpen(false);
           }}

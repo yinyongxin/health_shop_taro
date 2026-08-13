@@ -3,19 +3,19 @@ import classNames from "classnames";
 
 export type BoxProps = {
   bgProps?: ViewProps;
-  wapperProps?: ViewProps;
+  wrapperProps?: ViewProps;
   radius?: "sm" | "md" | "lg";
 } & ViewProps;
 
 export const Box = (props: BoxProps) => {
-  const { bgProps, children, radius, className, wapperProps, ...rest } = props;
+  const { bgProps, children, radius, className, wrapperProps, ...rest } = props;
   const {
     children: bgChildren,
     className: bgClassName,
     ...bgRest
   } = bgProps || {};
 
-  const { className: wapperClassName, ...wapperRest } = wapperProps || {};
+  const { className: wrapperClassName, ...wrapperRest } = wrapperProps || {};
 
   return (
     <View className={classNames("relative", className)} {...rest}>
@@ -24,9 +24,9 @@ export const Box = (props: BoxProps) => {
           className={classNames(
             "absolute inset-0",
             {
-              "roudned-2": radius === "sm",
-              "roudned-[24px]": radius === "md",
-              "roudned-[32px]": radius === "lg",
+              "rounded-[2px]": radius === "sm",
+              "rounded-[24px]": radius === "md",
+              "rounded-[32px]": radius === "lg",
             },
             bgClassName,
           )}
@@ -36,8 +36,8 @@ export const Box = (props: BoxProps) => {
         </View>
       )}
       <View
-        className={classNames("relative h-full", wapperClassName)}
-        {...wapperRest}
+        className={classNames("relative h-full", wrapperClassName)}
+        {...wrapperRest}
       >
         {children}
       </View>

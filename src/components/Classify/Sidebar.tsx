@@ -21,7 +21,7 @@ export const Sidebar = (props: SidebarProps) => {
           <Box
             key={item.id}
             className="w-full"
-            wapperProps={{
+            wrapperProps={{
               className: "px-3 pt-3",
             }}
             onClick={() => {

@@ -421,7 +421,7 @@ const WareDetail = () => {
                 bgProps={{
                   className: "rounded-lg bg-white",
                 }}
-                wapperProps={{
+                wrapperProps={{
                   className: "p-2",
                 }}
               >

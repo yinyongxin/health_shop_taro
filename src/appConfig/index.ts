@@ -33,5 +33,3 @@ export const isWechatMP = () => {
 export const APP_CONFIG = APP_CONFIG_OPTION[
   process.env.TARO_APP_MODE as any
 ] as AppConfigType;
-
-console.log("APP_CONFIG", process.env.TARO_APP_MODE, APP_CONFIG);

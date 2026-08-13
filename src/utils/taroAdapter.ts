@@ -1,5 +1,5 @@
 import Taro, { eventCenter } from "@tarojs/taro";
-import { AxiosAdapter, Method } from "axios";
+import { AxiosAdapter } from "axios";
 import { isWeapp } from "../utils";
 
 type Res = {
@@ -31,10 +31,10 @@ const taroAdapter: AxiosAdapter = (config) => {
     Taro.request({
       url: url || "",
       data,
-      method,
+      method: method as any,
       timeout,
       header: config.headers.toJSON(),
-      responseType: isWeapp ? undefined : responseType,
+      responseType: (isWeapp ? undefined : responseType) as any,
       success: (res) => {
         const isSuccess = res.statusCode >= 200 && res.statusCode < 300;
         var response = {

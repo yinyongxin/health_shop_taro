@@ -11,7 +11,7 @@ import { ServiceCard } from "./ServiceCard";
 import { Skeleton } from "./Skeleton";
 
 const MyService = () => {
-  const pageParams = usePageParams<"orderList">();
+  const pageParams = usePageParams<"myService">();
   const tabs = [
     {
       label: "服务中",

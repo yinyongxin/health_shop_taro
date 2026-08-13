@@ -6,9 +6,8 @@ import { View } from "@tarojs/components";
 
 /** 结算页面 */
 export default () => {
-  const pageParams = usePageParams<"settlement">((values) => {
-    console.log("values", values);
-  });
+  const pageParams = usePageParams<"settlement">(() => {});
+  const priceList = pageParams.list.map((item) => ({ qty: item.num }));
   return (
     <BasePage>
       <View className="pb-[160px]">
@@ -37,7 +36,7 @@ export default () => {
               <View className="font-semibold flex items-end gap-[4px]">
                 <View className="pb-[4px]">￥</View>
                 <View className="text-[32px] font-semibold">
-                  {calculateTotalPrice(pageParams.list)}
+                  {calculateTotalPrice(priceList)}
                 </View>
               </View>
             </View>
@@ -53,7 +52,7 @@ export default () => {
               <View className="font-semibold flex items-end gap-[4px]">
                 <View className="pb-[4px]">￥</View>
                 <View className="text-[32px] font-semibold">
-                  {calculateTotalPrice(pageParams.list)}
+                  {calculateTotalPrice(priceList)}
                 </View>
               </View>
             </View>

@@ -1,4 +1,4 @@
-import { AppCell, AppDivier, BasePage, LucideIcon } from "@/components";
+import { AppCell, AppDivider, BasePage, LucideIcon } from "@/components";
 import { Text, View } from "@tarojs/components";
 import { Avatar } from "@taroify/core";
 import { appRouter } from "@/router";
@@ -79,7 +79,7 @@ const UserMy = () => {
             >
               <Text className="text-slate-700">退款售后</Text>
             </AppCell>
-            <AppDivier className="mx-5" />
+            <AppDivider className="mx-5" />
             <AppCell
               icon={
                 <View className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center">
@@ -96,7 +96,7 @@ const UserMy = () => {
             >
               <Text className="text-slate-700">我的服务</Text>
             </AppCell>
-            <AppDivier className="mx-5" />
+            <AppDivider className="mx-5" />
             <AppCell
               icon={
                 <View className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">

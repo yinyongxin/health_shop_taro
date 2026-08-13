@@ -2,7 +2,6 @@ import {
   DictItem,
   getWxRedirectQueryDict,
   getWxShopOrgList,
-  ShopContentInfo,
 } from "@/client";
 import { createAppStore } from "./base";
 

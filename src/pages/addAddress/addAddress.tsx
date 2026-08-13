@@ -10,7 +10,7 @@ const AddAddress = () => {
   return (
     <>
       <BasePage
-        wapperProps={{
+        wrapperProps={{
           className: "py-[24px] pb-[160px]",
         }}
       >

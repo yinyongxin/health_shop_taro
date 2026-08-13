@@ -8,17 +8,6 @@ import { MyOrderItem } from "./MyOrderItem";
 export const MyOrder = () => {
   const { orderStatusList } = useAppEnvStore();
 
-  const getStatusBg = (index: number) => {
-    const bgs = [
-      "from-sky-50 to-sky-100",
-      "from-amber-50 to-amber-100",
-      "from-emerald-50 to-emerald-100",
-      "from-rose-50 to-rose-100",
-      "from-violet-50 to-violet-100",
-    ];
-    return bgs[index % bgs.length];
-  };
-
   return (
     <View
       className="rounded-2xl overflow-hidden"

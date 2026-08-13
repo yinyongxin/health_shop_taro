@@ -23,7 +23,7 @@ import { Skeleton } from "./Skeleton";
 export default () => {
   const { hospitalList } = useAppEnvStore();
 
-  const pageParams = usePageParams<"orderPay">();
+  const pageParams = usePageParams<"serviceUse">();
 
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 

@@ -2,7 +2,7 @@ import { OrderListItem } from "@/client";
 import { AppButton } from "@/components";
 import { ServiceList } from "@/components/ServiceList";
 import { appRouter } from "@/router";
-import { useAppEnvStore, useAppUserStore } from "@/stores";
+import { useAppEnvStore } from "@/stores";
 import { getServiceStatusText } from "@/utils";
 import { View, Text } from "@tarojs/components";
 

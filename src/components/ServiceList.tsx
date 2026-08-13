@@ -1,10 +1,20 @@
-import { OrderDetailItemListItem } from "@/client";
 import { View } from "@tarojs/components";
 import { NewServiceBlock } from "@/components";
 import { CartWareCard } from "./CartWareCard";
 
+export type ServiceListItem = {
+  itemId: number;
+  itemName: string;
+  price: number;
+  qty: number;
+  itemDesc?: string;
+  createdAt?: string;
+  groupName?: string;
+  unit?: string;
+};
+
 type ServiceListProps = {
-  serviceList: OrderDetailItemListItem[];
+  serviceList: ServiceListItem[];
   isService: number;
   product: {
     productName?: string;
@@ -37,11 +47,11 @@ export const ServiceList = (props: ServiceListProps) => {
                   itemName: server.itemName,
                   price: server.price,
                   selectedItems: [],
-                  itemDesc: server.itemDesc,
-                  createTime: server.createdAt,
-                  updateTime: server.createdAt,
-                  groupName: server.groupName,
-                  unit: server.unit,
+                  itemDesc: server.itemDesc || "",
+                  createTime: server.createdAt || "",
+                  updateTime: server.createdAt || "",
+                  groupName: server.groupName || "",
+                  unit: server.unit || "",
                 };
               })}
             />

@@ -2,13 +2,13 @@ import { Input, Text, View, ViewProps } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import { LucideIcon } from "../LucideIcon";
 
-type AppTopSeatchProps = {
-  onSearch?: (value) => void;
+type AppTopSearchProps = {
+  onSearch?: (value: string) => void;
   value?: string;
   onChange?: (value: string) => void;
 } & ViewProps;
 
-export const AppTopSearch = (props: AppTopSeatchProps) => {
+export const AppTopSearch = (props: AppTopSearchProps) => {
   const { onSearch, value: propsValue = "", onChange, ...rest } = props;
   const [value, setValue] = useState(propsValue);
 
@@ -32,7 +32,7 @@ export const AppTopSearch = (props: AppTopSeatchProps) => {
           onChange?.(e.detail.value);
         }}
         placeholder="搜索商品、服务..."
-        placeholderClassName="text-slate-300"
+        placeholderClass="text-slate-300"
         className="flex-1 h-[40px] text-[26px] text-slate-700 leading-[40px]"
       />
       <View

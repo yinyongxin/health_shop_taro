@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "@tarojs/components";
+import { View, ScrollView } from "@tarojs/components";
 import classNames from "classnames";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { AppTag } from "../AppTag";

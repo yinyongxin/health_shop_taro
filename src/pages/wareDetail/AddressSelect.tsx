@@ -4,7 +4,6 @@ import {
   AppButton,
   AppFixedBottom,
   AppPopup,
-  AppTag,
   LucideIcon,
 } from "@/components";
 import { usePopupControl } from "@/hooks";
@@ -14,7 +13,6 @@ import classNames from "classnames";
 import { maskIdNo, maskPhone } from "@/utils";
 import { EditAddressContent } from "@/components/EditAddressContent";
 import { useAppUserStore } from "@/stores";
-import { useRef } from "react";
 
 type AddressSelectProps = {
   address?: AddressInfo;

@@ -49,7 +49,7 @@ const SubCategoryProductList = () => {
       };
     },
     {
-      refreshDeps: [],
+      refreshDeps: [search, refreshNumber],
     },
   );
 

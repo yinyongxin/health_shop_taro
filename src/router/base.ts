@@ -73,6 +73,9 @@ export interface AllPagesQueryType
   orderList: {
     status?: string;
   };
+  myService: {
+    status?: string;
+  };
   afterSalesService: {
     status?: SaleStatusEnum;
   };

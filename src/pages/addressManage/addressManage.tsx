@@ -9,7 +9,7 @@ const AddressManage = () => {
   return (
     <>
       <BasePage
-        wapperProps={{
+        wrapperProps={{
           className: "py-2 pb-[184px]",
         }}
       >

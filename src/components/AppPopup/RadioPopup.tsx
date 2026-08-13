@@ -32,10 +32,7 @@ export const RadioPopup = (props: RadioPopupProps) => {
       onClose={(val) => {
         onClose?.(val);
         setOpen?.(false);
-        if (defaultValue && defaultValue !== value) {
-          onChange?.(value);
-          setValue(defaultValue);
-        }
+        setValue(defaultValue || "");
       }}
       {...appPopupProps}
       footer={

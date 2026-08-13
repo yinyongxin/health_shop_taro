@@ -1,11 +1,11 @@
 import { View } from "@tarojs/components";
 import classNames from "classnames";
 
-export type AppDivierProps = {
+export type AppDividerProps = {
   className?: string;
 };
 
-export const AppDivier = (props: AppDivierProps) => {
+export const AppDivider = (props: AppDividerProps) => {
   const { className } = props;
   return (
     <View className={classNames(className)}>

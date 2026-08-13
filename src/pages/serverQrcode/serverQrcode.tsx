@@ -101,7 +101,7 @@ const ServerQrcode = () => {
         bgProps={{
           className: "bg-white rounded-lg",
         }}
-        wapperProps={{ className: "flex-center flex-col gap-2 py-4" }}
+        wrapperProps={{ className: "flex-center flex-col gap-2 py-4" }}
       >
         <View>请出示以下二维码给工作人员扫码核销</View>
         <Image showMenuByLongpress className="size-[600px]" src={qrCodeData} />
@@ -114,7 +114,7 @@ const ServerQrcode = () => {
         bgProps={{
           className: "bg-white rounded-lg",
         }}
-        wapperProps={{ className: "flex flex-col gap-2 p-2" }}
+        wrapperProps={{ className: "flex flex-col gap-2 p-2" }}
         className="mt-3"
       >
         <View className="text-[28px] font-semibold">
