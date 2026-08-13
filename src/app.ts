@@ -21,6 +21,7 @@ let loginRetryCount = 0;
 const MAX_LOGIN_RETRY = 3;
 let lastRetryTime = 0;
 const RETRY_INTERVAL = 5000;
+let isLoggingIn = false;
 
 const getOrgId = () => {
   const url = new URL(window.location.href);
@@ -76,12 +77,19 @@ client.instance.interceptors.response.use((response) => {
       if (now - lastRetryTime > RETRY_INTERVAL) {
         loginRetryCount = 0;
       }
-      if (loginRetryCount < MAX_LOGIN_RETRY) {
+      if (!isLoggingIn && loginRetryCount < MAX_LOGIN_RETRY) {
+        isLoggingIn = true;
         loginRetryCount++;
         lastRetryTime = now;
         useAppAuthStore.getState().logout();
-        startLogin(getOrgId()).catch(() => {});
-      } else {
+        startLogin(getOrgId())
+          .catch((error) => {
+            console.error("自动登录重试失败:", error);
+          })
+          .finally(() => {
+            isLoggingIn = false;
+          });
+      } else if (!isLoggingIn) {
         appToast.error("登录重试次数已用尽，请刷新页面重试");
         loginRetryCount = 0;
       }
@@ -90,7 +98,7 @@ client.instance.interceptors.response.use((response) => {
   return response;
 });
 
-function App({ children }: PropsWithChildren<any>) {
+function App({ children }: PropsWithChildren<Record<string, never>>) {
   const appAuthStore = useAppAuthStore();
   const appNavBarStore = useAppNavBarStore();
   const appEnvStore = useAppEnvStore();
@@ -103,10 +111,12 @@ function App({ children }: PropsWithChildren<any>) {
         appAuthStore.logout();
         return;
       }
-      await startLogin(orgId);
+      if (!appAuthStore.isLogged && !isLoggingIn) {
+        await startLogin(orgId);
+      }
     };
     start();
-  }, [appAuthStore.isLogged]);
+  }, []);
 
   useLaunch(async () => {
     const url = new URL(window.location.href);
@@ -118,9 +128,11 @@ function App({ children }: PropsWithChildren<any>) {
     appEnvStore.initHospitalList?.();
     appEnvStore.updateOrderStatus();
     appEnvStore.updateCardTypeDictList();
-    wx.miniProgram.getEnv((res) => {
-      appAuthStore.updateMiniprogram(res.miniprogram);
-    });
+    if (typeof wx !== "undefined" && wx.miniProgram) {
+      wx.miniProgram.getEnv((res) => {
+        appAuthStore.updateMiniprogram(res.miniprogram);
+      });
+    }
   });
 
   return children;
